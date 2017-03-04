@@ -11,11 +11,6 @@ public class LightBulb extends GameObject {
         super(position.position, yPosition, LIGHT_WIDTH, LIGHT_HEIGHT);
     }
 
-
-    public LightBulb(int position, int yPosition) {
-        super(position, yPosition, LIGHT_WIDTH, LIGHT_HEIGHT);
-    }
-
     public enum POSITION {
         LEFT(CENTER_X_LAMP_POSITION - (LIGHT_WIDTH / 2) - LAMPS_WHITE_SPACE - LIGHT_WIDTH),
         CENTER(CENTER_X_LAMP_POSITION - (LIGHT_WIDTH / 2)),
