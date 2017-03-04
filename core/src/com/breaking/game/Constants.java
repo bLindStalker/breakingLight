@@ -17,7 +17,7 @@ public final class Constants {
     public static final int TIMER_WIDTH = X_STATUS_POSITION - 40;
     public static final int TIMER_HEIGHT = 120;
 
-    public static final int LIFE_SIZE = 70;
+    public static final int HEARD_SIZE = 70;
 
-    public static final int Y_LIFE_POSITION = Y_STATUS_POSITION + TIMER_HEIGHT - LIFE_SIZE;
+    public static final int Y_LIFE_POSITION = Y_STATUS_POSITION + TIMER_HEIGHT / 2 - HEARD_SIZE / 2;
 }
