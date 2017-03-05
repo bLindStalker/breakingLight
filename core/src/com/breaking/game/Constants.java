@@ -20,4 +20,8 @@ public final class Constants {
     public static final int HEARD_SIZE = 70;
 
     public static final int Y_LIFE_POSITION = Y_STATUS_POSITION + TIMER_HEIGHT / 2 - HEARD_SIZE / 2;
+
+    // game logic constants
+    public static final int BASIC_SCORE = 100;
+    public static final int MAX_ACTIVE_LAMPS = 5;
 }
