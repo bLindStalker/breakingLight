@@ -83,15 +83,11 @@ public class MainGameScreen extends BaseGameScreen {
     }
 
     private void activateLamp() {
-        if (activeLamps.size() <= MAX_ACTIVE_LAMPS) {
-            List<LightBulb> allNonActiveLamps = new ArrayList<LightBulb>();
 
-            for (LightBulb lamp : allLamps) {
-                if (lamp.isNonActive()) {
-                    allNonActiveLamps.add(lamp);
-                }
-            }
+        List<LightBulb> allNonActiveLamps = getNonActiveLamps();
+        activeLamps.removeAll(allNonActiveLamps);
 
+        if (activeLamps.size() < MAX_ACTIVE_LAMPS) {
             if (!allNonActiveLamps.isEmpty()) {
                 LightBulb lamp = allNonActiveLamps.get(random(0, allNonActiveLamps.size() - 1));
                 activeLamps.add(lamp);
@@ -99,6 +95,17 @@ public class MainGameScreen extends BaseGameScreen {
                 lamp.activate();
             }
         }
+    }
+
+    private List<LightBulb> getNonActiveLamps() {
+        List<LightBulb> allNonActiveLamps = new ArrayList<LightBulb>();
+
+        for (LightBulb lamp : allLamps) {
+            if (lamp.isNonActive()) {
+                allNonActiveLamps.add(lamp);
+            }
+        }
+        return allNonActiveLamps;
     }
 
     @Override
@@ -120,7 +127,6 @@ public class MainGameScreen extends BaseGameScreen {
         Group lightBulbs = new Group();
 
         lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION));
-
         lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION));
         lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION));
 
