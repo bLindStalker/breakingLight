@@ -23,7 +23,7 @@ import static com.breaking.game.AssetLoader.getBackGround;
 import static com.breaking.game.AssetLoader.getHeard;
 import static com.breaking.game.Constants.HEARD_SIZE;
 import static com.breaking.game.Constants.HEIGHT;
-import static com.breaking.game.Constants.LAMPS_WHITE_SPACE;
+import static com.breaking.game.Constants.LAMPS_SPACE;
 import static com.breaking.game.Constants.LIGHT_HEIGHT;
 import static com.breaking.game.Constants.MAX_ACTIVE_LAMPS;
 import static com.breaking.game.Constants.TIMER_HEIGHT;
@@ -45,8 +45,8 @@ public class MainGameScreen extends BaseGameScreen {
     private List<LightBulb> allLamps = new ArrayList<LightBulb>();
     private List<LightBulb> activeLamps = new ArrayList<LightBulb>();
 
-    public MainGameScreen(Main main) {
-        super(new FitViewport(WIDTH, HEIGHT), main.getBatch());
+    public MainGameScreen() {
+        super(new FitViewport(WIDTH, HEIGHT));
 
         addActor(new ImageActor(0, 0, WIDTH, HEIGHT, getBackGround()));
 
@@ -129,13 +129,13 @@ public class MainGameScreen extends BaseGameScreen {
         lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION));
         lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION));
 
-        lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + LIGHT_HEIGHT + LAMPS_WHITE_SPACE));
-        lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION + LIGHT_HEIGHT + LAMPS_WHITE_SPACE));
-        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + LIGHT_HEIGHT + LAMPS_WHITE_SPACE));
+        lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + LIGHT_HEIGHT + LAMPS_SPACE));
+        lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION + LIGHT_HEIGHT + LAMPS_SPACE));
+        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + LIGHT_HEIGHT + LAMPS_SPACE));
 
-        lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_WHITE_SPACE) * 2));
-        lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_WHITE_SPACE) * 2));
-        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_WHITE_SPACE) * 2));
+        lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_SPACE) * 2));
+        lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_SPACE) * 2));
+        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_SPACE) * 2));
 
         return lightBulbs;
     }

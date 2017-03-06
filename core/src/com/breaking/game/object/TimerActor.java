@@ -18,7 +18,6 @@ public class TimerActor extends Actor {
         Timer.schedule(new Timer.Task() {
                            @Override
                            public void run() {
-                               System.out.println(time);
                                time--;
                                startTimer();
                            }

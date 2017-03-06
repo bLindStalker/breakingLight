@@ -21,6 +21,5 @@ public class ScoreActor extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        System.out.println(score);
     }
 }

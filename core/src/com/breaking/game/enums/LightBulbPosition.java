@@ -1,13 +1,13 @@
 package com.breaking.game.enums;
 
-import static com.breaking.game.Constants.CENTER_X_LAMP_POSITION;
-import static com.breaking.game.Constants.LAMPS_WHITE_SPACE;
+import static com.breaking.game.Constants.X_CENTER_LAMP_POSITION;
+import static com.breaking.game.Constants.LAMPS_SPACE;
 import static com.breaking.game.Constants.LIGHT_WIDTH;
 
 public enum LightBulbPosition {
-    LEFT(CENTER_X_LAMP_POSITION - (LIGHT_WIDTH / 2) - LAMPS_WHITE_SPACE - LIGHT_WIDTH),
-    CENTER(CENTER_X_LAMP_POSITION - (LIGHT_WIDTH / 2)),
-    RIGHT(CENTER_X_LAMP_POSITION + (LIGHT_WIDTH / 2) + LAMPS_WHITE_SPACE);
+    LEFT(X_CENTER_LAMP_POSITION - (LIGHT_WIDTH / 2) - LAMPS_SPACE - LIGHT_WIDTH),
+    CENTER(X_CENTER_LAMP_POSITION - (LIGHT_WIDTH / 2)),
+    RIGHT(X_CENTER_LAMP_POSITION + (LIGHT_WIDTH / 2) + LAMPS_SPACE);
 
     private int position;
 

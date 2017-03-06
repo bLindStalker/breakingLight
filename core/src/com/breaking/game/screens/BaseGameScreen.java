@@ -6,8 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class BaseGameScreen extends Stage implements Screen {
-    public BaseGameScreen(FitViewport fitViewport, SpriteBatch batch) {
-        super(fitViewport, batch);
+    public BaseGameScreen(FitViewport fitViewport) {
+        super(fitViewport);
     }
 
     @Override
