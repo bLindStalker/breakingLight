@@ -23,7 +23,6 @@ public class AssetLoader implements Disposable {
         assetManager.load(TURN_ON, Texture.class);
         assetManager.load(TURN_OFF, Texture.class);
         assetManager.load(BROKEN, Texture.class);
-        assetManager.load("empty.png", Texture.class);
 
         assetManager.finishLoading();
     }
@@ -46,10 +45,6 @@ public class AssetLoader implements Disposable {
 
     public static Texture broken() {
         return assetManager.get(BROKEN);
-    }
-
-    public static Texture empty() {
-        return assetManager.get("empty.png");
     }
 
     public static Texture getLampImage(LightBulbStatus status) {

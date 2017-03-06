@@ -4,17 +4,17 @@ import com.breaking.game.enums.LightBulbPosition;
 import com.breaking.game.enums.LightBulbStatus;
 
 import static com.breaking.game.AssetLoader.getLampImage;
+import static com.breaking.game.Constants.BROKEN_TIME;
 import static com.breaking.game.Constants.LIGHT_HEIGHT;
 import static com.breaking.game.Constants.LIGHT_WIDTH;
 import static com.breaking.game.Constants.MAX_ACTIVE_LAMP_TIME;
+import static com.breaking.game.Constants.TURN_OFF_TIME;
 import static com.breaking.game.enums.LightBulbStatus.BROKEN;
 import static com.breaking.game.enums.LightBulbStatus.TURN_OFF;
 import static com.breaking.game.enums.LightBulbStatus.TURN_ON;
 
-public class LightBulb extends GameObject {
+public class LightBulb extends ImageActor {
     private static final LightBulbStatus DEFAULT_STATUS = TURN_OFF;
-    public static final float BROKEN_TIME = 2.5f;
-    public static final float TURN_OFF_TIME = 1.5f + BROKEN_TIME;
 
     private LightBulbStatus status = DEFAULT_STATUS;
     private float activationTime = 0;

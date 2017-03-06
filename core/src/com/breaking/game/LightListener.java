@@ -7,30 +7,27 @@ import com.badlogic.gdx.utils.Array;
 
 import java.util.concurrent.Callable;
 
-import static com.breaking.game.Constants.BASIC_SCORE;
+import static com.breaking.game.object.ScoreActor.increaseScore;
 
 public class LightListener extends ClickListener {
 
     private Callable<Boolean> action;
-    private int score;
     private Array<Actor> lifeActors;
 
-    public LightListener(Callable<Boolean> action, int score, Array<Actor> lifeActors) {
+    public LightListener(Callable<Boolean> action, Array<Actor> lifeActors) {
         this.action = action;
-        this.score = score;
         this.lifeActors = lifeActors;
     }
 
     @Override
     public void clicked(InputEvent event, float x, float y) {
         if (doAction()) {
-            score += BASIC_SCORE;
+            increaseScore();
         } else {
             Actor actor = lifeActors.first();
             actor.remove();
             lifeActors.removeValue(actor, false);
         }
-        System.out.println("SCORE: " + score);
         super.clicked(event, x, y);
     }
 

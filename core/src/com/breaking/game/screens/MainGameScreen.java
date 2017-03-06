@@ -9,7 +9,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.breaking.game.LightListener;
 import com.breaking.game.Main;
 import com.breaking.game.enums.LightBulbPosition;
-import com.breaking.game.object.GameObject;
+import com.breaking.game.object.ImageActor;
+import com.breaking.game.object.ScoreActor;
+import com.breaking.game.object.TimerActor;
 import com.breaking.game.object.LightBulb;
 
 import java.util.ArrayList;
@@ -17,7 +19,6 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import static com.badlogic.gdx.math.MathUtils.random;
-import static com.breaking.game.AssetLoader.empty;
 import static com.breaking.game.AssetLoader.getBackGround;
 import static com.breaking.game.AssetLoader.getHeard;
 import static com.breaking.game.Constants.HEARD_SIZE;
@@ -37,30 +38,26 @@ import static com.breaking.game.enums.LightBulbPosition.LEFT;
 import static com.breaking.game.enums.LightBulbPosition.RIGHT;
 
 public class MainGameScreen extends BaseGameScreen {
-    private Group lightBulbs;
-    private Group lifes;
-    private GameObject timer;
-    private GameObject scoreActor;
-    private GameObject bg;
+    private TimerActor timer;
+    private ScoreActor scoreActor;
+
     private Array<Actor> lifeActors;
-    private int score = 0;
     private List<LightBulb> allLamps = new ArrayList<LightBulb>();
     private List<LightBulb> activeLamps = new ArrayList<LightBulb>();
 
     public MainGameScreen(Main main) {
         super(new FitViewport(WIDTH, HEIGHT), main.getBatch());
 
-        bg = new GameObject(0, 0, WIDTH, HEIGHT, getBackGround());
-        addActor(bg);
+        addActor(new ImageActor(0, 0, WIDTH, HEIGHT, getBackGround()));
 
-        timer = new GameObject(X_STATUS_POSITION - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT, empty());
+        timer = new TimerActor(X_STATUS_POSITION - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
         addActor(timer);
 
         Group lifeGroup = getLifeGroup();
         addActor(lifeGroup);
         lifeActors = new Array<Actor>(lifeGroup.getChildren());
 
-        scoreActor = new GameObject(X_STATUS_POSITION * 3, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT, empty());
+        scoreActor = new ScoreActor(X_STATUS_POSITION * 3, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
         addActor(scoreActor);
 
         addActor(createLamps());
@@ -70,7 +67,7 @@ public class MainGameScreen extends BaseGameScreen {
 
     @Override
     public void render(float delta) {
-        if (lifeActors.size == 0) {
+        if (lifeActors.size == 0 || timer.getTime() <= 0) {
             Gdx.app.exit();
         }
 
@@ -78,6 +75,7 @@ public class MainGameScreen extends BaseGameScreen {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         act(delta);
         draw();
     }
@@ -105,6 +103,7 @@ public class MainGameScreen extends BaseGameScreen {
                 allNonActiveLamps.add(lamp);
             }
         }
+
         return allNonActiveLamps;
     }
 
@@ -116,9 +115,9 @@ public class MainGameScreen extends BaseGameScreen {
     private Group getLifeGroup() {
         Group lifeGroup = new Group();
 
-        lifeGroup.addActor(new GameObject(X_STATUS_POSITION * 2 - HEARD_SIZE - (HEARD_SIZE / 2) - 40, Y_LIFE_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
-        lifeGroup.addActor(new GameObject(X_STATUS_POSITION * 2 - (HEARD_SIZE / 2), Y_LIFE_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
-        lifeGroup.addActor(new GameObject(X_STATUS_POSITION * 2 + (HEARD_SIZE / 2) + 40, Y_LIFE_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
+        lifeGroup.addActor(new ImageActor(X_STATUS_POSITION * 2 - HEARD_SIZE - (HEARD_SIZE / 2) - 40, Y_LIFE_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
+        lifeGroup.addActor(new ImageActor(X_STATUS_POSITION * 2 - (HEARD_SIZE / 2), Y_LIFE_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
+        lifeGroup.addActor(new ImageActor(X_STATUS_POSITION * 2 + (HEARD_SIZE / 2) + 40, Y_LIFE_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
 
         return lifeGroup;
     }
@@ -149,7 +148,7 @@ public class MainGameScreen extends BaseGameScreen {
             public Boolean call() throws Exception {
                 return actor.justClicked();
             }
-        }, score, lifeActors));
+        }, lifeActors));
 
         allLamps.add(actor);
 
