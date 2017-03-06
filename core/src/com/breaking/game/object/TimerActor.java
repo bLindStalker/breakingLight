@@ -1,16 +1,21 @@
 package com.breaking.game.object;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
-import com.breaking.game.Constants;
+import com.breaking.game.AssetLoader;
+
+import static com.breaking.game.Constants.TIME;
 
 
-public class TimerActor extends Actor {
+public class TimerActor extends Label {
 
-    private int time = Constants.TIME;
+    private int time = TIME;
 
     public TimerActor(int xPosition, int yPosition, int width, int height) {
+        super(String.valueOf(TIME), AssetLoader.getFont());
         setBounds(xPosition, yPosition, width, height);
+        setAlignment(Align.center);
         startTimer();
     }
 
@@ -18,6 +23,7 @@ public class TimerActor extends Actor {
         Timer.schedule(new Timer.Task() {
                            @Override
                            public void run() {
+                               setText(String.valueOf(time));
                                time--;
                                startTimer();
                            }

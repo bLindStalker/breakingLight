@@ -1,7 +1,10 @@
 package com.breaking.game;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Disposable;
 import com.breaking.game.enums.LightBulbStatus;
 
@@ -11,6 +14,7 @@ public class AssetLoader implements Disposable {
     public static final String TURN_ON = "turnOn.png";
     public static final String TURN_OFF = "turnOff.png";
     public static final String BROKEN = "broken.png";
+    public static final String FONT = "font.fnt";
     private static AssetManager assetManager;
 
     public static void initialize() {
@@ -23,6 +27,7 @@ public class AssetLoader implements Disposable {
         assetManager.load(TURN_ON, Texture.class);
         assetManager.load(TURN_OFF, Texture.class);
         assetManager.load(BROKEN, Texture.class);
+        assetManager.load(FONT, BitmapFont.class);
 
         assetManager.finishLoading();
     }
@@ -45,6 +50,13 @@ public class AssetLoader implements Disposable {
 
     public static Texture broken() {
         return assetManager.get(BROKEN);
+    }
+
+    public static Label.LabelStyle getFont() {
+        Label.LabelStyle label1Style = new Label.LabelStyle();
+        label1Style.font = assetManager.get(FONT);
+        label1Style.fontColor = Color.RED;
+        return  label1Style;
     }
 
     public static Texture getLampImage(LightBulbStatus status) {

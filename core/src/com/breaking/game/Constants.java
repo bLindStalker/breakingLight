@@ -24,7 +24,7 @@ public final class Constants {
 
     // game logic constants
     public static final int TIME = 30;
-    public static final int BASIC_SCORE = 100;
+    public static final int BASIC_SCORE = 10;
 
     public static final int MAX_ACTIVE_LAMPS = 5;
     public static final float MAX_ACTIVE_LAMP_TIME = 3;
