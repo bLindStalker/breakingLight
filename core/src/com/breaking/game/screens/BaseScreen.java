@@ -19,7 +19,7 @@ public class BaseScreen extends Stage implements Screen {
         super(new FitViewport(WIDTH, HEIGHT));
         this.main = main;
         addActor(new ImageActor(0, 0, WIDTH, HEIGHT, getBackGround()));
-        setDebugAll(true);
+        //setDebugAll(true);
         Gdx.input.setInputProcessor(this);
     }
 
@@ -30,7 +30,6 @@ public class BaseScreen extends Stage implements Screen {
 
     @Override
     public void render(float delta) {
-
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

@@ -23,11 +23,21 @@ public final class Constants {
     public static final int Y_LIFE_POSITION = Y_STATUS_POSITION + TIMER_HEIGHT / 2 - HEARD_SIZE / 2;
 
     // game logic constants
-    public static final int TIME = 30;
+    public static final int TIME = 45; // in seconds
     public static final int BASIC_SCORE = 10;
+    public static final int BASIC_STAR_SCORE = 15;
 
-    public static final int MAX_ACTIVE_LAMPS = 5;
-    public static final float MAX_ACTIVE_LAMP_TIME = 3;
-    public static final float BROKEN_TIME = 2.5f;
-    public static final float TURN_OFF_TIME = BROKEN_TIME + 0.1f;
+    public static final int MAX_ACTIVE_LAMPS = 6;
+
+    public static final float MIN_ACTIVE_LAMP_TIME = 0.5f;//0.58f;
+    public static final float MAX_ACTIVE_LAMP_TIME = 2f;
+    public static final float ACTIVE_LAMP_INTERVAL = 0.5f;
+
+    public static final float MIN_BROKEN_TIME = 0.90f;
+    public static final float MAX_BROKEN_TIME = 1.8f;
+
+    public static final float HARD_CORE_TIME = 20;
+    public static final float UPDATE_DIFFICULTY = 42;
+
+    public static final float TURN_OFF_TIME = MAX_BROKEN_TIME /*+ 0.1f*/;
 }

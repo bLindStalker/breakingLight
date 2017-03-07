@@ -83,7 +83,7 @@ public class MainGameScreen extends BaseScreen {
                 LightBulb lamp = allNonActiveLamps.get(random(0, allNonActiveLamps.size() - 1));
                 activeLamps.add(lamp);
 
-                lamp.activate();
+                lamp.activate(timer.lightTime);
             }
         }
     }
@@ -134,7 +134,7 @@ public class MainGameScreen extends BaseScreen {
         actor.addListener(new LightListener(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return actor.justClicked();
+                return actor.justClicked(timer.lightTime);
             }
         }, lifeActors, scoreActor));
 

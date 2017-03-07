@@ -8,10 +8,11 @@ public class Preference {
     private static Preferences prefs = Gdx.app.getPreferences("user_preference");
 
     public static void saveScore(int score) {
-        if (getScore() < score) {
+        if (getScore() < score){
             prefs.putInteger("score", score);
         }
         prefs.putInteger("totalScore", getTotalScore() + score);
+        prefs.flush();
     }
 
     public static int getScore() {

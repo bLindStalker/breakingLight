@@ -2,12 +2,12 @@ package com.breaking.game.object;
 
 import com.breaking.game.enums.LightBulbPosition;
 import com.breaking.game.enums.LightBulbStatus;
+import com.breaking.game.enums.LightTime;
 
+import static com.badlogic.gdx.math.MathUtils.random;
 import static com.breaking.game.AssetLoader.getLampImage;
-import static com.breaking.game.Constants.BROKEN_TIME;
 import static com.breaking.game.Constants.LIGHT_HEIGHT;
 import static com.breaking.game.Constants.LIGHT_WIDTH;
-import static com.breaking.game.Constants.MAX_ACTIVE_LAMP_TIME;
 import static com.breaking.game.Constants.TURN_OFF_TIME;
 import static com.breaking.game.enums.LightBulbStatus.BROKEN;
 import static com.breaking.game.enums.LightBulbStatus.TURN_OFF;
@@ -25,10 +25,10 @@ public class LightBulb extends ImageActor {
         super(position.getPosition(), yPosition, LIGHT_WIDTH, LIGHT_HEIGHT, getLampImage(DEFAULT_STATUS));
     }
 
-    public boolean justClicked() {
+    public boolean justClicked(LightTime time) {
         if (status == TURN_ON) {
             setStatus(BROKEN);
-            activationTime = BROKEN_TIME;
+            activationTime = time.activationTime;
             turnOffTime = TURN_OFF_TIME;
 
     /*        Timer.schedule(new Timer.Task() {
@@ -75,8 +75,8 @@ public class LightBulb extends ImageActor {
         return status == TURN_OFF && turnOffTime <= 0;
     }
 
-    public void activate() {
+    public void activate(LightTime time) {
         setStatus(TURN_ON);
-        activationTime = MAX_ACTIVE_LAMP_TIME;
+        activationTime = random(time.minActiveTime, time.maxActiveTime);
     }
 }
