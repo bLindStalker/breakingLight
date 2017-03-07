@@ -1,11 +1,7 @@
 package com.breaking.game.object;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.Timer;
 import com.breaking.game.enums.LightBulbPosition;
 import com.breaking.game.enums.LightBulbStatus;
-import com.breaking.game.screens.MainGameScreen;
 
 import static com.breaking.game.AssetLoader.getLampImage;
 import static com.breaking.game.Constants.BROKEN_TIME;

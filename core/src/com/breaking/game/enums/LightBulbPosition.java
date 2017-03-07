@@ -1,8 +1,8 @@
 package com.breaking.game.enums;
 
-import static com.breaking.game.Constants.X_CENTER_LAMP_POSITION;
 import static com.breaking.game.Constants.LAMPS_SPACE;
 import static com.breaking.game.Constants.LIGHT_WIDTH;
+import static com.breaking.game.Constants.X_CENTER_LAMP_POSITION;
 
 public enum LightBulbPosition {
     LEFT(X_CENTER_LAMP_POSITION - (LIGHT_WIDTH / 2) - LAMPS_SPACE - LIGHT_WIDTH),

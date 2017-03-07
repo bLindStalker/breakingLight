@@ -34,10 +34,9 @@ import static com.breaking.game.enums.LightBulbPosition.RIGHT;
 
 public class MainGameScreen extends BaseScreen {
     private final Main main;
+    private final Group gameActors;
     private TimerActor timer;
     private ScoreActor scoreActor;
-    private final Group gameActors;
-
     private Array<Actor> lifeActors;
     private List<LightBulb> allLamps = new ArrayList<LightBulb>();
     private List<LightBulb> activeLamps = new ArrayList<LightBulb>();
