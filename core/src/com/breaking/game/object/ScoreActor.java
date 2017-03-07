@@ -6,7 +6,7 @@ import com.breaking.game.AssetLoader;
 import com.breaking.game.Constants;
 
 public class ScoreActor extends Label {
-    private static int score = 0;
+    private int score = 0;
 
     public ScoreActor(int xPosition, int yPosition, int width, int height) {
         super(String.valueOf(0), AssetLoader.getFont());
@@ -14,11 +14,11 @@ public class ScoreActor extends Label {
         setAlignment(Align.center);
     }
 
-    public static void increaseScore() {
+    public void increaseScore() {
         score += Constants.BASIC_SCORE;
     }
 
-    public static int getScore() {
+    public int getScore() {
         return score;
     }
 

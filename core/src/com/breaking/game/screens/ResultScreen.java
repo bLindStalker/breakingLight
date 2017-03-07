@@ -10,21 +10,21 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.breaking.game.AssetLoader;
 import com.breaking.game.Main;
+import com.breaking.game.Preference;
 import com.breaking.game.object.ImageActor;
 
 import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.X_CENTER_LAMP_POSITION;
 
 public class ResultScreen extends BaseScreen {
-    private final Main main;
 
-    public ResultScreen(final Main main) {
-        super();
-        this.main = main;
-        addActor(buildResult(main));
+    public ResultScreen(final Main main, int score) {
+        super(main);
+        Preference.saveScore(score);
+        addActor(buildResult(score));
     }
 
-    private Group buildResult(final Main main) {
+    private Group buildResult(int score) {
         final Group result = new Group();
 
         result.addActor(new ImageActor(35, 450, 650, 500, AssetLoader.getResult()));
@@ -36,13 +36,13 @@ public class ResultScreen extends BaseScreen {
         label.setFontScale(0.8f, 0.8f);
         result.addActor(label);
 
-        Label total = new Label("Score: 999", font);
+        Label total = new Label("Score: " + score, font);
         total.setAlignment(Align.left);
         total.setBounds(X_CENTER_LAMP_POSITION - 300, 800, 100, 50);
         total.setFontScale(0.6f, 0.6f);
         result.addActor(total);
 
-        Label max = new Label("Total: 999999", font);
+        Label max = new Label("Total: " + Preference.getTotalScore(), font);
         max.setAlignment(Align.right);
         max.setBounds(X_CENTER_LAMP_POSITION + 200, 800, 100, 50);
         max.setFontScale(0.6f, 0.6f);

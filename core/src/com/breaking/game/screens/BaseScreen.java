@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.breaking.game.Main;
 import com.breaking.game.object.ImageActor;
 
 import static com.breaking.game.AssetLoader.getBackGround;
@@ -12,8 +13,11 @@ import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.WIDTH;
 
 public class BaseScreen extends Stage implements Screen {
-    public BaseScreen() {
+    public final Main main;
+
+    public BaseScreen(Main main) {
         super(new FitViewport(WIDTH, HEIGHT));
+        this.main = main;
         addActor(new ImageActor(0, 0, WIDTH, HEIGHT, getBackGround()));
         setDebugAll(true);
         Gdx.input.setInputProcessor(this);

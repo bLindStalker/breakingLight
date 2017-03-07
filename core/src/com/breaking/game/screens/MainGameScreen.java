@@ -33,17 +33,15 @@ import static com.breaking.game.enums.LightBulbPosition.LEFT;
 import static com.breaking.game.enums.LightBulbPosition.RIGHT;
 
 public class MainGameScreen extends BaseScreen {
-    private final Main main;
     private final Group gameActors;
+    private final ScoreActor scoreActor;
     private TimerActor timer;
-    private ScoreActor scoreActor;
     private Array<Actor> lifeActors;
     private List<LightBulb> allLamps = new ArrayList<LightBulb>();
     private List<LightBulb> activeLamps = new ArrayList<LightBulb>();
 
     public MainGameScreen(Main main) {
-        super();
-        this.main = main;
+        super(main);
 
         gameActors = new Group();
 
@@ -69,7 +67,7 @@ public class MainGameScreen extends BaseScreen {
         super.render(delta);
         if (lifeActors.size == 0 || timer.getTime() <= 0) {
             gameActors.addAction(Actions.alpha(0, 0.25f));
-            main.setScreen(new ResultScreen(main));
+            main.setScreen(new ResultScreen(main, scoreActor.getScore()));
         }
 
         activateLamp();
@@ -138,7 +136,7 @@ public class MainGameScreen extends BaseScreen {
             public Boolean call() throws Exception {
                 return actor.justClicked();
             }
-        }, lifeActors));
+        }, lifeActors, scoreActor));
 
         allLamps.add(actor);
 

@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.breaking.game.AssetLoader;
 import com.breaking.game.Constants;
 import com.breaking.game.Main;
+import com.breaking.game.Preference;
 import com.breaking.game.object.ImageActor;
 
 import static com.breaking.game.AssetLoader.getLampImage;
@@ -38,9 +39,10 @@ public class MenuScreen extends BaseScreen {
     private final Group menu;
 
     public MenuScreen(final Main main) {
-        super();
+        super(main);
 
-        final Group menuSection = buildMenu(main);
+
+        final Group menuSection = buildMenu();
         final Group advancedSection = buildAdvanced();
 
         menuSections = new Group();
@@ -84,9 +86,21 @@ public class MenuScreen extends BaseScreen {
         soundButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 3 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
         advancedButtons.addActor(soundButton);
 
-        TextButton languageButton = new TextButton("Language", AssetLoader.getButton());
-        languageButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 4 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
-        advancedButtons.addActor(languageButton);
+        TextButton helpButton = new TextButton("How to play", AssetLoader.getButton());
+        helpButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 4 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
+        helpButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                menu.addAction(Actions.moveTo(0, -HEIGHT, 0.25f));
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        main.setScreen(new MainGameScreen(main));
+                    }
+                }, 0.25f);
+            }
+        });
+        advancedButtons.addActor(helpButton);
 
         TextButton backToMenuButton = new TextButton("Menu", AssetLoader.getButton());
         backToMenuButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 5 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
@@ -101,7 +115,7 @@ public class MenuScreen extends BaseScreen {
         return advancedButtons;
     }
 
-    private Group buildMenu(final Main main) {
+    private Group buildMenu() {
         final Group menuButtons = new Group();
 
         Label.LabelStyle font = AssetLoader.getFont();
@@ -111,16 +125,20 @@ public class MenuScreen extends BaseScreen {
         label.setBounds(Constants.X_CENTER_LAMP_POSITION - 300, 1000, 600, 150);
         menuButtons.addActor(label);
 
-        Label total = new Label("max: 999", font);
+        int score = Preference.getScore();
+        Label total = new Label("max: " + score, font);
         total.setAlignment(Align.left);
         total.setBounds(Constants.X_CENTER_LAMP_POSITION - 300, 900, 100, 50);
         total.setFontScale(0.5f, 0.5f);
+        total.setVisible(score > 0);
         menuButtons.addActor(total);
 
-        Label max = new Label("Total: 999999", font);
+        int totalScore = Preference.getTotalScore();
+        Label max = new Label("Total: " + totalScore, font);
         max.setAlignment(Align.right);
         max.setBounds(Constants.X_CENTER_LAMP_POSITION + 200, 900, 100, 50);
         max.setFontScale(0.5f, 0.5f);
+        max.setVisible(totalScore > 0);
 
         menuButtons.addActor(max);
 
