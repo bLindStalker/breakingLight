@@ -5,14 +5,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
 import com.breaking.game.enums.LightBulbStatus;
 
+import java.util.ArrayList;
+
 public class AssetLoader implements Disposable {
-    private static final String BACKGROUND = "background.png";
     private static final String HEARD = "heard.png";
     private static final String TURN_ON = "turnOn.png";
     private static final String TURN_OFF = "turnOff.png";
@@ -23,12 +25,22 @@ public class AssetLoader implements Disposable {
     private static final String RESULT = "result.png";
     private static final String STAR = "star.png";
 
+    private static String background;
+
     private static AssetManager assetManager;
 
     public static void initialize() {
         assetManager = new AssetManager();
 
-        assetManager.load(BACKGROUND, Texture.class);
+        ArrayList<String> backgrounds = new ArrayList<String>();
+        backgrounds.add("background1.png");
+        backgrounds.add("background2.png");
+        backgrounds.add("background3.png");
+        backgrounds.add("background4.png");
+        backgrounds.add("background5.png");
+
+        background = backgrounds.get(MathUtils.random(0, backgrounds.size() - 1));
+        assetManager.load(background, Texture.class);
         assetManager.load(RESULT, Texture.class);
 
         assetManager.load(HEARD, Texture.class);
@@ -47,7 +59,7 @@ public class AssetLoader implements Disposable {
     }
 
     public static Texture getBackGround() {
-        return assetManager.get(BACKGROUND);
+        return assetManager.get(background);
     }
 
     public static Texture getResult() {
