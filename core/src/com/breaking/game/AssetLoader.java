@@ -4,17 +4,24 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
 import com.breaking.game.enums.LightBulbStatus;
 
 public class AssetLoader implements Disposable {
-    public static final String BACKGROUND = "background.png";
-    public static final String HEARD = "heard.png";
-    public static final String TURN_ON = "turnOn.png";
-    public static final String TURN_OFF = "turnOff.png";
-    public static final String BROKEN = "broken.png";
-    public static final String FONT = "font.fnt";
+    private static final String BACKGROUND = "background.png";
+    private static final String HEARD = "heard.png";
+    private static final String TURN_ON = "turnOn.png";
+    private static final String TURN_OFF = "turnOff.png";
+    private static final String BROKEN = "broken.png";
+    private static final String FONT = "font.fnt";
+    private static final String BUTTON_UP = "buttonUp.png";
+    private static final String BUTTON_DOWN = "buttonDown.png";
+
     private static AssetManager assetManager;
 
     public static void initialize() {
@@ -27,7 +34,11 @@ public class AssetLoader implements Disposable {
         assetManager.load(TURN_ON, Texture.class);
         assetManager.load(TURN_OFF, Texture.class);
         assetManager.load(BROKEN, Texture.class);
+
         assetManager.load(FONT, BitmapFont.class);
+
+        assetManager.load(BUTTON_UP, Texture.class);
+        assetManager.load(BUTTON_DOWN, Texture.class);
 
         assetManager.finishLoading();
     }
@@ -40,23 +51,34 @@ public class AssetLoader implements Disposable {
         return assetManager.get(HEARD);
     }
 
-    public static Texture turnOn() {
+    private static Texture turnOn() {
         return assetManager.get(TURN_ON);
     }
 
-    public static Texture turnOff() {
+    private static Texture turnOff() {
         return assetManager.get(TURN_OFF);
     }
 
-    public static Texture broken() {
+    private static Texture broken() {
         return assetManager.get(BROKEN);
     }
 
+    public static TextButtonStyle getButton() {
+        TextButtonStyle buttonStyle = new TextButtonStyle();
+        buttonStyle.up = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get(BUTTON_UP)));
+        buttonStyle.down = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get(BUTTON_DOWN)));
+        buttonStyle.font = assetManager.get(FONT);
+
+        return buttonStyle;
+    }
+
     public static Label.LabelStyle getFont() {
-        Label.LabelStyle label1Style = new Label.LabelStyle();
-        label1Style.font = assetManager.get(FONT);
-        label1Style.fontColor = Color.RED;
-        return  label1Style;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = assetManager.get(FONT);
+        labelStyle.fontColor = Color.FIREBRICK;
+
+        return labelStyle;
     }
 
     public static Texture getLampImage(LightBulbStatus status) {

@@ -1,7 +1,11 @@
 package com.breaking.game.object;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.Timer;
 import com.breaking.game.enums.LightBulbPosition;
 import com.breaking.game.enums.LightBulbStatus;
+import com.breaking.game.screens.MainGameScreen;
 
 import static com.breaking.game.AssetLoader.getLampImage;
 import static com.breaking.game.Constants.BROKEN_TIME;
@@ -30,6 +34,15 @@ public class LightBulb extends ImageActor {
             setStatus(BROKEN);
             activationTime = BROKEN_TIME;
             turnOffTime = TURN_OFF_TIME;
+
+    /*        Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    addAction(Actions.color(new Color(1f,1f,1f, 0f), 0.5f));
+                }
+            }, 1);*/
+
+
             return true;
         }
         return false;
@@ -40,6 +53,7 @@ public class LightBulb extends ImageActor {
         if (activationTime > 0 && (status == TURN_ON || status == BROKEN)) {
             if (activationTime <= second) {
                 setStatus(TURN_OFF);
+                //addAction(Actions.color(new Color(1f,1f,1f, 1f), 0.1f));
                 second = 0;
                 activationTime = 0;
             } else {

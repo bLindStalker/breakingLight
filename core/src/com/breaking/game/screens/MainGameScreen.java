@@ -1,34 +1,31 @@
 package com.breaking.game.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.VisibleAction;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.breaking.game.LightListener;
 import com.breaking.game.Main;
 import com.breaking.game.enums.LightBulbPosition;
 import com.breaking.game.object.ImageActor;
+import com.breaking.game.object.LightBulb;
 import com.breaking.game.object.ScoreActor;
 import com.breaking.game.object.TimerActor;
-import com.breaking.game.object.LightBulb;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 import static com.badlogic.gdx.math.MathUtils.random;
-import static com.breaking.game.AssetLoader.getBackGround;
 import static com.breaking.game.AssetLoader.getHeard;
 import static com.breaking.game.Constants.HEARD_SIZE;
-import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.LAMPS_SPACE;
 import static com.breaking.game.Constants.LIGHT_HEIGHT;
 import static com.breaking.game.Constants.MAX_ACTIVE_LAMPS;
 import static com.breaking.game.Constants.TIMER_HEIGHT;
 import static com.breaking.game.Constants.TIMER_WIDTH;
-import static com.breaking.game.Constants.WIDTH;
 import static com.breaking.game.Constants.X_STATUS_POSITION;
 import static com.breaking.game.Constants.Y_LAMP_POSITION;
 import static com.breaking.game.Constants.Y_LIFE_POSITION;
@@ -37,7 +34,8 @@ import static com.breaking.game.enums.LightBulbPosition.CENTER;
 import static com.breaking.game.enums.LightBulbPosition.LEFT;
 import static com.breaking.game.enums.LightBulbPosition.RIGHT;
 
-public class MainGameScreen extends BaseGameScreen {
+public class MainGameScreen extends BaseScreen {
+    private final Main main;
     private TimerActor timer;
     private ScoreActor scoreActor;
 
@@ -45,39 +43,37 @@ public class MainGameScreen extends BaseGameScreen {
     private List<LightBulb> allLamps = new ArrayList<LightBulb>();
     private List<LightBulb> activeLamps = new ArrayList<LightBulb>();
 
-    public MainGameScreen() {
-        super(new FitViewport(WIDTH, HEIGHT));
+    public MainGameScreen(Main main) {
+        super();
+        this.main = main;
 
-        addActor(new ImageActor(0, 0, WIDTH, HEIGHT, getBackGround()));
+        Group gameActors = new Group();
 
         timer = new TimerActor(X_STATUS_POSITION - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
-        addActor(timer);
+        gameActors.addActor(timer);
 
         Group lifeGroup = getLifeGroup();
-        addActor(lifeGroup);
+        gameActors.addActor(lifeGroup);
         lifeActors = new Array<Actor>(lifeGroup.getChildren());
 
         scoreActor = new ScoreActor(X_STATUS_POSITION * 3, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
-        addActor(scoreActor);
+        gameActors.addActor(scoreActor);
 
-        addActor(createLamps());
-        setDebugAll(true);
-        Gdx.input.setInputProcessor(this);
+        gameActors.addActor(createLamps());
+        addActor(gameActors);
+
+        gameActors.addAction(Actions.color(new Color(1f,1f,1f, 0f), 0f));
+        gameActors.addAction(Actions.color(new Color(1f,1f,1f, 1f), 0.5f));
     }
 
     @Override
     public void render(float delta) {
+        super.render(delta);
         if (lifeActors.size == 0 || timer.getTime() <= 0) {
-            Gdx.app.exit();
+            main.setScreen(new MenuScreen(main));
         }
 
         activateLamp();
-
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        act(delta);
-        draw();
     }
 
     private void activateLamp() {
@@ -105,11 +101,6 @@ public class MainGameScreen extends BaseGameScreen {
         }
 
         return allNonActiveLamps;
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
     }
 
     private Group getLifeGroup() {

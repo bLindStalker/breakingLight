@@ -2,12 +2,13 @@ package com.breaking.game;
 
 import com.badlogic.gdx.Game;
 import com.breaking.game.screens.MainGameScreen;
+import com.breaking.game.screens.MenuScreen;
 
 public class Main extends Game {
     @Override
     public void create() {
         AssetLoader.initialize();
-        setScreen(new MainGameScreen());
+        setScreen(new MenuScreen(this));
     }
 
 
