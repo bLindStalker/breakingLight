@@ -1,10 +1,8 @@
 package com.breaking.game.screens;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.VisibleAction;
 import com.badlogic.gdx.utils.Array;
 import com.breaking.game.LightListener;
 import com.breaking.game.Main;
@@ -38,6 +36,7 @@ public class MainGameScreen extends BaseScreen {
     private final Main main;
     private TimerActor timer;
     private ScoreActor scoreActor;
+    private final Group gameActors;
 
     private Array<Actor> lifeActors;
     private List<LightBulb> allLamps = new ArrayList<LightBulb>();
@@ -47,7 +46,7 @@ public class MainGameScreen extends BaseScreen {
         super();
         this.main = main;
 
-        Group gameActors = new Group();
+        gameActors = new Group();
 
         timer = new TimerActor(X_STATUS_POSITION - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
         gameActors.addActor(timer);
@@ -62,15 +61,16 @@ public class MainGameScreen extends BaseScreen {
         gameActors.addActor(createLamps());
         addActor(gameActors);
 
-        gameActors.addAction(Actions.color(new Color(1f,1f,1f, 0f), 0f));
-        gameActors.addAction(Actions.color(new Color(1f,1f,1f, 1f), 0.5f));
+        gameActors.addAction(Actions.alpha(0, 0f));
+        gameActors.addAction(Actions.alpha(1, 0.5f));
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
         if (lifeActors.size == 0 || timer.getTime() <= 0) {
-            main.setScreen(new MenuScreen(main));
+            gameActors.addAction(Actions.alpha(0, 0.25f));
+            main.setScreen(new ResultScreen(main));
         }
 
         activateLamp();

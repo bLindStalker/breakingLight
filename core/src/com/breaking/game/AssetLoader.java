@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
@@ -21,6 +20,8 @@ public class AssetLoader implements Disposable {
     private static final String FONT = "font.fnt";
     private static final String BUTTON_UP = "buttonUp.png";
     private static final String BUTTON_DOWN = "buttonDown.png";
+    private static final String RESULT = "result.png";
+    private static final String STAR = "star.png";
 
     private static AssetManager assetManager;
 
@@ -28,6 +29,7 @@ public class AssetLoader implements Disposable {
         assetManager = new AssetManager();
 
         assetManager.load(BACKGROUND, Texture.class);
+        assetManager.load(RESULT, Texture.class);
 
         assetManager.load(HEARD, Texture.class);
 
@@ -39,6 +41,7 @@ public class AssetLoader implements Disposable {
 
         assetManager.load(BUTTON_UP, Texture.class);
         assetManager.load(BUTTON_DOWN, Texture.class);
+        assetManager.load(STAR, Texture.class);
 
         assetManager.finishLoading();
     }
@@ -47,8 +50,16 @@ public class AssetLoader implements Disposable {
         return assetManager.get(BACKGROUND);
     }
 
+    public static Texture getResult() {
+        return assetManager.get(RESULT);
+    }
+
     public static Texture getHeard() {
         return assetManager.get(HEARD);
+    }
+
+    public static Texture getStar() {
+        return assetManager.get(STAR);
     }
 
     private static Texture turnOn() {
@@ -98,4 +109,5 @@ public class AssetLoader implements Disposable {
     public void dispose() {
         assetManager.dispose();
     }
+
 }

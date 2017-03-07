@@ -3,6 +3,7 @@ package com.breaking.game;
 import com.badlogic.gdx.Game;
 import com.breaking.game.screens.MainGameScreen;
 import com.breaking.game.screens.MenuScreen;
+import com.breaking.game.screens.ResultScreen;
 
 public class Main extends Game {
     @Override

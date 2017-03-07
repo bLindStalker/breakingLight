@@ -53,8 +53,8 @@ public class MenuScreen extends BaseScreen {
         menu.addActor(menuSections);
 
         addActor(menu);
-/*        addAction(Actions.alpha(0, 0));
-        addAction(Actions.alpha(1, 0.25f));*/
+        menu.addAction(Actions.alpha(0, 0));
+        menu.addAction(Actions.alpha(1, 0.25f));
     }
 
     private Group buildAdvanced() {
@@ -111,13 +111,13 @@ public class MenuScreen extends BaseScreen {
         label.setBounds(Constants.X_CENTER_LAMP_POSITION - 300, 1000, 600, 150);
         menuButtons.addActor(label);
 
-        Label total = new Label("Total: 99999", font);
+        Label total = new Label("max: 999", font);
         total.setAlignment(Align.left);
         total.setBounds(Constants.X_CENTER_LAMP_POSITION - 300, 900, 100, 50);
         total.setFontScale(0.5f, 0.5f);
         menuButtons.addActor(total);
 
-        Label max = new Label("Max: 999", font);
+        Label max = new Label("Total: 999999", font);
         max.setAlignment(Align.right);
         max.setBounds(Constants.X_CENTER_LAMP_POSITION + 200, 900, 100, 50);
         max.setFontScale(0.5f, 0.5f);
