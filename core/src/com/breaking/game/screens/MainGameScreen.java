@@ -67,7 +67,7 @@ public class MainGameScreen extends BaseScreen {
         super.render(delta);
         if (lifeActors.size == 0 || timer.getTime() <= 0) {
             gameActors.addAction(Actions.alpha(0, 0.25f));
-            main.setScreen(new ResultScreen(main, scoreActor.getScore()));
+            main.setScreen(new ResultScreen(main, scoreActor.getScore(), scoreActor.getStarCollected()));
         }
 
         activateLamp();
@@ -114,7 +114,7 @@ public class MainGameScreen extends BaseScreen {
         Group lightBulbs = new Group();
 
         lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION));
-        lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION));
+       /* lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION));
         lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION));
 
         lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + LIGHT_HEIGHT + LAMPS_SPACE));
@@ -123,7 +123,7 @@ public class MainGameScreen extends BaseScreen {
 
         lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_SPACE) * 2));
         lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_SPACE) * 2));
-        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_SPACE) * 2));
+        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_SPACE) * 2));*/
 
         return lightBulbs;
     }

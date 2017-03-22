@@ -20,9 +20,13 @@ public class LightBulb extends ImageActor {
     private float activationTime = 0;
     private float second = 0;
     private float turnOffTime = 0;
+    private int xPosition;
+    private int yPosition;
 
     public LightBulb(LightBulbPosition position, int yPosition) {
         super(position.getPosition(), yPosition, LIGHT_WIDTH, LIGHT_HEIGHT, getLampImage(DEFAULT_STATUS));
+        xPosition = position.getPosition();
+        this.yPosition = yPosition;
     }
 
     public boolean justClicked(LightTime time) {

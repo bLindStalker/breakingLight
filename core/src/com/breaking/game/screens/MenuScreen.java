@@ -27,7 +27,7 @@ public class MenuScreen extends BaseScreen {
 
     private static final int X_MENU_BUTTON_POSITION = Constants.X_CENTER_LAMP_POSITION - 200;
     private static final int Y_MENU_BUTTON = 700;
-    private static final int Y_ADVANCED_BUTTON = 825;
+    private static final int Y_ADVANCED_BUTTON = Y_MENU_BUTTON + 50;
     private static final int MENU_BUTTON_WIDTH = 400;
     private static final int MENU_BUTTON_HEIGHT = 150;
     private static final int ADVANCED_BUTTON_HEIGHT = 100;
@@ -41,13 +41,9 @@ public class MenuScreen extends BaseScreen {
     public MenuScreen(final Main main) {
         super(main);
 
-
-        final Group menuSection = buildMenu();
-        final Group advancedSection = buildAdvanced();
-
         menuSections = new Group();
-        menuSections.addActor(menuSection);
-        menuSections.addActor(advancedSection);
+        menuSections.addActor(buildMenu());
+        menuSections.addActor(buildAdvanced());
 
         menu = new Group();
         menu.addActor(createLabel(100, 100, -30));
@@ -82,12 +78,8 @@ public class MenuScreen extends BaseScreen {
         galleryButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 2 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
         advancedButtons.addActor(galleryButton);
 
-        TextButton soundButton = new TextButton("Sound", AssetLoader.getButton());
-        soundButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 3 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
-        advancedButtons.addActor(soundButton);
-
         TextButton helpButton = new TextButton("How to play", AssetLoader.getButton());
-        helpButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 4 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
+        helpButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 3 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
         helpButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -103,7 +95,7 @@ public class MenuScreen extends BaseScreen {
         advancedButtons.addActor(helpButton);
 
         TextButton backToMenuButton = new TextButton("Menu", AssetLoader.getButton());
-        backToMenuButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 5 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
+        backToMenuButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 4 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
         backToMenuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

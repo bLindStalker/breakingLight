@@ -18,13 +18,13 @@ import static com.breaking.game.Constants.X_CENTER_LAMP_POSITION;
 
 public class ResultScreen extends BaseScreen {
 
-    public ResultScreen(final Main main, int score) {
+    public ResultScreen(final Main main, int score, int starCollected) {
         super(main);
         Preference.saveScore(score);
-        addActor(buildResult(score));
+        addActor(buildResult(score, starCollected));
     }
 
-    private Group buildResult(int score) {
+    private Group buildResult(int score, int starCollected) {
         final Group result = new Group();
 
         result.addActor(new ImageActor(35, 450, 650, 500, AssetLoader.getResult()));
@@ -50,7 +50,7 @@ public class ResultScreen extends BaseScreen {
 
         result.addActor(new ImageActor(X_CENTER_LAMP_POSITION - 300, 700, 50, 50, AssetLoader.getStar()));
 
-        Label starsLabel = new Label(": 5", font);
+        Label starsLabel = new Label(": " + starCollected, font);
         starsLabel.setAlignment(Align.left);
         starsLabel.setBounds(X_CENTER_LAMP_POSITION - 200, 700, 100, 50);
         starsLabel.setFontScale(0.6f, 0.6f);
