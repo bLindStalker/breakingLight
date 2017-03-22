@@ -65,7 +65,7 @@ public class MainGameScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-        if (lifeActors.size == 0 || timer.getTime() <= 0) {
+        if (lifeActors.size == 0 || timer.getTime() <= -1) {
             gameActors.addAction(Actions.alpha(0, 0.25f));
             main.setScreen(new ResultScreen(main, scoreActor.getScore(), scoreActor.getStarCollected()));
         }
@@ -77,7 +77,7 @@ public class MainGameScreen extends BaseScreen {
 
         List<LightBulb> allNonActiveLamps = getNonActiveLamps();
         activeLamps.removeAll(allNonActiveLamps);
-
+        System.out.println(timer.lampData.activeLamps);
         if (activeLamps.size() < timer.lampData.activeLamps) {
             if (!allNonActiveLamps.isEmpty()) {
                 LightBulb lamp = allNonActiveLamps.get(random(0, allNonActiveLamps.size() - 1));

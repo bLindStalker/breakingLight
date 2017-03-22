@@ -6,11 +6,16 @@ import com.badlogic.gdx.utils.Timer;
 import com.breaking.game.AssetLoader;
 import com.breaking.game.enums.LampData;
 
+import static com.breaking.game.Constants.ACTIVE_LAMP_INTERVAL;
+import static com.breaking.game.Constants.BROKEN_TIME_INTERVAL;
+import static com.breaking.game.Constants.HARD_CORE_TIME;
 import static com.breaking.game.Constants.TIME;
+import static com.breaking.game.Constants.TURN_OFF_TIME_INTERVAL;
 
 
 public class TimerActor extends Label {
 
+    private static final float UPDATE_DIFFICULT_TIME = TIME - HARD_CORE_TIME;
     private int time = TIME;
     public LampData lampData = new LampData();
 
@@ -35,15 +40,13 @@ public class TimerActor extends Label {
     }
 
     private void updateDifficulty() {
-    /*    if (time <= UPDATE_DIFFICULTY && time > HARD_CORE_TIME) {
-            lampData.minActiveTime -= (MAX_ACTIVE_LAMP_TIME - MIN_ACTIVE_LAMP_TIME) / (UPDATE_DIFFICULTY - HARD_CORE_TIME);
-            lampData.brokenTime -= (MAX_BROKEN_TIME - MIN_BROKEN_TIME) / (UPDATE_DIFFICULTY - HARD_CORE_TIME);
-        }*/
-    }
+        lampData.setActiveLampInterval(ACTIVE_LAMP_INTERVAL / UPDATE_DIFFICULT_TIME);
+        lampData.setBrokenTimeInterval(BROKEN_TIME_INTERVAL / UPDATE_DIFFICULT_TIME);
+        lampData.setTurnOffTimeInterval(TURN_OFF_TIME_INTERVAL / UPDATE_DIFFICULT_TIME);
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
+        if (time == TIME / 2) {
+            lampData.activeLamps += 1;
+        }
     }
 
     public int getTime() {

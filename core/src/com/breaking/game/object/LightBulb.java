@@ -32,29 +32,23 @@ public class LightBulb extends ImageActor {
             activationTime = random(time.maxBrokenTime, time.minBrokenTime);
             turnOffTime = getTurnOffTime(time);
 
-          /*  Timer.schedule(new Timer.Task() {
-                @Override
-                public void run() {
-                    addAction(Actions.color(new Color(1f, 1f, 1f, 0f), 0.2f));
-                }
-            }, 0);
-*/
             return true;
         }
+
         return false;
     }
 
     @Override
     public void act(float delta) {
         if (activationTime > 0 && (status == TURN_ON || status == BROKEN)) {
+            //disappear();
 
-            disappear();
             if (activationTime <= second) {
                 setStatus(TURN_OFF);
 
-                if (getColor().a < 1) {
+          /*      if (getColor().a < 1) {
                     addAction(Actions.color(new Color(1f, 1f, 1f, 1f), 0.1f));
-                }
+                }*/
 
                 second = 0;
                 activationTime = 0;
@@ -72,11 +66,11 @@ public class LightBulb extends ImageActor {
         super.act(delta);
     }
 
-    private void disappear() {
-        if (status == BROKEN && activationTime - second <= 0.4f && getColor().a >= 1) {
+  /*  private void disappear() {
+        if (status == BROKEN && activationTime - second <= 0.3f && getColor().a >= 1) {
             addAction(Actions.color(new Color(1f, 1f, 1f, 0f), 0.15f));
         }
-    }
+    }*/
 
     private void setStatus(LightBulbStatus status) {
         this.status = status;
