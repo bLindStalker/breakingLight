@@ -1,14 +1,15 @@
 package com.breaking.game.object;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.breaking.game.enums.LampData;
 import com.breaking.game.enums.LightBulbPosition;
 import com.breaking.game.enums.LightBulbStatus;
-import com.breaking.game.enums.LightTime;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.breaking.game.AssetLoader.getLampImage;
 import static com.breaking.game.Constants.LIGHT_HEIGHT;
 import static com.breaking.game.Constants.LIGHT_WIDTH;
-import static com.breaking.game.Constants.TURN_OFF_TIME;
 import static com.breaking.game.enums.LightBulbStatus.BROKEN;
 import static com.breaking.game.enums.LightBulbStatus.TURN_OFF;
 import static com.breaking.game.enums.LightBulbStatus.TURN_ON;
@@ -20,29 +21,24 @@ public class LightBulb extends ImageActor {
     private float activationTime = 0;
     private float second = 0;
     private float turnOffTime = 0;
-    private int xPosition;
-    private int yPosition;
 
     public LightBulb(LightBulbPosition position, int yPosition) {
         super(position.getPosition(), yPosition, LIGHT_WIDTH, LIGHT_HEIGHT, getLampImage(DEFAULT_STATUS));
-        xPosition = position.getPosition();
-        this.yPosition = yPosition;
     }
 
-    public boolean justClicked(LightTime time) {
+    public boolean justClicked(LampData time) {
         if (status == TURN_ON) {
             setStatus(BROKEN);
-            activationTime = time.activationTime;
-            turnOffTime = TURN_OFF_TIME;
+            activationTime = random(time.maxBrokenTime, time.minBrokenTime);
+            turnOffTime = getTurnOffTime(time);
 
-    /*        Timer.schedule(new Timer.Task() {
+          /*  Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    addAction(Actions.color(new Color(1f,1f,1f, 0f), 0.5f));
+                    addAction(Actions.color(new Color(1f, 1f, 1f, 0f), 0.2f));
                 }
-            }, 1);*/
-
-
+            }, 0);
+*/
             return true;
         }
         return false;
@@ -51,9 +47,15 @@ public class LightBulb extends ImageActor {
     @Override
     public void act(float delta) {
         if (activationTime > 0 && (status == TURN_ON || status == BROKEN)) {
+
+            disappear();
             if (activationTime <= second) {
                 setStatus(TURN_OFF);
-                //addAction(Actions.color(new Color(1f,1f,1f, 1f), 0.1f));
+
+                if (getColor().a < 1) {
+                    addAction(Actions.color(new Color(1f, 1f, 1f, 1f), 0.1f));
+                }
+
                 second = 0;
                 activationTime = 0;
             } else {
@@ -63,11 +65,17 @@ public class LightBulb extends ImageActor {
             activationTime = 0;
         }
 
-        if (turnOffTime > 0) {
+        if (turnOffTime > 0 && status == TURN_OFF) {
             turnOffTime -= delta;
         }
 
         super.act(delta);
+    }
+
+    private void disappear() {
+        if (status == BROKEN && activationTime - second <= 0.4f && getColor().a >= 1) {
+            addAction(Actions.color(new Color(1f, 1f, 1f, 0f), 0.15f));
+        }
     }
 
     private void setStatus(LightBulbStatus status) {
@@ -79,8 +87,13 @@ public class LightBulb extends ImageActor {
         return status == TURN_OFF && turnOffTime <= 0;
     }
 
-    public void activate(LightTime time) {
+    public void activate(LampData time) {
         setStatus(TURN_ON);
         activationTime = random(time.minActiveTime, time.maxActiveTime);
+        turnOffTime = getTurnOffTime(time);
+    }
+
+    private float getTurnOffTime(LampData time) {
+        return random(time.minTurnOffTime, time.maxTurnOffTime);
     }
 }

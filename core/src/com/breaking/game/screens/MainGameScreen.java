@@ -78,12 +78,12 @@ public class MainGameScreen extends BaseScreen {
         List<LightBulb> allNonActiveLamps = getNonActiveLamps();
         activeLamps.removeAll(allNonActiveLamps);
 
-        if (activeLamps.size() < MAX_ACTIVE_LAMPS) {
+        if (activeLamps.size() < timer.lampData.activeLamps) {
             if (!allNonActiveLamps.isEmpty()) {
                 LightBulb lamp = allNonActiveLamps.get(random(0, allNonActiveLamps.size() - 1));
                 activeLamps.add(lamp);
 
-                lamp.activate(timer.lightTime);
+                lamp.activate(timer.lampData);
             }
         }
     }
@@ -114,7 +114,7 @@ public class MainGameScreen extends BaseScreen {
         Group lightBulbs = new Group();
 
         lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION));
-       /* lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION));
+        lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION));
         lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION));
 
         lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + LIGHT_HEIGHT + LAMPS_SPACE));
@@ -123,7 +123,7 @@ public class MainGameScreen extends BaseScreen {
 
         lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_SPACE) * 2));
         lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_SPACE) * 2));
-        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_SPACE) * 2));*/
+        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + (LIGHT_HEIGHT + LAMPS_SPACE) * 2));
 
         return lightBulbs;
     }
@@ -134,7 +134,7 @@ public class MainGameScreen extends BaseScreen {
         actor.addListener(new LightListener(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return actor.justClicked(timer.lightTime);
+                return actor.justClicked(timer.lampData);
             }
         }, lifeActors, scoreActor));
 
