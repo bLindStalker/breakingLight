@@ -77,7 +77,7 @@ public class MainGameScreen extends BaseScreen {
 
     private void showResult(String header) {
         gameActors.addAction(Actions.alpha(0, 0.25f));
-        main.setScreen(new ResultScreen(main, scoreActor.getScore(), scoreActor.getStarCollected(), header));
+        main.setScreen(new ResultScreen(main, scoreActor.getScore(), scoreActor.getStarCollected(), header, timer.getTime() < 0 ? 0 : timer.getTime()));
     }
 
     private void activateLamp() {

@@ -12,12 +12,11 @@ public class StarActor extends ImageActor {
 
     private static final int STAR_SIZE = 60;
 
-    public StarActor(int xPosition, int yPosition, final ScoreActor scoreActor) {
+    public StarActor(int xPosition, int yPosition) {
         super(xPosition + (LIGHT_WIDTH / 2) - STAR_SIZE / 2, yPosition + (LIGHT_HEIGHT / 2) - STAR_SIZE / 2, STAR_SIZE, STAR_SIZE, AssetLoader.getStar());
         addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                scoreActor.increaseStarScore();
                 //remove();
                 addAction(Actions.moveBy(100, 800, 5));
             }
