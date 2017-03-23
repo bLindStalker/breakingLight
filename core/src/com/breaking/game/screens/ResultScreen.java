@@ -18,19 +18,19 @@ import static com.breaking.game.Constants.X_CENTER_LAMP_POSITION;
 
 public class ResultScreen extends BaseScreen {
 
-    public ResultScreen(final Main main, int score, int starCollected) {
+    public ResultScreen(final Main main, int score, int starCollected, String header) {
         super(main);
         Preference.saveScore(score);
-        addActor(buildResult(score, starCollected));
+        addActor(buildResult(score, starCollected, header));
     }
 
-    private Group buildResult(int score, int starCollected) {
+    private Group buildResult(int score, int starCollected, String header) {
         final Group result = new Group();
 
         result.addActor(new ImageActor(35, 450, 650, 500, AssetLoader.getResult()));
 
         Label.LabelStyle font = AssetLoader.getFont();
-        Label label = new Label("Game Over", font);
+        Label label = new Label(header, font);
         label.setAlignment(Align.center);
         label.setBounds(X_CENTER_LAMP_POSITION - 300, 840, 600, 150);
         label.setFontScale(0.8f, 0.8f);

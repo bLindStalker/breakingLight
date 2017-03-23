@@ -1,8 +1,6 @@
 package com.breaking.game.object;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.breaking.game.enums.LampData;
+import com.breaking.game.enums.LampLogicData;
 import com.breaking.game.enums.LightBulbPosition;
 import com.breaking.game.enums.LightBulbStatus;
 
@@ -26,7 +24,7 @@ public class LightBulb extends ImageActor {
         super(position.getPosition(), yPosition, LIGHT_WIDTH, LIGHT_HEIGHT, getLampImage(DEFAULT_STATUS));
     }
 
-    public boolean justClicked(LampData time) {
+    public boolean justClicked(LampLogicData time) {
         if (status == TURN_ON) {
             setStatus(BROKEN);
             activationTime = random(time.maxBrokenTime, time.minBrokenTime);
@@ -77,17 +75,17 @@ public class LightBulb extends ImageActor {
         setImage(getLampImage(status));
     }
 
-    public boolean isNonActive() {
+    public boolean canBeActive() {
         return status == TURN_OFF && turnOffTime <= 0;
     }
 
-    public void activate(LampData time) {
+    public void activate(LampLogicData time) {
         setStatus(TURN_ON);
         activationTime = random(time.minActiveTime, time.maxActiveTime);
         turnOffTime = getTurnOffTime(time);
     }
 
-    private float getTurnOffTime(LampData time) {
+    private float getTurnOffTime(LampLogicData time) {
         return random(time.minTurnOffTime, time.maxTurnOffTime);
     }
 }

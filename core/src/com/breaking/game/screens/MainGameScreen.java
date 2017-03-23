@@ -21,7 +21,6 @@ import static com.breaking.game.AssetLoader.getHeard;
 import static com.breaking.game.Constants.HEARD_SIZE;
 import static com.breaking.game.Constants.LAMPS_SPACE;
 import static com.breaking.game.Constants.LIGHT_HEIGHT;
-import static com.breaking.game.Constants.MAX_ACTIVE_LAMPS;
 import static com.breaking.game.Constants.TIMER_HEIGHT;
 import static com.breaking.game.Constants.TIMER_WIDTH;
 import static com.breaking.game.Constants.X_STATUS_POSITION;
@@ -65,22 +64,29 @@ public class MainGameScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-        if (lifeActors.size == 0 || timer.getTime() <= -1) {
-            gameActors.addAction(Actions.alpha(0, 0.25f));
-            main.setScreen(new ResultScreen(main, scoreActor.getScore(), scoreActor.getStarCollected()));
+        if (lifeActors.size == 0) {
+            showResult("Game Over");
+        }
+
+        if (timer.getTime() <= -1) {
+            showResult("Times Over");
         }
 
         activateLamp();
     }
 
+    private void showResult(String header) {
+        gameActors.addAction(Actions.alpha(0, 0.25f));
+        main.setScreen(new ResultScreen(main, scoreActor.getScore(), scoreActor.getStarCollected(), header));
+    }
+
     private void activateLamp() {
 
-        List<LightBulb> allNonActiveLamps = getNonActiveLamps();
-        activeLamps.removeAll(allNonActiveLamps);
-        System.out.println(timer.lampData.activeLamps);
+        List<LightBulb> canBeActiveLamps = getCanBeActiveLamps();
+        activeLamps.removeAll(canBeActiveLamps);
         if (activeLamps.size() < timer.lampData.activeLamps) {
-            if (!allNonActiveLamps.isEmpty()) {
-                LightBulb lamp = allNonActiveLamps.get(random(0, allNonActiveLamps.size() - 1));
+            if (!canBeActiveLamps.isEmpty()) {
+                LightBulb lamp = canBeActiveLamps.get(random(0, canBeActiveLamps.size() - 1));
                 activeLamps.add(lamp);
 
                 lamp.activate(timer.lampData);
@@ -88,16 +94,16 @@ public class MainGameScreen extends BaseScreen {
         }
     }
 
-    private List<LightBulb> getNonActiveLamps() {
-        List<LightBulb> allNonActiveLamps = new ArrayList<LightBulb>();
+    private List<LightBulb> getCanBeActiveLamps() {
+        List<LightBulb> canBeActive = new ArrayList<LightBulb>();
 
         for (LightBulb lamp : allLamps) {
-            if (lamp.isNonActive()) {
-                allNonActiveLamps.add(lamp);
+            if (lamp.canBeActive()) {
+                canBeActive.add(lamp);
             }
         }
 
-        return allNonActiveLamps;
+        return canBeActive;
     }
 
     private Group getLifeGroup() {

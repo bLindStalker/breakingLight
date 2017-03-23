@@ -94,8 +94,19 @@ public class MenuScreen extends BaseScreen {
         });
         advancedButtons.addActor(helpButton);
 
+        TextButton clearButton = new TextButton("Clear score", AssetLoader.getButton());
+        clearButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 4 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
+        clearButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Preference.reset();
+                main.setScreen(new MenuScreen(main));
+            }
+        });
+        advancedButtons.addActor(clearButton);
+
         TextButton backToMenuButton = new TextButton("Menu", AssetLoader.getButton());
-        backToMenuButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 4 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
+        backToMenuButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 5 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
         backToMenuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -103,6 +114,16 @@ public class MenuScreen extends BaseScreen {
             }
         });
         advancedButtons.addActor(backToMenuButton);
+
+        TextButton config = new TextButton("Config", AssetLoader.getButton());
+        config.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 6 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
+        config.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                main.setScreen(new ConfigScreen(main));
+            }
+        });
+        advancedButtons.addActor(config);
 
         return advancedButtons;
     }
@@ -176,10 +197,5 @@ public class MenuScreen extends BaseScreen {
         ImageActor label1 = new ImageActor(Constants.X_CENTER_LAMP_POSITION + x, y, LIGHT_WIDTH, LIGHT_HEIGHT, getLampImage(BROKEN));
         label1.setRotation(rotation);
         return label1;
-    }
-
-    @Override
-    public void render(float delta) {
-        super.render(delta);
     }
 }

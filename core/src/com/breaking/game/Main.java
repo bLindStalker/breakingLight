@@ -10,7 +10,6 @@ public class Main extends Game {
         setScreen(new MenuScreen(this));
     }
 
-
     @Override
     public void dispose() {
         super.dispose();

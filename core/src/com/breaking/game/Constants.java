@@ -27,11 +27,11 @@ public final class Constants {
     public static final int BASIC_SCORE = 10;
     public static final int BASIC_STAR_SCORE = 15;
 
-    public static final int MAX_ACTIVE_LAMPS = 6;
+    public static final int MAX_ACTIVE_LAMPS = 9;
 
-    public static final float MIN_ACTIVE_LAMP_TIME = 0.6f;
+    public static final float MIN_ACTIVE_LAMP_TIME = 0.5f;
     public static final float MAX_ACTIVE_LAMP_TIME = 1.1f;
-    public static final float ACTIVE_LAMP_INTERVAL = 0.9f;
+    public static final float ACTIVE_LAMP_INTERVAL = 1f;
 
     public static final float MIN_BROKEN_TIME = 0.8f;
     public static final float MAX_BROKEN_TIME = 1.1f;

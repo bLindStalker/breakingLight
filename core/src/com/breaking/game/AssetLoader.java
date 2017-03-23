@@ -27,7 +27,7 @@ public class AssetLoader implements Disposable {
 
     private static String background;
 
-    private static AssetManager assetManager;
+    public static AssetManager assetManager;
 
     public static void initialize() {
         assetManager = new AssetManager();
