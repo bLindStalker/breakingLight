@@ -14,16 +14,25 @@ import com.breaking.game.enums.LightBulbStatus;
 
 import java.util.ArrayList;
 
+import static java.lang.String.format;
+
 public class AssetLoader implements Disposable {
     private static final String HEARD = "heard.png";
-    private static final String TURN_ON = "turnOn.png";
-    private static final String TURN_OFF = "turnOff.png";
-    private static final String BROKEN = "broken.png";
+    private static final String TURN_ON = "lamps/%s/turnOn.png";
+    private static final String TURN_OFF = "lamps/%s/turnOff.png";
+    private static final String BROKEN = "lamps/%s/broken.png";
+    private static final String UNKNOWN = "lamps/unknown.png";
     private static final String FONT = "font.fnt";
     private static final String BUTTON_UP = "buttonUp.png";
     private static final String BUTTON_DOWN = "buttonDown.png";
     private static final String RESULT = "result.png";
     private static final String STAR = "star.png";
+
+    private static final String LAMPS_PREFIX_1 = "1";
+    private static final String LAMPS_PREFIX_2 = "2";
+    private static final String LAMPS_PREFIX_3 = "3";
+
+    private static String defaultPrefix = LAMPS_PREFIX_1;
 
     private static String background;
 
@@ -33,11 +42,10 @@ public class AssetLoader implements Disposable {
         assetManager = new AssetManager();
 
         ArrayList<String> backgrounds = new ArrayList<String>();
-        backgrounds.add("background1.png");
-        backgrounds.add("background2.png");
-        backgrounds.add("background3.png");
-        backgrounds.add("background4.png");
-        backgrounds.add("background5.png");
+        backgrounds.add("bg/background1.png");
+        backgrounds.add("bg/background2.png");
+        backgrounds.add("bg/background3.png");
+        backgrounds.add("bg/background4.png");
 
         background = backgrounds.get(MathUtils.random(0, backgrounds.size() - 1));
         assetManager.load(background, Texture.class);
@@ -45,9 +53,11 @@ public class AssetLoader implements Disposable {
 
         assetManager.load(HEARD, Texture.class);
 
-        assetManager.load(TURN_ON, Texture.class);
-        assetManager.load(TURN_OFF, Texture.class);
-        assetManager.load(BROKEN, Texture.class);
+        loadLamps(LAMPS_PREFIX_1);
+        loadLamps(LAMPS_PREFIX_2);
+        loadLamps(LAMPS_PREFIX_3);
+
+        assetManager.load(UNKNOWN, Texture.class);
 
         assetManager.load(FONT, BitmapFont.class);
 
@@ -56,6 +66,16 @@ public class AssetLoader implements Disposable {
         assetManager.load(STAR, Texture.class);
 
         assetManager.finishLoading();
+    }
+
+    private static void loadLamps(String prefix) {
+        assetManager.load(getLampPath(prefix, TURN_ON), Texture.class);
+        assetManager.load(getLampPath(prefix, TURN_OFF), Texture.class);
+        assetManager.load(getLampPath(prefix, BROKEN), Texture.class);
+    }
+
+    private static String getLampPath(String prefix, String fileName) {
+        return format(fileName, prefix);
     }
 
     public static Texture getBackGround() {
@@ -75,15 +95,15 @@ public class AssetLoader implements Disposable {
     }
 
     private static Texture turnOn() {
-        return assetManager.get(TURN_ON);
+        return assetManager.get(getLampPath(defaultPrefix, TURN_ON));
     }
 
     private static Texture turnOff() {
-        return assetManager.get(TURN_OFF);
+        return assetManager.get(getLampPath(defaultPrefix, TURN_OFF));
     }
 
     private static Texture broken() {
-        return assetManager.get(BROKEN);
+        return assetManager.get(getLampPath(defaultPrefix, BROKEN));
     }
 
     public static TextButtonStyle getButton() {
@@ -115,6 +135,10 @@ public class AssetLoader implements Disposable {
             default:
                 return turnOff();
         }
+    }
+
+    public void setLamp(String prefix) {
+        defaultPrefix = prefix;
     }
 
     @Override

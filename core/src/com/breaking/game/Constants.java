@@ -6,7 +6,7 @@ public final class Constants {
     public static final int WIDTH = 720;
 
     public static final int LIGHT_WIDTH = 200;
-    public static final int LIGHT_HEIGHT = 250;
+    public static final int LIGHT_HEIGHT = 250; //283
     public static final int LAMPS_SPACE = 10;
 
     public static final int X_CENTER_LAMP_POSITION = WIDTH / 2;

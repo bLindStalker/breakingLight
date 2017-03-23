@@ -34,7 +34,6 @@ public class LampLogicData {
 
     public int activeLamps;
 
-
     public LampLogicData() {
         LampData lampData = new Gson().fromJson(Preference.getConfigs(), LampData.class);
 
