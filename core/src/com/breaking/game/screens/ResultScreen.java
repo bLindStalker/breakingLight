@@ -18,12 +18,21 @@ import static com.breaking.game.Preference.saveScore;
 
 public class ResultScreen extends BaseScreen {
 
+    private boolean canBeClose = false;
+
     public ResultScreen(final Main main, int score, int starCollected, String header, int time) {
         super(main);
         score -= time * 5;
         score += starCollected * 15;
         saveScore(score > 0 ? score : 0);
         addActor(buildResult(score, starCollected, header, time));
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                canBeClose = true;
+            }
+        }, 0.5f);
     }
 
     private Group buildResult(int score, int starCollected, String header, int time) {
@@ -44,7 +53,7 @@ public class ResultScreen extends BaseScreen {
         total.setFontScale(0.6f, 0.6f);
         result.addActor(total);
 
-        Label max = new Label("Time: " + time, font);
+        Label max = new Label("Time left: " + time, font);
         max.setAlignment(Align.right);
         max.setBounds(X_CENTER_LAMP_POSITION + 200, 800, 100, 50);
         max.setFontScale(0.6f, 0.6f);
@@ -63,13 +72,15 @@ public class ResultScreen extends BaseScreen {
         menuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                result.addAction(Actions.moveTo(0, -HEIGHT, 0.25f));
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        main.setScreen(new MenuScreen(main));
-                    }
-                }, 0.25f);
+                if (canBeClose) {
+                    result.addAction(Actions.moveTo(0, -HEIGHT, 0.25f));
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            main.setScreen(new MenuScreen(main));
+                        }
+                    }, 0.25f);
+                }
             }
         });
         result.addActor(menuButton);
@@ -79,13 +90,15 @@ public class ResultScreen extends BaseScreen {
         retryButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                result.addAction(Actions.alpha(0, 0.25f));
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        main.setScreen(new MainGameScreen(main));
-                    }
-                }, 0.25f);
+                if (canBeClose) {
+                    result.addAction(Actions.alpha(0, 0.25f));
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            main.setScreen(new MainGameScreen(main));
+                        }
+                    }, 0.25f);
+                }
             }
         });
         result.addActor(retryButton);

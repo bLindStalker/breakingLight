@@ -29,13 +29,13 @@ public final class Constants {
 
     public static final int MAX_ACTIVE_LAMPS = 9;
 
-    public static final float MIN_ACTIVE_LAMP_TIME = 0.7f;
+    public static final float MIN_ACTIVE_LAMP_TIME = 0.9f;
     public static final float MAX_ACTIVE_LAMP_TIME = 1.2f;
     public static final float ACTIVE_LAMP_INTERVAL = 1.4f;
 
-    public static final float MIN_BROKEN_TIME = 0.8f;
-    public static final float MAX_BROKEN_TIME = 1.1f;
-    public static final float BROKEN_TIME_INTERVAL = 1.2f;
+    public static final float MIN_BROKEN_TIME = 0.7f;
+    public static final float MAX_BROKEN_TIME = 1.2f;
+    public static final float BROKEN_TIME_INTERVAL = 1.3f;
 
     public static final float MIN_TURN_OFF_TIME = 0.5f;
     public static final float MAX_TURN_OFF_TIME = 0.7f;
