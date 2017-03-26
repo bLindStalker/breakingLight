@@ -15,6 +15,7 @@ import com.breaking.game.Constants;
 import com.breaking.game.Main;
 import com.breaking.game.Preference;
 import com.breaking.game.object.ImageActor;
+import com.breaking.game.object.StarObject;
 
 import static com.breaking.game.AssetLoader.getLampImage;
 import static com.breaking.game.Constants.HEIGHT;
@@ -115,7 +116,7 @@ public class MenuScreen extends BaseScreen {
         });
         advancedButtons.addActor(backToMenuButton);
 
-        TextButton config = new TextButton("Config", AssetLoader.getButton());
+      /*  TextButton config = new TextButton("Config", AssetLoader.getButton());
         config.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 6 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
         config.addListener(new ClickListener() {
             @Override
@@ -123,7 +124,7 @@ public class MenuScreen extends BaseScreen {
                 main.setScreen(new ConfigScreen(main));
             }
         });
-        advancedButtons.addActor(config);
+        advancedButtons.addActor(config);*/
 
         return advancedButtons;
     }

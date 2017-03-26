@@ -24,7 +24,8 @@ public class ResultScreen extends BaseScreen {
         super(main);
         score -= time * 5;
         score += starCollected * 15;
-        saveScore(score > 0 ? score : 0);
+        score = score < 0 ? 0 : score;
+        saveScore(score);
         addActor(buildResult(score, starCollected, header, time));
 
         Timer.schedule(new Timer.Task() {

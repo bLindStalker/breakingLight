@@ -25,7 +25,6 @@ public class BaseScreen extends Stage implements Screen {
 
     @Override
     public void show() {
-
     }
 
     @Override
@@ -44,16 +43,13 @@ public class BaseScreen extends Stage implements Screen {
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 }

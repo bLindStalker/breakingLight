@@ -10,6 +10,7 @@ import com.breaking.game.enums.LightBulbPosition;
 import com.breaking.game.object.ImageActor;
 import com.breaking.game.object.LightBulb;
 import com.breaking.game.object.ScoreActor;
+import com.breaking.game.object.StarObject;
 import com.breaking.game.object.TimerActor;
 
 import java.util.ArrayList;
@@ -34,14 +35,15 @@ import static com.breaking.game.enums.LightBulbPosition.RIGHT;
 public class MainGameScreen extends BaseScreen {
     private final Group gameActors;
     private final ScoreActor scoreActor;
-    private TimerActor timer;
-    private Array<Actor> lifeActors;
-    private List<LightBulb> allLamps = new ArrayList<LightBulb>();
-    private List<LightBulb> activeLamps = new ArrayList<LightBulb>();
+    private final StarObject star;
+    private final TimerActor timer;
+    private final Array<Actor> lifeActors;
+    private final List<LightBulb> allLamps = new ArrayList<LightBulb>();
+    private final List<LightBulb> activeLamps = new ArrayList<LightBulb>();
 
     public MainGameScreen(Main main) {
         super(main);
-
+        star = new StarObject(this);
         gameActors = new Group();
 
         timer = new TimerActor(X_STATUS_POSITION - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
@@ -142,7 +144,7 @@ public class MainGameScreen extends BaseScreen {
             public Boolean call() throws Exception {
                 return actor.justClicked(timer.lampData);
             }
-        }, lifeActors, scoreActor));
+        }, lifeActors, scoreActor, star));
 
         allLamps.add(actor);
 

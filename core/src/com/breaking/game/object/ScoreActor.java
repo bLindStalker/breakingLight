@@ -22,7 +22,6 @@ public class ScoreActor extends Label {
     }
 
     public void increaseStarScore() {
-        score += BASIC_STAR_SCORE;
         starCollected++;
     }
 
