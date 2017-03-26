@@ -21,7 +21,6 @@ public class AssetLoader implements Disposable {
     private static final String TURN_ON = "lamps/%s/turnOn.png";
     private static final String TURN_OFF = "lamps/%s/turnOff.png";
     private static final String BROKEN = "lamps/%s/broken.png";
-    private static final String UNKNOWN = "lamps/unknown.png";
     private static final String FONT = "font.fnt";
     private static final String BUTTON_UP = "buttonUp.png";
     private static final String BUTTON_DOWN = "buttonDown.png";
@@ -29,12 +28,12 @@ public class AssetLoader implements Disposable {
     private static final String STAR = "star.png";
     private static final String GALLERY = "gallery.png";
 
-    public static final String LAMPS_PREFIX_0 = "0";
-    public static final String LAMPS_PREFIX_1 = "1";
-    public static final String LAMPS_PREFIX_2 = "2";
-    public static final String LAMPS_PREFIX_3 = "3";
+    public static final int LAMPS_PREFIX_0 = 0;
+    public static final int LAMPS_PREFIX_1 = 1;
+    public static final int LAMPS_PREFIX_2 = 2;
+    public static final int LAMPS_PREFIX_3 = 3;
 
-    private static String defaultPrefix = LAMPS_PREFIX_1;
+    private static int defaultPrefix = LAMPS_PREFIX_1;
 
     private static String background;
 
@@ -55,11 +54,10 @@ public class AssetLoader implements Disposable {
 
         assetManager.load(HEARD, Texture.class);
 
+        assetManager.load(getLampPath(LAMPS_PREFIX_0, TURN_ON), Texture.class);
         loadLamps(LAMPS_PREFIX_1);
         loadLamps(LAMPS_PREFIX_2);
         loadLamps(LAMPS_PREFIX_3);
-
-        assetManager.load(UNKNOWN, Texture.class);
 
         assetManager.load(FONT, BitmapFont.class);
 
@@ -72,13 +70,13 @@ public class AssetLoader implements Disposable {
         assetManager.finishLoading();
     }
 
-    private static void loadLamps(String prefix) {
+    private static void loadLamps(int prefix) {
         assetManager.load(getLampPath(prefix, TURN_ON), Texture.class);
         assetManager.load(getLampPath(prefix, TURN_OFF), Texture.class);
         assetManager.load(getLampPath(prefix, BROKEN), Texture.class);
     }
 
-    private static String getLampPath(String prefix, String fileName) {
+    private static String getLampPath(int prefix, String fileName) {
         return format(fileName, prefix);
     }
 
@@ -132,7 +130,7 @@ public class AssetLoader implements Disposable {
         return labelStyle;
     }
 
-    public static Texture getLampImage(String prefix) {
+    public static Texture getLampImage(int prefix) {
         return assetManager.get(getLampPath(prefix, TURN_ON));
     }
 
@@ -149,13 +147,16 @@ public class AssetLoader implements Disposable {
         }
     }
 
-    public void setLamp(String prefix) {
-        defaultPrefix = prefix;
+    public static void setPrefix(int prefix) {
+        defaultPrefix = prefix == LAMPS_PREFIX_0 ? LAMPS_PREFIX_1 : prefix;
+    }
+
+    public static int getPrefix() {
+        return defaultPrefix;
     }
 
     @Override
     public void dispose() {
         assetManager.dispose();
     }
-
 }

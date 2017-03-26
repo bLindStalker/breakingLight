@@ -41,7 +41,7 @@ public class StarObject {
     }
 
     private class StarActor extends Actor {
-        private static final float STAR_ACTOR_SCALE = STAR_SIZE / 2.25f;
+        private static final float STAR_ACTOR_SCALE = STAR_SIZE / 2f;
         private final float velocity = random(2.5f, 5f);
         private final TextureRegion texture = new TextureRegion(AssetLoader.getStar());
         private final float actorSize = STAR_SIZE + STAR_ACTOR_SCALE;

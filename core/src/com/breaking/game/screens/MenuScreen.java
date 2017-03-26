@@ -6,9 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.breaking.game.AssetLoader;
@@ -17,8 +18,12 @@ import com.breaking.game.Main;
 import com.breaking.game.Preference;
 import com.breaking.game.object.ImageActor;
 
+import static com.breaking.game.AssetLoader.LAMPS_PREFIX_0;
+import static com.breaking.game.AssetLoader.LAMPS_PREFIX_1;
 import static com.breaking.game.AssetLoader.LAMPS_PREFIX_2;
+import static com.breaking.game.AssetLoader.LAMPS_PREFIX_3;
 import static com.breaking.game.AssetLoader.getLampImage;
+import static com.breaking.game.AssetLoader.getPrefix;
 import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.LIGHT_HEIGHT;
 import static com.breaking.game.Constants.LIGHT_WIDTH;
@@ -60,40 +65,61 @@ public class MenuScreen extends BaseScreen {
     }
 
     private Group buildGallery() {
-        final Group gallery = new Group();
-        gallery.setPosition(2 * WIDTH, 0);
+        final Table scrollTable = new Table();
+        scrollTable.add(buildGalleryElement(100));
+        scrollTable.row();
+        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_1));
+        scrollTable.row();
+        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_2));
+        scrollTable.row();
+        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_3));
+        scrollTable.row();
+        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_0));
+        scrollTable.row();
+        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_0));
+        scrollTable.row();
+        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_0));
+        scrollTable.row();
 
-        gallery.addActor(new ImageActor(50, (HEIGHT / 2) + (GALLERY_HEIGHT / 2), WIDTH - 100, GALLERY_HEIGHT, AssetLoader.getGallery()));
+        final ScrollPane scroller = new ScrollPane(scrollTable);
 
-        gallery.addActor(new ImageActor(50, (HEIGHT / 2) - (GALLERY_HEIGHT / 2), WIDTH - 100, GALLERY_HEIGHT, AssetLoader.getGallery()));
-        ImageActor lamp = new ImageActor((WIDTH / 2) - LIGHT_WIDTH, (HEIGHT / 2) - LIGHT_HEIGHT, LIGHT_WIDTH * 2, LIGHT_HEIGHT * 2, AssetLoader.getLampImage(LAMPS_PREFIX_2));
-        lamp.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                main.setScreen(new MenuScreen(main));
-            }
-        });
-        gallery.addActor(lamp);
+        scroller.setBounds(2 * WIDTH, 0, WIDTH, HEIGHT + (GALLERY_HEIGHT / 2));
+        scroller.layout();
 
-        gallery.addActor(new ImageActor(50, (HEIGHT / 2) - (GALLERY_HEIGHT / 2) - GALLERY_HEIGHT, WIDTH - 100, GALLERY_HEIGHT, AssetLoader.getGallery()));
+        if (getPrefix() == AssetLoader.LAMPS_PREFIX_2){
+            scroller.setScrollY(HEIGHT / 2);
+        }
 
-        gallery.addActor(new ImageActor(50, (HEIGHT / 2) - (GALLERY_HEIGHT / 2) - (2 * GALLERY_HEIGHT), WIDTH - 100, GALLERY_HEIGHT, AssetLoader.getGallery()));
+        if (getPrefix() == AssetLoader.LAMPS_PREFIX_3){
+            scroller.setScrollY(HEIGHT);
+        }
 
-        final float[] previousY = {0};
-        gallery.addListener(new DragListener() {
+        scroller.updateVisualScroll();
 
-            @Override
-            public void drag(InputEvent event, float x, float y, int pointer) {
-                gallery.addAction(Actions.moveBy(0, previousY[0] < y ? 25 : -25));
-            }
+        return scroller;
+    }
 
-            @Override
-            public void dragStart(InputEvent event, float x, float y, int pointer) {
-                System.out.println("drug start");
-                previousY[0] = y;
-            }
-        });
-        return gallery;
+    private Group buildGalleryElement(final int index) {
+        Group element = new Group();
+        element.setBounds(0, 0, WIDTH - 100, GALLERY_HEIGHT);
+
+        ImageActor background = new ImageActor(0, 0, WIDTH - 100, GALLERY_HEIGHT, AssetLoader.getGallery());
+        element.addActor(background);
+
+        if (index != 100) {
+            ImageActor lamp = new ImageActor(115, 80, LIGHT_WIDTH * 2, LIGHT_HEIGHT * 2, AssetLoader.getLampImage(index));
+            lamp.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    AssetLoader.setPrefix(index);
+                    main.setScreen(new MenuScreen(main));
+                }
+            });
+
+            element.addActor(lamp);
+
+        }
+        return element;
     }
 
     private Group buildAdvanced() {
@@ -161,16 +187,6 @@ public class MenuScreen extends BaseScreen {
             }
         });
         advancedButtons.addActor(backToMenuButton);
-
-      /*  TextButton config = new TextButton("Config", AssetLoader.getButtonStyle());
-        config.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 6 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
-        config.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                main.setScreen(new ConfigScreen(main));
-            }
-        });
-        advancedButtons.addActor(config);*/
 
         return advancedButtons;
     }
