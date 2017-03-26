@@ -68,7 +68,7 @@ public class ResultScreen extends BaseScreen {
         starsLabel.setFontScale(0.6f, 0.6f);
         result.addActor(starsLabel);
 
-        TextButton menuButton = new TextButton("Menu", AssetLoader.getButton());
+        TextButton menuButton = new TextButton("Menu", AssetLoader.getButtonStyle());
         menuButton.setBounds(X_CENTER_LAMP_POSITION - 300, 500, 200, 75);
         menuButton.addListener(new ClickListener() {
             @Override
@@ -86,7 +86,7 @@ public class ResultScreen extends BaseScreen {
         });
         result.addActor(menuButton);
 
-        TextButton retryButton = new TextButton("Retry", AssetLoader.getButton());
+        TextButton retryButton = new TextButton("Retry", AssetLoader.getButtonStyle());
         retryButton.setBounds(X_CENTER_LAMP_POSITION + 100, 500, 200, 75);
         retryButton.addListener(new ClickListener() {
             @Override

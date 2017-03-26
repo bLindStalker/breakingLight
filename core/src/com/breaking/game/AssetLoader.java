@@ -27,10 +27,12 @@ public class AssetLoader implements Disposable {
     private static final String BUTTON_DOWN = "buttonDown.png";
     private static final String RESULT = "result.png";
     private static final String STAR = "star.png";
+    private static final String GALLERY = "gallery.png";
 
-    private static final String LAMPS_PREFIX_1 = "1";
-    private static final String LAMPS_PREFIX_2 = "2";
-    private static final String LAMPS_PREFIX_3 = "3";
+    public static final String LAMPS_PREFIX_0 = "0";
+    public static final String LAMPS_PREFIX_1 = "1";
+    public static final String LAMPS_PREFIX_2 = "2";
+    public static final String LAMPS_PREFIX_3 = "3";
 
     private static String defaultPrefix = LAMPS_PREFIX_1;
 
@@ -65,6 +67,8 @@ public class AssetLoader implements Disposable {
         assetManager.load(BUTTON_DOWN, Texture.class);
         assetManager.load(STAR, Texture.class);
 
+        assetManager.load(GALLERY, Texture.class);
+
         assetManager.finishLoading();
     }
 
@@ -94,6 +98,10 @@ public class AssetLoader implements Disposable {
         return assetManager.get(STAR);
     }
 
+    public static Texture getGallery() {
+        return assetManager.get(GALLERY);
+    }
+
     private static Texture turnOn() {
         return assetManager.get(getLampPath(defaultPrefix, TURN_ON));
     }
@@ -106,7 +114,7 @@ public class AssetLoader implements Disposable {
         return assetManager.get(getLampPath(defaultPrefix, BROKEN));
     }
 
-    public static TextButtonStyle getButton() {
+    public static TextButtonStyle getButtonStyle() {
         TextButtonStyle buttonStyle = new TextButtonStyle();
         buttonStyle.up = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get(BUTTON_UP)));
         buttonStyle.down = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get(BUTTON_DOWN)));
@@ -122,6 +130,10 @@ public class AssetLoader implements Disposable {
         labelStyle.fontColor = Color.FIREBRICK;
 
         return labelStyle;
+    }
+
+    public static Texture getLampImage(String prefix) {
+        return assetManager.get(getLampPath(prefix, TURN_ON));
     }
 
     public static Texture getLampImage(LightBulbStatus status) {

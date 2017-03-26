@@ -58,7 +58,7 @@ public class ConfigScreen extends BaseScreen {
         });
         setting.addActor(textField);
 
-        TextButton backToMenuButton = new TextButton("Menu", AssetLoader.getButton());
+        TextButton backToMenuButton = new TextButton("Menu", AssetLoader.getButtonStyle());
         backToMenuButton.setBounds(150, 100, 150, 100);
         backToMenuButton.addListener(new ClickListener() {
             @Override
@@ -68,7 +68,7 @@ public class ConfigScreen extends BaseScreen {
         });
         setting.addActor(backToMenuButton);
 
-        TextButton save = new TextButton("Save", AssetLoader.getButton());
+        TextButton save = new TextButton("Save", AssetLoader.getButtonStyle());
         save.setBounds(350, 100, 150, 100);
         save.addListener(new ClickListener() {
             @Override
@@ -79,7 +79,7 @@ public class ConfigScreen extends BaseScreen {
         });
         setting.addActor(save);
 
-        TextButton reset = new TextButton("Reset", AssetLoader.getButton());
+        TextButton reset = new TextButton("Reset", AssetLoader.getButtonStyle());
         reset.setBounds(550, 100, 150, 100);
         reset.addListener(new ClickListener() {
             @Override

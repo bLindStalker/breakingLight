@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.breaking.game.AssetLoader;
@@ -15,8 +16,8 @@ import com.breaking.game.Constants;
 import com.breaking.game.Main;
 import com.breaking.game.Preference;
 import com.breaking.game.object.ImageActor;
-import com.breaking.game.object.StarObject;
 
+import static com.breaking.game.AssetLoader.LAMPS_PREFIX_2;
 import static com.breaking.game.AssetLoader.getLampImage;
 import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.LIGHT_HEIGHT;
@@ -35,6 +36,7 @@ public class MenuScreen extends BaseScreen {
     private static final int MENU_BUTTON_WHITE_SPACE = 50;
     private static final int ADVANCED_BUTTON_WHITE_SPACE = 25;
     private static final float MENU_SWITCH_TIME = 0.5f;
+    private static final int GALLERY_HEIGHT = HEIGHT / 2;
 
     private final Group menuSections;
     private final Group menu;
@@ -45,6 +47,7 @@ public class MenuScreen extends BaseScreen {
         menuSections = new Group();
         menuSections.addActor(buildMenu());
         menuSections.addActor(buildAdvanced());
+        menuSections.addActor(buildGallery());
 
         menu = new Group();
         menu.addActor(createLabel(100, 100, -30));
@@ -54,6 +57,43 @@ public class MenuScreen extends BaseScreen {
         addActor(menu);
         menu.addAction(Actions.alpha(0, 0));
         menu.addAction(Actions.alpha(1, 0.25f));
+    }
+
+    private Group buildGallery() {
+        final Group gallery = new Group();
+        gallery.setPosition(2 * WIDTH, 0);
+
+        gallery.addActor(new ImageActor(50, (HEIGHT / 2) + (GALLERY_HEIGHT / 2), WIDTH - 100, GALLERY_HEIGHT, AssetLoader.getGallery()));
+
+        gallery.addActor(new ImageActor(50, (HEIGHT / 2) - (GALLERY_HEIGHT / 2), WIDTH - 100, GALLERY_HEIGHT, AssetLoader.getGallery()));
+        ImageActor lamp = new ImageActor((WIDTH / 2) - LIGHT_WIDTH, (HEIGHT / 2) - LIGHT_HEIGHT, LIGHT_WIDTH * 2, LIGHT_HEIGHT * 2, AssetLoader.getLampImage(LAMPS_PREFIX_2));
+        lamp.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                main.setScreen(new MenuScreen(main));
+            }
+        });
+        gallery.addActor(lamp);
+
+        gallery.addActor(new ImageActor(50, (HEIGHT / 2) - (GALLERY_HEIGHT / 2) - GALLERY_HEIGHT, WIDTH - 100, GALLERY_HEIGHT, AssetLoader.getGallery()));
+
+        gallery.addActor(new ImageActor(50, (HEIGHT / 2) - (GALLERY_HEIGHT / 2) - (2 * GALLERY_HEIGHT), WIDTH - 100, GALLERY_HEIGHT, AssetLoader.getGallery()));
+
+        final float[] previousY = {0};
+        gallery.addListener(new DragListener() {
+
+            @Override
+            public void drag(InputEvent event, float x, float y, int pointer) {
+                gallery.addAction(Actions.moveBy(0, previousY[0] < y ? 25 : -25));
+            }
+
+            @Override
+            public void dragStart(InputEvent event, float x, float y, int pointer) {
+                System.out.println("drug start");
+                previousY[0] = y;
+            }
+        });
+        return gallery;
     }
 
     private Group buildAdvanced() {
@@ -67,19 +107,25 @@ public class MenuScreen extends BaseScreen {
         label.setBounds(Constants.X_CENTER_LAMP_POSITION - 300, HEIGHT - 300, 600, 250);
         advancedButtons.addActor(label);
 
-        TextButton allPlayersButton = new TextButton("All players", AssetLoader.getButton());
+        TextButton allPlayersButton = new TextButton("All players", AssetLoader.getButtonStyle());
         allPlayersButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON, MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
         advancedButtons.addActor(allPlayersButton);
 
-        TextButton achievementButton = new TextButton("Achievement", AssetLoader.getButton());
+        TextButton achievementButton = new TextButton("Achievement", AssetLoader.getButtonStyle());
         achievementButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - ADVANCED_BUTTON_HEIGHT - ADVANCED_BUTTON_WHITE_SPACE, MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
         advancedButtons.addActor(achievementButton);
 
-        TextButton galleryButton = new TextButton("Gallery", AssetLoader.getButton());
+        TextButton galleryButton = new TextButton("Gallery", AssetLoader.getButtonStyle());
         galleryButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 2 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
+        galleryButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                menuSections.addAction(Actions.moveTo(2 * -WIDTH, 0, MENU_SWITCH_TIME));
+            }
+        });
         advancedButtons.addActor(galleryButton);
 
-        TextButton helpButton = new TextButton("How to play", AssetLoader.getButton());
+        TextButton helpButton = new TextButton("How to play", AssetLoader.getButtonStyle());
         helpButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 3 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
         helpButton.addListener(new ClickListener() {
             @Override
@@ -95,7 +141,7 @@ public class MenuScreen extends BaseScreen {
         });
         advancedButtons.addActor(helpButton);
 
-        TextButton clearButton = new TextButton("Clear score", AssetLoader.getButton());
+        TextButton clearButton = new TextButton("Clear score", AssetLoader.getButtonStyle());
         clearButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 4 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
         clearButton.addListener(new ClickListener() {
             @Override
@@ -106,7 +152,7 @@ public class MenuScreen extends BaseScreen {
         });
         advancedButtons.addActor(clearButton);
 
-        TextButton backToMenuButton = new TextButton("Menu", AssetLoader.getButton());
+        TextButton backToMenuButton = new TextButton("Menu", AssetLoader.getButtonStyle());
         backToMenuButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 5 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
         backToMenuButton.addListener(new ClickListener() {
             @Override
@@ -116,7 +162,7 @@ public class MenuScreen extends BaseScreen {
         });
         advancedButtons.addActor(backToMenuButton);
 
-      /*  TextButton config = new TextButton("Config", AssetLoader.getButton());
+      /*  TextButton config = new TextButton("Config", AssetLoader.getButtonStyle());
         config.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - 6 * (ADVANCED_BUTTON_HEIGHT + ADVANCED_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
         config.addListener(new ClickListener() {
             @Override
@@ -156,7 +202,7 @@ public class MenuScreen extends BaseScreen {
 
         menuButtons.addActor(max);
 
-        TextButton startButton = new TextButton("Start", AssetLoader.getButton());
+        TextButton startButton = new TextButton("Start", AssetLoader.getButtonStyle());
         startButton.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
         startButton.addListener(new ClickListener() {
             @Override
@@ -172,7 +218,7 @@ public class MenuScreen extends BaseScreen {
         });
         menuButtons.addActor(startButton);
 
-        TextButton advancedButton = new TextButton("Advanced", AssetLoader.getButton());
+        TextButton advancedButton = new TextButton("Advanced", AssetLoader.getButtonStyle());
         advancedButton.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - MENU_BUTTON_HEIGHT - MENU_BUTTON_WHITE_SPACE, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
         advancedButton.addListener(new ClickListener() {
             @Override
@@ -182,7 +228,7 @@ public class MenuScreen extends BaseScreen {
         });
         menuButtons.addActor(advancedButton);
 
-        TextButton exitButton = new TextButton("Exit", AssetLoader.getButton());
+        TextButton exitButton = new TextButton("Exit", AssetLoader.getButtonStyle());
         exitButton.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - (2 * MENU_BUTTON_HEIGHT) - (2 * MENU_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
         exitButton.addListener(new ClickListener() {
             @Override
@@ -195,8 +241,8 @@ public class MenuScreen extends BaseScreen {
     }
 
     private ImageActor createLabel(int x, int y, int rotation) {
-        ImageActor label1 = new ImageActor(Constants.X_CENTER_LAMP_POSITION + x, y, LIGHT_WIDTH, LIGHT_HEIGHT, getLampImage(BROKEN));
-        label1.setRotation(rotation);
-        return label1;
+        ImageActor label = new ImageActor(Constants.X_CENTER_LAMP_POSITION + x, y, LIGHT_WIDTH, LIGHT_HEIGHT, getLampImage(BROKEN));
+        label.setRotation(rotation);
+        return label;
     }
 }
