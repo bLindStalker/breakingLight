@@ -14,6 +14,7 @@ import com.breaking.game.enums.LightBulbStatus;
 
 import java.util.ArrayList;
 
+import static com.breaking.game.Preference.getLampPrefix;
 import static java.lang.String.format;
 
 public class AssetLoader implements Disposable {
@@ -68,6 +69,8 @@ public class AssetLoader implements Disposable {
         assetManager.load(GALLERY, Texture.class);
 
         assetManager.finishLoading();
+
+        defaultPrefix = getLampPrefix();
     }
 
     private static void loadLamps(int prefix) {

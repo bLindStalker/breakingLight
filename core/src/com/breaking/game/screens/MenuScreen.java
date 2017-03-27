@@ -42,6 +42,7 @@ public class MenuScreen extends BaseScreen {
     private static final int ADVANCED_BUTTON_WHITE_SPACE = 25;
     private static final float MENU_SWITCH_TIME = 0.5f;
     private static final int GALLERY_HEIGHT = HEIGHT / 2;
+    private static final int EMPTY = 100;
 
     private final Group menuSections;
     private final Group menu;
@@ -66,7 +67,7 @@ public class MenuScreen extends BaseScreen {
 
     private Group buildGallery() {
         final Table scrollTable = new Table();
-        scrollTable.add(buildGalleryElement(100));
+        scrollTable.add(buildGalleryElement(EMPTY));
         scrollTable.row();
         scrollTable.add(buildGalleryElement(LAMPS_PREFIX_1));
         scrollTable.row();
@@ -85,15 +86,7 @@ public class MenuScreen extends BaseScreen {
 
         scroller.setBounds(2 * WIDTH, 0, WIDTH, HEIGHT + (GALLERY_HEIGHT / 2));
         scroller.layout();
-
-        if (getPrefix() == AssetLoader.LAMPS_PREFIX_2){
-            scroller.setScrollY(HEIGHT / 2);
-        }
-
-        if (getPrefix() == AssetLoader.LAMPS_PREFIX_3){
-            scroller.setScrollY(HEIGHT);
-        }
-
+        scroller.setScrollY((getPrefix() - 1) * GALLERY_HEIGHT);
         scroller.updateVisualScroll();
 
         return scroller;
@@ -108,13 +101,16 @@ public class MenuScreen extends BaseScreen {
 
         if (index != 100) {
             ImageActor lamp = new ImageActor(115, 80, LIGHT_WIDTH * 2, LIGHT_HEIGHT * 2, AssetLoader.getLampImage(index));
-            lamp.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    AssetLoader.setPrefix(index);
-                    main.setScreen(new MenuScreen(main));
-                }
-            });
+            if (index != AssetLoader.LAMPS_PREFIX_0){
+                lamp.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        AssetLoader.setPrefix(index);
+                        Preference.saveLampPrefix(index);
+                        main.setScreen(new MenuScreen(main));
+                    }
+                });
+            }
 
             element.addActor(lamp);
 

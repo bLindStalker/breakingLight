@@ -6,6 +6,9 @@ import com.badlogic.gdx.Preferences;
 import com.breaking.game.enums.LampData;
 import com.google.gson.Gson;
 
+import static com.breaking.game.AssetLoader.LAMPS_PREFIX_0;
+import static com.breaking.game.AssetLoader.LAMPS_PREFIX_1;
+
 public class Preference {
     private static Preferences prefs = Gdx.app.getPreferences("user_preference");
 
@@ -44,6 +47,15 @@ public class Preference {
 
     public static void saveConfigs(String config) {
         prefs.putString("config", config);
+        prefs.flush();
+    }
+
+    public static int getLampPrefix() {
+        return prefs.getInteger("lampPrefix", LAMPS_PREFIX_1);
+    }
+
+    public static void saveLampPrefix(int prefix) {
+        prefs.putInteger("lampPrefix", prefix == LAMPS_PREFIX_0 ? LAMPS_PREFIX_1 : prefix);
         prefs.flush();
     }
 }
