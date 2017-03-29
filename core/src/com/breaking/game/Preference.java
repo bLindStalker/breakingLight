@@ -31,6 +31,7 @@ public class Preference {
     public static void reset() {
         prefs.putInteger("score", 0);
         prefs.putInteger("totalScore", 0);
+        prefs.putInteger("lampPrefix", LAMPS_PREFIX_1);
         prefs.flush();
     }
 

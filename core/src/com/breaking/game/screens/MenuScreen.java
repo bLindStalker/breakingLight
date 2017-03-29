@@ -27,12 +27,17 @@ import static com.breaking.game.AssetLoader.LAMPS_PREFIX_1;
 import static com.breaking.game.AssetLoader.LAMPS_PREFIX_2;
 import static com.breaking.game.AssetLoader.LAMPS_PREFIX_3;
 import static com.breaking.game.AssetLoader.getCheckround;
+import static com.breaking.game.AssetLoader.getFont;
 import static com.breaking.game.AssetLoader.getLampImage;
 import static com.breaking.game.AssetLoader.getPrefix;
 import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.LIGHT_HEIGHT;
 import static com.breaking.game.Constants.LIGHT_WIDTH;
+import static com.breaking.game.Constants.SECOND_LAMP_OPEN_TOTAL;
+import static com.breaking.game.Constants.THIRD_LAMP_OPEN_MAX;
 import static com.breaking.game.Constants.WIDTH;
+import static com.breaking.game.Preference.getScore;
+import static com.breaking.game.Preference.getTotalScore;
 import static com.breaking.game.enums.LightBulbStatus.BROKEN;
 
 public class MenuScreen extends BaseScreen {
@@ -80,19 +85,24 @@ public class MenuScreen extends BaseScreen {
 
     private Group buildGallery() {
         final Table scrollTable = new Table();
-        scrollTable.add(buildGalleryElement(EMPTY));
+        scrollTable.add(buildGalleryElement(EMPTY, "", false));
         scrollTable.row();
-        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_1));
+        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_1, "", true));
         scrollTable.row();
-        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_2));
+        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_2,
+                "total score = " + SECOND_LAMP_OPEN_TOTAL,
+                getTotalScore() >= SECOND_LAMP_OPEN_TOTAL));
+
         scrollTable.row();
-        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_3));
+        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_3,
+                "max score = " + THIRD_LAMP_OPEN_MAX,
+                getScore() >= THIRD_LAMP_OPEN_MAX));
         scrollTable.row();
-        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_0));
+        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_0, "coming soon", false));
         scrollTable.row();
-        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_0));
+        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_0, "coming soon", false));
         scrollTable.row();
-        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_0));
+        scrollTable.add(buildGalleryElement(LAMPS_PREFIX_0, "coming soon", false));
         scrollTable.row();
 
         final ScrollPane scroller = new ScrollPane(scrollTable);
@@ -105,7 +115,7 @@ public class MenuScreen extends BaseScreen {
         return scroller;
     }
 
-    private Group buildGalleryElement(final int index) {
+    private Group buildGalleryElement(final int index, String displayValue, boolean showLamp) {
         Group element = new Group();
         element.setBounds(0, 0, WIDTH - 100, GALLERY_HEIGHT);
 
@@ -113,12 +123,25 @@ public class MenuScreen extends BaseScreen {
         element.addActor(background);
 
         if (index != 100) {
-            ImageActor lamp = new ImageActor(115, 80, LIGHT_WIDTH * 2, LIGHT_HEIGHT * 2, AssetLoader.getLampImage(index));
-            if (index != AssetLoader.LAMPS_PREFIX_0) {
+            ImageActor lamp = new ImageActor(115, 80, LIGHT_WIDTH * 2, LIGHT_HEIGHT * 2, AssetLoader.getLampImage(showLamp ? index : LAMPS_PREFIX_0));
+
+            if (index == LAMPS_PREFIX_0 || !showLamp) {
+                Label display = new Label(displayValue, getFont());
+                display.setAlignment(Align.center);
+                display.setHeight(35);
+                display.setWidth(LIGHT_WIDTH * 2);
+                display.setPosition(LIGHT_WIDTH / 2, 60);
+                display.setFontScale(0.7f, 0.7f);
+                display.setColor(Color.BLACK);
+                element.addActor(display);
+            } else {
                 lamp.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        okActorMap.get(getPrefix()).setVisible(false);
+                        Actor previousOk = okActorMap.get(getPrefix());
+                        if (previousOk != null) {
+                            previousOk.setVisible(false);
+                        }
                         okActorMap.get(index).setVisible(true);
                         AssetLoader.setPrefix(index);
                         Preference.saveLampPrefix(index);
@@ -145,7 +168,7 @@ public class MenuScreen extends BaseScreen {
         final Group advancedButtons = new Group();
         advancedButtons.setPosition(WIDTH, 0);
 
-        Label.LabelStyle font = AssetLoader.getFont();
+        Label.LabelStyle font = getFont();
         font.fontColor = Color.FIREBRICK;
         Label label = new Label("best players\nbest players\nbest players", font);
         label.setAlignment(Align.center);
@@ -225,14 +248,14 @@ public class MenuScreen extends BaseScreen {
     private Group buildMenu() {
         final Group menuButtons = new Group();
 
-        Label.LabelStyle font = AssetLoader.getFont();
+        Label.LabelStyle font = getFont();
 
         Label label = new Label("BROKEN LIGHT", font);
         label.setAlignment(Align.center);
         label.setBounds(Constants.X_CENTER_LAMP_POSITION - 300, 1000, 600, 150);
         menuButtons.addActor(label);
 
-        int score = Preference.getScore();
+        int score = getScore();
         Label total = new Label("max: " + score, font);
         total.setAlignment(Align.left);
         total.setBounds(Constants.X_CENTER_LAMP_POSITION - 300, 900, 100, 50);
@@ -240,7 +263,7 @@ public class MenuScreen extends BaseScreen {
         total.setVisible(score > 0);
         menuButtons.addActor(total);
 
-        int totalScore = Preference.getTotalScore();
+        int totalScore = getTotalScore();
         Label max = new Label("Total: " + totalScore, font);
         max.setAlignment(Align.right);
         max.setBounds(Constants.X_CENTER_LAMP_POSITION + 200, 900, 100, 50);

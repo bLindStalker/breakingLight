@@ -46,4 +46,7 @@ public final class Constants {
     public static final float STAR_SIZE = 95f;
     public static final int MIN_CLICK_FOR_STAR = 3;
     public static final int MAX_CLICK_FOR_STAR = 8;
+
+    public static int SECOND_LAMP_OPEN_TOTAL = 10000;
+    public static int THIRD_LAMP_OPEN_MAX = 1000;
 }
