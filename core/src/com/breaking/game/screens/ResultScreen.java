@@ -9,9 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.breaking.game.AssetLoader;
+import com.breaking.game.Constants;
 import com.breaking.game.Main;
-import com.breaking.game.object.ImageActor;
+import com.breaking.game.actors.ImageActor;
 
+import static com.breaking.game.Constants.BASIC_STAR_SCORE;
 import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.X_CENTER_LAMP_POSITION;
 import static com.breaking.game.Preference.saveScore;
@@ -23,7 +25,7 @@ public class ResultScreen extends BaseScreen {
     public ResultScreen(final Main main, int score, int starCollected, String header, int time) {
         super(main);
         score -= time * 5;
-        score += starCollected * 15;
+        score += starCollected * BASIC_STAR_SCORE;
         score = score < 0 ? 0 : score;
         saveScore(score);
         addActor(buildResult(score, starCollected, header, time));
@@ -84,6 +86,7 @@ public class ResultScreen extends BaseScreen {
                 }
             }
         });
+        menuButton.getLabel().setFontScale(0.8f);
         result.addActor(menuButton);
 
         TextButton retryButton = new TextButton("Retry", AssetLoader.getButtonStyle());
@@ -102,6 +105,7 @@ public class ResultScreen extends BaseScreen {
                 }
             }
         });
+        retryButton.getLabel().setFontScale(0.8f);
         result.addActor(retryButton);
 
         result.addAction(Actions.alpha(0, 0));

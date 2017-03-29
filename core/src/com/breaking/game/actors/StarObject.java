@@ -1,4 +1,4 @@
-package com.breaking.game.object;
+package com.breaking.game.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

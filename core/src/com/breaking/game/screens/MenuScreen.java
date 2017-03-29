@@ -17,13 +17,18 @@ import com.breaking.game.AssetLoader;
 import com.breaking.game.Constants;
 import com.breaking.game.Main;
 import com.breaking.game.Preference;
-import com.breaking.game.object.ImageActor;
+import com.breaking.game.actors.ImageActor;
 
-import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.breaking.game.AssetLoader.*;
+import static com.breaking.game.AssetLoader.LAMPS_PREFIX_0;
+import static com.breaking.game.AssetLoader.LAMPS_PREFIX_1;
+import static com.breaking.game.AssetLoader.LAMPS_PREFIX_2;
+import static com.breaking.game.AssetLoader.LAMPS_PREFIX_3;
+import static com.breaking.game.AssetLoader.getCheckround;
+import static com.breaking.game.AssetLoader.getLampImage;
+import static com.breaking.game.AssetLoader.getPrefix;
 import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.LIGHT_HEIGHT;
 import static com.breaking.game.Constants.LIGHT_WIDTH;
@@ -45,9 +50,11 @@ public class MenuScreen extends BaseScreen {
     private static final int EMPTY = 100;
     private static final int X_ROUND_POSITION = LIGHT_WIDTH * 2 + 40;
     private static final int Y_ROUND_POSITION = LIGHT_HEIGHT * 2 + 10;
+    public static final float ADVANCED_FONT_SCALE = 0.8f;
 
     private final Group menuSections;
     private final Group menu;
+    private final Group gallery;
 
     private final Map<Integer, Actor> okActorMap;
 
@@ -58,7 +65,8 @@ public class MenuScreen extends BaseScreen {
         menuSections = new Group();
         menuSections.addActor(buildMenu());
         menuSections.addActor(buildAdvanced());
-        menuSections.addActor(buildGallery());
+        gallery = buildGallery();
+        menuSections.addActor(gallery);
 
         menu = new Group();
         menu.addActor(createLabel(100, 100, -30));
@@ -89,7 +97,7 @@ public class MenuScreen extends BaseScreen {
 
         final ScrollPane scroller = new ScrollPane(scrollTable);
 
-        scroller.setBounds(2 * WIDTH, 0, WIDTH, HEIGHT + (GALLERY_HEIGHT / 2));
+        scroller.setBounds(WIDTH, HEIGHT, WIDTH, HEIGHT + (GALLERY_HEIGHT / 2));
         scroller.layout();
         scroller.setScrollY((getPrefix() - 1) * GALLERY_HEIGHT);
         scroller.updateVisualScroll();
@@ -115,13 +123,7 @@ public class MenuScreen extends BaseScreen {
                         AssetLoader.setPrefix(index);
                         Preference.saveLampPrefix(index);
 
-                        menu.addAction(Actions.alpha(0, 0.25f));
-                        Timer.schedule(new Timer.Task() {
-                            @Override
-                            public void run() {
-                                main.setScreen(new MenuScreen(main));
-                            }
-                        }, 0.25f);
+                        gallery.addAction(Actions.moveBy(0, HEIGHT, MENU_SWITCH_TIME));
                     }
                 });
 
@@ -152,10 +154,12 @@ public class MenuScreen extends BaseScreen {
 
         TextButton allPlayersButton = new TextButton("All players", AssetLoader.getButtonStyle());
         allPlayersButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON, MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
+        allPlayersButton.getLabel().setFontScale(ADVANCED_FONT_SCALE);
         advancedButtons.addActor(allPlayersButton);
 
         TextButton achievementButton = new TextButton("Achievement", AssetLoader.getButtonStyle());
         achievementButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON - ADVANCED_BUTTON_HEIGHT - ADVANCED_BUTTON_WHITE_SPACE, MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
+        achievementButton.getLabel().setFontScale(ADVANCED_FONT_SCALE);
         advancedButtons.addActor(achievementButton);
 
         TextButton galleryButton = new TextButton("Gallery", AssetLoader.getButtonStyle());
@@ -163,9 +167,10 @@ public class MenuScreen extends BaseScreen {
         galleryButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                menuSections.addAction(Actions.moveTo(2 * -WIDTH, 0, MENU_SWITCH_TIME));
+                gallery.addAction(Actions.moveBy(0, -HEIGHT, MENU_SWITCH_TIME));
             }
         });
+        galleryButton.getLabel().setFontScale(ADVANCED_FONT_SCALE);
         advancedButtons.addActor(galleryButton);
 
         TextButton helpButton = new TextButton("How to play", AssetLoader.getButtonStyle());
@@ -173,7 +178,7 @@ public class MenuScreen extends BaseScreen {
         helpButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                menu.addAction(Actions.moveTo(0, -HEIGHT, 0.25f));
+                menu.addAction(Actions.alpha(0, .2f));
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
@@ -182,6 +187,7 @@ public class MenuScreen extends BaseScreen {
                 }, 0.25f);
             }
         });
+        helpButton.getLabel().setFontScale(ADVANCED_FONT_SCALE);
         advancedButtons.addActor(helpButton);
 
         TextButton clearButton = new TextButton("Clear score", AssetLoader.getButtonStyle());
@@ -190,9 +196,16 @@ public class MenuScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Preference.reset();
-                main.setScreen(new MenuScreen(main));
+                menu.addAction(Actions.alpha(0, .18f));
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        main.setScreen(new MenuScreen(main));
+                    }
+                }, .2f);
             }
         });
+        clearButton.getLabel().setFontScale(ADVANCED_FONT_SCALE);
         advancedButtons.addActor(clearButton);
 
         TextButton backToMenuButton = new TextButton("Menu", AssetLoader.getButtonStyle());
@@ -203,6 +216,7 @@ public class MenuScreen extends BaseScreen {
                 menuSections.addAction(Actions.moveTo(0, 0, MENU_SWITCH_TIME));
             }
         });
+        backToMenuButton.getLabel().setFontScale(ADVANCED_FONT_SCALE);
         advancedButtons.addActor(backToMenuButton);
 
         return advancedButtons;

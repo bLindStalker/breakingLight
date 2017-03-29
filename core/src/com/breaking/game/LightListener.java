@@ -4,8 +4,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.breaking.game.object.ScoreActor;
-import com.breaking.game.object.StarObject;
+import com.breaking.game.actors.ScoreActor;
+import com.breaking.game.actors.StarObject;
 
 import java.util.concurrent.Callable;
 

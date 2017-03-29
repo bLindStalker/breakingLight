@@ -1,4 +1,4 @@
-package com.breaking.game.object;
+package com.breaking.game.actors;
 
 import com.breaking.game.enums.LampLogicData;
 import com.breaking.game.enums.LightBulbPosition;

@@ -7,11 +7,11 @@ import com.badlogic.gdx.utils.Array;
 import com.breaking.game.LightListener;
 import com.breaking.game.Main;
 import com.breaking.game.enums.LightBulbPosition;
-import com.breaking.game.object.ImageActor;
-import com.breaking.game.object.LightBulb;
-import com.breaking.game.object.ScoreActor;
-import com.breaking.game.object.StarObject;
-import com.breaking.game.object.TimerActor;
+import com.breaking.game.actors.ImageActor;
+import com.breaking.game.actors.LightBulb;
+import com.breaking.game.actors.ScoreActor;
+import com.breaking.game.actors.StarObject;
+import com.breaking.game.actors.TimerActor;
 
 import java.util.ArrayList;
 import java.util.List;

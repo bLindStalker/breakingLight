@@ -1,4 +1,4 @@
-package com.breaking.game.object;
+package com.breaking.game.actors;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;

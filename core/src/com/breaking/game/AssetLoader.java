@@ -118,7 +118,6 @@ public class AssetLoader implements Disposable {
         buttonStyle.up = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get(BUTTON_UP)));
         buttonStyle.down = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get(BUTTON_DOWN)));
         buttonStyle.font = assetManager.get(FONT);
-
         return buttonStyle;
     }
 
