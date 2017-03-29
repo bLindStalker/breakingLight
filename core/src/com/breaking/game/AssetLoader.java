@@ -18,6 +18,10 @@ import static com.breaking.game.Preference.getLampPrefix;
 import static java.lang.String.format;
 
 public class AssetLoader implements Disposable {
+    public static final int LAMPS_PREFIX_0 = 0;
+    public static final int LAMPS_PREFIX_1 = 1;
+    public static final int LAMPS_PREFIX_2 = 2;
+    public static final int LAMPS_PREFIX_3 = 3;
     private static final String HEARD = "heard.png";
     private static final String TURN_ON = "lamps/%s/turnOn.png";
     private static final String TURN_OFF = "lamps/%s/turnOff.png";
@@ -28,17 +32,11 @@ public class AssetLoader implements Disposable {
     private static final String RESULT = "result.png";
     private static final String STAR = "star.png";
     private static final String GALLERY = "gallery.png";
-
-    public static final int LAMPS_PREFIX_0 = 0;
-    public static final int LAMPS_PREFIX_1 = 1;
-    public static final int LAMPS_PREFIX_2 = 2;
-    public static final int LAMPS_PREFIX_3 = 3;
-
-    private static int defaultPrefix = LAMPS_PREFIX_1;
-
-    private static String background;
-
+    private static final String OK = "ok.png";
+    private static final String ROUND = "round.png";
     public static AssetManager assetManager;
+    private static int defaultPrefix = LAMPS_PREFIX_1;
+    private static String background;
 
     public static void initialize() {
         assetManager = new AssetManager();
@@ -67,6 +65,9 @@ public class AssetLoader implements Disposable {
         assetManager.load(STAR, Texture.class);
 
         assetManager.load(GALLERY, Texture.class);
+
+        assetManager.load(ROUND, Texture.class);
+        assetManager.load(OK, Texture.class);
 
         assetManager.finishLoading();
 
@@ -103,16 +104,13 @@ public class AssetLoader implements Disposable {
         return assetManager.get(GALLERY);
     }
 
-    private static Texture turnOn() {
-        return assetManager.get(getLampPath(defaultPrefix, TURN_ON));
+
+    public static Texture getCheckround() {
+        return assetManager.get(ROUND);
     }
 
-    private static Texture turnOff() {
-        return assetManager.get(getLampPath(defaultPrefix, TURN_OFF));
-    }
-
-    private static Texture broken() {
-        return assetManager.get(getLampPath(defaultPrefix, BROKEN));
+    public static Texture getCheckok() {
+        return assetManager.get(OK);
     }
 
     public static TextButtonStyle getButtonStyle() {
@@ -150,16 +148,28 @@ public class AssetLoader implements Disposable {
         }
     }
 
-    public static void setPrefix(int prefix) {
-        defaultPrefix = prefix == LAMPS_PREFIX_0 ? LAMPS_PREFIX_1 : prefix;
-    }
-
     public static int getPrefix() {
         return defaultPrefix;
+    }
+
+    public static void setPrefix(int prefix) {
+        defaultPrefix = prefix == LAMPS_PREFIX_0 ? LAMPS_PREFIX_1 : prefix;
     }
 
     @Override
     public void dispose() {
         assetManager.dispose();
+    }
+
+    private static Texture turnOn() {
+        return assetManager.get(getLampPath(defaultPrefix, TURN_ON));
+    }
+
+    private static Texture turnOff() {
+        return assetManager.get(getLampPath(defaultPrefix, TURN_OFF));
+    }
+
+    private static Texture broken() {
+        return assetManager.get(getLampPath(defaultPrefix, BROKEN));
     }
 }

@@ -1,8 +1,5 @@
 package com.breaking.game.enums;
 
-import com.breaking.game.Preference;
-import com.google.gson.Gson;
-
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.breaking.game.Constants.ACTIVE_LAMP_INTERVAL;
 import static com.breaking.game.Constants.BROKEN_TIME_INTERVAL;

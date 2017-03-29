@@ -2,6 +2,7 @@ package com.breaking.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -18,12 +19,11 @@ import com.breaking.game.Main;
 import com.breaking.game.Preference;
 import com.breaking.game.object.ImageActor;
 
-import static com.breaking.game.AssetLoader.LAMPS_PREFIX_0;
-import static com.breaking.game.AssetLoader.LAMPS_PREFIX_1;
-import static com.breaking.game.AssetLoader.LAMPS_PREFIX_2;
-import static com.breaking.game.AssetLoader.LAMPS_PREFIX_3;
-import static com.breaking.game.AssetLoader.getLampImage;
-import static com.breaking.game.AssetLoader.getPrefix;
+import java.nio.FloatBuffer;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.breaking.game.AssetLoader.*;
 import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.LIGHT_HEIGHT;
 import static com.breaking.game.Constants.LIGHT_WIDTH;
@@ -40,15 +40,20 @@ public class MenuScreen extends BaseScreen {
     private static final int ADVANCED_BUTTON_HEIGHT = 100;
     private static final int MENU_BUTTON_WHITE_SPACE = 50;
     private static final int ADVANCED_BUTTON_WHITE_SPACE = 25;
-    private static final float MENU_SWITCH_TIME = 0.5f;
+    private static final float MENU_SWITCH_TIME = 0.35f;
     private static final int GALLERY_HEIGHT = HEIGHT / 2;
     private static final int EMPTY = 100;
+    private static final int X_ROUND_POSITION = LIGHT_WIDTH * 2 + 40;
+    private static final int Y_ROUND_POSITION = LIGHT_HEIGHT * 2 + 10;
 
     private final Group menuSections;
     private final Group menu;
 
+    private final Map<Integer, Actor> okActorMap;
+
     public MenuScreen(final Main main) {
         super(main);
+        okActorMap = new HashMap<Integer, Actor>();
 
         menuSections = new Group();
         menuSections.addActor(buildMenu());
@@ -101,15 +106,31 @@ public class MenuScreen extends BaseScreen {
 
         if (index != 100) {
             ImageActor lamp = new ImageActor(115, 80, LIGHT_WIDTH * 2, LIGHT_HEIGHT * 2, AssetLoader.getLampImage(index));
-            if (index != AssetLoader.LAMPS_PREFIX_0){
+            if (index != AssetLoader.LAMPS_PREFIX_0) {
                 lamp.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
+                        okActorMap.get(getPrefix()).setVisible(false);
+                        okActorMap.get(index).setVisible(true);
                         AssetLoader.setPrefix(index);
                         Preference.saveLampPrefix(index);
-                        main.setScreen(new MenuScreen(main));
+
+                        menu.addAction(Actions.alpha(0, 0.25f));
+                        Timer.schedule(new Timer.Task() {
+                            @Override
+                            public void run() {
+                                main.setScreen(new MenuScreen(main));
+                            }
+                        }, 0.25f);
                     }
                 });
+
+                element.addActor(new ImageActor(X_ROUND_POSITION, Y_ROUND_POSITION, 80, 80, getCheckround()));
+                ImageActor okActor = new ImageActor(X_ROUND_POSITION + 5, Y_ROUND_POSITION + 15, 100, 100, AssetLoader.getCheckok());
+                okActor.setVisible(index == getPrefix());
+
+                okActorMap.put(index, okActor);
+                element.addActor(okActor);
             }
 
             element.addActor(lamp);

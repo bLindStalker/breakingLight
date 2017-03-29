@@ -5,7 +5,6 @@ import com.badlogic.gdx.utils.Align;
 import com.breaking.game.AssetLoader;
 
 import static com.breaking.game.Constants.BASIC_SCORE;
-import static com.breaking.game.Constants.BASIC_STAR_SCORE;
 
 public class ScoreActor extends Label {
     private int score = 0;

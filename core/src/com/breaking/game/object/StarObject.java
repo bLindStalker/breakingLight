@@ -21,10 +21,9 @@ import static com.breaking.game.Constants.STAR_SIZE;
 
 public class StarObject {
 
+    private final Stage stage;
     private int clickToCreate = random(MIN_CLICK_FOR_STAR, MAX_CLICK_FOR_STAR);
     private int clickCount = 0;
-
-    private final Stage stage;
 
     public StarObject(Stage stage) {
         this.stage = stage;
@@ -41,8 +40,8 @@ public class StarObject {
     }
 
     private class StarActor extends Actor {
-        private static final float STAR_ACTOR_SCALE = STAR_SIZE / 2f;
-        private final float velocity = random(2.5f, 5f);
+        private static final float STAR_ACTOR_SCALE = STAR_SIZE / 1.7f;
+        private final float velocity = random(2.8f, 5f);
         private final TextureRegion texture = new TextureRegion(AssetLoader.getStar());
         private final float actorSize = STAR_SIZE + STAR_ACTOR_SCALE;
 
@@ -63,7 +62,7 @@ public class StarObject {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-            batch.draw(texture, getX() + STAR_ACTOR_SCALE / 2, getY() + STAR_ACTOR_SCALE /2, STAR_SIZE / 2, STAR_SIZE / 2, STAR_SIZE,
+            batch.draw(texture, getX() + STAR_ACTOR_SCALE / 2, getY() + STAR_ACTOR_SCALE / 2, STAR_SIZE / 2, STAR_SIZE / 2, STAR_SIZE,
                     STAR_SIZE, 1, 1, getRotation());
         }
     }

@@ -25,7 +25,7 @@ public final class Constants {
     // game logic constants
     public static final int TIME = 30; // in seconds
     public static final int BASIC_SCORE = 10;
-    public static final int BASIC_STAR_SCORE = 15;
+    public static final int BASIC_STAR_SCORE = 20;
 
     public static final int MAX_ACTIVE_LAMPS = 9;
 
@@ -41,9 +41,9 @@ public final class Constants {
     public static final float MAX_TURN_OFF_TIME = 0.8f;
     public static final float TURN_OFF_TIME_INTERVAL = 0.8f;
 
-    public static final int HARD_CORE_TIME = 15;
+    public static final int HARD_CORE_TIME = 13;
 
-    public static final float STAR_SIZE = 90f;
-    public static final int MIN_CLICK_FOR_STAR = 2;
-    public static final int MAX_CLICK_FOR_STAR = 6;
+    public static final float STAR_SIZE = 95f;
+    public static final int MIN_CLICK_FOR_STAR = 3;
+    public static final int MAX_CLICK_FOR_STAR = 8;
 }

@@ -18,8 +18,8 @@ import static com.breaking.game.Constants.TURN_OFF_TIME_INTERVAL;
 public class TimerActor extends Label {
 
     private static final float UPDATE_DIFFICULT_TIME = TIME - HARD_CORE_TIME;
-    private int time = TIME;
     public LampLogicData lampData = new LampLogicData();
+    private int time = TIME;
 
     public TimerActor(int xPosition, int yPosition, int width, int height) {
         super(String.valueOf(TIME), AssetLoader.getFont());
