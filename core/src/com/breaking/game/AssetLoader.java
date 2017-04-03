@@ -34,6 +34,7 @@ public class AssetLoader implements Disposable {
     private static final String GALLERY = "gallery.png";
     private static final String OK = "ok.png";
     private static final String ROUND = "round.png";
+    private static final String LABEL = "label.png";
     public static AssetManager assetManager;
     private static int defaultPrefix = LAMPS_PREFIX_1;
     private static String background;
@@ -43,9 +44,9 @@ public class AssetLoader implements Disposable {
 
         ArrayList<String> backgrounds = new ArrayList<String>();
         backgrounds.add("bg/background1.png");
-        backgrounds.add("bg/background2.png");
+  /*      backgrounds.add("bg/background2.png");
         backgrounds.add("bg/background3.png");
-        backgrounds.add("bg/background4.png");
+        backgrounds.add("bg/background4.png");*/
 
         background = backgrounds.get(MathUtils.random(0, backgrounds.size() - 1));
         assetManager.load(background, Texture.class);
@@ -68,6 +69,7 @@ public class AssetLoader implements Disposable {
 
         assetManager.load(ROUND, Texture.class);
         assetManager.load(OK, Texture.class);
+        assetManager.load(LABEL, Texture.class);
 
         assetManager.finishLoading();
 
@@ -115,10 +117,15 @@ public class AssetLoader implements Disposable {
 
     public static TextButtonStyle getButtonStyle() {
         TextButtonStyle buttonStyle = new TextButtonStyle();
-        buttonStyle.up = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get(BUTTON_UP)));
+        buttonStyle.up = new TextureRegionDrawable(new TextureRegion(getButtonUp()));
         buttonStyle.down = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get(BUTTON_DOWN)));
         buttonStyle.font = assetManager.get(FONT);
+        buttonStyle.fontColor = new Color(0.42f, 0, 0, 1);
         return buttonStyle;
+    }
+
+    public static Texture getButtonUp() {
+        return assetManager.get(BUTTON_UP);
     }
 
     public static Label.LabelStyle getFont() {
@@ -155,11 +162,6 @@ public class AssetLoader implements Disposable {
         defaultPrefix = prefix == LAMPS_PREFIX_0 ? LAMPS_PREFIX_1 : prefix;
     }
 
-    @Override
-    public void dispose() {
-        assetManager.dispose();
-    }
-
     private static Texture turnOn() {
         return assetManager.get(getLampPath(defaultPrefix, TURN_ON));
     }
@@ -170,5 +172,14 @@ public class AssetLoader implements Disposable {
 
     private static Texture broken() {
         return assetManager.get(getLampPath(defaultPrefix, BROKEN));
+    }
+
+    public static Texture getLabel() {
+        return assetManager.get(LABEL);
+    }
+
+    @Override
+    public void dispose() {
+        assetManager.dispose();
     }
 }

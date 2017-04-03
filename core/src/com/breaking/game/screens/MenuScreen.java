@@ -1,6 +1,5 @@
 package com.breaking.game.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -18,6 +17,7 @@ import com.breaking.game.Constants;
 import com.breaking.game.Main;
 import com.breaking.game.Preference;
 import com.breaking.game.actors.ImageActor;
+import com.breaking.game.screens.menu.MainMenu;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +28,6 @@ import static com.breaking.game.AssetLoader.LAMPS_PREFIX_2;
 import static com.breaking.game.AssetLoader.LAMPS_PREFIX_3;
 import static com.breaking.game.AssetLoader.getCheckround;
 import static com.breaking.game.AssetLoader.getFont;
-import static com.breaking.game.AssetLoader.getLampImage;
 import static com.breaking.game.AssetLoader.getPrefix;
 import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.LIGHT_HEIGHT;
@@ -38,26 +37,22 @@ import static com.breaking.game.Constants.THIRD_LAMP_OPEN_MAX;
 import static com.breaking.game.Constants.WIDTH;
 import static com.breaking.game.Preference.getScore;
 import static com.breaking.game.Preference.getTotalScore;
-import static com.breaking.game.enums.LightBulbStatus.BROKEN;
 
 public class MenuScreen extends BaseScreen {
 
-    private static final int X_MENU_BUTTON_POSITION = Constants.X_CENTER_LAMP_POSITION - 200;
-    private static final int Y_MENU_BUTTON = 700;
-    private static final int Y_ADVANCED_BUTTON = Y_MENU_BUTTON + 50;
+    public static final float MENU_SWITCH_TIME = 0.35f;
+    private static final float ADVANCED_FONT_SCALE = 0.8f;
+    private static final int X_MENU_BUTTON_POSITION = Constants.X_CENTER - 200;
+    private static final int Y_MENU_BUTTON = 500;
+    private static final int Y_ADVANCED_BUTTON = Y_MENU_BUTTON + 200;
     private static final int MENU_BUTTON_WIDTH = 400;
-    private static final int MENU_BUTTON_HEIGHT = 150;
     private static final int ADVANCED_BUTTON_HEIGHT = 100;
-    private static final int MENU_BUTTON_WHITE_SPACE = 50;
     private static final int ADVANCED_BUTTON_WHITE_SPACE = 25;
-    private static final float MENU_SWITCH_TIME = 0.35f;
     private static final int GALLERY_HEIGHT = HEIGHT / 2;
     private static final int EMPTY = 100;
     private static final int X_ROUND_POSITION = LIGHT_WIDTH * 2 + 40;
     private static final int Y_ROUND_POSITION = LIGHT_HEIGHT * 2 + 10;
-    public static final float ADVANCED_FONT_SCALE = 0.8f;
 
-    private final Group menuSections;
     private final Group menu;
     private final Group gallery;
 
@@ -67,16 +62,11 @@ public class MenuScreen extends BaseScreen {
         super(main);
         okActorMap = new HashMap<Integer, Actor>();
 
-        menuSections = new Group();
-        menuSections.addActor(buildMenu());
-        menuSections.addActor(buildAdvanced());
-        gallery = buildGallery();
-        menuSections.addActor(gallery);
-
         menu = new Group();
-        menu.addActor(createLabel(100, 100, -30));
-        menu.addActor(createLabel(-250, 350, 30));
-        menu.addActor(menuSections);
+        menu.addActor(new MainMenu(main, menu));
+        menu.addActor(buildAdvanced());
+        gallery = buildGallery();
+        menu.addActor(gallery);
 
         addActor(menu);
         menu.addAction(Actions.alpha(0, 0));
@@ -172,7 +162,7 @@ public class MenuScreen extends BaseScreen {
         font.fontColor = Color.FIREBRICK;
         Label label = new Label("best players\nbest players\nbest players", font);
         label.setAlignment(Align.center);
-        label.setBounds(Constants.X_CENTER_LAMP_POSITION - 300, HEIGHT - 300, 600, 250);
+        label.setBounds(Constants.X_CENTER - 300, HEIGHT - 300, 600, 250);
         advancedButtons.addActor(label);
 
         TextButton allPlayersButton = new TextButton("All players", AssetLoader.getButtonStyle());
@@ -205,7 +195,7 @@ public class MenuScreen extends BaseScreen {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        main.setScreen(new MainGameScreen(main));
+                        main.setScreen(new GameScreen(main));
                     }
                 }, 0.25f);
             }
@@ -236,83 +226,12 @@ public class MenuScreen extends BaseScreen {
         backToMenuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                menuSections.addAction(Actions.moveTo(0, 0, MENU_SWITCH_TIME));
+                menu.addAction(Actions.moveTo(0, 0, MENU_SWITCH_TIME));
             }
         });
         backToMenuButton.getLabel().setFontScale(ADVANCED_FONT_SCALE);
         advancedButtons.addActor(backToMenuButton);
 
         return advancedButtons;
-    }
-
-    private Group buildMenu() {
-        final Group menuButtons = new Group();
-
-        Label.LabelStyle font = getFont();
-
-        Label label = new Label("BROKEN LIGHT", font);
-        label.setAlignment(Align.center);
-        label.setBounds(Constants.X_CENTER_LAMP_POSITION - 300, 1000, 600, 150);
-        menuButtons.addActor(label);
-
-        int score = getScore();
-        Label total = new Label("max: " + score, font);
-        total.setAlignment(Align.left);
-        total.setBounds(Constants.X_CENTER_LAMP_POSITION - 300, 900, 100, 50);
-        total.setFontScale(0.5f, 0.5f);
-        total.setVisible(score > 0);
-        menuButtons.addActor(total);
-
-        int totalScore = getTotalScore();
-        Label max = new Label("Total: " + totalScore, font);
-        max.setAlignment(Align.right);
-        max.setBounds(Constants.X_CENTER_LAMP_POSITION + 200, 900, 100, 50);
-        max.setFontScale(0.5f, 0.5f);
-        max.setVisible(totalScore > 0);
-
-        menuButtons.addActor(max);
-
-        TextButton startButton = new TextButton("Start", AssetLoader.getButtonStyle());
-        startButton.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-        startButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                menu.addAction(Actions.moveTo(0, -HEIGHT, 0.25f));
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        main.setScreen(new MainGameScreen(main));
-                    }
-                }, 0.25f);
-            }
-        });
-        menuButtons.addActor(startButton);
-
-        TextButton advancedButton = new TextButton("Advanced", AssetLoader.getButtonStyle());
-        advancedButton.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - MENU_BUTTON_HEIGHT - MENU_BUTTON_WHITE_SPACE, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-        advancedButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                menuSections.addAction(Actions.moveTo(-WIDTH, 0, MENU_SWITCH_TIME));
-            }
-        });
-        menuButtons.addActor(advancedButton);
-
-        TextButton exitButton = new TextButton("Exit", AssetLoader.getButtonStyle());
-        exitButton.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - (2 * MENU_BUTTON_HEIGHT) - (2 * MENU_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-        exitButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
-            }
-        });
-        menuButtons.addActor(exitButton);
-        return menuButtons;
-    }
-
-    private ImageActor createLabel(int x, int y, int rotation) {
-        ImageActor label = new ImageActor(Constants.X_CENTER_LAMP_POSITION + x, y, LIGHT_WIDTH, LIGHT_HEIGHT, getLampImage(BROKEN));
-        label.setRotation(rotation);
-        return label;
     }
 }

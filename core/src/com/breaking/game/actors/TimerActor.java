@@ -1,9 +1,10 @@
 package com.breaking.game.actors;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
-import com.breaking.game.AssetLoader;
 import com.breaking.game.enums.LampLogicData;
 
 import static com.badlogic.gdx.math.MathUtils.random;
@@ -18,13 +19,15 @@ import static com.breaking.game.Constants.TURN_OFF_TIME_INTERVAL;
 public class TimerActor extends Label {
 
     private static final float UPDATE_DIFFICULT_TIME = TIME - HARD_CORE_TIME;
+    static private final Color tempColor = new Color();
     public LampLogicData lampData = new LampLogicData();
     private int time = TIME;
 
-    public TimerActor(int xPosition, int yPosition, int width, int height) {
-        super(String.valueOf(TIME), AssetLoader.getFont());
+    public TimerActor(int xPosition, int yPosition, int width, int height, LabelStyle style) {
+        super(String.valueOf(TIME), style);
         setBounds(xPosition, yPosition, width, height);
         setAlignment(Align.center);
+        setFontScale(1.3f, 1.2f);
         startTimer();
     }
 
@@ -53,5 +56,19 @@ public class TimerActor extends Label {
 
     public int getTime() {
         return time;
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        validate();
+        Color color = tempColor.set(getColor());
+        if (getStyle().background != null) {
+            batch.setColor(color.r, color.g, color.b, 0.7f);
+            getStyle().background.draw(batch, getX(), getY(), getWidth(), getHeight());
+        }
+        if (getStyle().fontColor != null) color.mul(getStyle().fontColor);
+        getBitmapFontCache().tint(color);
+        getBitmapFontCache().setPosition(getX(), getY());
+        getBitmapFontCache().draw(batch);
     }
 }

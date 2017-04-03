@@ -39,15 +39,9 @@ public class LightBulb extends ImageActor {
     @Override
     public void act(float delta) {
         if (activationTime > 0 && (status == TURN_ON || status == BROKEN)) {
-            //disappear();
 
             if (activationTime <= second) {
                 setStatus(TURN_OFF);
-
-          /*      if (getColor().a < 1) {
-                    addAction(Actions.color(new Color(1f, 1f, 1f, 1f), 0.1f));
-                }*/
-
                 second = 0;
                 activationTime = 0;
             } else {
@@ -63,12 +57,6 @@ public class LightBulb extends ImageActor {
 
         super.act(delta);
     }
-
-  /*  private void disappear() {
-        if (status == BROKEN && activationTime - second <= 0.3f && getColor().a >= 1) {
-            addAction(Actions.color(new Color(1f, 1f, 1f, 0f), 0.15f));
-        }
-    }*/
 
     private void setStatus(LightBulbStatus status) {
         this.status = status;
