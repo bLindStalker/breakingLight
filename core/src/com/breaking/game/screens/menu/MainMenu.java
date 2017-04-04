@@ -15,12 +15,16 @@ import com.breaking.game.Main;
 import com.breaking.game.actors.ImageActor;
 import com.breaking.game.screens.GameScreen;
 
+import static com.badlogic.gdx.graphics.Color.FIREBRICK;
+import static com.breaking.game.AssetLoader.BUTTON_TEXT_COLOR;
 import static com.breaking.game.AssetLoader.getFont;
 import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.WIDTH;
 import static com.breaking.game.Constants.X_CENTER;
 import static com.breaking.game.Preference.getScore;
 import static com.breaking.game.Preference.getTotalScore;
+import static com.breaking.game.screens.MenuScreen.MENU_SWITCH_TIME;
+import static java.lang.String.valueOf;
 
 public class MainMenu extends Group {
     private static final int MENU_BUTTON_WIDTH = 400;
@@ -31,15 +35,15 @@ public class MainMenu extends Group {
     private static final int LOGO_WIDTH = 700;
 
     public MainMenu(final Main main, final Group menuGroup) {
-        Label.LabelStyle font = getFont();
-
         addActor(new ImageActor((WIDTH - LOGO_WIDTH) / 2, HEIGHT - 385 - 130, LOGO_WIDTH, 385, AssetLoader.getLabel()));
 
         int score = getScore();
-        addActor(buildScoreLabel(font, "Max: 85" + score, 780, score > 0));
+        addActor(buildScoreLabel(getFont(BUTTON_TEXT_COLOR), "Max: ", 780, X_CENTER - 300, score > 0));
+        addActor(buildScoreLabel(getFont(FIREBRICK), valueOf(score), 780, X_CENTER - 190, score > 0));
 
         int totalScore = getTotalScore();
-        addActor(buildScoreLabel(font, "Total: 145" + totalScore, 720, totalScore > 0));
+        addActor(buildScoreLabel(getFont(BUTTON_TEXT_COLOR), "Total: ", 720, X_CENTER - 300, totalScore > 0));
+        addActor(buildScoreLabel(getFont(FIREBRICK), valueOf(totalScore), 720, X_CENTER - 175, totalScore > 0));
 
         TextButton startButton = new TextButton("START", AssetLoader.getButtonStyle());
         startButton.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
@@ -62,7 +66,7 @@ public class MainMenu extends Group {
         advancedButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //menuGroup.addAction(Actions.moveTo(-WIDTH, 0, MENU_SWITCH_TIME));
+                menuGroup.addAction(Actions.moveTo(-WIDTH, 0, MENU_SWITCH_TIME));
             }
         });
         addActor(advancedButton);
@@ -78,10 +82,10 @@ public class MainMenu extends Group {
         addActor(exitButton);
     }
 
-    private Label buildScoreLabel(Label.LabelStyle font, String text, int y, boolean visible) {
+    private Label buildScoreLabel(Label.LabelStyle font, String text, int y, int x, boolean visible) {
         Label label = new Label(text, font);
         label.setAlignment(Align.left);
-        label.setBounds(X_CENTER - 300, y, 100, 50);
+        label.setBounds(x, y, 100, 50);
         label.setFontScale(0.7f, 0.6f);
         label.setVisible(visible);
 

@@ -1,6 +1,5 @@
 package com.breaking.game.screens;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -13,7 +12,9 @@ import com.breaking.game.AssetLoader;
 import com.breaking.game.Main;
 import com.breaking.game.actors.ImageActor;
 
+import static com.badlogic.gdx.graphics.Color.FIREBRICK;
 import static com.breaking.game.AssetLoader.BUTTON_TEXT_COLOR;
+import static com.breaking.game.AssetLoader.getFont;
 import static com.breaking.game.Constants.BASIC_STAR_SCORE;
 import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.WIDTH;
@@ -54,7 +55,7 @@ public class ResultScreen extends BaseScreen {
 
         resultGroup.addActor(new ImageActor(X_CENTER - 250, 540, 85, 85, AssetLoader.getStar()));
 
-        Label scoreLabel = new Label(": " + starCollected, AssetLoader.getFont(BUTTON_TEXT_COLOR));
+        Label scoreLabel = new Label(": " + starCollected, getFont(BUTTON_TEXT_COLOR));
         scoreLabel.setAlignment(Align.left);
         scoreLabel.setBounds(X_CENTER - 150, 560, 100, 50);
         scoreLabel.setScale(0.6f, 0.6f);
@@ -103,12 +104,12 @@ public class ResultScreen extends BaseScreen {
     }
 
     private void buildResultData(Group result, int xPosition, String header, String data) {
-        Label scoreLabel = new Label(header, AssetLoader.getFont(BUTTON_TEXT_COLOR));
+        Label scoreLabel = new Label(header, getFont(BUTTON_TEXT_COLOR));
         scoreLabel.setAlignment(Align.left);
         scoreLabel.setBounds(xPosition, 700, 100, 50);
         result.addActor(scoreLabel);
 
-        Label scoreActor = new Label(data, AssetLoader.getFont(Color.RED));
+        Label scoreActor = new Label(data, getFont(FIREBRICK));
         scoreActor.setAlignment(Align.center);
         scoreActor.setBounds(xPosition, 650, 150, 50);
         result.addActor(scoreActor);
