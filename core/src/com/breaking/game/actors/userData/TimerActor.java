@@ -1,9 +1,5 @@
-package com.breaking.game.actors;
+package com.breaking.game.actors.userData;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.breaking.game.enums.LampLogicData;
 
@@ -16,18 +12,15 @@ import static com.breaking.game.Constants.TIME;
 import static com.breaking.game.Constants.TURN_OFF_TIME_INTERVAL;
 
 
-public class TimerActor extends Label {
+public class TimerActor extends LabelData {
 
     private static final float UPDATE_DIFFICULT_TIME = TIME - HARD_CORE_TIME;
-    static private final Color tempColor = new Color();
+
     public LampLogicData lampData = new LampLogicData();
-    private int time = TIME;
+    private int currentTime = TIME;
 
     public TimerActor(int xPosition, int yPosition, int width, int height, LabelStyle style) {
-        super(String.valueOf(TIME), style);
-        setBounds(xPosition, yPosition, width, height);
-        setAlignment(Align.center);
-        setFontScale(1.3f, 1.2f);
+        super(String.valueOf(TIME), xPosition, yPosition, width, height, style);
         startTimer();
     }
 
@@ -35,9 +28,9 @@ public class TimerActor extends Label {
         Timer.schedule(new Timer.Task() {
                            @Override
                            public void run() {
-                               setText(String.valueOf(time));
+                               setText(String.valueOf(currentTime));
                                updateDifficulty();
-                               time--;
+                               currentTime--;
                                startTimer();
                            }
                        }, 1
@@ -55,20 +48,6 @@ public class TimerActor extends Label {
     }
 
     public int getTime() {
-        return time;
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        validate();
-        Color color = tempColor.set(getColor());
-        if (getStyle().background != null) {
-            batch.setColor(color.r, color.g, color.b, 0.7f);
-            getStyle().background.draw(batch, getX(), getY(), getWidth(), getHeight());
-        }
-        if (getStyle().fontColor != null) color.mul(getStyle().fontColor);
-        getBitmapFontCache().tint(color);
-        getBitmapFontCache().setPosition(getX(), getY());
-        getBitmapFontCache().draw(batch);
+        return currentTime;
     }
 }

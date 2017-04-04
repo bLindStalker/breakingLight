@@ -43,7 +43,7 @@ public final class Constants {
 
     public static final int HARD_CORE_TIME = 13;
 
-    public static final float STAR_SIZE = 95f;
+    public static final float STAR_SIZE = 110f;
     public static final int MIN_CLICK_FOR_STAR = 3;
     public static final int MAX_CLICK_FOR_STAR = 8;
 

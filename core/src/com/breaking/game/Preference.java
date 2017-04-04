@@ -3,8 +3,6 @@ package com.breaking.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.breaking.game.enums.LampData;
-import com.google.gson.Gson;
 
 import static com.breaking.game.AssetLoader.LAMPS_PREFIX_0;
 import static com.breaking.game.AssetLoader.LAMPS_PREFIX_1;
@@ -33,17 +31,6 @@ public class Preference {
         prefs.putInteger("totalScore", 0);
         prefs.putInteger("lampPrefix", LAMPS_PREFIX_1);
         prefs.flush();
-    }
-
-    public static String getConfigs() {
-        String config = prefs.getString("config");
-        if (config == null || config.isEmpty()) {
-            String json = new Gson().toJson(new LampData());
-            saveConfigs(json);
-            return json;
-        } else {
-            return config;
-        }
     }
 
     public static void saveConfigs(String config) {

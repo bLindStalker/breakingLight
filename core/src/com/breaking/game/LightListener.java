@@ -4,8 +4,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.breaking.game.actors.ScoreActor;
-import com.breaking.game.actors.StarObject;
+import com.breaking.game.actors.StarBuilder;
+import com.breaking.game.actors.userData.ScoreActor;
 
 import java.util.concurrent.Callable;
 
@@ -14,19 +14,19 @@ public class LightListener extends ClickListener {
     private Callable<Boolean> action;
     private Array<Actor> lifeActors;
     private ScoreActor scoreActor;
-    private StarObject star;
+    private StarBuilder starBuilder;
 
-    public LightListener(Callable<Boolean> action, Array<Actor> lifeActors, ScoreActor scoreActor, StarObject star) {
+    public LightListener(Callable<Boolean> action, Array<Actor> lifeActors, ScoreActor scoreActor, StarBuilder starBuilder) {
         this.action = action;
         this.lifeActors = lifeActors;
         this.scoreActor = scoreActor;
-        this.star = star;
+        this.starBuilder = starBuilder;
     }
 
     @Override
     public void clicked(InputEvent event, float x, float y) {
         if (doAction()) {
-            star.createStar((int) event.getListenerActor().getX(), (int) event.getListenerActor().getY(), scoreActor);
+            starBuilder.buildStar((int) event.getListenerActor().getX(), (int) event.getListenerActor().getY(), scoreActor);
             scoreActor.increaseScore();
         } else {
             Actor actor = lifeActors.first();

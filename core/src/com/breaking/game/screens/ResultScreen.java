@@ -14,6 +14,7 @@ import com.breaking.game.actors.ImageActor;
 
 import static com.breaking.game.Constants.BASIC_STAR_SCORE;
 import static com.breaking.game.Constants.HEIGHT;
+import static com.breaking.game.Constants.WIDTH;
 import static com.breaking.game.Constants.X_CENTER;
 import static com.breaking.game.Preference.saveScore;
 
@@ -21,13 +22,13 @@ public class ResultScreen extends BaseScreen {
 
     private boolean canBeClose = false;
 
-    public ResultScreen(final Main main, int score, int starCollected, String header, int time) {
+    public ResultScreen(final Main main, int score, int starCollected, int time) {
         super(main);
         score -= time * 5;
         score += starCollected * BASIC_STAR_SCORE;
         score = score < 0 ? 0 : score;
         saveScore(score);
-        addActor(buildResult(score, starCollected, header, time));
+        addActor(buildResult(score, starCollected, time));
 
         Timer.schedule(new Timer.Task() {
             @Override
@@ -37,17 +38,12 @@ public class ResultScreen extends BaseScreen {
         }, 0.5f);
     }
 
-    private Group buildResult(int score, int starCollected, String header, int time) {
+    private Group buildResult(int score, int starCollected, int time) {
         final Group result = new Group();
 
-        result.addActor(new ImageActor(35, 450, 650, 500, AssetLoader.getResult()));
+        result.addActor(new ImageActor((WIDTH - 680) / 2, (HEIGHT - 1070) / 2, 680, 1070, AssetLoader.getResultBg()));
 
         Label.LabelStyle font = AssetLoader.getFont();
-        Label label = new Label(header, font);
-        label.setAlignment(Align.center);
-        label.setBounds(X_CENTER - 300, 840, 600, 150);
-        label.setFontScale(0.8f, 0.8f);
-        result.addActor(label);
 
         Label total = new Label("Score: " + score, font);
         total.setAlignment(Align.left);

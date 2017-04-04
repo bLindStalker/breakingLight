@@ -90,7 +90,7 @@ public class AssetLoader implements Disposable {
         return assetManager.get(background);
     }
 
-    public static Texture getResult() {
+    public static Texture getResultBg() {
         return assetManager.get(RESULT);
     }
 

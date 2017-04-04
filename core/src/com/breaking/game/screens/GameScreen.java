@@ -11,9 +11,9 @@ import com.breaking.game.LightListener;
 import com.breaking.game.Main;
 import com.breaking.game.actors.ImageActor;
 import com.breaking.game.actors.LightBulb;
-import com.breaking.game.actors.ScoreActor;
-import com.breaking.game.actors.StarObject;
-import com.breaking.game.actors.TimerActor;
+import com.breaking.game.actors.StarBuilder;
+import com.breaking.game.actors.userData.ScoreActor;
+import com.breaking.game.actors.userData.TimerActor;
 import com.breaking.game.enums.LightBulbPosition;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ import static com.breaking.game.enums.LightBulbPosition.RIGHT;
 public class GameScreen extends BaseScreen {
     private final Group gameActors;
     private final ScoreActor scoreActor;
-    private final StarObject star;
+    private final StarBuilder starBuilder;
     private final TimerActor timer;
     private final Array<Actor> lifeActors;
     private final List<LightBulb> allLamps = new ArrayList<LightBulb>();
@@ -48,7 +48,7 @@ public class GameScreen extends BaseScreen {
 
     public GameScreen(Main main) {
         super(main);
-        star = new StarObject(this);
+        starBuilder = new StarBuilder(this);
         gameActors = new Group();
 
         Label.LabelStyle font = getFont();
@@ -75,20 +75,16 @@ public class GameScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-        if (lifeActors.size == 0) {
-            showResult("Game Over");
-        }
-
-        if (timer.getTime() <= -1) {
-            showResult("Times Over");
+        if (lifeActors.size == 0 || timer.getTime() <= -1) {
+            showResult();
         }
 
         activateLamp();
     }
 
-    private void showResult(String header) {
+    private void showResult() {
         gameActors.addAction(Actions.alpha(0, 0.25f));
-        main.setScreen(new ResultScreen(main, scoreActor.getScore(), scoreActor.getStarCollected(), header, timer.getTime() < 0 ? 0 : timer.getTime()));
+        main.setScreen(new ResultScreen(main, scoreActor.getScore(), scoreActor.getStarCollected(), timer.getTime() < 0 ? 0 : timer.getTime()));
     }
 
     private void activateLamp() {
@@ -154,7 +150,7 @@ public class GameScreen extends BaseScreen {
             public Boolean call() throws Exception {
                 return actor.justClicked(timer.lampData);
             }
-        }, lifeActors, scoreActor, star));
+        }, lifeActors, scoreActor, starBuilder));
 
         allLamps.add(actor);
 

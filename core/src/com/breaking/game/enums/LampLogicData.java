@@ -24,14 +24,6 @@ public class LampLogicData {
     public int activeLamps;
 
     public LampLogicData() {
-        //LampData lampData = new Gson().fromJson(Preference.getConfigs(), LampData.class);
-/*
-        minActiveTime = lampData.minActiveLampTime + lampData.activeLampInterval;
-        maxActiveTime = lampData.maxActiveLampTime + lampData.activeLampInterval;
-        maxBrokenTime = lampData.maxBrokenTime + lampData.brokenTimeInterval;
-        minBrokenTime = lampData.minBrokenTime + lampData.brokenTimeInterval;
-        maxTurnOffTime = lampData.maxTurnOffTime + lampData.turnOffTimeInterval;
-        minTurnOffTime = lampData.minTurnOffTime + lampData.turnOffTimeInterval;*/
         activeLamps = random(2, 4);
     }
 
