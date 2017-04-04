@@ -6,21 +6,19 @@ public final class Constants {
     public static final int WIDTH = 720;
     public static final int X_CENTER = WIDTH / 2;
 
-    public static final int LIGHT_WIDTH = 260;
-    public static final int LIGHT_HEIGHT = 335;
-
-    public static final int LAMPS_SPACE = 0;
+    public static final int LAMP_WIDTH = 260;
+    public static final int LAMP_HEIGHT = 335;
     public static final int Y_LAMP_POSITION = 110;
 
-    public static final int X_STATUS_POSITION = WIDTH / 4;
     public static final int Y_STATUS_POSITION = HEIGHT - 190;
 
     public static final int TIMER_WIDTH = 130;
     public static final int TIMER_HEIGHT = 100;
 
     public static final int HEARD_SIZE = 90;
+    public static final int Y_HEARD_POSITION = Y_STATUS_POSITION + TIMER_HEIGHT / 2 - HEARD_SIZE / 2;
 
-    public static final int Y_LIFE_POSITION = Y_STATUS_POSITION + TIMER_HEIGHT / 2 - HEARD_SIZE / 2;
+    public static final float STAR_SIZE = 110f;
 
     // game logic constants
     public static final int TIME = 30; // in seconds
@@ -43,10 +41,10 @@ public final class Constants {
 
     public static final int HARD_CORE_TIME = 13;
 
-    public static final float STAR_SIZE = 110f;
     public static final int MIN_CLICK_FOR_STAR = 3;
     public static final int MAX_CLICK_FOR_STAR = 8;
 
-    public static int SECOND_LAMP_OPEN_TOTAL = 10000;
-    public static int THIRD_LAMP_OPEN_MAX = 1000;
+    // gallery
+    public static int LAMP_OPEN_MAX = 1000;
+    public static int LAMP_OPEN_TOTAL = 10000;
 }

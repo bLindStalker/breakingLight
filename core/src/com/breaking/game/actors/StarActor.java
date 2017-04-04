@@ -9,11 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.breaking.game.AssetLoader;
+import com.breaking.game.actors.userData.ScoreActor;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.breaking.game.Constants.HEIGHT;
-import static com.breaking.game.Constants.LIGHT_HEIGHT;
-import static com.breaking.game.Constants.LIGHT_WIDTH;
+import static com.breaking.game.Constants.LAMP_HEIGHT;
+import static com.breaking.game.Constants.LAMP_WIDTH;
 import static com.breaking.game.Constants.STAR_SIZE;
 
 
@@ -23,8 +24,8 @@ public class StarActor extends Actor {
     private final TextureRegion texture = new TextureRegion(AssetLoader.getStar());
     private final float ACTOR_SIZE = STAR_SIZE + STAR_ACTOR_SCALE;
 
-    public StarActor(int xPosition, int yPosition, final com.breaking.game.actors.userData.ScoreActor scoreActor) {
-        setBounds(xPosition + (LIGHT_WIDTH / 2) - ACTOR_SIZE / 2, yPosition + (LIGHT_HEIGHT / 2) - ACTOR_SIZE / 2, ACTOR_SIZE, ACTOR_SIZE);
+    public StarActor(int xPosition, int yPosition, final ScoreActor scoreActor) {
+        setBounds(xPosition + (LAMP_WIDTH / 2) - ACTOR_SIZE / 2, yPosition + (LAMP_HEIGHT / 2) - ACTOR_SIZE / 2, ACTOR_SIZE, ACTOR_SIZE);
 
         setOrigin(Align.center);
         addAction(Actions.moveBy(random(-250, 250), HEIGHT, VELOCITY, Interpolation.sine));

@@ -25,13 +25,13 @@ import static com.breaking.game.AssetLoader.getButtonUp;
 import static com.breaking.game.AssetLoader.getFont;
 import static com.breaking.game.AssetLoader.getHeard;
 import static com.breaking.game.Constants.HEARD_SIZE;
-import static com.breaking.game.Constants.LIGHT_HEIGHT;
+import static com.breaking.game.Constants.LAMP_HEIGHT;
 import static com.breaking.game.Constants.TIMER_HEIGHT;
 import static com.breaking.game.Constants.TIMER_WIDTH;
 import static com.breaking.game.Constants.WIDTH;
 import static com.breaking.game.Constants.X_CENTER;
 import static com.breaking.game.Constants.Y_LAMP_POSITION;
-import static com.breaking.game.Constants.Y_LIFE_POSITION;
+import static com.breaking.game.Constants.Y_HEARD_POSITION;
 import static com.breaking.game.Constants.Y_STATUS_POSITION;
 import static com.breaking.game.enums.LightBulbPosition.CENTER;
 import static com.breaking.game.enums.LightBulbPosition.LEFT;
@@ -115,11 +115,11 @@ public class GameScreen extends BaseScreen {
 
     private Group getLifeGroup() {
         Group lifeGroup = new Group();
-        lifeGroup.addActor(new ImageActor(X_CENTER - ((HEARD_SIZE * 3 + 140) / 2), Y_LIFE_POSITION - 20, HEARD_SIZE * 3 + 140, HEARD_SIZE + 40, getButtonUp()));
+        lifeGroup.addActor(new ImageActor(X_CENTER - ((HEARD_SIZE * 3 + 140) / 2), Y_HEARD_POSITION - 20, HEARD_SIZE * 3 + 140, HEARD_SIZE + 40, getButtonUp()));
 
-        lifeGroup.addActor(new ImageActor(X_CENTER - HEARD_SIZE - (HEARD_SIZE / 2) - 40, Y_LIFE_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
-        lifeGroup.addActor(new ImageActor(X_CENTER - (HEARD_SIZE / 2), Y_LIFE_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
-        lifeGroup.addActor(new ImageActor(X_CENTER + (HEARD_SIZE / 2) + 40, Y_LIFE_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
+        lifeGroup.addActor(new ImageActor(X_CENTER - HEARD_SIZE - (HEARD_SIZE / 2) - 40, Y_HEARD_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
+        lifeGroup.addActor(new ImageActor(X_CENTER - (HEARD_SIZE / 2), Y_HEARD_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
+        lifeGroup.addActor(new ImageActor(X_CENTER + (HEARD_SIZE / 2) + 40, Y_HEARD_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
 
         return lifeGroup;
     }
@@ -135,9 +135,9 @@ public class GameScreen extends BaseScreen {
         lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION + 300));
         lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + 300));
 
-        lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + LIGHT_HEIGHT + 270));
-        lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION + LIGHT_HEIGHT + 270));
-        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + LIGHT_HEIGHT + 270));
+        lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + LAMP_HEIGHT + 270));
+        lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION + LAMP_HEIGHT + 270));
+        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + LAMP_HEIGHT + 270));
 
         return lightBulbs;
     }

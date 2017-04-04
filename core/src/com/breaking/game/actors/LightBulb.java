@@ -6,8 +6,8 @@ import com.breaking.game.enums.LightBulbStatus;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.breaking.game.AssetLoader.getLampImage;
-import static com.breaking.game.Constants.LIGHT_HEIGHT;
-import static com.breaking.game.Constants.LIGHT_WIDTH;
+import static com.breaking.game.Constants.LAMP_HEIGHT;
+import static com.breaking.game.Constants.LAMP_WIDTH;
 import static com.breaking.game.enums.LightBulbStatus.BROKEN;
 import static com.breaking.game.enums.LightBulbStatus.TURN_OFF;
 import static com.breaking.game.enums.LightBulbStatus.TURN_ON;
@@ -21,7 +21,7 @@ public class LightBulb extends ImageActor {
     private float turnOffTime = 0;
 
     public LightBulb(LightBulbPosition position, int yPosition) {
-        super(position.getPosition(), yPosition, LIGHT_WIDTH, LIGHT_HEIGHT, getLampImage(DEFAULT_STATUS));
+        super(position.getPosition(), yPosition, LAMP_WIDTH, LAMP_HEIGHT, getLampImage(DEFAULT_STATUS));
     }
 
     public boolean justClicked(LampLogicData time) {

@@ -30,10 +30,10 @@ import static com.breaking.game.AssetLoader.getCheckround;
 import static com.breaking.game.AssetLoader.getFont;
 import static com.breaking.game.AssetLoader.getPrefix;
 import static com.breaking.game.Constants.HEIGHT;
-import static com.breaking.game.Constants.LIGHT_HEIGHT;
-import static com.breaking.game.Constants.LIGHT_WIDTH;
-import static com.breaking.game.Constants.SECOND_LAMP_OPEN_TOTAL;
-import static com.breaking.game.Constants.THIRD_LAMP_OPEN_MAX;
+import static com.breaking.game.Constants.LAMP_HEIGHT;
+import static com.breaking.game.Constants.LAMP_WIDTH;
+import static com.breaking.game.Constants.LAMP_OPEN_TOTAL;
+import static com.breaking.game.Constants.LAMP_OPEN_MAX;
 import static com.breaking.game.Constants.WIDTH;
 import static com.breaking.game.Preference.getScore;
 import static com.breaking.game.Preference.getTotalScore;
@@ -50,8 +50,8 @@ public class MenuScreen extends BaseScreen {
     private static final int ADVANCED_BUTTON_WHITE_SPACE = 25;
     private static final int GALLERY_HEIGHT = HEIGHT / 2;
     private static final int EMPTY = 100;
-    private static final int X_ROUND_POSITION = LIGHT_WIDTH * 2 + 40;
-    private static final int Y_ROUND_POSITION = LIGHT_HEIGHT * 2 + 10;
+    private static final int X_ROUND_POSITION = LAMP_WIDTH * 2 + 40;
+    private static final int Y_ROUND_POSITION = LAMP_HEIGHT * 2 + 10;
 
     private final Group menu;
     private final Group gallery;
@@ -80,13 +80,13 @@ public class MenuScreen extends BaseScreen {
         scrollTable.add(buildGalleryElement(LAMPS_PREFIX_1, "", true));
         scrollTable.row();
         scrollTable.add(buildGalleryElement(LAMPS_PREFIX_2,
-                "total score = " + SECOND_LAMP_OPEN_TOTAL,
-                getTotalScore() >= SECOND_LAMP_OPEN_TOTAL));
+                "total score = " + LAMP_OPEN_TOTAL,
+                getTotalScore() >= LAMP_OPEN_TOTAL));
 
         scrollTable.row();
         scrollTable.add(buildGalleryElement(LAMPS_PREFIX_3,
-                "max score = " + THIRD_LAMP_OPEN_MAX,
-                getScore() >= THIRD_LAMP_OPEN_MAX));
+                "max score = " + LAMP_OPEN_MAX,
+                getScore() >= LAMP_OPEN_MAX));
         scrollTable.row();
         scrollTable.add(buildGalleryElement(LAMPS_PREFIX_0, "coming soon", false));
         scrollTable.row();
@@ -113,16 +113,15 @@ public class MenuScreen extends BaseScreen {
         element.addActor(background);
 
         if (index != 100) {
-            ImageActor lamp = new ImageActor(115, 80, LIGHT_WIDTH * 2, LIGHT_HEIGHT * 2, AssetLoader.getLampImage(showLamp ? index : LAMPS_PREFIX_0));
+            ImageActor lamp = new ImageActor(115, 80, LAMP_WIDTH * 2, LAMP_HEIGHT * 2, AssetLoader.getLampImage(showLamp ? index : LAMPS_PREFIX_0));
 
             if (index == LAMPS_PREFIX_0 || !showLamp) {
-                Label display = new Label(displayValue, getFont());
+                Label display = new Label(displayValue, getFont(Color.BLACK));
                 display.setAlignment(Align.center);
                 display.setHeight(35);
-                display.setWidth(LIGHT_WIDTH * 2);
-                display.setPosition(LIGHT_WIDTH / 2, 60);
+                display.setWidth(LAMP_WIDTH * 2);
+                display.setPosition(LAMP_WIDTH / 2, 60);
                 display.setFontScale(0.7f, 0.7f);
-                display.setColor(Color.BLACK);
                 element.addActor(display);
             } else {
                 lamp.addListener(new ClickListener() {

@@ -22,6 +22,8 @@ public class AssetLoader implements Disposable {
     public static final int LAMPS_PREFIX_1 = 1;
     public static final int LAMPS_PREFIX_2 = 2;
     public static final int LAMPS_PREFIX_3 = 3;
+    public static final Color BUTTON_TEXT_COLOR = new Color(0.38f, 0, 0, 1);
+
     private static final String HEARD = "heard.png";
     private static final String TURN_ON = "lamps/%s/turnOn.png";
     private static final String TURN_OFF = "lamps/%s/turnOff.png";
@@ -35,6 +37,8 @@ public class AssetLoader implements Disposable {
     private static final String OK = "ok.png";
     private static final String ROUND = "round.png";
     private static final String LABEL = "label.png";
+    private static final String GAME_OVER_LABEL = "gameOverLabel.png";
+
     public static AssetManager assetManager;
     private static int defaultPrefix = LAMPS_PREFIX_1;
     private static String background;
@@ -70,6 +74,7 @@ public class AssetLoader implements Disposable {
         assetManager.load(ROUND, Texture.class);
         assetManager.load(OK, Texture.class);
         assetManager.load(LABEL, Texture.class);
+        assetManager.load(GAME_OVER_LABEL, Texture.class);
 
         assetManager.finishLoading();
 
@@ -120,7 +125,8 @@ public class AssetLoader implements Disposable {
         buttonStyle.up = new TextureRegionDrawable(new TextureRegion(getButtonUp()));
         buttonStyle.down = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get(BUTTON_DOWN)));
         buttonStyle.font = assetManager.get(FONT);
-        buttonStyle.fontColor = new Color(0.42f, 0, 0, 1);
+        buttonStyle.fontColor = BUTTON_TEXT_COLOR;
+
         return buttonStyle;
     }
 
@@ -135,6 +141,12 @@ public class AssetLoader implements Disposable {
         labelStyle.fontColor = Color.FIREBRICK;
 
         return labelStyle;
+    }
+
+    public static Label.LabelStyle getFont(Color color) {
+        Label.LabelStyle font = getFont();
+        font.fontColor = color;
+        return font;
     }
 
     public static Texture getLampImage(int prefix) {
@@ -176,6 +188,10 @@ public class AssetLoader implements Disposable {
 
     public static Texture getLabel() {
         return assetManager.get(LABEL);
+    }
+
+    public static Texture getGameOverLabel() {
+        return assetManager.get(GAME_OVER_LABEL);
     }
 
     @Override

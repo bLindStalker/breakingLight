@@ -33,11 +33,6 @@ public class Preference {
         prefs.flush();
     }
 
-    public static void saveConfigs(String config) {
-        prefs.putString("config", config);
-        prefs.flush();
-    }
-
     public static int getLampPrefix() {
         return prefs.getInteger("lampPrefix", LAMPS_PREFIX_1);
     }
