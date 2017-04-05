@@ -31,9 +31,9 @@ import static com.breaking.game.AssetLoader.getFont;
 import static com.breaking.game.AssetLoader.getPrefix;
 import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.LAMP_HEIGHT;
-import static com.breaking.game.Constants.LAMP_WIDTH;
-import static com.breaking.game.Constants.LAMP_OPEN_TOTAL;
 import static com.breaking.game.Constants.LAMP_OPEN_MAX;
+import static com.breaking.game.Constants.LAMP_OPEN_TOTAL;
+import static com.breaking.game.Constants.LAMP_WIDTH;
 import static com.breaking.game.Constants.WIDTH;
 import static com.breaking.game.Preference.getScore;
 import static com.breaking.game.Preference.getTotalScore;
@@ -58,19 +58,25 @@ public class MenuScreen extends BaseScreen {
 
     private final Map<Integer, Actor> okActorMap;
 
-    public MenuScreen(final Main main) {
+    public MenuScreen(final Main main, boolean fade) {
         super(main);
         okActorMap = new HashMap<Integer, Actor>();
 
         menu = new Group();
         menu.addActor(new MainMenu(main, menu));
         menu.addActor(buildAdvanced());
+
         gallery = buildGallery();
         menu.addActor(gallery);
 
         addActor(menu);
         menu.addAction(Actions.alpha(0, 0));
-        menu.addAction(Actions.alpha(1, 0.25f));
+        menu.addAction(Actions.alpha(1, .25f));
+
+        if (fade) {
+            addAction(Actions.alpha(0, 0));
+            addAction(Actions.alpha(1, .5f));
+        }
     }
 
     private Group buildGallery() {
@@ -212,7 +218,7 @@ public class MenuScreen extends BaseScreen {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        main.setScreen(new MenuScreen(main));
+                        main.setScreen(new MenuScreen(main, false));
                     }
                 }, .2f);
             }

@@ -71,7 +71,7 @@ public class ResultScreen extends BaseScreen {
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
-                            main.setScreen(new MenuScreen(main));
+                            main.setScreen(new MenuScreen(main, false));
                         }
                     }, 0.25f);
                 }
