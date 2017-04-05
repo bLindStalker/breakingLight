@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.breaking.game.Main;
 import com.breaking.game.actors.ImageActor;
 import com.breaking.game.screens.GameScreen;
+import com.breaking.game.screens.tutorial.TutorialScreen;
 
 import static com.badlogic.gdx.graphics.Color.FIREBRICK;
 import static com.breaking.game.AssetLoader.BUTTON_TEXT_COLOR;
@@ -73,7 +74,11 @@ public class MainMenu extends Group {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        main.setScreen(new GameScreen(main));
+                        if (getTotalScore() > 1) {
+                            main.setScreen(new GameScreen(main));
+                        } else {
+                            main.setScreen(new TutorialScreen(main));
+                        }
                     }
                 }, 0.25f);
             }

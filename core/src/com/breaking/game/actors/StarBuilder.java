@@ -18,12 +18,16 @@ public class StarBuilder {
     }
 
     public void buildStar(int xPosition, int yPosition, final ScoreActor scoreActor) {
-        if (clickCount == clickToCreate) {
+        if (clickCount >= clickToCreate) {
             clickCount = 0;
             clickToCreate = random(MIN_CLICK_FOR_STAR, MAX_CLICK_FOR_STAR);
             stage.addActor(new StarActor(xPosition, yPosition, scoreActor));
         } else {
             clickCount++;
         }
+    }
+
+    public void setClickToCreate(int min, int max) {
+        this.clickToCreate = random(min, max);
     }
 }

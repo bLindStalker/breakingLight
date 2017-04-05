@@ -18,6 +18,7 @@ import com.breaking.game.Main;
 import com.breaking.game.Preference;
 import com.breaking.game.actors.ImageActor;
 import com.breaking.game.screens.menu.MainMenu;
+import com.breaking.game.screens.tutorial.TutorialScreen;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -200,7 +201,7 @@ public class MenuScreen extends BaseScreen {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        main.setScreen(new GameScreen(main));
+                        main.setScreen(new TutorialScreen(main));
                     }
                 }, 0.25f);
             }

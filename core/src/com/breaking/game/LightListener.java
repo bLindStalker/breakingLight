@@ -29,9 +29,11 @@ public class LightListener extends ClickListener {
             starBuilder.buildStar((int) event.getListenerActor().getX(), (int) event.getListenerActor().getY(), scoreActor);
             scoreActor.increaseScore();
         } else {
-            Actor actor = lifeActors.first();
-            actor.remove();
-            lifeActors.removeValue(actor, false);
+            if (lifeActors.size != 0) {
+                Actor actor = lifeActors.first();
+                actor.remove();
+                lifeActors.removeValue(actor, false);
+            }
         }
         super.clicked(event, x, y);
     }

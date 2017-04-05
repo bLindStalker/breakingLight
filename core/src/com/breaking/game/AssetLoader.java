@@ -38,6 +38,7 @@ public class AssetLoader implements Disposable {
     private static final String ROUND = "round.png";
     private static final String LABEL = "label.png";
     private static final String GAME_OVER_LABEL = "gameOverLabel.png";
+    private static final String DIALOG = "dialog.png";
 
     public static AssetManager assetManager;
     private static int defaultPrefix = LAMPS_PREFIX_1;
@@ -75,6 +76,7 @@ public class AssetLoader implements Disposable {
         assetManager.load(OK, Texture.class);
         assetManager.load(LABEL, Texture.class);
         assetManager.load(GAME_OVER_LABEL, Texture.class);
+        assetManager.load(DIALOG, Texture.class);
 
         assetManager.finishLoading();
 
@@ -192,6 +194,10 @@ public class AssetLoader implements Disposable {
 
     public static Texture getGameOverLabel() {
         return assetManager.get(GAME_OVER_LABEL);
+    }
+
+    public static Texture getDialog() {
+        return assetManager.get(DIALOG);
     }
 
     @Override
