@@ -4,7 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Timer;
 import com.breaking.game.LightListener;
 import com.breaking.game.Main;
 import com.breaking.game.actors.DialogBuilder;
@@ -16,6 +15,7 @@ import com.breaking.game.enums.LightBulbPosition;
 import com.breaking.game.enums.LightBulbStatus;
 import com.breaking.game.screens.BaseScreen;
 import com.breaking.game.screens.ResultScreen;
+import com.breaking.game.screens.tutorial.steps.StepManager;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -36,10 +36,11 @@ public class TutorialScreen extends BaseScreen {
     private final Group gameActors;
     private final ScoreActor scoreActor;
     private final StarBuilder starBuilder;
-    private final ArrayList<TutorialLamp> lamps = new ArrayList<TutorialLamp>();
-    private int timeForStars = 0;
-    private DialogBuilder dialog;
-    private int starCount = 3;
+    private final StepManager stepManager;
+    private int timeToStars = 0;
+    private int cachedStarsCount = 6;
+    private boolean cachedFirstStar = false;
+    private ArrayList<TutorialLamp> lamps = new ArrayList<TutorialLamp>();
 
     public TutorialScreen(Main main) {
         super(main);
@@ -52,9 +53,8 @@ public class TutorialScreen extends BaseScreen {
         gameActors.addActor(createLamps());
         addActor(gameActors);
 
-        addActor(new DialogBuilder(50, 1050, 630, 150, "TUTORIAL").setFontScale(1).build());
-        dialog = new DialogBuilder(50, 200, 630, 150, "BREAK ALL ACTIVE LAMPS!").build();
-        addActor(dialog);
+        addActor(new DialogBuilder(50, 1050, 630, 150, "TUTORIAL").setFontScale(1.2f).build());
+        stepManager = new StepManager(this, lamps, scoreActor, starBuilder);
         gameActors.addAction(Actions.alpha(0, 0f));
         gameActors.addAction(Actions.alpha(1, 0.5f));
     }
@@ -62,8 +62,7 @@ public class TutorialScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-        activateLamp();
-        if (scoreActor.getStarCollected() >= 3) {
+        if (stepManager.runStep()) {
             showResult();
         }
     }
@@ -73,48 +72,27 @@ public class TutorialScreen extends BaseScreen {
         main.setScreen(new ResultScreen(main, 230, scoreActor.getStarCollected(), 0));
     }
 
-    private void activateLamp() {
-        if (timeForStars > 2) {
-            starBuilder.setClickToCreate(1, 3);
-            dialog.updateText(String.format("Try to catch %s star!", starCount - scoreActor.getStarCollected()));
+
+    private void manageStar() {
+        if (timeToStars > 3 && !cachedFirstStar) {
+            starBuilder.setClickToCreate(0, 0);
+            //dialog.setText("Try to catch star!");
+            cachedFirstStar = scoreActor.getStarCollected() == 1;
+            timeToStars--;
         }
 
-        if (timeForStars > 6) {
+        if (timeToStars > 4) {
+            starBuilder.setClickToCreate(1, 3);
+            // dialog.setText(format("Try to catch %s star!", cachedStarsCount - scoreActor.getStarCollected()));
+        }
+
+        if (timeToStars > 6) {
             starBuilder.setClickToCreate(0, 2);
         }
 
-        if (timeForStars > 9) {
+        if (timeToStars > 9) {
             starBuilder.setClickToCreate(0, 0);
         }
-
-        for (TutorialLamp lamp : lamps) {
-            if (lamp.getCurrentStatus() == LightBulbStatus.TURN_ON) {
-                return;
-            }
-        }
-
-        for (final TutorialLamp lamp : lamps) {
-            if (lamp.getCurrentStatus() == LightBulbStatus.BROKEN) {
-                Timer.schedule(new Timer.Task() {
-                                   @Override
-                                   public void run() {
-                                       lamp.addAction(Actions.alpha(0, 0.4f));
-                                       Timer.schedule(new Timer.Task() {
-                                                          @Override
-                                                          public void run() {
-                                                              lamp.setStatus(lamp.getPreviousStatus());
-                                                              lamp.addAction(Actions.alpha(1, 0.4f));
-                                                          }
-                                                      }, 0.5f
-                                       );
-                                   }
-                               }, 0.5f
-                );
-            } else {
-                lamp.setStatus(lamp.getPreviousStatus());
-            }
-        }
-        timeForStars++;
     }
 
     private Group createLamps() {

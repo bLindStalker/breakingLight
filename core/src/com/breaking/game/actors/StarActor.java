@@ -20,16 +20,15 @@ import static com.breaking.game.Constants.STAR_SIZE;
 
 public class StarActor extends Actor {
     private static final float STAR_ACTOR_SCALE = STAR_SIZE / 1.7f;
-    private final float VELOCITY = random(2.7f, 4.7f);
     private final TextureRegion texture = new TextureRegion(AssetLoader.getStar());
-    private final float ACTOR_SIZE = STAR_SIZE + STAR_ACTOR_SCALE;
 
-    public StarActor(int xPosition, int yPosition, final ScoreActor scoreActor) {
-        setBounds(xPosition + (LAMP_WIDTH / 2) - ACTOR_SIZE / 2, yPosition + (LAMP_HEIGHT / 2) - ACTOR_SIZE / 2, ACTOR_SIZE, ACTOR_SIZE);
+    public StarActor(int xPosition, int yPosition, final ScoreActor scoreActor, float velocity) {
+        float starSize = STAR_SIZE + STAR_ACTOR_SCALE;
+        setBounds(xPosition + (LAMP_WIDTH / 2) - starSize / 2, yPosition + (LAMP_HEIGHT / 2) - starSize / 2, starSize, starSize);
 
         setOrigin(Align.center);
-        addAction(Actions.moveBy(random(-250, 250), HEIGHT, VELOCITY, Interpolation.sine));
-        addAction(Actions.rotateBy(360 * VELOCITY, VELOCITY));
+        addAction(Actions.moveBy(random(-250, 250), HEIGHT, velocity, Interpolation.sine));
+        addAction(Actions.rotateBy(360 * velocity, velocity));
         addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

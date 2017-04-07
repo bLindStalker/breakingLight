@@ -2,7 +2,9 @@ package com.breaking.game.actors;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Timer;
 import com.breaking.game.AssetLoader;
 
 import static com.badlogic.gdx.utils.Align.center;
@@ -10,7 +12,7 @@ import static com.breaking.game.AssetLoader.getDialog;
 
 public class DialogBuilder extends Group {
     private final int xPosition, yPosition, width, height;
-    private float fontScale = 0.7f;
+    private float fontScale = 0.8f;
     private String text;
     private Label label;
 
@@ -33,8 +35,20 @@ public class DialogBuilder extends Group {
         return label;
     }
 
-    public void updateText(String text) {
-        label.setText(text);
+    public void setText(final String text) {
+        if (String.valueOf(label.getText()).equals(text)) {
+            return;
+        }
+
+        label.addAction(Actions.alpha(0f, 0.3f));
+        Timer.schedule(new Timer.Task() {
+                           @Override
+                           public void run() {
+                               label.setText(text);
+                               label.addAction(Actions.alpha(1f, 0.3f));
+                           }
+                       }, 0.2f
+        );
     }
 
     public DialogBuilder setFontScale(float fontScale) {
