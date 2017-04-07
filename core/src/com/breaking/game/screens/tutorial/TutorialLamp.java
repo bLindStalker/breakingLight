@@ -12,6 +12,7 @@ import static com.breaking.game.enums.LightBulbStatus.TURN_ON;
 public class TutorialLamp extends LightBulb {
     private LightBulbStatus currentStatus;
     private LightBulbStatus previousStatus;
+    private Runnable clickAction;
 
     public TutorialLamp(LightBulbPosition position, int yPosition, LightBulbStatus status) {
         super(position, yPosition);
@@ -37,11 +38,18 @@ public class TutorialLamp extends LightBulb {
         return currentStatus;
     }
 
+    public void addClickAction(Runnable clickAction) {
+        this.clickAction = clickAction;
+    }
 
     @Override
     public boolean justClicked(LampLogicData time) {
         if (currentStatus == TURN_ON) {
             setStatus(BROKEN);
+            if (clickAction != null) {
+                clickAction.run();
+            }
+
             return true;
         }
 

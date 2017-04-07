@@ -13,7 +13,6 @@ public class StarBuilder {
     private int clickToCreate = random(MIN_CLICK_FOR_STAR, MAX_CLICK_FOR_STAR);
     private int clickCount = 0;
     private float starVelocity = random(2.7f, 4.7f);
-    private StarActor starActor;
 
     public StarBuilder(Stage stage) {
         this.stage = stage;
@@ -23,8 +22,8 @@ public class StarBuilder {
         if (clickCount >= clickToCreate) {
             clickCount = 0;
             clickToCreate = random(MIN_CLICK_FOR_STAR, MAX_CLICK_FOR_STAR);
-            starActor = new StarActor(xPosition, yPosition, scoreActor, starVelocity);
-            stage.addActor(starActor);
+            StarActor actor = new StarActor(xPosition, yPosition, scoreActor, starVelocity);
+            stage.addActor(actor);
         } else {
             clickCount++;
         }
@@ -36,9 +35,5 @@ public class StarBuilder {
 
     public void setStarVelocity(float starVelocity) {
         this.starVelocity = starVelocity;
-    }
-
-    public StarActor getStarActor() {
-        return starActor;
     }
 }

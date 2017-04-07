@@ -20,7 +20,12 @@ import static com.breaking.game.Constants.STAR_SIZE;
 
 public class StarActor extends Actor {
     private static final float STAR_ACTOR_SCALE = STAR_SIZE / 1.7f;
+    private static final float VELOCITY = random(2.7f, 4.7f);
     private final TextureRegion texture = new TextureRegion(AssetLoader.getStar());
+
+    public StarActor(int xPosition, int yPosition, final ScoreActor scoreActor) {
+        new StarActor(xPosition, yPosition, scoreActor, VELOCITY);
+    }
 
     public StarActor(int xPosition, int yPosition, final ScoreActor scoreActor, float velocity) {
         float starSize = STAR_SIZE + STAR_ACTOR_SCALE;

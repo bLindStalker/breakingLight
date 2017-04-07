@@ -37,24 +37,22 @@ public class TutorialScreen extends BaseScreen {
     private final ScoreActor scoreActor;
     private final StarBuilder starBuilder;
     private final StepManager stepManager;
-    private int timeToStars = 0;
-    private int cachedStarsCount = 6;
-    private boolean cachedFirstStar = false;
     private ArrayList<TutorialLamp> lamps = new ArrayList<TutorialLamp>();
 
     public TutorialScreen(Main main) {
         super(main);
         starBuilder = new StarBuilder(this);
         starBuilder.setClickToCreate(MAX_VALUE, MAX_VALUE);
-        gameActors = new Group();
 
         scoreActor = new ScoreActor(WIDTH - 20 - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT, getFont());
 
-        gameActors.addActor(createLamps());
+        gameActors = new Group();
+        Group lampGroup = createLamps();
+        gameActors.addActor(lampGroup);
         addActor(gameActors);
 
         addActor(new DialogBuilder(50, 1050, 630, 150, "TUTORIAL").setFontScale(1.2f).build());
-        stepManager = new StepManager(this, lamps, scoreActor, starBuilder);
+        stepManager = new StepManager(this, lamps, scoreActor, starBuilder, lampGroup);
         gameActors.addAction(Actions.alpha(0, 0f));
         gameActors.addAction(Actions.alpha(1, 0.5f));
     }
@@ -69,30 +67,7 @@ public class TutorialScreen extends BaseScreen {
 
     private void showResult() {
         gameActors.addAction(Actions.alpha(0, 0.25f));
-        main.setScreen(new ResultScreen(main, 230, scoreActor.getStarCollected(), 0));
-    }
-
-
-    private void manageStar() {
-        if (timeToStars > 3 && !cachedFirstStar) {
-            starBuilder.setClickToCreate(0, 0);
-            //dialog.setText("Try to catch star!");
-            cachedFirstStar = scoreActor.getStarCollected() == 1;
-            timeToStars--;
-        }
-
-        if (timeToStars > 4) {
-            starBuilder.setClickToCreate(1, 3);
-            // dialog.setText(format("Try to catch %s star!", cachedStarsCount - scoreActor.getStarCollected()));
-        }
-
-        if (timeToStars > 6) {
-            starBuilder.setClickToCreate(0, 2);
-        }
-
-        if (timeToStars > 9) {
-            starBuilder.setClickToCreate(0, 0);
-        }
+        main.setScreen(new ResultScreen(main, 0, scoreActor.getStarCollected(), 0));
     }
 
     private Group createLamps() {

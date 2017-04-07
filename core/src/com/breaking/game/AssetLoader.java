@@ -34,8 +34,10 @@ public class AssetLoader implements Disposable {
     private static final String RESULT = "result.png";
     private static final String STAR = "star.png";
     private static final String GALLERY = "gallery.png";
-    private static final String OK = "ok.png";
-    private static final String ROUND = "round.png";
+    private static final String OK = "elements/ok.png";
+    private static final String ROUND = "elements/round.png";
+    private static final String BAR = "elements/bar.png";
+    private static final String PROGRESS = "elements/progress.png";
     private static final String LABEL = "label.png";
     private static final String GAME_OVER_LABEL = "gameOverLabel.png";
     private static final String DIALOG = "dialog.png";
@@ -77,6 +79,8 @@ public class AssetLoader implements Disposable {
         assetManager.load(LABEL, Texture.class);
         assetManager.load(GAME_OVER_LABEL, Texture.class);
         assetManager.load(DIALOG, Texture.class);
+        assetManager.load(BAR, Texture.class);
+        assetManager.load(PROGRESS, Texture.class);
 
         assetManager.finishLoading();
 
@@ -198,6 +202,14 @@ public class AssetLoader implements Disposable {
 
     public static Texture getDialog() {
         return assetManager.get(DIALOG);
+    }
+
+    public static Texture getBar() {
+        return assetManager.get(BAR);
+    }
+
+    public static Texture getProgress() {
+        return assetManager.get(PROGRESS);
     }
 
     @Override

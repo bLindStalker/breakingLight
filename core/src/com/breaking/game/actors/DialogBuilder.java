@@ -35,22 +35,6 @@ public class DialogBuilder extends Group {
         return label;
     }
 
-    public void setText(final String text) {
-        if (String.valueOf(label.getText()).equals(text)) {
-            return;
-        }
-
-        label.addAction(Actions.alpha(0f, 0.3f));
-        Timer.schedule(new Timer.Task() {
-                           @Override
-                           public void run() {
-                               label.setText(text);
-                               label.addAction(Actions.alpha(1f, 0.3f));
-                           }
-                       }, 0.2f
-        );
-    }
-
     public DialogBuilder setFontScale(float fontScale) {
         this.fontScale = fontScale;
         return this;
@@ -60,6 +44,17 @@ public class DialogBuilder extends Group {
         addActor(new DialogBg());
         addActor(buildLabel(text));
         return this;
+    }
+
+    public void removeDialog() {
+        addAction(Actions.alpha(0f, 0.35f));
+        Timer.schedule(new Timer.Task() {
+                           @Override
+                           public void run() {
+                               remove();
+                           }
+                       }, 0.35f
+        );
     }
 
     private class DialogBg extends ImageActor {
