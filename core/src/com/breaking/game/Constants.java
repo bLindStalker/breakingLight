@@ -27,7 +27,7 @@ public final class Constants {
 
     public static final int MAX_ACTIVE_LAMPS = 9;
 
-    public static final float MIN_ACTIVE_LAMP_TIME = 1f;
+    public static final float MIN_ACTIVE_LAMP_TIME = 0.95f;
     public static final float MAX_ACTIVE_LAMP_TIME = 1.2f;
     public static final float ACTIVE_LAMP_INTERVAL = 1.4f;
 
@@ -42,9 +42,9 @@ public final class Constants {
     public static final int HARD_CORE_TIME = 13;
 
     public static final int MIN_CLICK_FOR_STAR = 3;
-    public static final int MAX_CLICK_FOR_STAR = 8;
+    public static final int MAX_CLICK_FOR_STAR = 9;
 
     // gallery
-    public static int LAMP_OPEN_MAX = 1000;
-    public static int LAMP_OPEN_TOTAL = 10000;
+    public static int LAMP_OPEN_MAX = 1000; // 1000
+    public static int LAMP_OPEN_TOTAL = 10000; // 10000
 }

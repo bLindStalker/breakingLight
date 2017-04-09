@@ -1,5 +1,6 @@
 package com.breaking.game.screens;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -14,7 +15,10 @@ import com.breaking.game.actors.ImageActor;
 
 import static com.badlogic.gdx.graphics.Color.FIREBRICK;
 import static com.breaking.game.AssetLoader.BUTTON_TEXT_COLOR;
+import static com.breaking.game.AssetLoader.getCongratulationsLabel;
 import static com.breaking.game.AssetLoader.getFont;
+import static com.breaking.game.AssetLoader.getGameOverLabel;
+import static com.breaking.game.AssetLoader.getResultBg;
 import static com.breaking.game.Constants.BASIC_STAR_SCORE;
 import static com.breaking.game.Constants.HEIGHT;
 import static com.breaking.game.Constants.WIDTH;
@@ -26,6 +30,8 @@ public class ResultScreen extends BaseScreen {
 
     private static final int RESULT_BG_WIDTH = 680;
     private static final int RESULT_BG_HEIGHT = 1070;
+    private static final int GAME_OVER_WIDTH = 620;
+    private static final int GAME_OVER_HEIGHT = 360;
     private boolean canBeClose = false;
 
     public ResultScreen(final Main main, int score, int starCollected, int time) {
@@ -47,8 +53,8 @@ public class ResultScreen extends BaseScreen {
     private Group buildResult(int score, int starCollected, int time) {
         final Group resultGroup = new Group();
 
-        resultGroup.addActor(new ImageActor((WIDTH - RESULT_BG_WIDTH) / 2, (HEIGHT - RESULT_BG_HEIGHT) / 2, RESULT_BG_WIDTH, RESULT_BG_HEIGHT, AssetLoader.getResultBg()));
-        resultGroup.addActor(new ImageActor((WIDTH - 620) / 2, (HEIGHT) / 2 + 140, 620, 360, AssetLoader.getGameOverLabel()));
+        resultGroup.addActor(new ImageActor((WIDTH - RESULT_BG_WIDTH) / 2, (HEIGHT - RESULT_BG_HEIGHT) / 2, RESULT_BG_WIDTH, RESULT_BG_HEIGHT, getResultBg()));
+        resultGroup.addActor(buildLabel(time));
 
         buildResultData(resultGroup, X_CENTER - 250, "Score", valueOf(score));
         buildResultData(resultGroup, X_CENTER + 100, "Time", valueOf(time));
@@ -101,6 +107,12 @@ public class ResultScreen extends BaseScreen {
         resultGroup.addAction(Actions.alpha(1, 0.25f));
 
         return resultGroup;
+    }
+
+    private Actor buildLabel(int time) {
+        return time == 0
+                ? new ImageActor(10, (HEIGHT) / 2 + 220, WIDTH - 20, 300, getCongratulationsLabel())
+                : new ImageActor((WIDTH - GAME_OVER_WIDTH) / 2, (HEIGHT) / 2 + 140, GAME_OVER_WIDTH, GAME_OVER_HEIGHT, getGameOverLabel());
     }
 
     private void buildResultData(Group result, int xPosition, String header, String data) {

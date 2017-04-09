@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static com.breaking.game.Constants.HEIGHT;
 
 public class BreakLampsStep implements TutorialStep {
-    private static final int STEPS = 9;
+    private static final int NEED_TO_COLLECT = 10;
     private final DialogBuilder info;
     private final Stage stage;
     private final Group lampGroup;
@@ -26,7 +26,7 @@ public class BreakLampsStep implements TutorialStep {
         info = new DialogBuilder(50, HEIGHT / 2, 630, 150, "BREAK ACTIVE LAMPS!").build();
 
         lampGroup.addAction(Actions.alpha(0.3f, 0f));
-        progressBar = new ProgressBar(200, STEPS);
+        progressBar = new ProgressBar(200, NEED_TO_COLLECT);
         progressBar.addAction(Actions.alpha(0f, 0f));
 
         for (TutorialLamp lamp : lamps) {

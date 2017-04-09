@@ -40,6 +40,7 @@ public class AssetLoader implements Disposable {
     private static final String PROGRESS = "elements/progress.png";
     private static final String LABEL = "label.png";
     private static final String GAME_OVER_LABEL = "gameOverLabel.png";
+    private static final String CONGRATULATIONS = "congratulations.png";
     private static final String DIALOG = "dialog.png";
 
     public static AssetManager assetManager;
@@ -78,6 +79,7 @@ public class AssetLoader implements Disposable {
         assetManager.load(OK, Texture.class);
         assetManager.load(LABEL, Texture.class);
         assetManager.load(GAME_OVER_LABEL, Texture.class);
+        assetManager.load(CONGRATULATIONS, Texture.class);
         assetManager.load(DIALOG, Texture.class);
         assetManager.load(BAR, Texture.class);
         assetManager.load(PROGRESS, Texture.class);
@@ -198,6 +200,10 @@ public class AssetLoader implements Disposable {
 
     public static Texture getGameOverLabel() {
         return assetManager.get(GAME_OVER_LABEL);
+    }
+
+    public static Texture getCongratulationsLabel() {
+        return assetManager.get(CONGRATULATIONS);
     }
 
     public static Texture getDialog() {

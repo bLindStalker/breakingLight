@@ -24,15 +24,15 @@ import static com.breaking.game.Constants.WIDTH;
 import static com.breaking.game.Constants.X_CENTER;
 import static com.breaking.game.Preference.getScore;
 import static com.breaking.game.Preference.getTotalScore;
+import static com.breaking.game.screens.MenuScreen.MENU_BUTTON_WIDTH;
 import static com.breaking.game.screens.MenuScreen.MENU_SWITCH_TIME;
+import static com.breaking.game.screens.MenuScreen.X_MENU_BUTTON_POSITION;
+import static com.breaking.game.screens.MenuScreen.Y_MENU_BUTTON;
 import static java.lang.String.valueOf;
 
 public class MainMenu extends Group {
-    private static final int MENU_BUTTON_WIDTH = 400;
     private static final int MENU_BUTTON_HEIGHT = 140;
     private static final int MENU_BUTTON_WHITE_SPACE = 40;
-    private static final int X_MENU_BUTTON_POSITION = X_CENTER - 200;
-    private static final int Y_MENU_BUTTON = 500;
     private static final int LOGO_WIDTH = 700;
 
     private final Main main;

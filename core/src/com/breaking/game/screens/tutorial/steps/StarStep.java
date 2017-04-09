@@ -1,10 +1,8 @@
 package com.breaking.game.screens.tutorial.steps;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.Timer;
 import com.breaking.game.actors.DialogBuilder;
 import com.breaking.game.actors.ProgressBar;
@@ -14,14 +12,13 @@ import com.breaking.game.actors.userData.ScoreActor;
 import static com.breaking.game.Constants.HEIGHT;
 
 public class StarStep implements TutorialStep {
-    private static final int STEPS = 6;
+    private static final int NEED_TO_COLLECT = 8;
     private final Stage stage;
     private final DialogBuilder info;
     private final ScoreActor scoreActor;
     private final StarBuilder starBuilder;
     private final Group lampGroup;
     private final ProgressBar progressBar;
-    private Queue<Actor> progress = new Queue<Actor>();
     private boolean firstRun = true;
     private int starCollected = 0;
 
@@ -34,7 +31,7 @@ public class StarStep implements TutorialStep {
         info = new DialogBuilder(50, HEIGHT / 2, 630, 150, "TRY TO CATCH STAR!").build();
         info.addAction(Actions.alpha(0f, 0f));
 
-        progressBar = new ProgressBar(200, STEPS);
+        progressBar = new ProgressBar(200, NEED_TO_COLLECT);
         progressBar.setVisible(false);
         progressBar.addAction(Actions.alpha(0f, 0f));
         stage.addActor(progressBar);
@@ -76,6 +73,10 @@ public class StarStep implements TutorialStep {
 
         if (scoreActor.getStarCollected() > 3) {
             starBuilder.setClickToCreate(1, 4);
+        }
+
+        if (scoreActor.getStarCollected() > 5) {
+            starBuilder.setClickToCreate(2, 5);
         }
     }
 
