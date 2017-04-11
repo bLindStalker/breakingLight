@@ -14,8 +14,11 @@ android {
 
         instrumentTest.setRoot('tests')
     }
+    packagingOptions {
+        exclude 'META-INF/robovm/ios/robovm.xml'
+    }
     defaultConfig {
-        applicationId "com.breaking.game"
+        applicationId "com.pocket.rocket.games"
         minSdkVersion 19
         targetSdkVersion 25
     }
@@ -68,7 +71,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.breaking.game/com.breaking.game.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.pocket.rocket.games/com.pocket.rocket.games.AndroidLauncher'
 }
 
 // sets up the Android Eclipse project, using the old Ant based build.
