@@ -4,8 +4,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Queue;
 import com.pocket.rocket.games.LightListener;
 import com.pocket.rocket.games.Main;
+import com.pocket.rocket.games.actors.AnimatedActor;
 import com.pocket.rocket.games.actors.DialogBuilder;
 import com.pocket.rocket.games.actors.LightBulb;
 import com.pocket.rocket.games.actors.StarBuilder;
@@ -92,7 +94,7 @@ public class TutorialScreen extends BaseScreen {
             public Boolean call() throws Exception {
                 return actor.justClicked(new LampLogicData());
             }
-        }, new Array<Actor>(), scoreActor, starBuilder));
+        }, new Queue<AnimatedActor>(), scoreActor, starBuilder));
 
         lamps.add(actor);
 

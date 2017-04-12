@@ -4,11 +4,13 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.pocket.rocket.games.enums.LightBulbStatus;
 
@@ -24,7 +26,6 @@ public class AssetLoader implements Disposable {
     public static final int LAMPS_PREFIX_3 = 3;
     public static final Color BUTTON_TEXT_COLOR = new Color(0.38f, 0, 0, 1);
 
-    private static final String HEARD = "heard.png";
     private static final String TURN_ON = "lamps/%s/turnOn.png";
     private static final String TURN_OFF = "lamps/%s/turnOff.png";
     private static final String BROKEN = "lamps/%s/broken.png";
@@ -43,7 +44,10 @@ public class AssetLoader implements Disposable {
     private static final String CONGRATULATIONS = "congratulations.png";
     private static final String DIALOG = "dialog.png";
 
-    public static AssetManager assetManager;
+    private static final String HEARD_ATLAS = "elements/heart/heart_atlas.atlas";
+
+
+    private static AssetManager assetManager;
     private static int defaultPrefix = LAMPS_PREFIX_1;
     private static String background;
 
@@ -59,8 +63,6 @@ public class AssetLoader implements Disposable {
         background = backgrounds.get(MathUtils.random(0, backgrounds.size() - 1));
         assetManager.load(background, Texture.class);
         assetManager.load(RESULT, Texture.class);
-
-        assetManager.load(HEARD, Texture.class);
 
         assetManager.load(getLampPath(LAMPS_PREFIX_0, TURN_ON), Texture.class);
         loadLamps(LAMPS_PREFIX_1);
@@ -83,6 +85,7 @@ public class AssetLoader implements Disposable {
         assetManager.load(DIALOG, Texture.class);
         assetManager.load(BAR, Texture.class);
         assetManager.load(PROGRESS, Texture.class);
+        assetManager.load(HEARD_ATLAS, TextureAtlas.class);
 
         assetManager.finishLoading();
 
@@ -105,10 +108,6 @@ public class AssetLoader implements Disposable {
 
     public static Texture getResultBg() {
         return assetManager.get(RESULT);
-    }
-
-    public static Texture getHeard() {
-        return assetManager.get(HEARD);
     }
 
     public static Texture getStar() {
@@ -216,6 +215,10 @@ public class AssetLoader implements Disposable {
 
     public static Texture getProgress() {
         return assetManager.get(PROGRESS);
+    }
+
+    public static Array<TextureAtlas.AtlasRegion> getHeart() {
+        return ((TextureAtlas) assetManager.get(HEARD_ATLAS)).findRegions("heart");
     }
 
     @Override

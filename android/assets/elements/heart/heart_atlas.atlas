@@ -1,0 +1,61 @@
+
+heart_atlas.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+heart
+  rotate: false
+  xy: 1, 121
+  size: 175, 118
+  orig: 175, 118
+  offset: 0, 0
+  index: 0
+heart
+  rotate: false
+  xy: 1, 1
+  size: 175, 118
+  orig: 175, 118
+  offset: 0, 0
+  index: 1
+heart
+  rotate: false
+  xy: 178, 121
+  size: 175, 118
+  orig: 175, 118
+  offset: 0, 0
+  index: 2
+heart
+  rotate: false
+  xy: 178, 1
+  size: 175, 118
+  orig: 175, 118
+  offset: 0, 0
+  index: 3
+heart
+  rotate: false
+  xy: 355, 121
+  size: 175, 118
+  orig: 175, 118
+  offset: 0, 0
+  index: 4
+heart
+  rotate: false
+  xy: 355, 1
+  size: 175, 118
+  orig: 175, 118
+  offset: 0, 0
+  index: 5
+heart
+  rotate: false
+  xy: 532, 121
+  size: 175, 118
+  orig: 175, 118
+  offset: 0, 0
+  index: 6
+heart
+  rotate: false
+  xy: 532, 1
+  size: 175, 118
+  orig: 175, 118
+  offset: 0, 0
+  index: 7

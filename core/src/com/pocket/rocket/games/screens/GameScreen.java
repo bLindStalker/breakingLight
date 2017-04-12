@@ -1,14 +1,18 @@
 package com.pocket.rocket.games.screens;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Queue;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
+import com.pocket.rocket.games.AssetLoader;
 import com.pocket.rocket.games.LightListener;
 import com.pocket.rocket.games.Main;
+import com.pocket.rocket.games.actors.AnimatedActor;
 import com.pocket.rocket.games.actors.ImageActor;
 import com.pocket.rocket.games.actors.LightBulb;
 import com.pocket.rocket.games.actors.StarBuilder;
@@ -21,17 +25,17 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import static com.badlogic.gdx.math.MathUtils.random;
+import static com.badlogic.gdx.utils.Timer.schedule;
 import static com.pocket.rocket.games.AssetLoader.getButtonUp;
 import static com.pocket.rocket.games.AssetLoader.getFont;
-import static com.pocket.rocket.games.AssetLoader.getHeard;
 import static com.pocket.rocket.games.Constants.HEARD_SIZE;
 import static com.pocket.rocket.games.Constants.LAMP_HEIGHT;
 import static com.pocket.rocket.games.Constants.TIMER_HEIGHT;
 import static com.pocket.rocket.games.Constants.TIMER_WIDTH;
 import static com.pocket.rocket.games.Constants.WIDTH;
 import static com.pocket.rocket.games.Constants.X_CENTER;
-import static com.pocket.rocket.games.Constants.Y_LAMP_POSITION;
 import static com.pocket.rocket.games.Constants.Y_HEARD_POSITION;
+import static com.pocket.rocket.games.Constants.Y_LAMP_POSITION;
 import static com.pocket.rocket.games.Constants.Y_STATUS_POSITION;
 import static com.pocket.rocket.games.enums.LightBulbPosition.CENTER;
 import static com.pocket.rocket.games.enums.LightBulbPosition.LEFT;
@@ -42,9 +46,11 @@ public class GameScreen extends BaseScreen {
     private final ScoreActor scoreActor;
     private final StarBuilder starBuilder;
     private final TimerActor timer;
-    private final Array<Actor> lifeActors;
+
+    private final Queue<AnimatedActor> heartActors = new Queue<AnimatedActor>();
     private final List<LightBulb> allLamps = new ArrayList<LightBulb>();
     private final List<LightBulb> activeLamps = new ArrayList<LightBulb>();
+    private boolean resultIsShow = true;
 
     public GameScreen(Main main) {
         super(main);
@@ -60,12 +66,9 @@ public class GameScreen extends BaseScreen {
         scoreActor = new ScoreActor(WIDTH - 20 - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT, font);
         gameActors.addActor(scoreActor);
 
-        Group lifeGroup = getLifeGroup();
-        gameActors.addActor(lifeGroup);
-        lifeActors = new Array<Actor>(lifeGroup.getChildren());
-        lifeActors.removeIndex(0);
-
+        gameActors.addActor(buildHeartGroup());
         gameActors.addActor(createLamps());
+
         addActor(gameActors);
 
         gameActors.addAction(Actions.alpha(0, 0f));
@@ -75,8 +78,15 @@ public class GameScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-        if (lifeActors.size == 0 || timer.getTime() <= -1) {
-            showResult();
+        if ((heartActors.size == 0 || timer.getTime() <= -1) && resultIsShow) {
+            schedule(new Task() {
+                         @Override
+                         public void run() {
+                             showResult();
+                         }
+                     }, 0.8f
+            );
+            resultIsShow = false;
         }
 
         activateLamp();
@@ -113,13 +123,25 @@ public class GameScreen extends BaseScreen {
         return canBeActive;
     }
 
-    private Group getLifeGroup() {
+    private Group buildHeartGroup() {
         Group lifeGroup = new Group();
         lifeGroup.addActor(new ImageActor(X_CENTER - ((HEARD_SIZE * 3 + 140) / 2), Y_HEARD_POSITION - 20, HEARD_SIZE * 3 + 140, HEARD_SIZE + 40, getButtonUp()));
 
-        lifeGroup.addActor(new ImageActor(X_CENTER - HEARD_SIZE - (HEARD_SIZE / 2) - 40, Y_HEARD_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
-        lifeGroup.addActor(new ImageActor(X_CENTER - (HEARD_SIZE / 2), Y_HEARD_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
-        lifeGroup.addActor(new ImageActor(X_CENTER + (HEARD_SIZE / 2) + 40, Y_HEARD_POSITION, HEARD_SIZE, HEARD_SIZE, getHeard()));
+        Animation<TextureRegion> heartAnimation = new Animation<TextureRegion>(1f / 12f, AssetLoader.getHeart(), Animation.PlayMode.NORMAL);
+        int width = heartAnimation.getKeyFrame(0).getRegionWidth();
+        int height = heartAnimation.getKeyFrame(0).getRegionHeight();
+
+        AnimatedActor heart1 = new AnimatedActor(X_CENTER - width - (width / 2) + 40, Y_HEARD_POSITION, width, height, heartAnimation);
+        heartActors.addLast(heart1);
+        lifeGroup.addActor(heart1);
+
+        AnimatedActor heart2 = new AnimatedActor(X_CENTER - (width / 2), Y_HEARD_POSITION, width, height, heartAnimation);
+        heartActors.addLast(heart2);
+        lifeGroup.addActor(heart2);
+
+        AnimatedActor heart3 = new AnimatedActor(X_CENTER + (width / 2) - 40, Y_HEARD_POSITION, width, height, heartAnimation);
+        heartActors.addLast(heart3);
+        lifeGroup.addActor(heart3);
 
         return lifeGroup;
     }
@@ -150,7 +172,7 @@ public class GameScreen extends BaseScreen {
             public Boolean call() throws Exception {
                 return actor.justClicked(timer.lampData);
             }
-        }, lifeActors, scoreActor, starBuilder));
+        }, heartActors, scoreActor, starBuilder));
 
         allLamps.add(actor);
 
