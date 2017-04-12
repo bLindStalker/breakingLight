@@ -44,7 +44,7 @@ public class AssetLoader implements Disposable {
     private static final String CONGRATULATIONS = "congratulations.png";
     private static final String DIALOG = "dialog.png";
 
-    private static final String HEARD_ATLAS = "elements/heart/heart_atlas.atlas";
+    private static final String HEART_ATLAS = "elements/heart/heart_atlas.atlas";
 
 
     private static AssetManager assetManager;
@@ -85,7 +85,7 @@ public class AssetLoader implements Disposable {
         assetManager.load(DIALOG, Texture.class);
         assetManager.load(BAR, Texture.class);
         assetManager.load(PROGRESS, Texture.class);
-        assetManager.load(HEARD_ATLAS, TextureAtlas.class);
+        assetManager.load(HEART_ATLAS, TextureAtlas.class);
 
         assetManager.finishLoading();
 
@@ -218,7 +218,7 @@ public class AssetLoader implements Disposable {
     }
 
     public static Array<TextureAtlas.AtlasRegion> getHeart() {
-        return ((TextureAtlas) assetManager.get(HEARD_ATLAS)).findRegions("heart");
+        return ((TextureAtlas) assetManager.get(HEART_ATLAS)).findRegions("heart");
     }
 
     @Override

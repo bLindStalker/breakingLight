@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Queue;
-import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.pocket.rocket.games.AssetLoader;
 import com.pocket.rocket.games.LightListener;
@@ -28,13 +27,13 @@ import static com.badlogic.gdx.math.MathUtils.random;
 import static com.badlogic.gdx.utils.Timer.schedule;
 import static com.pocket.rocket.games.AssetLoader.getButtonUp;
 import static com.pocket.rocket.games.AssetLoader.getFont;
-import static com.pocket.rocket.games.Constants.HEARD_SIZE;
+import static com.pocket.rocket.games.Constants.HEART_SIZE;
 import static com.pocket.rocket.games.Constants.LAMP_HEIGHT;
 import static com.pocket.rocket.games.Constants.TIMER_HEIGHT;
 import static com.pocket.rocket.games.Constants.TIMER_WIDTH;
 import static com.pocket.rocket.games.Constants.WIDTH;
 import static com.pocket.rocket.games.Constants.X_CENTER;
-import static com.pocket.rocket.games.Constants.Y_HEARD_POSITION;
+import static com.pocket.rocket.games.Constants.Y_HEART_POSITION;
 import static com.pocket.rocket.games.Constants.Y_LAMP_POSITION;
 import static com.pocket.rocket.games.Constants.Y_STATUS_POSITION;
 import static com.pocket.rocket.games.enums.LightBulbPosition.CENTER;
@@ -125,21 +124,21 @@ public class GameScreen extends BaseScreen {
 
     private Group buildHeartGroup() {
         Group lifeGroup = new Group();
-        lifeGroup.addActor(new ImageActor(X_CENTER - ((HEARD_SIZE * 3 + 140) / 2), Y_HEARD_POSITION - 20, HEARD_SIZE * 3 + 140, HEARD_SIZE + 40, getButtonUp()));
+        lifeGroup.addActor(new ImageActor(X_CENTER - ((HEART_SIZE * 3 + 140) / 2), Y_HEART_POSITION - 20, HEART_SIZE * 3 + 140, HEART_SIZE + 40, getButtonUp()));
 
         Animation<TextureRegion> heartAnimation = new Animation<TextureRegion>(1f / 12f, AssetLoader.getHeart(), Animation.PlayMode.NORMAL);
         int width = heartAnimation.getKeyFrame(0).getRegionWidth();
         int height = heartAnimation.getKeyFrame(0).getRegionHeight();
 
-        AnimatedActor heart1 = new AnimatedActor(X_CENTER - width - (width / 2) + 40, Y_HEARD_POSITION, width, height, heartAnimation);
+        AnimatedActor heart1 = new AnimatedActor(X_CENTER - width - (width / 2) + 40, Y_HEART_POSITION, width, height, heartAnimation);
         heartActors.addLast(heart1);
         lifeGroup.addActor(heart1);
 
-        AnimatedActor heart2 = new AnimatedActor(X_CENTER - (width / 2), Y_HEARD_POSITION, width, height, heartAnimation);
+        AnimatedActor heart2 = new AnimatedActor(X_CENTER - (width / 2), Y_HEART_POSITION, width, height, heartAnimation);
         heartActors.addLast(heart2);
         lifeGroup.addActor(heart2);
 
-        AnimatedActor heart3 = new AnimatedActor(X_CENTER + (width / 2) - 40, Y_HEARD_POSITION, width, height, heartAnimation);
+        AnimatedActor heart3 = new AnimatedActor(X_CENTER + (width / 2) - 40, Y_HEART_POSITION, width, height, heartAnimation);
         heartActors.addLast(heart3);
         lifeGroup.addActor(heart3);
 

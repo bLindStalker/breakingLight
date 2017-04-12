@@ -15,8 +15,8 @@ public final class Constants {
     public static final int TIMER_WIDTH = 130;
     public static final int TIMER_HEIGHT = 100;
 
-    public static final int HEARD_SIZE = 90;
-    public static final int Y_HEARD_POSITION = Y_STATUS_POSITION + TIMER_HEIGHT / 2 - HEARD_SIZE / 2;
+    public static final int HEART_SIZE = 90;
+    public static final int Y_HEART_POSITION = Y_STATUS_POSITION + TIMER_HEIGHT / 2 - HEART_SIZE / 2;
 
     public static final float STAR_SIZE = 110f;
 
