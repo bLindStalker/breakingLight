@@ -26,7 +26,7 @@ import static com.pocket.rocket.games.screens.MenuScreen.Y_MENU_BUTTON;
 
 public class AdvancedMenu extends Group {
     private static final float ADVANCED_FONT_SCALE = 0.8f;
-    private static final int Y_ADVANCED_BUTTON = Y_MENU_BUTTON + 200;
+    private static final int Y_ADVANCED_BUTTON = Y_MENU_BUTTON + 250;
     private static final int ADVANCED_BUTTON_HEIGHT = 120;
     private static final int ADVANCED_BUTTON_WHITE_SPACE = 30;
 

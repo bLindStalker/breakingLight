@@ -15,7 +15,7 @@ public class MenuScreen extends BaseScreen {
 
     public static final float MENU_SWITCH_TIME = 0.35f;
     public static final int X_MENU_BUTTON_POSITION = X_CENTER - 200;
-    public static final int Y_MENU_BUTTON = 500;
+    public static final int Y_MENU_BUTTON = 550;
     public static final int MENU_BUTTON_WIDTH = 400;
 
 
