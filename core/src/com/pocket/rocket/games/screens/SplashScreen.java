@@ -24,6 +24,7 @@ public class SplashScreen extends ScreenAdapter {
 
     public SplashScreen(Main main) {
         this.main = main;
+        main.getPlayServices().signIn();
         AssetLoader.initialize();
     }
 
@@ -38,7 +39,7 @@ public class SplashScreen extends ScreenAdapter {
         logo.draw(batch);
         batch.end();
 
-        if (end.isFinished()){
+        if (end.isFinished()) {
             main.setScreen(new MenuScreen(main, true));
         }
     }

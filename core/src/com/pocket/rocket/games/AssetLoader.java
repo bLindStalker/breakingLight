@@ -46,7 +46,6 @@ public class AssetLoader implements Disposable {
 
     private static final String HEART_ATLAS = "elements/heart/heart_atlas.atlas";
 
-
     private static AssetManager assetManager;
     private static int defaultPrefix = LAMPS_PREFIX_1;
     private static String background;

@@ -1,9 +1,7 @@
 package com.pocket.rocket.games.screens.tutorial;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
 import com.pocket.rocket.games.LightListener;
 import com.pocket.rocket.games.Main;

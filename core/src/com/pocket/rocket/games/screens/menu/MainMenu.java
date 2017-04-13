@@ -8,13 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.games.Main;
 import com.pocket.rocket.games.actors.ImageActor;
 import com.pocket.rocket.games.screens.GameScreen;
 import com.pocket.rocket.games.screens.tutorial.TutorialScreen;
 
 import static com.badlogic.gdx.graphics.Color.FIREBRICK;
+import static com.badlogic.gdx.utils.Timer.Task;
+import static com.badlogic.gdx.utils.Timer.schedule;
 import static com.pocket.rocket.games.AssetLoader.BUTTON_TEXT_COLOR;
 import static com.pocket.rocket.games.AssetLoader.getButtonStyle;
 import static com.pocket.rocket.games.AssetLoader.getFont;
@@ -71,7 +72,7 @@ public class MainMenu extends Group {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 menuGroup.addAction(Actions.moveTo(0, -HEIGHT, 0.25f));
-                Timer.schedule(new Timer.Task() {
+                schedule(new Task() {
                     @Override
                     public void run() {
                         if (getTotalScore() > 1) {
