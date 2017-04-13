@@ -43,6 +43,12 @@ public class AssetLoader implements Disposable {
     private static final String GAME_OVER_LABEL = "gameOverLabel.png";
     private static final String CONGRATULATIONS = "congratulations.png";
     private static final String DIALOG = "dialog.png";
+    private static final String ADS = "elements/icons/ads.png";
+    private static final String NO_ADS = "elements/icons/no_ads.png";
+    private static final String AUTHORS = "elements/icons/authors.png";
+    private static final String RATE_US = "elements/icons/rate_us.png";
+    private static final String SOUND_OFF = "elements/icons/sound_off.png";
+    private static final String SOUND_ON = "elements/icons/sound_on.png";
 
     private static final String HEART_ATLAS = "elements/heart/heart_atlas.atlas";
 
@@ -84,6 +90,14 @@ public class AssetLoader implements Disposable {
         assetManager.load(DIALOG, Texture.class);
         assetManager.load(BAR, Texture.class);
         assetManager.load(PROGRESS, Texture.class);
+
+        assetManager.load(ADS, Texture.class);
+        assetManager.load(NO_ADS, Texture.class);
+        assetManager.load(AUTHORS, Texture.class);
+        assetManager.load(RATE_US, Texture.class);
+        assetManager.load(SOUND_OFF, Texture.class);
+        assetManager.load(SOUND_ON, Texture.class);
+
         assetManager.load(HEART_ATLAS, TextureAtlas.class);
 
         assetManager.finishLoading();
@@ -214,6 +228,30 @@ public class AssetLoader implements Disposable {
 
     public static Texture getProgress() {
         return assetManager.get(PROGRESS);
+    }
+
+    public static Texture getAds() {
+        return assetManager.get(ADS);
+    }
+
+    public static Texture getNoAds() {
+        return assetManager.get(NO_ADS);
+    }
+
+    public static Texture getAuthors() {
+        return assetManager.get(AUTHORS);
+    }
+
+    public static Texture getRateUs() {
+        return assetManager.get(RATE_US);
+    }
+
+    public static Texture getSoundOff() {
+        return assetManager.get(SOUND_OFF);
+    }
+
+    public static Texture getSoundOn() {
+        return assetManager.get(SOUND_ON);
     }
 
     public static Array<TextureAtlas.AtlasRegion> getHeart() {

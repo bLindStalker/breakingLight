@@ -3,9 +3,11 @@ package com.pocket.rocket.games.screens;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.pocket.rocket.games.Main;
+import com.pocket.rocket.games.Preference;
 import com.pocket.rocket.games.screens.menu.AdvancedMenu;
 import com.pocket.rocket.games.screens.menu.Gallery;
 import com.pocket.rocket.games.screens.menu.MainMenu;
+import com.pocket.rocket.games.screens.menu.MenuIcons;
 
 import static com.pocket.rocket.games.Constants.X_CENTER;
 
@@ -19,6 +21,11 @@ public class MenuScreen extends BaseScreen {
 
     public MenuScreen(final Main main, boolean fade) {
         super(main);
+
+        if (Preference.getScore() > 0) {
+            addActor(new MenuIcons(main));
+        }
+
         Group menu = new Group();
         Group gallery = new Gallery();
 

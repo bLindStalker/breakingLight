@@ -1,7 +1,6 @@
 package com.pocket.rocket.games;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.Timer.Task;
@@ -45,18 +44,18 @@ public class LightListener extends ClickListener {
             heart.animate();
 
             schedule(new Task() {
-                               @Override
-                               public void run() {
-                                   heart.addAction(alpha(0f, .5f));
-                                   schedule(new Task() {
-                                                      @Override
-                                                      public void run() {
-                                                          heart.remove();
-                                                      }
-                                                  }, 0.5f
-                                   );
-                               }
-                           }, 0.5f
+                         @Override
+                         public void run() {
+                             heart.addAction(alpha(0f, .5f));
+                             schedule(new Task() {
+                                          @Override
+                                          public void run() {
+                                              heart.remove();
+                                          }
+                                      }, 0.5f
+                             );
+                         }
+                     }, 0.5f
             );
             heartActors.removeValue(heart, false);
         }
