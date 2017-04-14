@@ -2,6 +2,7 @@ package com.pocket.rocket.games;
 
 import com.badlogic.gdx.Game;
 import com.pocket.rocket.games.api.PlayServices;
+import com.pocket.rocket.games.screens.MenuScreen;
 import com.pocket.rocket.games.screens.SplashScreen;
 
 public class Main extends Game {
@@ -13,7 +14,9 @@ public class Main extends Game {
 
     @Override
     public void create() {
-        setScreen(new SplashScreen(this));
+       // setScreen(new SplashScreen(this));
+        AssetLoader.initialize();
+        setScreen(new MenuScreen(this, false));
     }
 
     @Override
