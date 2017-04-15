@@ -18,10 +18,23 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
     defaultConfig {
-        applicationId "com.pocket.rocket.games"
+        applicationId "com.pocket.rocket.broken"
         minSdkVersion 19
         targetSdkVersion 25
         multiDexEnabled true
+    }
+    signingConfigs {
+        config {
+            keyAlias 'broken-light'
+            keyPassword '26the11best92'
+            storeFile file('C:/blindStalker/android/keyStore/broken-light-release-key.keystore')
+            storePassword '26the11best92'
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.config
+        }
     }
 }
 // called every time gradle gets executed, takes the native dependencies of
@@ -69,7 +82,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.pocket.rocket.games/com.pocket.rocket.games.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.pocket.rocket.broken/AndroidLauncher'
 }
 // sets up the Android Eclipse project, using the old Ant based build.
 eclipse {
