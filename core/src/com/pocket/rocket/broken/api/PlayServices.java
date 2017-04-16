@@ -1,19 +1,21 @@
 package com.pocket.rocket.broken.api;
 
 public interface PlayServices {
-    void signIn();
+    public void connect();
 
-    void signOut();
+    public void disconnect();
 
-    void rateGame();
+    public boolean isConnected();
 
-    void unlockAchievement();
+    public void signOut();
 
-    void submitScore(int highScore);
+    public void unlockAchievement(int n);
 
-    void showAchievement();
+    public void unlockIncrementAchievement(int n, int count);
 
-    void showScore();
+    public void showAchievements();
 
-    boolean isSignedIn();
+    public void submitScore(long score);
+
+    public void showLeaderboard();
 }

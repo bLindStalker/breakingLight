@@ -8,7 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.Timer.Task;
+import com.pocket.rocket.broken.LightListener;
+import com.pocket.rocket.broken.actors.AnimatedActor;
 import com.pocket.rocket.broken.actors.ImageActor;
+import com.pocket.rocket.broken.actors.LightBulb;
+import com.pocket.rocket.broken.actors.StarBuilder;
+import com.pocket.rocket.broken.actors.userData.ScoreActor;
 import com.pocket.rocket.broken.actors.userData.TimerActor;
 import com.pocket.rocket.broken.enums.LightBulbPosition;
 
@@ -18,6 +23,7 @@ import java.util.concurrent.Callable;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.badlogic.gdx.utils.Timer.schedule;
+import static com.pocket.rocket.broken.AssetLoader.*;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.Constants.HEART_SIZE;
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
@@ -34,27 +40,27 @@ import static com.pocket.rocket.broken.enums.LightBulbPosition.RIGHT;
 
 public class GameScreen extends BaseScreen {
     private final Group gameActors;
-    private final com.pocket.rocket.broken.actors.userData.ScoreActor scoreActor;
-    private final com.pocket.rocket.broken.actors.StarBuilder starBuilder;
+    private final ScoreActor scoreActor;
+    private final StarBuilder starBuilder;
     private final TimerActor timer;
 
-    private final Queue<com.pocket.rocket.broken.actors.AnimatedActor> heartActors = new Queue<com.pocket.rocket.broken.actors.AnimatedActor>();
-    private final List<com.pocket.rocket.broken.actors.LightBulb> allLamps = new ArrayList<com.pocket.rocket.broken.actors.LightBulb>();
-    private final List<com.pocket.rocket.broken.actors.LightBulb> activeLamps = new ArrayList<com.pocket.rocket.broken.actors.LightBulb>();
+    private final Queue<AnimatedActor> heartActors = new Queue<AnimatedActor>();
+    private final List<LightBulb> allLamps = new ArrayList<LightBulb>();
+    private final List<LightBulb> activeLamps = new ArrayList<LightBulb>();
     private boolean resultIsShow = true;
 
     public GameScreen(com.pocket.rocket.broken.Main main) {
         super(main);
-        starBuilder = new com.pocket.rocket.broken.actors.StarBuilder(this);
+        starBuilder = new StarBuilder(this);
         gameActors = new Group();
 
-        Label.LabelStyle font = com.pocket.rocket.broken.AssetLoader.getFont();
-        font.background = new TextureRegionDrawable(new TextureRegion(com.pocket.rocket.broken.AssetLoader.getButtonUp()));
+        Label.LabelStyle font = getFont();
+        font.background = new TextureRegionDrawable(new TextureRegion(getButtonUp()));
 
         timer = new TimerActor(20, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT, font);
         gameActors.addActor(timer);
 
-        scoreActor = new com.pocket.rocket.broken.actors.userData.ScoreActor(WIDTH - 20 - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT, font);
+        scoreActor = new ScoreActor(WIDTH - 20 - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT, font);
         gameActors.addActor(scoreActor);
 
         gameActors.addActor(buildHeartGroup());
@@ -90,11 +96,11 @@ public class GameScreen extends BaseScreen {
 
     private void activateLamp() {
 
-        List<com.pocket.rocket.broken.actors.LightBulb> canBeActiveLamps = getCanBeActiveLamps();
+        List<LightBulb> canBeActiveLamps = getCanBeActiveLamps();
         activeLamps.removeAll(canBeActiveLamps);
         if (activeLamps.size() < timer.lampData.activeLamps) {
             if (!canBeActiveLamps.isEmpty()) {
-                com.pocket.rocket.broken.actors.LightBulb lamp = canBeActiveLamps.get(random(0, canBeActiveLamps.size() - 1));
+                LightBulb lamp = canBeActiveLamps.get(random(0, canBeActiveLamps.size() - 1));
                 activeLamps.add(lamp);
 
                 lamp.activate(timer.lampData);
@@ -102,10 +108,10 @@ public class GameScreen extends BaseScreen {
         }
     }
 
-    private List<com.pocket.rocket.broken.actors.LightBulb> getCanBeActiveLamps() {
-        List<com.pocket.rocket.broken.actors.LightBulb> canBeActive = new ArrayList<com.pocket.rocket.broken.actors.LightBulb>();
+    private List<LightBulb> getCanBeActiveLamps() {
+        List<LightBulb> canBeActive = new ArrayList<LightBulb>();
 
-        for (com.pocket.rocket.broken.actors.LightBulb lamp : allLamps) {
+        for (LightBulb lamp : allLamps) {
             if (lamp.canBeActive()) {
                 canBeActive.add(lamp);
             }
@@ -116,21 +122,21 @@ public class GameScreen extends BaseScreen {
 
     private Group buildHeartGroup() {
         Group lifeGroup = new Group();
-        lifeGroup.addActor(new ImageActor(X_CENTER - ((HEART_SIZE * 3 + 140) / 2), Y_HEART_POSITION - 20, HEART_SIZE * 3 + 140, HEART_SIZE + 40, com.pocket.rocket.broken.AssetLoader.getButtonUp()));
+        lifeGroup.addActor(new ImageActor(X_CENTER - ((HEART_SIZE * 3 + 140) / 2), Y_HEART_POSITION - 20, HEART_SIZE * 3 + 140, HEART_SIZE + 40, getButtonUp()));
 
-        Animation<TextureRegion> heartAnimation = new Animation<TextureRegion>(1f / 12f, com.pocket.rocket.broken.AssetLoader.getHeart(), Animation.PlayMode.NORMAL);
+        Animation<TextureRegion> heartAnimation = new Animation<TextureRegion>(1f / 12f, getHeart(), Animation.PlayMode.NORMAL);
         int width = heartAnimation.getKeyFrame(0).getRegionWidth();
         int height = heartAnimation.getKeyFrame(0).getRegionHeight();
 
-        com.pocket.rocket.broken.actors.AnimatedActor heart1 = new com.pocket.rocket.broken.actors.AnimatedActor(X_CENTER - width - (width / 2) + 40, Y_HEART_POSITION, width, height, heartAnimation);
+        AnimatedActor heart1 = new AnimatedActor(X_CENTER - width - (width / 2) + 40, Y_HEART_POSITION, width, height, heartAnimation);
         heartActors.addLast(heart1);
         lifeGroup.addActor(heart1);
 
-        com.pocket.rocket.broken.actors.AnimatedActor heart2 = new com.pocket.rocket.broken.actors.AnimatedActor(X_CENTER - (width / 2), Y_HEART_POSITION, width, height, heartAnimation);
+        AnimatedActor heart2 = new AnimatedActor(X_CENTER - (width / 2), Y_HEART_POSITION, width, height, heartAnimation);
         heartActors.addLast(heart2);
         lifeGroup.addActor(heart2);
 
-        com.pocket.rocket.broken.actors.AnimatedActor heart3 = new com.pocket.rocket.broken.actors.AnimatedActor(X_CENTER + (width / 2) - 40, Y_HEART_POSITION, width, height, heartAnimation);
+        AnimatedActor heart3 = new AnimatedActor(X_CENTER + (width / 2) - 40, Y_HEART_POSITION, width, height, heartAnimation);
         heartActors.addLast(heart3);
         lifeGroup.addActor(heart3);
 
@@ -155,10 +161,10 @@ public class GameScreen extends BaseScreen {
         return lightBulbs;
     }
 
-    private com.pocket.rocket.broken.actors.LightBulb initializeLight(LightBulbPosition position, int yPosition) {
-        final com.pocket.rocket.broken.actors.LightBulb actor = new com.pocket.rocket.broken.actors.LightBulb(position, yPosition);
+    private LightBulb initializeLight(LightBulbPosition position, int yPosition) {
+        final LightBulb actor = new LightBulb(position, yPosition);
 
-        actor.addListener(new com.pocket.rocket.broken.LightListener(new Callable<Boolean>() {
+        actor.addListener(new LightListener(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
                 return actor.justClicked(timer.lampData);

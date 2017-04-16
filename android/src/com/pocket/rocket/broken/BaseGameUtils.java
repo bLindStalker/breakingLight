@@ -1,4 +1,4 @@
-package com.google.example.games.basegameutils;
+package com.pocket.rocket.broken;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,22 +11,27 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.GamesActivityResultCodes;
 
+
+/**
+ * Created by Luccan on 5/4/2015.
+ */
 public class BaseGameUtils {
 
     /**
-     * Show an {@link android.app.AlertDialog} with an 'OK' button and a message.
+     * Show an {@link AlertDialog} with an 'OK' button and a message.
      *
      * @param activity the Activity in which the Dialog should be displayed.
      * @param message  the message to display in the Dialog.
      */
     public static void showAlert(Activity activity, String message) {
         (new AlertDialog.Builder(activity)).setMessage(message)
-                .setNeutralButton(android.R.string.ok, null).create().show();
+                .setNeutralButton(android.R.string.ok,
+                        null).create().show();
     }
 
     /**
      * Resolve a connection failure from
-     * {@link com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener#onConnectionFailed(com.google.android.gms.common.ConnectionResult)}
+     * {@link GoogleApiClient.OnConnectionFailedListener#onConnectionFailed(ConnectionResult)}
      *
      * @param activity             the Activity trying to resolve the connection failure.
      * @param client               the GoogleAPIClient instance of the Activity.
@@ -90,7 +95,8 @@ public class BaseGameUtils {
             if (activity.getString(i).toLowerCase().contains("replaceme")) {
                 problemFound = true;
                 problems.append("- You must replace all " +
-                        "placeholder IDs in the ids.xml file by your project's IDs.").append("\n");
+                        "placeholder IDs in the ids.xml file by your project's IDs.").append(
+                        "\n");
                 break;
             }
         }
@@ -105,7 +111,7 @@ public class BaseGameUtils {
     }
 
     /**
-     * Show a {@link android.app.Dialog} with the correct message for a connection error.
+     * Show a {@link Dialog} with the correct message for a connection error.
      *
      * @param activity         the Activity in which the Dialog should be displayed.
      * @param requestCode      the request code from onActivityResult.
@@ -118,34 +124,34 @@ public class BaseGameUtils {
             return;
         }
         Dialog errorDialog;
+        String error = "no errors";
 
         switch (actResp) {
             case GamesActivityResultCodes.RESULT_APP_MISCONFIGURED:
-                errorDialog = makeSimpleDialog(activity,
-                        activity.getString(R.string.app_misconfigured));
+                error = "Application is Misconfigured";
                 break;
             case GamesActivityResultCodes.RESULT_SIGN_IN_FAILED:
-                errorDialog = makeSimpleDialog(activity,
-                        activity.getString(R.string.sign_in_failed));
+                error = "No internet connection";
                 break;
             case GamesActivityResultCodes.RESULT_LICENSE_FAILED:
-                errorDialog = makeSimpleDialog(activity,
-                        activity.getString(R.string.license_failed));
+                error = "License Failed";
                 break;
             default:
                 // No meaningful Activity response code, so generate default Google
                 // Play services dialog
-                final int errorCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
+                final int errorCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(
+                        activity);
                 errorDialog = GooglePlayServicesUtil.getErrorDialog(errorCode,
                         activity, requestCode, null);
                 if (errorDialog == null) {
                     // get fallback dialog
                     Log.e("BaseGamesUtils",
                             "No standard error dialog available. Making fallback dialog.");
-                    errorDialog = makeSimpleDialog(activity, activity.getString(errorDescription));
+                    error = activity.getString(errorDescription);
                 }
         }
 
+        errorDialog = makeSimpleDialog(activity, "Error present", error);
         errorDialog.show();
     }
 
@@ -154,11 +160,12 @@ public class BaseGameUtils {
      *
      * @param activity the Activity in which the Dialog should be displayed.
      * @param text     the message to display on the Dialog.
-     * @return an instance of {@link android.app.AlertDialog}
+     * @return an instance of {@link AlertDialog}
      */
     public static Dialog makeSimpleDialog(Activity activity, String text) {
         return (new AlertDialog.Builder(activity)).setMessage(text)
-                .setNeutralButton(android.R.string.ok, null).create();
+                .setNeutralButton(android.R.string.ok,
+                        null).create();
     }
 
     /**
@@ -167,7 +174,7 @@ public class BaseGameUtils {
      * @param activity the Activity in which the Dialog should be displayed.
      * @param title    the title to display on the dialog.
      * @param text     the message to display on the Dialog.
-     * @return an instance of {@link android.app.AlertDialog}
+     * @return an instance of {@link AlertDialog}
      */
     public static Dialog makeSimpleDialog(Activity activity, String title, String text) {
         return (new AlertDialog.Builder(activity))
@@ -176,5 +183,4 @@ public class BaseGameUtils {
                 .setNeutralButton(android.R.string.ok, null)
                 .create();
     }
-
 }

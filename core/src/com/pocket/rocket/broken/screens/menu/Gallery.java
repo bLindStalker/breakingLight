@@ -21,8 +21,10 @@ import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_0;
 import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_1;
 import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_2;
 import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_3;
+import static com.pocket.rocket.broken.AssetLoader.getCheckok;
 import static com.pocket.rocket.broken.AssetLoader.getCheckround;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
+import static com.pocket.rocket.broken.AssetLoader.getGallery;
 import static com.pocket.rocket.broken.AssetLoader.getLampImage;
 import static com.pocket.rocket.broken.AssetLoader.getPrefix;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
@@ -86,7 +88,7 @@ public class Gallery extends Group {
     private Group buildGalleryElement(final int index, String displayValue, boolean visibility) {
         Group element = new Group();
         element.setBounds(0, 0, GALLERY_WIDTH, GALLERY_HEIGHT);
-        element.addActor(new ImageActor(0, 0, GALLERY_WIDTH, GALLERY_HEIGHT, AssetLoader.getGallery()));
+        element.addActor(new ImageActor(0, 0, GALLERY_WIDTH, GALLERY_HEIGHT, getGallery()));
 
         if (index != EMPTY) {
             ImageActor lamp = buildGalleryLamp(index, visibility);
@@ -117,7 +119,7 @@ public class Gallery extends Group {
                 });
 
                 element.addActor(new ImageActor(X_ROUND_POSITION, Y_ROUND_POSITION, 80, 80, getCheckround()));
-                ImageActor okActor = new ImageActor(X_ROUND_POSITION + 5, Y_ROUND_POSITION + 15, 100, 100, AssetLoader.getCheckok());
+                ImageActor okActor = new ImageActor(X_ROUND_POSITION + 5, Y_ROUND_POSITION + 15, 100, 100, getCheckok());
                 okActor.setVisible(index == getPrefix());
 
                 selectedLamp.put(index, okActor);

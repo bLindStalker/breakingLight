@@ -2,9 +2,11 @@ package com.pocket.rocket.broken;
 
 import com.badlogic.gdx.Game;
 import com.pocket.rocket.broken.api.PlayServices;
+import com.pocket.rocket.broken.screens.SplashScreen;
 
 public class Main extends Game {
     private final PlayServices playServices;
+    public boolean gpgsStateChange = false;
 
     public Main(PlayServices playServices) {
         this.playServices = playServices;
@@ -12,7 +14,7 @@ public class Main extends Game {
 
     @Override
     public void create() {
-        setScreen(new com.pocket.rocket.broken.screens.SplashScreen(this));
+        setScreen(new SplashScreen(this));
         // AssetLoader.initialize();
         //setScreen(new MenuScreen(this, false));
     }

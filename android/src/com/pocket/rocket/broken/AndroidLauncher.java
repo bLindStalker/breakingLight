@@ -1,129 +1,73 @@
 package com.pocket.rocket.broken;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.RelativeLayout;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.google.example.games.basegameutils.GameHelper;
-import com.pocket.rocket.broken.api.PlayServices;
 
-public class AndroidLauncher extends AndroidApplication implements PlayServices {
-    private GameHelper gameHelper;
+
+public class AndroidLauncher extends AndroidApplication {
+
+    final AndroidLauncher context = this;
+
+    //final AdMobImpl adMob;
+    final GPGSImpl gpgs;
+    final Main game;
+
+    public AndroidLauncher() {
+        //adMob = new AdMobImpl( "ca-app-pub-3433473599086980/5967988151" );
+        gpgs = new GPGSImpl() {
+            @Override
+            public void onConnected(Bundle connectionHint) {
+                game.gpgsStateChange = true;
+            }
+
+            @Override
+            public void disconnect() {
+                super.disconnect();
+                game.gpgsStateChange = true;
+            }
+        };
+        game = new Main(/* adMob, */gpgs);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        gameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
-        gameHelper.enableDebugLog(false);
+        //adMob.init( context );
+        gpgs.init(context);
 
-        GameHelper.GameHelperListener gameHelperListener = new GameHelper.GameHelperListener() {
-            @Override
-            public void onSignInFailed() {
-            }
+        AndroidApplicationConfiguration config;
+        config = new AndroidApplicationConfiguration();
+        View gameView = initializeForView(game, config);
 
-            @Override
-            public void onSignInSucceeded() {
-            }
-        };
-
-        gameHelper.setup(gameHelperListener);
-
-        AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        initialize(new Main(this), config);
+        RelativeLayout layout = new RelativeLayout(this);
+        layout.addView(gameView);
+        //layout.addView( adMob.adView, adMob.adParams );
+        setContentView(layout);
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
-        gameHelper.onStart(this);
+        // Во время старта приложения, подключаемся к GPGS
+        // Так рекомендует делать GOOGLE
+        gpgs.connect();
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
-        gameHelper.onStop();
+        gpgs.disconnect();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        gameHelper.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void signIn() {
-        try {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    gameHelper.beginUserInitiatedSignIn();
-                }
-            });
-        } catch (Exception e) {
-            Gdx.app.log("MainActivity", "Log in failed: " + e.getMessage() + ".");
-        }
-    }
-
-    @Override
-    public void signOut() {
-        try {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    gameHelper.signOut();
-                }
-            });
-        } catch (Exception e) {
-            Gdx.app.log("MainActivity", "Log out failed: " + e.getMessage() + ".");
-        }
-    }
-
-    @Override
-    public void rateGame() {
-        String str = "https://play.google.com/store/apps/details?id=com.google.android.apps.docs&hl=en";
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
-    }
-
-    @Override
-    public void unlockAchievement() {
-       /* Games.Achievements.unlock(gameHelper.getApiClient(),
-                getString(R.string.achievement_dum_dum));*/
-    }
-
-    @Override
-    public void submitScore(int highScore) {
-        if (isSignedIn()) {
-            /*Games.Leaderboards.submitScore(gameHelper.getApiClient(),
-                    getString(R.string.leaderboard_highest), highScore);*/
-        }
-    }
-
-    @Override
-    public void showAchievement() {
-        if (isSignedIn()) {
-           /* startActivityForResult(Games.Achievements.getAchievementsIntent(gameHelper.getApiClient(),
-                    getString(R.string.achievement_dum_dum)), requestCode);*/
-        } else {
-            signIn();
-        }
-    }
-
-    @Override
-    public void showScore() {
-        if (isSignedIn()) {
-           /* startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(),
-                    getString(R.string.leaderboard_highest)), requestCode);*/
-        } else {
-            signIn();
-        }
-    }
-
-    @Override
-    public boolean isSignedIn() {
-        return gameHelper.isSignedIn();
+    public void onActivityResult(int request, int response, Intent intent) {
+        super.onActivityResult(request, response, intent);
+        gpgs.onActivityResult(request, response, intent);
     }
 }

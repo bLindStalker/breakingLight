@@ -17,7 +17,7 @@ public class ImageActor extends Image {
         setBounds(xPosition, yPosition, width, height);
     }
 
-    protected void setImage(Texture texture) {
+    public void setImage(Texture texture) {
         setDrawable(new TextureRegionDrawable(new TextureRegion(texture)));
     }
 }

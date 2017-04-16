@@ -1,58 +1,56 @@
 package com.pocket.rocket.broken.desktop;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.pocket.rocket.broken.api.PlayServices;
+import com.pocket.rocket.broken.Main;
+
+import static com.pocket.rocket.broken.Constants.HEIGHT;
+import static com.pocket.rocket.broken.Constants.WIDTH;
+
 
 public class DesktopLauncher {
+
+    private static final String appName = DesktopLauncher.class.getPackage().getName();
+    // change this
+    private static SCREEN_CFG screenConfig = SCREEN_CFG.MY_RESOLUTION;
+
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 720 / 2;
-        config.height = 1280 / 2;
-        new LwjglApplication(new com.pocket.rocket.broken.Main(new PlayServicesImpl()), config);
+
+        config.width = screenConfig.getWidth() / 2;
+        config.height = screenConfig.getHeight() / 2;
+        config.title = "" + appName + " [ " + config.width + " x " + config.height + " ]";
+
+        new LwjglApplication(new Main( /*new AdMobImpl()*/ new GPGSImpl()), config);
     }
 
-    private static class PlayServicesImpl implements PlayServices {
+    private enum SCREEN_CFG {
+        GALAXY_TAB2(1024, 554),// not 600
+        SQUARE(1024, 768),
+        FULL_HD(1920, 1080),
+        SMALL(320, 240),
+        SCREEN_SHOT(1024, 500),
+        DEFAULT(800, 480),
+        MY_RESOLUTION(HEIGHT, WIDTH);
 
-        @Override
-        public void signIn() {
-            Gdx.app.log("DesktopLauncher", "sing in");
+        final boolean LANDSCAPE = true;
+        final boolean PORTRAIT = false;
+        final boolean screenOrientation = PORTRAIT;
+
+        private final int width;
+        private final int height;
+
+        private SCREEN_CFG(final int width, final int height) {
+            this.width = width;
+            this.height = height;
         }
 
-        @Override
-        public void signOut() {
-            Gdx.app.log("DesktopLauncher", "sing out");
+        public int getWidth() {
+            return screenOrientation ? width : height;
         }
 
-        @Override
-        public void rateGame() {
-            Gdx.app.log("DesktopLauncher", "rateGame");
-        }
-
-        @Override
-        public void unlockAchievement() {
-
-        }
-
-        @Override
-        public void submitScore(int highScore) {
-
-        }
-
-        @Override
-        public void showAchievement() {
-
-        }
-
-        @Override
-        public void showScore() {
-
-        }
-
-        @Override
-        public boolean isSignedIn() {
-            return false;
+        public int getHeight() {
+            return screenOrientation ? height : width;
         }
     }
 }

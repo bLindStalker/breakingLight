@@ -2,8 +2,11 @@ package com.pocket.rocket.broken.screens;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.screens.menu.AdvancedMenu;
+import com.pocket.rocket.broken.screens.menu.Gallery;
+import com.pocket.rocket.broken.screens.menu.MainMenu;
 import com.pocket.rocket.broken.screens.menu.MenuIcons;
 
 import static com.pocket.rocket.broken.Constants.X_CENTER;
@@ -16,7 +19,7 @@ public class MenuScreen extends BaseScreen {
     public static final int MENU_BUTTON_WIDTH = 400;
 
 
-    public MenuScreen(final com.pocket.rocket.broken.Main main, boolean fade) {
+    public MenuScreen(final Main main, boolean fade) {
         super(main);
 
         if (Preference.getScore() > 0) {
@@ -24,9 +27,9 @@ public class MenuScreen extends BaseScreen {
         }
 
         Group menu = new Group();
-        Group gallery = new com.pocket.rocket.broken.screens.menu.Gallery();
+        Group gallery = new Gallery();
 
-        menu.addActor(new com.pocket.rocket.broken.screens.menu.MainMenu(main, menu));
+        menu.addActor(new MainMenu(main, menu));
         menu.addActor(new AdvancedMenu(main, menu, gallery));
         menu.addActor(gallery);
 

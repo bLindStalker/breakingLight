@@ -24,7 +24,7 @@ public class SplashScreen extends ScreenAdapter {
 
     public SplashScreen(Main main) {
         this.main = main;
-        main.getPlayServices().signIn();
+        main.getPlayServices().connect();
         AssetLoader.initialize();
     }
 

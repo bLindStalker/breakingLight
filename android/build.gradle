@@ -35,6 +35,9 @@ android {
         release {
             signingConfig signingConfigs.config
         }
+        debug {
+            signingConfig signingConfigs.config
+        }
     }
 }
 // called every time gradle gets executed, takes the native dependencies of
@@ -138,5 +141,8 @@ idea {
 }
 dependencies {
     compile 'com.android.support:multidex:1.0.1'
-    compile project(path: ':BaseGameUtils')
+    compile 'com.google.android.gms:play-services-ads:9.6.1'
+    compile 'com.google.android.gms:play-services-games:9.6.1'
+    //compile project(path: ':BaseGameUtils')
+
 }
