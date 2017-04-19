@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
 
 import static com.badlogic.gdx.utils.Align.center;
+import static com.pocket.rocket.broken.AssetLoader.getDialog;
+import static com.pocket.rocket.broken.AssetLoader.getFont;
 
 public class DialogBuilder extends Group {
     private final int xPosition, yPosition, width, height;
@@ -24,7 +26,7 @@ public class DialogBuilder extends Group {
     }
 
     private Label buildLabel(String text) {
-        Label label = new Label(text, com.pocket.rocket.broken.AssetLoader.getFont(Color.BLACK));
+        Label label = new Label(text, getFont(Color.BLACK));
         label.setPosition(30, height / 2 - 30);
         label.setWidth(width - 60);
         label.setAlignment(center);
@@ -57,7 +59,7 @@ public class DialogBuilder extends Group {
 
     private class DialogBg extends ImageActor {
         public DialogBg() {
-            super(0, 0, width, height, com.pocket.rocket.broken.AssetLoader.getDialog());
+            super(0, 0, width, height, getDialog());
         }
     }
 }

@@ -8,8 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.pocket.rocket.broken.actors.userData.ScoreActor;
 
 import static com.badlogic.gdx.math.MathUtils.random;
+import static com.pocket.rocket.broken.AssetLoader.getStar;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_WIDTH;
@@ -18,14 +20,9 @@ import static com.pocket.rocket.broken.Constants.STAR_SIZE;
 
 public class StarActor extends Actor {
     private static final float STAR_ACTOR_SCALE = STAR_SIZE / 1.7f;
-    private static final float VELOCITY = random(2.7f, 4.7f);
-    private final TextureRegion texture = new TextureRegion(com.pocket.rocket.broken.AssetLoader.getStar());
+    private final TextureRegion texture = new TextureRegion(getStar());
 
-    public StarActor(int xPosition, int yPosition, final com.pocket.rocket.broken.actors.userData.ScoreActor scoreActor) {
-        new StarActor(xPosition, yPosition, scoreActor, VELOCITY);
-    }
-
-    public StarActor(int xPosition, int yPosition, final com.pocket.rocket.broken.actors.userData.ScoreActor scoreActor, float velocity) {
+    public StarActor(int xPosition, int yPosition, final ScoreActor scoreActor, float velocity) {
         float starSize = STAR_SIZE + STAR_ACTOR_SCALE;
         setBounds(xPosition + (LAMP_WIDTH / 2) - starSize / 2, yPosition + (LAMP_HEIGHT / 2) - starSize / 2, starSize, starSize);
 

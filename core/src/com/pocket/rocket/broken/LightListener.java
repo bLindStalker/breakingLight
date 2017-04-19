@@ -3,23 +3,20 @@ package com.pocket.rocket.broken;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Queue;
-import com.badlogic.gdx.utils.Timer.Task;
-import com.pocket.rocket.broken.actors.AnimatedActor;
+import com.pocket.rocket.broken.actors.HeartActor;
+import com.pocket.rocket.broken.actors.StarBuilder;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 
 import java.util.concurrent.Callable;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
-import static com.badlogic.gdx.utils.Timer.schedule;
-
 public class LightListener extends ClickListener {
 
     private Callable<Boolean> action;
-    private Queue<AnimatedActor> heartActors;
+    private Queue<HeartActor> heartActors;
     private ScoreActor scoreActor;
-    private com.pocket.rocket.broken.actors.StarBuilder starBuilder;
+    private StarBuilder starBuilder;
 
-    public LightListener(Callable<Boolean> action, Queue<AnimatedActor> heartActors, ScoreActor scoreActor, com.pocket.rocket.broken.actors.StarBuilder starBuilder) {
+    public LightListener(Callable<Boolean> action, Queue<HeartActor> heartActors, ScoreActor scoreActor, StarBuilder starBuilder) {
         this.action = action;
         this.heartActors = heartActors;
         this.scoreActor = scoreActor;
@@ -39,23 +36,8 @@ public class LightListener extends ClickListener {
 
     private void heartOperation() {
         if (heartActors.size != 0) {
-            final AnimatedActor heart = heartActors.first();
+            final HeartActor heart = heartActors.first();
             heart.animate();
-
-            schedule(new Task() {
-                         @Override
-                         public void run() {
-                             heart.addAction(alpha(0f, .5f));
-                             schedule(new Task() {
-                                          @Override
-                                          public void run() {
-                                              heart.remove();
-                                          }
-                                      }, 0.5f
-                             );
-                         }
-                     }, 0.5f
-            );
             heartActors.removeValue(heart, false);
         }
     }

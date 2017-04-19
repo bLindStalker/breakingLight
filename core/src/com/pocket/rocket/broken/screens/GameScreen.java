@@ -9,7 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.pocket.rocket.broken.LightListener;
-import com.pocket.rocket.broken.actors.AnimatedActor;
+import com.pocket.rocket.broken.Main;
+import com.pocket.rocket.broken.actors.HeartActor;
 import com.pocket.rocket.broken.actors.ImageActor;
 import com.pocket.rocket.broken.actors.LightBulb;
 import com.pocket.rocket.broken.actors.StarBuilder;
@@ -23,8 +24,10 @@ import java.util.concurrent.Callable;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.badlogic.gdx.utils.Timer.schedule;
-import static com.pocket.rocket.broken.AssetLoader.*;
+import static com.pocket.rocket.broken.AssetLoader.getButtonUp;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
+import static com.pocket.rocket.broken.AssetLoader.getHeart;
+import static com.pocket.rocket.broken.Constants.HARD_CORE_TIME;
 import static com.pocket.rocket.broken.Constants.HEART_SIZE;
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
 import static com.pocket.rocket.broken.Constants.TIMER_HEIGHT;
@@ -37,6 +40,7 @@ import static com.pocket.rocket.broken.Constants.Y_STATUS_POSITION;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.CENTER;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.LEFT;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.RIGHT;
+import static java.util.Collections.shuffle;
 
 public class GameScreen extends BaseScreen {
     private final Group gameActors;
@@ -44,12 +48,15 @@ public class GameScreen extends BaseScreen {
     private final StarBuilder starBuilder;
     private final TimerActor timer;
 
-    private final Queue<AnimatedActor> heartActors = new Queue<AnimatedActor>();
+    private final Queue<HeartActor> heartActors = new Queue<HeartActor>();
     private final List<LightBulb> allLamps = new ArrayList<LightBulb>();
     private final List<LightBulb> activeLamps = new ArrayList<LightBulb>();
     private boolean resultIsShow = true;
 
-    public GameScreen(com.pocket.rocket.broken.Main main) {
+    private int previousScore;
+    private int previousTime = 5;
+
+    public GameScreen(Main main) {
         super(main);
         starBuilder = new StarBuilder(this);
         gameActors = new Group();
@@ -77,16 +84,30 @@ public class GameScreen extends BaseScreen {
         super.render(delta);
         if ((heartActors.size == 0 || timer.getTime() <= -1) && resultIsShow) {
             schedule(new Task() {
-                         @Override
-                         public void run() {
-                             showResult();
-                         }
-                     }, 0.8f
-            );
+                @Override
+                public void run() {
+                    showResult();
+                }
+            }, 0.8f);
             resultIsShow = false;
         }
 
         activateLamp();
+        checkHearts();
+    }
+
+    private void checkHearts() {
+        if (heartActors.size != 0 && previousTime < timer.getTime()) {
+
+            if (previousScore == scoreActor.getScore()) {
+                final HeartActor heart = heartActors.first();
+                heart.animate();
+                heartActors.removeValue(heart, false);
+            }
+            previousScore = scoreActor.getScore();
+        }
+
+        previousTime = previousTime < timer.getTime() ? timer.getTime() + HARD_CORE_TIME / timer.getTime() : previousTime;
     }
 
     private void showResult() {
@@ -100,6 +121,7 @@ public class GameScreen extends BaseScreen {
         activeLamps.removeAll(canBeActiveLamps);
         if (activeLamps.size() < timer.lampData.activeLamps) {
             if (!canBeActiveLamps.isEmpty()) {
+                shuffle(canBeActiveLamps);
                 LightBulb lamp = canBeActiveLamps.get(random(0, canBeActiveLamps.size() - 1));
                 activeLamps.add(lamp);
 
@@ -128,15 +150,15 @@ public class GameScreen extends BaseScreen {
         int width = heartAnimation.getKeyFrame(0).getRegionWidth();
         int height = heartAnimation.getKeyFrame(0).getRegionHeight();
 
-        AnimatedActor heart1 = new AnimatedActor(X_CENTER - width - (width / 2) + 40, Y_HEART_POSITION, width, height, heartAnimation);
+        HeartActor heart1 = new HeartActor(X_CENTER - width - (width / 2) + 40, Y_HEART_POSITION, width, height, heartAnimation);
         heartActors.addLast(heart1);
         lifeGroup.addActor(heart1);
 
-        AnimatedActor heart2 = new AnimatedActor(X_CENTER - (width / 2), Y_HEART_POSITION, width, height, heartAnimation);
+        HeartActor heart2 = new HeartActor(X_CENTER - (width / 2), Y_HEART_POSITION, width, height, heartAnimation);
         heartActors.addLast(heart2);
         lifeGroup.addActor(heart2);
 
-        AnimatedActor heart3 = new AnimatedActor(X_CENTER + (width / 2) - 40, Y_HEART_POSITION, width, height, heartAnimation);
+        HeartActor heart3 = new HeartActor(X_CENTER + (width / 2) - 40, Y_HEART_POSITION, width, height, heartAnimation);
         heartActors.addLast(heart3);
         lifeGroup.addActor(heart3);
 

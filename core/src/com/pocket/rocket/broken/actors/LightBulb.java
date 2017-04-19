@@ -1,6 +1,5 @@
 package com.pocket.rocket.broken.actors;
 
-import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.enums.LampLogicData;
 import com.pocket.rocket.broken.enums.LightBulbPosition;
 import com.pocket.rocket.broken.enums.LightBulbStatus;
@@ -22,7 +21,7 @@ public class LightBulb extends ImageActor {
     private float turnOffTime = 0;
 
     public LightBulb(LightBulbPosition position, int yPosition) {
-        super(position.getPosition(), yPosition, LAMP_WIDTH, LAMP_HEIGHT, AssetLoader.getLampImage(DEFAULT_STATUS));
+        super(position.getPosition(), yPosition, LAMP_WIDTH, LAMP_HEIGHT, getLampImage(DEFAULT_STATUS));
     }
 
     public boolean justClicked(LampLogicData time) {
@@ -61,7 +60,7 @@ public class LightBulb extends ImageActor {
 
     private void setStatus(LightBulbStatus status) {
         this.status = status;
-        setImage(AssetLoader.getLampImage(status));
+        setImage(getLampImage(status));
     }
 
     public boolean canBeActive() {
