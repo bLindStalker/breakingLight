@@ -1,6 +1,7 @@
 package com.pocket.rocket.broken;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -29,6 +30,12 @@ public class AndroidLauncher extends AndroidApplication {
             public void disconnect() {
                 super.disconnect();
                 game.gpgsStateChange = true;
+            }
+
+            @Override
+            public void rateGame() {
+                String str = "https://play.google.com/store/apps/details?id=com.pocket.rocket.broken";
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
             }
         };
         game = new Main(/* adMob, */gpgs);

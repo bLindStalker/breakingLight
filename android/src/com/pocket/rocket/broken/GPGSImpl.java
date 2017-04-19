@@ -205,4 +205,7 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
         BaseGameUtils.resolveConnectionFailure(context, client, connectionResult,
                 RC_SIGN_IN, error);
     }
+
+    public void rateGame() {
+    }
 }

@@ -38,4 +38,13 @@ public class Preference {
         prefs.putInteger("lampPrefix", prefix == AssetLoader.LAMPS_PREFIX_0 ? AssetLoader.LAMPS_PREFIX_1 : prefix);
         prefs.flush();
     }
+
+    public static boolean soundStatus() {
+        return prefs.getBoolean("sound", true);
+    }
+
+    public static void setSoundStatus() {
+        prefs.putBoolean("sound", !soundStatus());
+        prefs.flush();
+    }
 }

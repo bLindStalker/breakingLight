@@ -16,21 +16,22 @@ import com.pocket.rocket.broken.api.PlayServices;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
 import static com.badlogic.gdx.utils.Timer.schedule;
 import static com.pocket.rocket.broken.AssetLoader.getAds;
-import static com.pocket.rocket.broken.AssetLoader.getAuthors;
 import static com.pocket.rocket.broken.AssetLoader.getNoAds;
 import static com.pocket.rocket.broken.AssetLoader.getRateUs;
 import static com.pocket.rocket.broken.AssetLoader.getServiceOff;
 import static com.pocket.rocket.broken.AssetLoader.getServiceOn;
+import static com.pocket.rocket.broken.AssetLoader.getSoundOff;
 import static com.pocket.rocket.broken.AssetLoader.getSoundOn;
 import static com.pocket.rocket.broken.Constants.WIDTH;
+import static com.pocket.rocket.broken.Preference.setSoundStatus;
+import static com.pocket.rocket.broken.Preference.soundStatus;
 
 public class MenuIcons extends Group {
     private static final int ICON_SIZE = 100;
     private static final int ICON_GROUP_WIDTH = WIDTH - 40;
-
+    private final PlayServices playServices;
     private Main main;
     private ImageActor serviceIcon;
-    private final PlayServices playServices;
 
     public MenuIcons(final Main main) {
         this.main = main;
@@ -38,22 +39,12 @@ public class MenuIcons extends Group {
         setBounds(20, 35, ICON_GROUP_WIDTH, ICON_SIZE);
 
         addActor(getServiceIcon());
-
-        addActor(buildIcon(getAuthors(), new
-
-                ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        //super.clicked(event, x, y);
-                    }
-                }));
-
         addActor(buildIcon(getRateUs(), new
 
                 ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        //super.clicked(event, x, y);
+                        playServices.rateGame();
                     }
                 }));
 
@@ -75,16 +66,22 @@ public class MenuIcons extends Group {
                     }
                 }));
 
-        addActor(buildIcon(getSoundOn(), new
-
-                ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        //super.clicked(event, x, y);
-                    }
-                }));
+        addActor(getSoundIcon());
 
         setPosition();
+    }
+
+    private ImageActor getSoundIcon() {
+        final ImageActor actor = buildIcon(soundStatus() ? getSoundOn() : getSoundOff(), null);
+        ClickListener listener = new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        setSoundStatus();
+                        actor.setImage(soundStatus() ? getSoundOn() : getSoundOff());
+                    }
+        };
+        actor.addListener(listener);
+        return actor;
     }
 
     private void setPosition() {

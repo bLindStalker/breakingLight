@@ -43,7 +43,6 @@ public class AssetLoader implements Disposable {
 
     private static final String ADS = "elements/icons/ads.png";
     private static final String NO_ADS = "elements/icons/no_ads.png";
-    private static final String AUTHORS = "elements/icons/authors.png";
     private static final String RATE_US = "elements/icons/rate_us.png";
     private static final String SOUND_OFF = "elements/icons/sound_off.png";
     private static final String SOUND_ON = "elements/icons/sound_on.png";
@@ -112,7 +111,6 @@ public class AssetLoader implements Disposable {
     private static void loadIcons() {
         assetManager.load(ADS, Texture.class);
         assetManager.load(NO_ADS, Texture.class);
-        assetManager.load(AUTHORS, Texture.class);
         assetManager.load(RATE_US, Texture.class);
         assetManager.load(SOUND_OFF, Texture.class);
         assetManager.load(SOUND_ON, Texture.class);
@@ -251,10 +249,6 @@ public class AssetLoader implements Disposable {
 
     public static Texture getNoAds() {
         return assetManager.get(NO_ADS);
-    }
-
-    public static Texture getAuthors() {
-        return assetManager.get(AUTHORS);
     }
 
     public static Texture getRateUs() {

@@ -18,4 +18,6 @@ public interface PlayServices {
     void submitScore(long score);
 
     void showLeaderboard();
+
+    public void rateGame();
 }

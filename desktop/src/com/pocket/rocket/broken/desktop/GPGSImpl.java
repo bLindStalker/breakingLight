@@ -45,6 +45,7 @@ public class GPGSImpl implements PlayServices {
     };
 
     private final String className = ">>> " + PlayServices.class.getSimpleName();
+    private boolean connectingState = false;
 
     @Override
     public void connect() {
@@ -57,8 +58,6 @@ public class GPGSImpl implements PlayServices {
         connectingState = false;
         Gdx.app.debug(className, "disconnect");
     }
-
-    private boolean connectingState = false;
 
     @Override
     public boolean isConnected() {
@@ -110,5 +109,10 @@ public class GPGSImpl implements PlayServices {
     @Override
     public void showLeaderboard() {
         Gdx.app.debug(className, "show leaderboard");
+    }
+
+    @Override
+    public void rateGame() {
+
     }
 }
