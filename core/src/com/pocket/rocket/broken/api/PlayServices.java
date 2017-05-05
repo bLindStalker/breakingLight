@@ -1,5 +1,9 @@
 package com.pocket.rocket.broken.api;
 
+import com.pocket.rocket.broken.actors.userData.ScoreData;
+
+import java.util.List;
+
 public interface PlayServices {
     void connect();
 
@@ -17,7 +21,9 @@ public interface PlayServices {
 
     void submitScore(long score);
 
+    List<ScoreData> getLeaderboardPlayers();
+
     void showLeaderboard();
 
-    public void rateGame();
+    void rateGame();
 }

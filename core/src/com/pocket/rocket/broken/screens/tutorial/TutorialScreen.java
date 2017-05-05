@@ -50,7 +50,6 @@ public class TutorialScreen extends BaseScreen {
         gameActors.addActor(lampGroup);
         addActor(gameActors);
 
-        addActor(new ImageActor(30, 1000, WIDTH - 60, 250, AssetLoader.getTutorial()));
         stepManager = new StepManager(this, lamps, scoreActor, starBuilder, lampGroup);
         gameActors.addAction(Actions.alpha(0, 0f));
         gameActors.addAction(Actions.alpha(1, 0.5f));

@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Align;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 
 import static com.badlogic.gdx.math.MathUtils.random;
-import static com.pocket.rocket.broken.AssetLoader.getStar;
+import static com.pocket.rocket.broken.AssetLoader.getBonus;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_WIDTH;
@@ -20,7 +20,7 @@ import static com.pocket.rocket.broken.Constants.STAR_SIZE;
 
 public class StarActor extends Actor {
     private static final float STAR_ACTOR_SCALE = STAR_SIZE / 1.7f;
-    private final TextureRegion texture = new TextureRegion(getStar());
+    private final TextureRegion texture = new TextureRegion(getBonus());
 
     public StarActor(int xPosition, int yPosition, final ScoreActor scoreActor, float velocity) {
         float starSize = STAR_SIZE + STAR_ACTOR_SCALE;

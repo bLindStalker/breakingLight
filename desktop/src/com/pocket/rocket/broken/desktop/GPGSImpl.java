@@ -1,7 +1,11 @@
 package com.pocket.rocket.broken.desktop;
 
 import com.badlogic.gdx.Gdx;
+import com.pocket.rocket.broken.actors.userData.ScoreData;
 import com.pocket.rocket.broken.api.PlayServices;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Andrey (cb) Mikheev
@@ -84,9 +88,9 @@ public class GPGSImpl implements PlayServices {
 
     @Override
     public void unlockIncrementAchievement(int n, int count) {
-        String about = "";
+        String about;
         if (n >= ACHEIVEMENT.length) {
-            about = "Error in acheivementя!!! <<<<<";
+            about = "Error in achievement!!! <<<<<";
         } else {
             about = ACHEIVEMENT[n];
         }
@@ -104,6 +108,11 @@ public class GPGSImpl implements PlayServices {
     @Override
     public void submitScore(long score) {
         Gdx.app.debug(className, "submit " + score + " scores");
+    }
+
+    @Override
+    public List<ScoreData> getLeaderboardPlayers() {
+        return new ArrayList<ScoreData>();
     }
 
     @Override

@@ -8,8 +8,16 @@ import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.leaderboard.LeaderboardScore;
+import com.google.android.gms.games.leaderboard.LeaderboardVariant;
+import com.google.android.gms.games.leaderboard.Leaderboards;
+import com.pocket.rocket.broken.actors.userData.ScoreData;
 import com.pocket.rocket.broken.api.PlayServices;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbacks,
@@ -20,61 +28,25 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
     private static final int RC_SIGN_IN = 9001;
     private static final int REQUEST_ACHIEVEMENTS = 9002;
     private static final int REQUEST_LEADERBOARD = 9003;
+    private final ArrayList<ScoreData> userScoreData = new ArrayList<>();
 
     private final String[] ACHEIVEMENT = {
-            /*"CgkI7Kb_-4YXEAIQBQ",
-            "CgkI7Kb_-4YXEAIQFQ",
-            "CgkI7Kb_-4YXEAIQFg",
-            "CgkI7Kb_-4YXEAIQFw",
-            "CgkI7Kb_-4YXEAIQGA",
-            "CgkI7Kb_-4YXEAIQGQ",
-            "CgkI7Kb_-4YXEAIQGg",
-            "CgkI7Kb_-4YXEAIQGw",
-            "CgkI7Kb_-4YXEAIQHA",
-            "CgkI7Kb_-4YXEAIQHQ",
-            "CgkI7Kb_-4YXEAIQHg",
-            "CgkI7Kb_-4YXEAIQHw",
-            "CgkI7Kb_-4YXEAIQIA",
-            "CgkI7Kb_-4YXEAIQIQ",
-            "CgkI7Kb_-4YXEAIQIg",
-            "CgkI7Kb_-4YXEAIQIw",
-            "CgkI7Kb_-4YXEAIQJA",
-            "CgkI7Kb_-4YXEAIQJQ",
-            "CgkI7Kb_-4YXEAIQJg",
-            "CgkI7Kb_-4YXEAIQJw",
-            "CgkI7Kb_-4YXEAIQKA",
-            "CgkI7Kb_-4YXEAIQKQ",
-            "CgkI7Kb_-4YXEAIQKg",
-            "CgkI7Kb_-4YXEAIQKw",
-            "CgkI7Kb_-4YXEAIQLA",
-            "CgkI7Kb_-4YXEAIQLQ",
-            "CgkI7Kb_-4YXEAIQLg",
-            "CgkI7Kb_-4YXEAIQLw",
-            "CgkI7Kb_-4YXEAIQMA",
-            "CgkI7Kb_-4YXEAIQMQ",
-            "CgkI7Kb_-4YXEAIQMg",
-            "CgkI7Kb_-4YXEAIQMw",
-            "CgkI7Kb_-4YXEAIQNA",
-            "CgkI7Kb_-4YXEAIQNQ",
-            "CgkI7Kb_-4YXEAIQNg",
-            "CgkI7Kb_-4YXEAIQNw",
-            "CgkI7Kb_-4YXEAIQOA",*/
+            "CgkIvtLorYgJEAIQAQ",
+            "CgkIvtLorYgJEAIQAg",
+            "CgkIvtLorYgJEAIQAw",
+            "CgkIvtLorYgJEAIQBA",
+            "CgkIvtLorYgJEAIQBQ",
     };
-    private final String LEADERBOARD = "";//"CgkI7Kb_-4YXEAIQFA";
+    private final String LEADERBOARD_ID = "CgkIvtLorYgJEAIQBg";
     private GoogleApiClient client;
     private AndroidLauncher context;
+    private boolean userScoreReady = true;
 
     public void init(AndroidLauncher context) {
         this.context = context;
 
-        Games.GamesOptions gamesOptions;
-        gamesOptions = Games.GamesOptions.builder().setRequireGooglePlus(true).build();
-
-        // http://android-developers.blogspot.ru/2016/01/play-games-permissions-are-changing-in.html
-        // В обновлениях написано, что нужно использовать ТОЛЬКО те АПИ, которые действительно
-        // нужны.
         client = new GoogleApiClient.Builder(context)
-                .addApi(Games.API, gamesOptions)
+                .addApi(Games.API)
                 .build();
         // .addApi( Plus.API ).addScope( Plus.SCOPE_PLUS_LOGIN ) - не нужно
         // .addScope( Games.SCOPE_GAMES ) - тоже не нужно
@@ -174,7 +146,38 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
             return;
         }
 
-        Games.Leaderboards.submitScore(client, LEADERBOARD, score);
+        Games.Leaderboards.submitScore(client, LEADERBOARD_ID, score);
+    }
+
+    @Override
+    public List<ScoreData> getLeaderboardPlayers() {
+        if (!isConnected()) {
+            return userScoreData;
+        }
+
+        Games.Leaderboards.loadPlayerCenteredScores(client, LEADERBOARD_ID, LeaderboardVariant.TIME_SPAN_ALL_TIME,
+                LeaderboardVariant.COLLECTION_PUBLIC, 5)
+                .setResultCallback(new ResultCallback<Leaderboards.LoadScoresResult>() {
+
+                    @Override
+                    public void onResult(@NonNull Leaderboards.LoadScoresResult result) {
+                        int size = result.getScores().getCount();
+
+                        for (int i = 0; i < size; i++) {
+
+                            LeaderboardScore lbs = result.getScores().get(i);
+
+                            String name = lbs.getScoreHolderDisplayName();
+                            String score = lbs.getDisplayScore();
+                            String id = lbs.getScoreHolder().getPlayerId();
+
+                            userScoreData.add(new ScoreData(id, name, score));
+                            userScoreReady = true;
+                        }
+                    }
+                });
+
+        return userScoreData;
     }
 
     @Override
@@ -183,7 +186,7 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
             return;
         }
 
-        Intent intent = Games.Leaderboards.getLeaderboardIntent(client, LEADERBOARD);
+        Intent intent = Games.Leaderboards.getLeaderboardIntent(client, LEADERBOARD_ID);
         context.startActivityForResult(intent, REQUEST_LEADERBOARD);
     }
 
@@ -206,6 +209,7 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
                 RC_SIGN_IN, error);
     }
 
+    @Override
     public void rateGame() {
     }
 }

@@ -12,7 +12,7 @@ public class DesktopLauncher {
 
     private static final String appName = DesktopLauncher.class.getPackage().getName();
     // change this
-    private static SCREEN_CFG screenConfig = SCREEN_CFG.MY_RESOLUTION;
+    private static SCREEN_CFG screenConfig = SCREEN_CFG.TEST;
 
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
@@ -31,7 +31,8 @@ public class DesktopLauncher {
         SMALL(320, 240),
         SCREEN_SHOT(1024, 500),
         DEFAULT(800, 480),
-        MY_RESOLUTION(HEIGHT, WIDTH);
+        MY_RESOLUTION(HEIGHT, WIDTH),
+        TEST(HEIGHT + 250 + 100, WIDTH + 200);
 
         final boolean LANDSCAPE = true;
         final boolean PORTRAIT = false;

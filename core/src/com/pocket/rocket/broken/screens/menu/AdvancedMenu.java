@@ -8,11 +8,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.StringBuilder;
 import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.Main;
+import com.pocket.rocket.broken.actors.userData.ScoreData;
 import com.pocket.rocket.broken.screens.MenuScreen;
 import com.pocket.rocket.broken.screens.tutorial.TutorialScreen;
+
+import java.util.List;
 
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.WIDTH;
@@ -44,16 +48,19 @@ public class AdvancedMenu extends Group {
         final Group advancedButtons = new Group();
         advancedButtons.setPosition(WIDTH, 0);
 
-        Label.LabelStyle font = AssetLoader.getFont();
-        font.fontColor = Color.FIREBRICK;
-        Label label = new Label("best players\nbest players\nbest players", font);
-        label.setAlignment(Align.center);
-        label.setBounds(X_CENTER - 300, HEIGHT - 300, 600, 250);
-        advancedButtons.addActor(label);
+
+
+        advancedButtons.addActor(buildUserScore());
 
         TextButton achievementButton = new TextButton("Achievement", AssetLoader.getButtonStyle());
         achievementButton.setBounds(X_MENU_BUTTON_POSITION, Y_ADVANCED_BUTTON, MENU_BUTTON_WIDTH, ADVANCED_BUTTON_HEIGHT);
         achievementButton.getLabel().setFontScale(ADVANCED_FONT_SCALE);
+        achievementButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                main.getPlayServices().showAchievements();
+            }
+        });
         advancedButtons.addActor(achievementButton);
 
         TextButton galleryButton = new TextButton("Gallery", AssetLoader.getButtonStyle());
@@ -114,5 +121,28 @@ public class AdvancedMenu extends Group {
         advancedButtons.addActor(backToMenuButton);
 
         return advancedButtons;
+    }
+
+    private Label buildUserScore() {
+        Label.LabelStyle font = AssetLoader.getFont();
+        font.fontColor = Color.FIREBRICK;
+
+        List<ScoreData> players = main.getPlayServices().getLeaderboardPlayers();
+        StringBuilder score = new StringBuilder();
+
+        for (ScoreData scoreData : players){
+            score.append(scoreData.getScore()).append(": ").append(scoreData.getName()).append("\n");
+        }
+
+        Label label = new Label(score.toString(), font);
+        label.setAlignment(Align.center);
+        label.setBounds(X_CENTER - 300, HEIGHT - 300, 600, 250);
+        label.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                main.getPlayServices().showLeaderboard();
+            }
+        });
+        return label;
     }
 }

@@ -4,7 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.Preference;
-import com.pocket.rocket.broken.screens.menu.AdvancedMenu;
 import com.pocket.rocket.broken.screens.menu.Gallery;
 import com.pocket.rocket.broken.screens.menu.MainMenu;
 import com.pocket.rocket.broken.screens.menu.MenuIcons;
@@ -14,10 +13,9 @@ import static com.pocket.rocket.broken.Constants.X_CENTER;
 public class MenuScreen extends BaseScreen {
 
     public static final float MENU_SWITCH_TIME = 0.35f;
-    public static final int X_MENU_BUTTON_POSITION = X_CENTER - 200;
-    public static final int Y_MENU_BUTTON = 550;
     public static final int MENU_BUTTON_WIDTH = 400;
-
+    public static final int Y_MENU_BUTTON = 480;
+    public static final int X_MENU_BUTTON_POSITION = X_CENTER - MENU_BUTTON_WIDTH / 2;
 
     public MenuScreen(final Main main, boolean fade) {
         super(main);
@@ -30,8 +28,8 @@ public class MenuScreen extends BaseScreen {
         Group gallery = new Gallery();
 
         menu.addActor(new MainMenu(main, menu));
-        menu.addActor(new AdvancedMenu(main, menu, gallery));
-        menu.addActor(gallery);
+        //menu.addActor(new AdvancedMenu(main, menu, gallery));
+        //menu.addActor(gallery);
 
         addActor(menu);
 

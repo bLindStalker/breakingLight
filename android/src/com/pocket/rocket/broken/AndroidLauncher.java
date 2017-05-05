@@ -48,9 +48,7 @@ public class AndroidLauncher extends AndroidApplication {
         //adMob.init( context );
         gpgs.init(context);
 
-        AndroidApplicationConfiguration config;
-        config = new AndroidApplicationConfiguration();
-        View gameView = initializeForView(game, config);
+        View gameView = initializeForView(game, new AndroidApplicationConfiguration());
 
         RelativeLayout layout = new RelativeLayout(this);
         layout.addView(gameView);

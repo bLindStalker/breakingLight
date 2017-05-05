@@ -33,28 +33,25 @@ public class AssetLoader implements Disposable {
     private static final String FONT = "font.fnt";
     private static final String BUTTON_UP = "button_up.png";
     private static final String BUTTON_DOWN = "button_down.png";
-    private static final String RESULT = "result.png";
     private static final String DIALOG = "dialog.png";
 
-    private static final String LABEL = "labels/logo.png";
+    private static final String LOGO_LABEL = "labels/logo.png";
     private static final String GAME_OVER_LABEL = "labels/game_over.png";
-    private static final String CONGRATULATIONS = "labels/congratulations.png";
-    private static final String TUTORIAL = "labels/tutorial.png";
 
     private static final String ADS = "elements/icons/ads.png";
     private static final String NO_ADS = "elements/icons/no_ads.png";
     private static final String RATE_US = "elements/icons/rate_us.png";
-    private static final String SOUND_OFF = "elements/icons/sound_off.png";
-    private static final String SOUND_ON = "elements/icons/sound_on.png";
-    private static final String SERVICE_ON = "elements/icons/service_on.png";
-    private static final String SERVICE_OFF = "elements/icons/service_off.png";
-    private static final String HEART_ATLAS = "elements/heart/heart_atlas.atlas";
-    private static final String STAR = "elements/star.png";
+    private static final String ACHIEVEMENTS = "elements/icons/achievements.png";
+    private static final String TOP = "elements/icons/top.png";
+    private static final String BONUS = "elements/bonus.png";
     private static final String GALLERY = "gallery.png";
     private static final String OK = "elements/ok.png";
     private static final String ROUND = "elements/round.png";
     private static final String BAR = "elements/bar.png";
     private static final String PROGRESS = "elements/progress.png";
+    private static final String HEART = "elements/heart.png";
+
+    private static final String HEART_ATLAS = "elements/heart_animation/heart_atlas.atlas";
 
     private static AssetManager assetManager;
     private static int defaultPrefix = LAMPS_PREFIX_1;
@@ -71,7 +68,6 @@ public class AssetLoader implements Disposable {
 
         background = backgrounds.get(MathUtils.random(0, backgrounds.size() - 1));
         assetManager.load(background, Texture.class);
-        assetManager.load(RESULT, Texture.class);
 
         assetManager.load(getLampPath(LAMPS_PREFIX_0, TURN_ON), Texture.class);
         loadLamps(LAMPS_PREFIX_1);
@@ -92,7 +88,9 @@ public class AssetLoader implements Disposable {
         assetManager.load(PROGRESS, Texture.class);
         assetManager.load(ROUND, Texture.class);
         assetManager.load(OK, Texture.class);
-        assetManager.load(STAR, Texture.class);
+        assetManager.load(BONUS, Texture.class);
+
+        assetManager.load(HEART, Texture.class);
 
         assetManager.load(HEART_ATLAS, TextureAtlas.class);
 
@@ -102,20 +100,16 @@ public class AssetLoader implements Disposable {
     }
 
     private static void loadLabels() {
-        assetManager.load(LABEL, Texture.class);
+        assetManager.load(LOGO_LABEL, Texture.class);
         assetManager.load(GAME_OVER_LABEL, Texture.class);
-        assetManager.load(CONGRATULATIONS, Texture.class);
-        assetManager.load(TUTORIAL, Texture.class);
     }
 
     private static void loadIcons() {
         assetManager.load(ADS, Texture.class);
         assetManager.load(NO_ADS, Texture.class);
         assetManager.load(RATE_US, Texture.class);
-        assetManager.load(SOUND_OFF, Texture.class);
-        assetManager.load(SOUND_ON, Texture.class);
-        assetManager.load(SERVICE_OFF, Texture.class);
-        assetManager.load(SERVICE_ON, Texture.class);
+        assetManager.load(ACHIEVEMENTS, Texture.class);
+        assetManager.load(TOP, Texture.class);
     }
 
     private static void loadLamps(int prefix) {
@@ -132,18 +126,13 @@ public class AssetLoader implements Disposable {
         return assetManager.get(background);
     }
 
-    public static Texture getResultBg() {
-        return assetManager.get(RESULT);
-    }
-
-    public static Texture getStar() {
-        return assetManager.get(STAR);
+    public static Texture getBonus() {
+        return assetManager.get(BONUS);
     }
 
     public static Texture getGallery() {
         return assetManager.get(GALLERY);
     }
-
 
     public static Texture getCheckround() {
         return assetManager.get(ROUND);
@@ -158,7 +147,7 @@ public class AssetLoader implements Disposable {
         buttonStyle.up = new TextureRegionDrawable(new TextureRegion(getButtonUp()));
         buttonStyle.down = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get(BUTTON_DOWN)));
         buttonStyle.font = assetManager.get(FONT);
-        buttonStyle.fontColor = BUTTON_TEXT_COLOR;
+        buttonStyle.fontColor = Color.BLACK;
 
         return buttonStyle;
     }
@@ -219,16 +208,12 @@ public class AssetLoader implements Disposable {
         return assetManager.get(getLampPath(defaultPrefix, BROKEN));
     }
 
-    public static Texture getLabel() {
-        return assetManager.get(LABEL);
+    public static Texture getLogoLabel() {
+        return assetManager.get(LOGO_LABEL);
     }
 
     public static Texture getGameOverLabel() {
         return assetManager.get(GAME_OVER_LABEL);
-    }
-
-    public static Texture getCongratulationsLabel() {
-        return assetManager.get(CONGRATULATIONS);
     }
 
     public static Texture getDialog() {
@@ -255,26 +240,6 @@ public class AssetLoader implements Disposable {
         return assetManager.get(RATE_US);
     }
 
-    public static Texture getSoundOff() {
-        return assetManager.get(SOUND_OFF);
-    }
-
-    public static Texture getSoundOn() {
-        return assetManager.get(SOUND_ON);
-    }
-
-    public static Texture getServiceOn() {
-        return assetManager.get(SERVICE_ON);
-    }
-
-    public static Texture getServiceOff() {
-        return assetManager.get(SERVICE_OFF);
-    }
-
-    public static Texture getTutorial() {
-        return assetManager.get(TUTORIAL);
-    }
-
     public static Array<TextureAtlas.AtlasRegion> getHeart() {
         return ((TextureAtlas) assetManager.get(HEART_ATLAS)).findRegions("heart");
     }
@@ -282,5 +247,13 @@ public class AssetLoader implements Disposable {
     @Override
     public void dispose() {
         assetManager.dispose();
+    }
+
+    public static Texture getAchievements() {
+        return assetManager.get(RATE_US);
+    }
+
+    public static Texture getTop() {
+        return assetManager.get(TOP);
     }
 }
