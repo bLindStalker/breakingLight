@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Timer;
-import com.pocket.rocket.broken.actors.StarBuilder;
+import com.pocket.rocket.broken.actors.BonusBuilder;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 import com.pocket.rocket.broken.enums.LightBulbStatus;
 import com.pocket.rocket.broken.screens.tutorial.TutorialLamp;
@@ -14,19 +14,19 @@ import java.util.LinkedList;
 
 public class StepManager {
     private final ArrayList<TutorialLamp> lamps;
-    private LinkedList<com.pocket.rocket.broken.screens.tutorial.steps.TutorialStep> steps = new LinkedList<com.pocket.rocket.broken.screens.tutorial.steps.TutorialStep>();
+    private LinkedList<TutorialStep> steps = new LinkedList<TutorialStep>();
 
     public StepManager(Stage stage, ArrayList<TutorialLamp> lamps,
-                       ScoreActor scoreActor, StarBuilder starBuilder, Group lampGroup) {
+                       ScoreActor scoreActor, BonusBuilder bonusBuilder, Group lampGroup) {
         this.lamps = lamps;
         steps.add(new BreakLampsStep(stage, lampGroup, lamps));
-        steps.add(new com.pocket.rocket.broken.screens.tutorial.steps.StarStep(stage, scoreActor, lampGroup, starBuilder));
-        steps.add(new com.pocket.rocket.broken.screens.tutorial.steps.FinalStep(stage, lampGroup));
+        steps.add(new BonusStep(stage, scoreActor, lampGroup, bonusBuilder));
+        steps.add(new FinalStep(stage, lampGroup));
     }
 
     public boolean runStep() {
         activateLamp();
-        for (com.pocket.rocket.broken.screens.tutorial.steps.TutorialStep step : steps) {
+        for (TutorialStep step : steps) {
             if (step.run()) {
                 steps.remove(step);
             }

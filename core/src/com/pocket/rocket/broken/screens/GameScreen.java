@@ -10,10 +10,10 @@ import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.pocket.rocket.broken.LightListener;
 import com.pocket.rocket.broken.Main;
+import com.pocket.rocket.broken.actors.BonusBuilder;
 import com.pocket.rocket.broken.actors.HeartActor;
 import com.pocket.rocket.broken.actors.ImageActor;
 import com.pocket.rocket.broken.actors.LightBulb;
-import com.pocket.rocket.broken.actors.StarBuilder;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 import com.pocket.rocket.broken.actors.userData.TimerActor;
 import com.pocket.rocket.broken.enums.LightBulbPosition;
@@ -45,7 +45,7 @@ import static java.util.Collections.shuffle;
 public class GameScreen extends BaseScreen {
     private final Group gameActors;
     private final ScoreActor scoreActor;
-    private final StarBuilder starBuilder;
+    private final BonusBuilder bonusBuilder;
     private final TimerActor timer;
 
     private final Queue<HeartActor> heartActors = new Queue<HeartActor>();
@@ -58,7 +58,7 @@ public class GameScreen extends BaseScreen {
 
     public GameScreen(Main main) {
         super(main);
-        starBuilder = new StarBuilder(this);
+        bonusBuilder = new BonusBuilder(this);
         gameActors = new Group();
 
         Label.LabelStyle font = getFont();
@@ -112,7 +112,7 @@ public class GameScreen extends BaseScreen {
 
     private void showResult() {
         gameActors.addAction(Actions.alpha(0, 0.25f));
-        main.setScreen(new ResultScreen(main, scoreActor.getScore(), scoreActor.getStarCollected(), timer.getTime() < 0 ? 0 : timer.getTime()));
+        main.setScreen(new ResultScreen(main, scoreActor.getScore(), scoreActor.getbonusCollected(), timer.getTime() < 0 ? 0 : timer.getTime()));
     }
 
     private void activateLamp() {
@@ -191,7 +191,7 @@ public class GameScreen extends BaseScreen {
             public Boolean call() throws Exception {
                 return actor.justClicked(timer.lampData);
             }
-        }, heartActors, scoreActor, starBuilder));
+        }, heartActors, scoreActor, bonusBuilder));
 
         allLamps.add(actor);
 

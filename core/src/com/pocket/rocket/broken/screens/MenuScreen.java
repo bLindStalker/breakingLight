@@ -14,8 +14,10 @@ public class MenuScreen extends BaseScreen {
 
     public static final float MENU_SWITCH_TIME = 0.35f;
     public static final int MENU_BUTTON_WIDTH = 400;
+    public static final int MENU_BUTTON_HEIGHT = 120;
     public static final int Y_MENU_BUTTON = 480;
     public static final int X_MENU_BUTTON_POSITION = X_CENTER - MENU_BUTTON_WIDTH / 2;
+    public static final int LOGO_WIDTH = 400;
 
     public MenuScreen(final Main main, boolean fade) {
         super(main);

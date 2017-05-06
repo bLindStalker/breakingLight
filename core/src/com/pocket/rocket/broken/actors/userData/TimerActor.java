@@ -18,17 +18,17 @@ public class TimerActor extends LabelData {
 
     public TimerActor(int xPosition, int yPosition, int width, int height, LabelStyle style) {
         super(String.valueOf(0), xPosition, yPosition, width, height, style);
-        startTimer();
+        bonustTimer();
     }
 
-    private void startTimer() {
+    private void bonustTimer() {
         Timer.schedule(new Timer.Task() {
                            @Override
                            public void run() {
                                setText(String.valueOf(currentTime));
                                updateDifficulty();
                                currentTime++;
-                               startTimer();
+                               bonustTimer();
                            }
                        }, 1
         );

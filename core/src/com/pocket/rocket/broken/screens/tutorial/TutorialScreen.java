@@ -6,9 +6,8 @@ import com.badlogic.gdx.utils.Queue;
 import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.LightListener;
 import com.pocket.rocket.broken.Main;
+import com.pocket.rocket.broken.actors.BonusBuilder;
 import com.pocket.rocket.broken.actors.HeartActor;
-import com.pocket.rocket.broken.actors.ImageActor;
-import com.pocket.rocket.broken.actors.StarBuilder;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 import com.pocket.rocket.broken.enums.LampLogicData;
 import com.pocket.rocket.broken.enums.LightBulbPosition;
@@ -36,21 +35,21 @@ import static java.lang.Integer.MAX_VALUE;
 public class TutorialScreen extends BaseScreen {
     private final Group gameActors;
     private final ScoreActor scoreActor = new ScoreActor(WIDTH - 20 - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT, AssetLoader.getFont());
-    private final StarBuilder starBuilder;
+    private final BonusBuilder bonusBuilder;
     private final StepManager stepManager;
     private ArrayList<TutorialLamp> lamps = new ArrayList<TutorialLamp>();
 
     public TutorialScreen(Main main) {
         super(main);
-        starBuilder = new StarBuilder(this);
-        starBuilder.setClickToCreate(MAX_VALUE, MAX_VALUE);
+        bonusBuilder = new BonusBuilder(this);
+        bonusBuilder.setClickToCreate(MAX_VALUE, MAX_VALUE);
 
         gameActors = new Group();
         Group lampGroup = createLamps();
         gameActors.addActor(lampGroup);
         addActor(gameActors);
 
-        stepManager = new StepManager(this, lamps, scoreActor, starBuilder, lampGroup);
+        stepManager = new StepManager(this, lamps, scoreActor, bonusBuilder, lampGroup);
         gameActors.addAction(Actions.alpha(0, 0f));
         gameActors.addAction(Actions.alpha(1, 0.5f));
     }
@@ -65,7 +64,7 @@ public class TutorialScreen extends BaseScreen {
 
     private void showResult() {
         gameActors.addAction(Actions.alpha(0, 0.25f));
-        main.setScreen(new ResultScreen(main, 0, scoreActor.getStarCollected(), 0));
+        main.setScreen(new ResultScreen(main, 0, scoreActor.getbonusCollected(), 0));
     }
 
     private Group createLamps() {
@@ -90,7 +89,7 @@ public class TutorialScreen extends BaseScreen {
             public Boolean call() throws Exception {
                 return actor.justClicked(new LampLogicData());
             }
-        }, new Queue<HeartActor>(), scoreActor, starBuilder));
+        }, new Queue<HeartActor>(), scoreActor, bonusBuilder));
 
         lamps.add(actor);
 

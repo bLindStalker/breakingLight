@@ -244,16 +244,16 @@ public class AssetLoader implements Disposable {
         return ((TextureAtlas) assetManager.get(HEART_ATLAS)).findRegions("heart");
     }
 
-    @Override
-    public void dispose() {
-        assetManager.dispose();
-    }
-
     public static Texture getAchievements() {
-        return assetManager.get(RATE_US);
+        return assetManager.get(ACHIEVEMENTS);
     }
 
     public static Texture getTop() {
         return assetManager.get(TOP);
+    }
+
+    @Override
+    public void dispose() {
+        assetManager.dispose();
     }
 }

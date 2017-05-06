@@ -18,11 +18,11 @@ public final class Constants {
     public static final int HEART_SIZE = 90;
     public static final int Y_HEART_POSITION = Y_STATUS_POSITION + TIMER_HEIGHT / 2 - HEART_SIZE / 2;
 
-    public static final float STAR_SIZE = 110f;
+    public static final float BONUS_SIZE = 110f;
 
     // game logic constants
     public static final int BASIC_SCORE = 10;
-    public static final int BASIC_STAR_SCORE = 20;
+    public static final int BASIC_bonus_SCORE = 20;
 
     public static final int MAX_ACTIVE_LAMPS = 9;
 
@@ -40,8 +40,8 @@ public final class Constants {
 
     public static final int HARD_CORE_TIME = 30;
 
-    public static final int MIN_CLICK_FOR_STAR = 3;
-    public static final int MAX_CLICK_FOR_STAR = 9;
+    public static final int MIN_CLICK_FOR_bonus = 3;
+    public static final int MAX_CLICK_FOR_bonus = 9;
 
     // gallery
     public static int LAMP_OPEN_MAX = 1000; // 1000

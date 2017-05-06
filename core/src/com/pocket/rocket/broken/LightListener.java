@@ -3,8 +3,8 @@ package com.pocket.rocket.broken;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Queue;
+import com.pocket.rocket.broken.actors.BonusBuilder;
 import com.pocket.rocket.broken.actors.HeartActor;
-import com.pocket.rocket.broken.actors.StarBuilder;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 
 import java.util.concurrent.Callable;
@@ -14,19 +14,19 @@ public class LightListener extends ClickListener {
     private Callable<Boolean> action;
     private Queue<HeartActor> heartActors;
     private ScoreActor scoreActor;
-    private StarBuilder starBuilder;
+    private BonusBuilder bonusBuilder;
 
-    public LightListener(Callable<Boolean> action, Queue<HeartActor> heartActors, ScoreActor scoreActor, StarBuilder starBuilder) {
+    public LightListener(Callable<Boolean> action, Queue<HeartActor> heartActors, ScoreActor scoreActor, BonusBuilder bonusBuilder) {
         this.action = action;
         this.heartActors = heartActors;
         this.scoreActor = scoreActor;
-        this.starBuilder = starBuilder;
+        this.bonusBuilder = bonusBuilder;
     }
 
     @Override
     public void clicked(InputEvent event, float x, float y) {
         if (doAction()) {
-            starBuilder.buildStar((int) event.getListenerActor().getX(), (int) event.getListenerActor().getY(), scoreActor);
+            bonusBuilder.buildbonus((int) event.getListenerActor().getX(), (int) event.getListenerActor().getY(), scoreActor);
             scoreActor.increaseScore();
         } else {
             heartOperation();
