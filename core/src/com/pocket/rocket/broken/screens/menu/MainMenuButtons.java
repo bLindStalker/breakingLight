@@ -19,48 +19,31 @@ import static com.badlogic.gdx.utils.Timer.schedule;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.WIDTH;
-import static com.pocket.rocket.broken.Constants.X_CENTER;
-import static com.pocket.rocket.broken.Preference.getScore;
 import static com.pocket.rocket.broken.Preference.getTotalScore;
 import static com.pocket.rocket.broken.screens.MenuScreen.LOGO_WIDTH;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_HEIGHT;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_WIDTH;
+import static com.pocket.rocket.broken.screens.MenuScreen.MENU_SWITCH_TIME;
 import static com.pocket.rocket.broken.screens.MenuScreen.X_MENU_BUTTON_POSITION;
 import static com.pocket.rocket.broken.screens.MenuScreen.Y_MENU_BUTTON;
-import static java.lang.String.valueOf;
 
-public class MainMenu extends Group {
-    private static final int MENU_BUTTON_WHITE_SPACE = 10;
-
+public class MainMenuButtons extends Group {
     private final Main main;
     private final Group menuGroup;
+    private final Group gallery;
 
-    public MainMenu(final Main main, final Group menuGroup) {
+    public MainMenuButtons(final Main main, final Group menuGroup) {
         addActor(new ImageActor((WIDTH - LOGO_WIDTH) / 2, HEIGHT - LOGO_WIDTH - 100, LOGO_WIDTH, LOGO_WIDTH, AssetLoader.getLogoLabel()));
         this.main = main;
         this.menuGroup = menuGroup;
+        this.gallery = new Gallery(menuGroup);
 
-        addActor(buildScoreLabel());
+
         addActor(buildButtons());
     }
 
-    private Group buildScoreLabel() {
-        Group labelGroup = new Group();
-
-        int score = getScore();
-        labelGroup.addActor(buildScoreLabel(getFont(WHITE), "max: ", X_CENTER - 300, 690));
-        labelGroup.addActor(buildScoreLabel(getFont(WHITE), valueOf(score), X_CENTER - 210, 690));
-
-        int totalScore = getTotalScore();
-        labelGroup.addActor(buildScoreLabel(getFont(WHITE), "total: ", X_CENTER + 135, 690));
-        labelGroup.addActor(buildScoreLabel(getFont(WHITE), valueOf(totalScore), X_CENTER + 135 + 90, 690));
-
-        labelGroup.setVisible(score > 0 && totalScore > 0);
-        return labelGroup;
-    }
-
     private Group buildButtons() {
-        Group menuButtonsGroup = new Group();
+        final Group menuButtonsGroup = new Group();
 
         TextButton startButton = new TextButton("START", AssetLoader.getButtonStyle());
         startButton.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
@@ -82,25 +65,23 @@ public class MainMenu extends Group {
         });
         menuButtonsGroup.addActor(startButton);
 
-        Label gallery = new Label("GALLERY", new Label.LabelStyle(getFont(WHITE)));
-        gallery.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - 75, MENU_BUTTON_WIDTH, 75);
-        gallery.setAlignment(Align.center);
-        menuButtonsGroup.addActor(gallery);
+        Label galleryLabel = new Label("GALLERY", new Label.LabelStyle(getFont(WHITE)));
+        galleryLabel.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - 75, MENU_BUTTON_WIDTH, 75);
+        galleryLabel.setAlignment(Align.center);
+        galleryLabel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gallery gallery = new Gallery(menuGroup);
+                addActor(gallery);
+                menuGroup.addAction(Actions.moveTo(-WIDTH, 0, MENU_SWITCH_TIME));
+            }
+        });
+        menuButtonsGroup.addActor(galleryLabel);
 
         Label settings = new Label("SETTINGS", new Label.LabelStyle(getFont(WHITE)));
         settings.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - 190, MENU_BUTTON_WIDTH, 100);
         settings.setAlignment(Align.center);
         menuButtonsGroup.addActor(settings);
         return menuButtonsGroup;
-    }
-
-    private Label buildScoreLabel(Label.LabelStyle font, String text, int x, int y) {
-        Label label = new Label(text, font);
-
-        label.setAlignment(Align.left);
-        label.setBounds(x, y, 100, 50);
-        label.setFontScale(0.9f, 0.9f);
-
-        return label;
     }
 }

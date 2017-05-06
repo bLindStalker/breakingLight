@@ -24,7 +24,6 @@ public class AssetLoader implements Disposable {
     public static final int LAMPS_PREFIX_1 = 1;
     public static final int LAMPS_PREFIX_2 = 2;
     public static final int LAMPS_PREFIX_3 = 3;
-    public static final Color BUTTON_TEXT_COLOR = new Color(0.38f, 0, 0, 1);
 
     private static final String TURN_ON = "lamps/%s/turn_on.png";
     private static final String TURN_OFF = "lamps/%s/turn_off.png";
@@ -34,6 +33,7 @@ public class AssetLoader implements Disposable {
     private static final String BUTTON_UP = "button_up.png";
     private static final String BUTTON_DOWN = "button_down.png";
     private static final String DIALOG = "dialog.png";
+    private static final String HEADER = "header.png";
 
     private static final String LOGO_LABEL = "labels/logo.png";
     private static final String GAME_OVER_LABEL = "labels/game_over.png";
@@ -43,13 +43,15 @@ public class AssetLoader implements Disposable {
     private static final String RATE_US = "elements/icons/rate_us.png";
     private static final String ACHIEVEMENTS = "elements/icons/achievements.png";
     private static final String TOP = "elements/icons/top.png";
+
+    private static final String BACK = "elements/back.png";
     private static final String BONUS = "elements/bonus.png";
-    private static final String GALLERY = "gallery.png";
-    private static final String OK = "elements/ok.png";
-    private static final String ROUND = "elements/round.png";
+    private static final String CHECKED = "elements/checked.png";
     private static final String BAR = "elements/bar.png";
     private static final String PROGRESS = "elements/progress.png";
     private static final String HEART = "elements/heart.png";
+
+    private static final String GALLERY = "gallery.png";
 
     private static final String HEART_ATLAS = "elements/heart_animation/heart_atlas.atlas";
 
@@ -82,12 +84,13 @@ public class AssetLoader implements Disposable {
         loadLabels();
         loadIcons();
 
+        assetManager.load(HEADER, Texture.class);
+        assetManager.load(BACK, Texture.class);
         assetManager.load(GALLERY, Texture.class);
         assetManager.load(DIALOG, Texture.class);
         assetManager.load(BAR, Texture.class);
         assetManager.load(PROGRESS, Texture.class);
-        assetManager.load(ROUND, Texture.class);
-        assetManager.load(OK, Texture.class);
+        assetManager.load(CHECKED, Texture.class);
         assetManager.load(BONUS, Texture.class);
 
         assetManager.load(HEART, Texture.class);
@@ -134,12 +137,8 @@ public class AssetLoader implements Disposable {
         return assetManager.get(GALLERY);
     }
 
-    public static Texture getCheckround() {
-        return assetManager.get(ROUND);
-    }
-
-    public static Texture getCheckok() {
-        return assetManager.get(OK);
+    public static Texture getChecked() {
+        return assetManager.get(CHECKED);
     }
 
     public static TextButtonStyle getButtonStyle() {
@@ -250,6 +249,14 @@ public class AssetLoader implements Disposable {
 
     public static Texture getTop() {
         return assetManager.get(TOP);
+    }
+
+    public static Texture getHeader() {
+        return assetManager.get(HEADER);
+    }
+
+    public static Texture getBack() {
+        return assetManager.get(BACK);
     }
 
     @Override

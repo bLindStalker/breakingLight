@@ -44,6 +44,6 @@ public final class Constants {
     public static final int MAX_CLICK_FOR_bonus = 9;
 
     // gallery
-    public static int LAMP_OPEN_MAX = 1000; // 1000
-    public static int LAMP_OPEN_TOTAL = 10000; // 10000
+    public static int LAMP_OPEN_MAX = 100; // 1000
+    public static int LAMP_OPEN_TOTAL = 100; // 10000
 }
