@@ -56,33 +56,15 @@ public class ResultScreen extends BaseScreen {
         buildResultData(resultGroup, X_CENTER - 250, "Time", valueOf(time));
         buildResultData(resultGroup, X_CENTER + 150, "Score", valueOf(score));
 
-        resultGroup.addActor(new ImageActor(X_CENTER - 15, 600, 30, 60, getBonus()));
+        resultGroup.addActor(new ImageActor(X_CENTER - 15, 575, 30, 60, getBonus()));
         Label dataLabel = new Label(valueOf(bonusCollected), getFont(WHITE));
         dataLabel.setAlignment(Align.center);
-        dataLabel.setBounds(X_CENTER - 50, 550, 100, 50);
+        dataLabel.setBounds(X_CENTER - 50, 525, 100, 50);
         dataLabel.setFontScale(1.1f);
         resultGroup.addActor(dataLabel);
 
-        TextButton retryButton = new TextButton("RETRY", AssetLoader.getButtonStyle());
-        retryButton.setBounds(X_MENU_BUTTON_POSITION, 370, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-        retryButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (canBeClose) {
-                    resultGroup.addAction(Actions.alpha(0, 0.25f));
-                    Timer.schedule(new Timer.Task() {
-                        @Override
-                        public void run() {
-                            main.setScreen(new GameScreen(main));
-                        }
-                    }, 0.25f);
-                }
-            }
-        });
-        resultGroup.addActor(retryButton);
-
         Label menuButton = new Label("MENU", new Label.LabelStyle(getFont(WHITE)));
-        menuButton.setBounds(X_MENU_BUTTON_POSITION, 220, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+        menuButton.setBounds(X_MENU_BUTTON_POSITION, 150, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
         menuButton.setAlignment(Align.center);
         menuButton.addListener(new ClickListener() {
             @Override
@@ -99,6 +81,24 @@ public class ResultScreen extends BaseScreen {
             }
         });
         resultGroup.addActor(menuButton);
+
+        TextButton retryButton = new TextButton("RETRY", AssetLoader.getButtonStyle());
+        retryButton.setBounds(X_MENU_BUTTON_POSITION, 300, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+        retryButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (canBeClose) {
+                    resultGroup.addAction(Actions.alpha(0, 0.25f));
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            main.setScreen(new GameScreen(main));
+                        }
+                    }, 0.25f);
+                }
+            }
+        });
+        resultGroup.addActor(retryButton);
 
         resultGroup.addAction(Actions.alpha(0, 0));
         resultGroup.addAction(Actions.alpha(1, 0.25f));
@@ -117,13 +117,13 @@ public class ResultScreen extends BaseScreen {
     private void buildResultData(Group result, int xPosition, String header, String data) {
         Label headerLabel = new Label(header, getFont(WHITE));
         headerLabel.setAlignment(Align.center);
-        headerLabel.setBounds(xPosition, 600, 100, 50);
+        headerLabel.setBounds(xPosition, 575, 100, 50);
         headerLabel.setFontScale(0.8f);
         result.addActor(headerLabel);
 
         Label dataLabel = new Label(data, getFont(WHITE));
         dataLabel.setAlignment(Align.center);
-        dataLabel.setBounds(xPosition, 600 - 50, 100, 50);
+        dataLabel.setBounds(xPosition, 575 - 50, 100, 50);
         dataLabel.setFontScale(1.1f);
         result.addActor(dataLabel);
     }

@@ -83,12 +83,12 @@ public class MainMenu extends Group {
         menuButtonsGroup.addActor(startButton);
 
         Label gallery = new Label("GALLERY", new Label.LabelStyle(getFont(WHITE)));
-        gallery.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - MENU_BUTTON_HEIGHT - MENU_BUTTON_WHITE_SPACE - 5, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+        gallery.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - 75, MENU_BUTTON_WIDTH, 75);
         gallery.setAlignment(Align.center);
         menuButtonsGroup.addActor(gallery);
 
         Label settings = new Label("SETTINGS", new Label.LabelStyle(getFont(WHITE)));
-        settings.setBounds(X_MENU_BUTTON_POSITION, 15 + Y_MENU_BUTTON - (2 * MENU_BUTTON_HEIGHT) - (2 * MENU_BUTTON_WHITE_SPACE), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+        settings.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - 190, MENU_BUTTON_WIDTH, 100);
         settings.setAlignment(Align.center);
         menuButtonsGroup.addActor(settings);
         return menuButtonsGroup;
