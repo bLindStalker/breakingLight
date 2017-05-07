@@ -8,7 +8,7 @@ import static com.badlogic.gdx.math.MathUtils.random;
 import static com.pocket.rocket.broken.AssetLoader.getLampImage;
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_WIDTH;
-import static com.pocket.rocket.broken.enums.LightBulbStatus.BROKEN;
+import static com.pocket.rocket.broken.enums.LightBulbStatus.NEUTRAL;
 import static com.pocket.rocket.broken.enums.LightBulbStatus.TURN_OFF;
 import static com.pocket.rocket.broken.enums.LightBulbStatus.TURN_ON;
 
@@ -26,8 +26,8 @@ public class LightBulb extends ImageActor {
 
     public boolean justClicked(LampLogic time) {
         if (status == TURN_ON) {
-            setStatus(BROKEN);
-            activationTime = random(time.maxBrokenTime, time.minBrokenTime);
+            setStatus(NEUTRAL);
+            activationTime = random(time.maxNeutralTime, time.minNeutralTime);
             turnOffTime = getTurnOffTime(time);
 
             return true;
@@ -38,7 +38,7 @@ public class LightBulb extends ImageActor {
 
     @Override
     public void act(float delta) {
-        if (activationTime > 0 && (status == TURN_ON || status == BROKEN)) {
+        if (activationTime > 0 && (status == TURN_ON || status == NEUTRAL)) {
 
             if (activationTime <= second) {
                 setStatus(TURN_OFF);

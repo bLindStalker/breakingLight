@@ -34,7 +34,7 @@ import static java.lang.Integer.MAX_VALUE;
 
 public class TutorialScreen extends BaseScreen {
     private final Group gameActors;
-    private final ScoreActor scoreActor = new ScoreActor(WIDTH - 20 - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT, AssetLoader.getFont());
+    private final ScoreActor scoreActor = new ScoreActor(WIDTH - 20 - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
     private final BonusBuilder bonusBuilder;
     private final StepManager stepManager;
     private ArrayList<TutorialLamp> lamps = new ArrayList<TutorialLamp>();

@@ -19,11 +19,11 @@ import static com.pocket.rocket.broken.Constants.LAMP_WIDTH;
 
 
 public class BonusActor extends Actor {
-    private static final float bonus_ACTOR_SCALE = BONUS_SIZE / 1.7f;
+    private static final float BONUS_ACTOR_SCALE = BONUS_SIZE / 1.7f;
     private final TextureRegion texture = new TextureRegion(getBonus());
 
     public BonusActor(int xPosition, int yPosition, final ScoreActor scoreActor, float velocity) {
-        float bonusSize = BONUS_SIZE + bonus_ACTOR_SCALE;
+        float bonusSize = BONUS_SIZE + BONUS_ACTOR_SCALE;
         setBounds(xPosition + (LAMP_WIDTH / 2) - bonusSize / 2, yPosition + (LAMP_HEIGHT / 2) - bonusSize / 2, bonusSize, bonusSize);
 
         setOrigin(Align.center);
@@ -40,7 +40,7 @@ public class BonusActor extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(texture, getX() + bonus_ACTOR_SCALE / 2, getY() + bonus_ACTOR_SCALE / 2, BONUS_SIZE / 2, BONUS_SIZE / 2, BONUS_SIZE,
+        batch.draw(texture, getX() + BONUS_ACTOR_SCALE / 2, getY() + BONUS_ACTOR_SCALE / 2, BONUS_SIZE / 2, BONUS_SIZE / 2, BONUS_SIZE,
                 BONUS_SIZE, 1, 1, getRotation());
     }
 }

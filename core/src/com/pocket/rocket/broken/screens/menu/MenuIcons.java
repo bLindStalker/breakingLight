@@ -85,25 +85,6 @@ public class MenuIcons extends Group {
         }
     }
 
-   /* private ImageActor getServiceIcon() {
-        serviceIcon = buildIcon(playServices.isConnected() ? getServiceOn() : getServiceOff(), null);
-
-        ClickListener listener = new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (playServices.isConnected()) {
-                    playServices.signOut();
-                    playServices.disconnect();
-                } else {
-                    playServices.connect();
-                }
-            }
-        };
-
-        serviceIcon.addListener(listener);
-        return serviceIcon;
-    }*/
-
     private ImageActor buildIcon(Texture texture, ClickListener listener) {
         ImageActor actor = new ImageActor(ICON_GROUP_WIDTH / 2 - ICON_SIZE / 2, 0, ICON_SIZE, ICON_SIZE, texture);
         if (listener != null) {
@@ -111,21 +92,4 @@ public class MenuIcons extends Group {
         }
         return actor;
     }
-
-    /*@Override
-    public void act(float delta) {
-        super.act(delta);
-        if (main.gpgsStateChange) {
-            main.gpgsStateChange = false;
-            serviceIcon.addAction(alpha(0, .3f));
-            schedule(new Timer.Task() {
-                         @Override
-                         public void run() {
-                             serviceIcon.setImage(playServices.isConnected() ? getServiceOn() : getServiceOff());
-                             serviceIcon.addAction(alpha(1, .3f));
-                         }
-                     }, .3f
-            );
-        }
-    }*/
 }

@@ -133,6 +133,7 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
     @Override
     public void showAchievements() {
         if (!isConnected()) {
+            connect();
             return;
         }
 
@@ -183,6 +184,7 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
     @Override
     public void showLeaderboard() {
         if (!isConnected()) {
+            connect();
             return;
         }
 

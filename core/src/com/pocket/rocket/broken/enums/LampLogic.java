@@ -2,12 +2,12 @@ package com.pocket.rocket.broken.enums;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.pocket.rocket.broken.Constants.ACTIVE_LAMP_INTERVAL;
-import static com.pocket.rocket.broken.Constants.BROKEN_TIME_INTERVAL;
+import static com.pocket.rocket.broken.Constants.neutral_TIME_INTERVAL;
 import static com.pocket.rocket.broken.Constants.MAX_ACTIVE_LAMP_TIME;
-import static com.pocket.rocket.broken.Constants.MAX_BROKEN_TIME;
+import static com.pocket.rocket.broken.Constants.MAX_NEUTRAL_TIME;
 import static com.pocket.rocket.broken.Constants.MAX_TURN_OFF_TIME;
 import static com.pocket.rocket.broken.Constants.MIN_ACTIVE_LAMP_TIME;
-import static com.pocket.rocket.broken.Constants.MIN_BROKEN_TIME;
+import static com.pocket.rocket.broken.Constants.MIN_NEUTRAL_TIME;
 import static com.pocket.rocket.broken.Constants.MIN_TURN_OFF_TIME;
 import static com.pocket.rocket.broken.Constants.TURN_OFF_TIME_INTERVAL;
 
@@ -15,8 +15,8 @@ public class LampLogic {
     public float minActiveTime = MIN_ACTIVE_LAMP_TIME + ACTIVE_LAMP_INTERVAL;
     public float maxActiveTime = MAX_ACTIVE_LAMP_TIME + ACTIVE_LAMP_INTERVAL + 0.7f;
 
-    public float maxBrokenTime = MAX_BROKEN_TIME + BROKEN_TIME_INTERVAL;
-    public float minBrokenTime = MIN_BROKEN_TIME + BROKEN_TIME_INTERVAL;
+    public float maxNeutralTime = MAX_NEUTRAL_TIME + neutral_TIME_INTERVAL;
+    public float minNeutralTime = MIN_NEUTRAL_TIME + neutral_TIME_INTERVAL;
 
     public float maxTurnOffTime = MAX_TURN_OFF_TIME + TURN_OFF_TIME_INTERVAL;
     public float minTurnOffTime = MIN_TURN_OFF_TIME + TURN_OFF_TIME_INTERVAL;
@@ -37,13 +37,13 @@ public class LampLogic {
         }
     }
 
-    public void setBrokenTimeInterval(float delta) {
+    public void setNeutralTimeInterval(float delta) {
         if (delta > 0) {
-            maxBrokenTime = maxBrokenTime - delta > MAX_BROKEN_TIME ? maxBrokenTime - delta : MAX_BROKEN_TIME;
-            minBrokenTime = minBrokenTime - delta > MIN_BROKEN_TIME ? minBrokenTime - delta : MIN_BROKEN_TIME;
+            maxNeutralTime = maxNeutralTime - delta > MAX_NEUTRAL_TIME ? maxNeutralTime - delta : MAX_NEUTRAL_TIME;
+            minNeutralTime = minNeutralTime - delta > MIN_NEUTRAL_TIME ? minNeutralTime - delta : MIN_NEUTRAL_TIME;
         } else {
-            maxBrokenTime = MAX_BROKEN_TIME;
-            minBrokenTime = MIN_BROKEN_TIME;
+            maxNeutralTime = MAX_NEUTRAL_TIME;
+            minNeutralTime = MIN_NEUTRAL_TIME;
         }
     }
 

@@ -48,7 +48,7 @@ public class StepManager {
 
     private void manageLamps() {
         for (final TutorialLamp lamp : lamps) {
-            if (lamp.getCurrentStatus() == LightBulbStatus.BROKEN) {
+            if (lamp.getCurrentStatus() == LightBulbStatus.NEUTRAL) {
                 Timer.schedule(new Timer.Task() {
                                    @Override
                                    public void run() {

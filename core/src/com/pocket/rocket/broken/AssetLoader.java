@@ -17,6 +17,9 @@ import com.pocket.rocket.broken.enums.LightBulbStatus;
 import java.util.ArrayList;
 
 import static com.pocket.rocket.broken.Preference.getLampPrefix;
+import static com.pocket.rocket.broken.screens.menu.Settings.EN_INDEX;
+import static com.pocket.rocket.broken.screens.menu.Settings.RU_INDEX;
+import static com.pocket.rocket.broken.screens.menu.Settings.UA_INDEX;
 import static java.lang.String.format;
 
 public class AssetLoader implements Disposable {
@@ -27,7 +30,7 @@ public class AssetLoader implements Disposable {
 
     private static final String TURN_ON = "lamps/%s/turn_on.png";
     private static final String TURN_OFF = "lamps/%s/turn_off.png";
-    private static final String BROKEN = "lamps/%s/broken.png";
+    private static final String NEUTRAL = "lamps/%s/neutral.png";
 
     private static final String FONT = "font.fnt";
     private static final String BUTTON_UP = "button_up.png";
@@ -54,6 +57,9 @@ public class AssetLoader implements Disposable {
     private static final String UA = "elements/ua.png";
     private static final String RU = "elements/ru.png";
     private static final String EN = "elements/en.png";
+    private static final String TOGLE1 = "elements/togle1.png";
+    private static final String TOGLE2 = "elements/togle2.png";
+    private static final String TOGLE3 = "elements/togle3.png";
     private static final String ACTIVE_LANGUAGE = "elements/active_language.png";
 
     private static final String GALLERY = "gallery.png";
@@ -101,6 +107,9 @@ public class AssetLoader implements Disposable {
         assetManager.load(RU, Texture.class);
         assetManager.load(EN, Texture.class);
         assetManager.load(ACTIVE_LANGUAGE, Texture.class);
+        assetManager.load(TOGLE1, Texture.class);
+        assetManager.load(TOGLE2, Texture.class);
+        assetManager.load(TOGLE3, Texture.class);
 
         assetManager.load(HEART, Texture.class);
 
@@ -127,7 +136,7 @@ public class AssetLoader implements Disposable {
     private static void loadLamps(int prefix) {
         assetManager.load(getLampPath(prefix, TURN_ON), Texture.class);
         assetManager.load(getLampPath(prefix, TURN_OFF), Texture.class);
-        assetManager.load(getLampPath(prefix, BROKEN), Texture.class);
+        assetManager.load(getLampPath(prefix, NEUTRAL), Texture.class);
     }
 
     private static String getLampPath(int prefix, String fileName) {
@@ -188,8 +197,8 @@ public class AssetLoader implements Disposable {
                 return turnOn();
             case TURN_OFF:
                 return turnOff();
-            case BROKEN:
-                return broken();
+            case NEUTRAL:
+                return neutral();
             default:
                 return turnOff();
         }
@@ -211,8 +220,8 @@ public class AssetLoader implements Disposable {
         return assetManager.get(getLampPath(defaultPrefix, TURN_OFF));
     }
 
-    private static Texture broken() {
-        return assetManager.get(getLampPath(defaultPrefix, BROKEN));
+    private static Texture neutral() {
+        return assetManager.get(getLampPath(defaultPrefix, NEUTRAL));
     }
 
     public static Texture getLogoLabel() {
@@ -271,16 +280,29 @@ public class AssetLoader implements Disposable {
         return assetManager.get(LINE);
     }
 
-    public static Texture getUa() {
-        return assetManager.get(UA);
+    public static Texture getTogle() {
+        return assetManager.get(TOGLE1);
     }
 
-    public static Texture getRu() {
-        return assetManager.get(RU);
+    public static Texture getTogleRoundOn() {
+        return assetManager.get(TOGLE2);
     }
 
-    public static Texture getEn() {
-        return assetManager.get(EN);
+    public static Texture getTogleRoundOff() {
+        return assetManager.get(TOGLE3);
+    }
+
+    public static Texture getLanguage(int index) {
+        switch (index) {
+            case RU_INDEX:
+                return assetManager.get(RU);
+            case UA_INDEX:
+                return assetManager.get(UA);
+            case EN_INDEX:
+                return assetManager.get(EN);
+            default:
+                return assetManager.get(EN);
+        }
     }
 
     public static Texture getActiveLanguage() {

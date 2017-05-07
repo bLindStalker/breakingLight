@@ -61,13 +61,10 @@ public class GameScreen extends BaseScreen {
         bonusBuilder = new BonusBuilder(this);
         gameActors = new Group();
 
-        Label.LabelStyle font = getFont();
-        font.background = new TextureRegionDrawable(new TextureRegion(getButtonUp()));
-
-        timer = new TimerActor(20, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT, font);
+        timer = new TimerActor(20, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
         gameActors.addActor(timer);
 
-        scoreActor = new ScoreActor(WIDTH - 20 - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT, font);
+        scoreActor = new ScoreActor(WIDTH - 20 - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
         gameActors.addActor(scoreActor);
 
         gameActors.addActor(buildHeartGroup());
@@ -144,7 +141,6 @@ public class GameScreen extends BaseScreen {
 
     private Group buildHeartGroup() {
         Group lifeGroup = new Group();
-        lifeGroup.addActor(new ImageActor(X_CENTER - ((HEART_SIZE * 3 + 140) / 2), Y_HEART_POSITION - 20, HEART_SIZE * 3 + 140, HEART_SIZE + 40, getButtonUp()));
 
         Animation<TextureRegion> heartAnimation = new Animation<TextureRegion>(1f / 12f, getHeart(), Animation.PlayMode.NORMAL);
         int width = heartAnimation.getKeyFrame(0).getRegionWidth();

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.Constants;
 import com.pocket.rocket.broken.Main;
+import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.SpriteAccessor;
 
 import aurelienribon.tweenengine.Tween;
@@ -40,7 +41,11 @@ public class SplashScreen extends ScreenAdapter {
         batch.end();
 
         if (end.isFinished()) {
-            main.setScreen(new MenuScreen(main, true));
+            if (Preference.getLanguage() == -1){
+                main.setScreen(new LanguageScreen(main));
+            }else {
+                main.setScreen(new MenuScreen(main, true));
+            }
         }
     }
 

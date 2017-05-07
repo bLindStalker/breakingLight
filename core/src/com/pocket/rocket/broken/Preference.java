@@ -4,8 +4,6 @@ package com.pocket.rocket.broken;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
-import static com.pocket.rocket.broken.screens.menu.Settings.EN;
-
 public class Preference {
     private static Preferences prefs = Gdx.app.getPreferences("user_preference");
 
@@ -51,7 +49,7 @@ public class Preference {
     }
 
     public static int getLanguage() {
-        return prefs.getInteger("language", EN);
+        return prefs.getInteger("language", -1);
     }
 
     public static void saveLanguage(int index) {
