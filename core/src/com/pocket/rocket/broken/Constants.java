@@ -6,19 +6,13 @@ public final class Constants {
     public static final int WIDTH = 720;
     public static final int X_CENTER = WIDTH / 2;
 
-    public static final int LAMP_WIDTH = 260;
-    public static final int LAMP_HEIGHT = 335;
-    public static final int Y_LAMP_POSITION = 110;
+    public static final int LAMP_WIDTH = 212;
+    public static final int LAMP_HEIGHT = 241;
+    public static final int Y_LAMP_POSITION = 150;
+    public static final int LAMP_GROUP_WIDTH = WIDTH - 60;
 
-    public static final int Y_STATUS_POSITION = HEIGHT - 190;
-
-    public static final int TIMER_WIDTH = 130;
-    public static final int TIMER_HEIGHT = 100;
-
-    public static final int HEART_SIZE = 90;
-    public static final int Y_HEART_POSITION = Y_STATUS_POSITION + TIMER_HEIGHT / 2 - HEART_SIZE / 2;
-
-    public static final float BONUS_SIZE = 110f;
+    public static final float X_BONUS_SIZE = 42f;
+    public static final float Y_BONUS_SIZE = 111f;
 
     // game logic constants
     public static final int BASIC_SCORE = 10;

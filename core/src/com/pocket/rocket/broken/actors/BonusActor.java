@@ -12,23 +12,26 @@ import com.pocket.rocket.broken.actors.userData.ScoreActor;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.pocket.rocket.broken.AssetLoader.getBonus;
-import static com.pocket.rocket.broken.Constants.BONUS_SIZE;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_WIDTH;
+import static com.pocket.rocket.broken.Constants.X_BONUS_SIZE;
+import static com.pocket.rocket.broken.Constants.Y_BONUS_SIZE;
 
 
 public class BonusActor extends Actor {
-    private static final float BONUS_ACTOR_SCALE = BONUS_SIZE / 1.7f;
+    private static final float X_BONUS_ACTOR_SCALE = X_BONUS_SIZE / 2f;
+    private static final float Y_BONUS_ACTOR_SCALE = Y_BONUS_SIZE / 1.7f;
     private final TextureRegion texture = new TextureRegion(getBonus());
 
     public BonusActor(int xPosition, int yPosition, final ScoreActor scoreActor, float velocity) {
-        float bonusSize = BONUS_SIZE + BONUS_ACTOR_SCALE;
-        setBounds(xPosition + (LAMP_WIDTH / 2) - bonusSize / 2, yPosition + (LAMP_HEIGHT / 2) - bonusSize / 2, bonusSize, bonusSize);
+        float xBonusSize = X_BONUS_SIZE + X_BONUS_ACTOR_SCALE;
+        float yBonusSize = Y_BONUS_SIZE + Y_BONUS_ACTOR_SCALE;
+        setBounds(xPosition + (LAMP_WIDTH / 2) - xBonusSize / 2, yPosition + (LAMP_HEIGHT / 2) - yBonusSize / 2, xBonusSize, yBonusSize);
 
         setOrigin(Align.center);
         addAction(Actions.moveBy(random(-250, 250), HEIGHT, velocity, Interpolation.sine));
-        addAction(Actions.rotateBy(360 * velocity, velocity));
+        // addAction(Actions.rotateBy(360 * velocity, velocity));
         addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -40,7 +43,7 @@ public class BonusActor extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(texture, getX() + BONUS_ACTOR_SCALE / 2, getY() + BONUS_ACTOR_SCALE / 2, BONUS_SIZE / 2, BONUS_SIZE / 2, BONUS_SIZE,
-                BONUS_SIZE, 1, 1, getRotation());
+        batch.draw(texture, getX() + X_BONUS_ACTOR_SCALE / 2, getY() + Y_BONUS_ACTOR_SCALE / 2, X_BONUS_SIZE / 2, Y_BONUS_SIZE / 2, X_BONUS_SIZE,
+                Y_BONUS_SIZE, 1, 1, getRotation());
     }
 }

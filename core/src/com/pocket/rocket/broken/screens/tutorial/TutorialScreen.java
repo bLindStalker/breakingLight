@@ -3,7 +3,6 @@ package com.pocket.rocket.broken.screens.tutorial;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Queue;
-import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.LightListener;
 import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.actors.BonusBuilder;
@@ -20,11 +19,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
-import static com.pocket.rocket.broken.Constants.TIMER_HEIGHT;
-import static com.pocket.rocket.broken.Constants.TIMER_WIDTH;
-import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.Constants.Y_LAMP_POSITION;
-import static com.pocket.rocket.broken.Constants.Y_STATUS_POSITION;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.CENTER;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.LEFT;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.RIGHT;
@@ -34,7 +29,7 @@ import static java.lang.Integer.MAX_VALUE;
 
 public class TutorialScreen extends BaseScreen {
     private final Group gameActors;
-    private final ScoreActor scoreActor = new ScoreActor(WIDTH - 20 - TIMER_WIDTH, Y_STATUS_POSITION, TIMER_WIDTH, TIMER_HEIGHT);
+    private final ScoreActor scoreActor = new ScoreActor();
     private final BonusBuilder bonusBuilder;
     private final StepManager stepManager;
     private ArrayList<TutorialLamp> lamps = new ArrayList<TutorialLamp>();

@@ -1,31 +1,24 @@
 package com.pocket.rocket.broken.actors.userData;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
+import com.pocket.rocket.broken.AssetLoader;
 
-public class LabelData extends Label {
-    static private final Color tempColor = new Color();
+public class LabelData extends Group {
+    protected final Label data;
 
-    public LabelData(String text, int xPosition, int yPosition, int width, int height, LabelStyle style) {
-        super(text, style);
-        setBounds(xPosition, yPosition, width, height);
-        setAlignment(Align.center);
-        setFontScale(1.3f, 1.2f);
-    }
+    public LabelData(String text, int xPosition) {
+        Label scoreLabel = new Label(text, AssetLoader.getFont());
+        scoreLabel.setFontScale(0.8f);
+        scoreLabel.setPosition(xPosition, 55);
+        scoreLabel.setAlignment(Align.center);
+        addActor(scoreLabel);
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        validate();
-        Color color = tempColor.set(getColor());
-        if (getStyle().background != null) {
-            batch.setColor(color.r, color.g, color.b, 0.7f);
-            getStyle().background.draw(batch, getX(), getY(), getWidth(), getHeight());
-        }
-        if (getStyle().fontColor != null) color.mul(getStyle().fontColor);
-        getBitmapFontCache().tint(color);
-        getBitmapFontCache().setPosition(getX(), getY());
-        getBitmapFontCache().draw(batch);
+        data = new Label(String.valueOf(0), AssetLoader.getFont());
+        data.setFontScale(1.4f);
+        data.setBounds(scoreLabel.getX(), 0, scoreLabel.getWidth(), 60);
+        data.setAlignment(Align.center);
+        addActor(data);
     }
 }

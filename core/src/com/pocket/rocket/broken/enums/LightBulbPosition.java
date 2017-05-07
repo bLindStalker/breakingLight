@@ -2,10 +2,12 @@ package com.pocket.rocket.broken.enums;
 
 import com.pocket.rocket.broken.Constants;
 
+import static com.pocket.rocket.broken.Constants.LAMP_GROUP_WIDTH;
+
 public enum LightBulbPosition {
-    LEFT(Constants.X_CENTER - Constants.LAMP_WIDTH - 80),
-    CENTER(Constants.X_CENTER - Constants.LAMP_WIDTH / 2),
-    RIGHT(Constants.X_CENTER + 80);
+    LEFT(0),
+    CENTER(LAMP_GROUP_WIDTH / 2 - Constants.LAMP_WIDTH / 2),
+    RIGHT(LAMP_GROUP_WIDTH - Constants.LAMP_WIDTH);
 
     private int position;
 

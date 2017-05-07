@@ -1,5 +1,6 @@
 package com.pocket.rocket.broken.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Timer;
@@ -16,6 +17,7 @@ public class HeartActor extends AnimatedActor {
     @Override
     public void animate() {
         super.animate();
+        Gdx.input.vibrate(100);
 
         schedule(new Timer.Task() {
                      @Override

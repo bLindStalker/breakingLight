@@ -1,15 +1,14 @@
 package com.pocket.rocket.broken.actors.userData;
 
-import com.pocket.rocket.broken.AssetLoader;
-
 import static com.pocket.rocket.broken.Constants.BASIC_SCORE;
+import static com.pocket.rocket.broken.Constants.WIDTH;
 
 public class ScoreActor extends LabelData {
     private int score = 0;
     private int bonusCollected = 0;
 
-    public ScoreActor(int xPosition, int yPosition, int width, int height) {
-        super(String.valueOf(0), xPosition, yPosition, width, height, AssetLoader.getFont());
+    public ScoreActor() {
+        super("Score", WIDTH - 280);
     }
 
     public void increaseScore() {
@@ -31,6 +30,6 @@ public class ScoreActor extends LabelData {
     @Override
     public void act(float delta) {
         super.act(delta);
-        setText(String.valueOf(score));
+        data.setText(String.valueOf(score));
     }
 }
