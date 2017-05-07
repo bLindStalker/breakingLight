@@ -11,9 +11,9 @@ import static com.pocket.rocket.broken.Constants.MIN_BROKEN_TIME;
 import static com.pocket.rocket.broken.Constants.MIN_TURN_OFF_TIME;
 import static com.pocket.rocket.broken.Constants.TURN_OFF_TIME_INTERVAL;
 
-public class LampLogicData {
+public class LampLogic {
     public float minActiveTime = MIN_ACTIVE_LAMP_TIME + ACTIVE_LAMP_INTERVAL;
-    public float maxActiveTime = MAX_ACTIVE_LAMP_TIME + ACTIVE_LAMP_INTERVAL;
+    public float maxActiveTime = MAX_ACTIVE_LAMP_TIME + ACTIVE_LAMP_INTERVAL + 0.7f;
 
     public float maxBrokenTime = MAX_BROKEN_TIME + BROKEN_TIME_INTERVAL;
     public float minBrokenTime = MIN_BROKEN_TIME + BROKEN_TIME_INTERVAL;
@@ -23,7 +23,7 @@ public class LampLogicData {
 
     public int activeLamps;
 
-    public LampLogicData() {
+    public LampLogic() {
         activeLamps = random(2, 4);
     }
 

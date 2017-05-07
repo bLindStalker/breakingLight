@@ -9,7 +9,7 @@ import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.actors.BonusBuilder;
 import com.pocket.rocket.broken.actors.HeartActor;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
-import com.pocket.rocket.broken.enums.LampLogicData;
+import com.pocket.rocket.broken.enums.LampLogic;
 import com.pocket.rocket.broken.enums.LightBulbPosition;
 import com.pocket.rocket.broken.enums.LightBulbStatus;
 import com.pocket.rocket.broken.screens.BaseScreen;
@@ -87,7 +87,7 @@ public class TutorialScreen extends BaseScreen {
         actor.addListener(new LightListener(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return actor.justClicked(new LampLogicData());
+                return actor.justClicked(new LampLogic());
             }
         }, new Queue<HeartActor>(), scoreActor, bonusBuilder));
 

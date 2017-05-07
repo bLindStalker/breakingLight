@@ -1,7 +1,7 @@
 package com.pocket.rocket.broken.actors.userData;
 
 import com.badlogic.gdx.utils.Timer;
-import com.pocket.rocket.broken.enums.LampLogicData;
+import com.pocket.rocket.broken.enums.LampLogic;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.pocket.rocket.broken.Constants.ACTIVE_LAMP_INTERVAL;
@@ -13,7 +13,7 @@ import static com.pocket.rocket.broken.Constants.TURN_OFF_TIME_INTERVAL;
 
 public class TimerActor extends LabelData {
 
-    public LampLogicData lampData = new LampLogicData();
+    public LampLogic lampData = new LampLogic();
     private int currentTime = 1;
 
     public TimerActor(int xPosition, int yPosition, int width, int height, LabelStyle style) {

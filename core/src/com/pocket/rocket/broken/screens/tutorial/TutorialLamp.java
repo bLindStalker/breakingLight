@@ -1,7 +1,7 @@
 package com.pocket.rocket.broken.screens.tutorial;
 
 import com.pocket.rocket.broken.actors.LightBulb;
-import com.pocket.rocket.broken.enums.LampLogicData;
+import com.pocket.rocket.broken.enums.LampLogic;
 import com.pocket.rocket.broken.enums.LightBulbPosition;
 import com.pocket.rocket.broken.enums.LightBulbStatus;
 
@@ -42,7 +42,7 @@ public class TutorialLamp extends LightBulb {
     }
 
     @Override
-    public boolean justClicked(LampLogicData time) {
+    public boolean justClicked(LampLogic time) {
         if (currentStatus == TURN_ON) {
             setStatus(BROKEN);
             if (clickAction != null) {

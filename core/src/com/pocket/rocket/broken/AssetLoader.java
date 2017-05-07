@@ -50,9 +50,13 @@ public class AssetLoader implements Disposable {
     private static final String BAR = "elements/bar.png";
     private static final String PROGRESS = "elements/progress.png";
     private static final String HEART = "elements/heart.png";
+    private static final String LINE = "elements/line.png";
+    private static final String UA = "elements/ua.png";
+    private static final String RU = "elements/ru.png";
+    private static final String EN = "elements/en.png";
+    private static final String ACTIVE_LANGUAGE = "elements/active_language.png";
 
     private static final String GALLERY = "gallery.png";
-
     private static final String HEART_ATLAS = "elements/heart_animation/heart_atlas.atlas";
 
     private static AssetManager assetManager;
@@ -92,6 +96,11 @@ public class AssetLoader implements Disposable {
         assetManager.load(PROGRESS, Texture.class);
         assetManager.load(CHECKED, Texture.class);
         assetManager.load(BONUS, Texture.class);
+        assetManager.load(LINE, Texture.class);
+        assetManager.load(UA, Texture.class);
+        assetManager.load(RU, Texture.class);
+        assetManager.load(EN, Texture.class);
+        assetManager.load(ACTIVE_LANGUAGE, Texture.class);
 
         assetManager.load(HEART, Texture.class);
 
@@ -159,7 +168,6 @@ public class AssetLoader implements Disposable {
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = assetManager.get(FONT);
-        labelStyle.fontColor = Color.FIREBRICK;
 
         return labelStyle;
     }
@@ -257,6 +265,26 @@ public class AssetLoader implements Disposable {
 
     public static Texture getBack() {
         return assetManager.get(BACK);
+    }
+
+    public static Texture getLine() {
+        return assetManager.get(LINE);
+    }
+
+    public static Texture getUa() {
+        return assetManager.get(UA);
+    }
+
+    public static Texture getRu() {
+        return assetManager.get(RU);
+    }
+
+    public static Texture getEn() {
+        return assetManager.get(EN);
+    }
+
+    public static Texture getActiveLanguage() {
+        return assetManager.get(ACTIVE_LANGUAGE);
     }
 
     @Override

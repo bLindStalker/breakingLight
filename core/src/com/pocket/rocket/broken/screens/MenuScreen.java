@@ -9,7 +9,6 @@ import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.screens.menu.MainMenuButtons;
 import com.pocket.rocket.broken.screens.menu.MenuIcons;
 
-import static com.badlogic.gdx.graphics.Color.WHITE;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.Constants.X_CENTER;
 import static com.pocket.rocket.broken.Preference.getScore;
@@ -54,12 +53,12 @@ public class MenuScreen extends BaseScreen {
         Group labelGroup = new Group();
 
         int score = getScore();
-        labelGroup.addActor(buildScoreLabel(getFont(WHITE), "max: ", X_CENTER - 300, 690));
-        labelGroup.addActor(buildScoreLabel(getFont(WHITE), valueOf(score), X_CENTER - 210, 690));
+        labelGroup.addActor(buildScoreLabel(getFont(), "max: ", X_CENTER - 300, 690));
+        labelGroup.addActor(buildScoreLabel(getFont(), valueOf(score), X_CENTER - 210, 690));
 
         int totalScore = getTotalScore();
-        labelGroup.addActor(buildScoreLabel(getFont(WHITE), "total: ", X_CENTER + 135, 690));
-        labelGroup.addActor(buildScoreLabel(getFont(WHITE), valueOf(totalScore), X_CENTER + 135 + 90, 690));
+        labelGroup.addActor(buildScoreLabel(getFont(), "total: ", X_CENTER + 135, 690));
+        labelGroup.addActor(buildScoreLabel(getFont(), valueOf(totalScore), X_CENTER + 135 + 90, 690));
 
         labelGroup.setVisible(score > 0 && totalScore > 0);
         return labelGroup;

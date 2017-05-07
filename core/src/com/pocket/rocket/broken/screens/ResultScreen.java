@@ -13,7 +13,6 @@ import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.actors.ImageActor;
 
-import static com.badlogic.gdx.graphics.Color.WHITE;
 import static com.pocket.rocket.broken.AssetLoader.getBonus;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.AssetLoader.getGameOverLabel;
@@ -57,13 +56,13 @@ public class ResultScreen extends BaseScreen {
         buildResultData(resultGroup, X_CENTER + 150, "Score", valueOf(score));
 
         resultGroup.addActor(new ImageActor(X_CENTER - 15, 575, 30, 60, getBonus()));
-        Label dataLabel = new Label(valueOf(bonusCollected), getFont(WHITE));
+        Label dataLabel = new Label(valueOf(bonusCollected), getFont());
         dataLabel.setAlignment(Align.center);
         dataLabel.setBounds(X_CENTER - 50, 525, 100, 50);
         dataLabel.setFontScale(1.1f);
         resultGroup.addActor(dataLabel);
 
-        Label menuButton = new Label("MENU", new Label.LabelStyle(getFont(WHITE)));
+        Label menuButton = new Label("MENU", new Label.LabelStyle(getFont()));
         menuButton.setBounds(X_MENU_BUTTON_POSITION, 150, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
         menuButton.setAlignment(Align.center);
         menuButton.addListener(new ClickListener() {
@@ -107,7 +106,7 @@ public class ResultScreen extends BaseScreen {
     }
 
     private Label bestResultLabel() {
-        Label label = new Label("BEST RESULT: " + Preference.getScore(), getFont(WHITE));
+        Label label = new Label("BEST RESULT: " + Preference.getScore(), getFont());
         label.setAlignment(Align.center);
         label.setBounds(X_CENTER - 200, 680, 400, 50);
         label.setFontScale(1.1f);
@@ -115,13 +114,13 @@ public class ResultScreen extends BaseScreen {
     }
 
     private void buildResultData(Group result, int xPosition, String header, String data) {
-        Label headerLabel = new Label(header, getFont(WHITE));
+        Label headerLabel = new Label(header, getFont());
         headerLabel.setAlignment(Align.center);
         headerLabel.setBounds(xPosition, 575, 100, 50);
         headerLabel.setFontScale(0.8f);
         result.addActor(headerLabel);
 
-        Label dataLabel = new Label(data, getFont(WHITE));
+        Label dataLabel = new Label(data, getFont());
         dataLabel.setAlignment(Align.center);
         dataLabel.setBounds(xPosition, 575 - 50, 100, 50);
         dataLabel.setFontScale(1.1f);

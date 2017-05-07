@@ -4,13 +4,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.actors.ImageActor;
@@ -18,8 +16,6 @@ import com.pocket.rocket.broken.actors.ImageActor;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.badlogic.gdx.graphics.Color.WHITE;
-import static com.badlogic.gdx.utils.Timer.schedule;
 import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_0;
 import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_1;
 import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_2;
@@ -35,12 +31,10 @@ import static com.pocket.rocket.broken.Constants.LAMP_OPEN_MAX;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_TOTAL;
 import static com.pocket.rocket.broken.Constants.LAMP_WIDTH;
 import static com.pocket.rocket.broken.Constants.WIDTH;
-import static com.pocket.rocket.broken.Constants.X_CENTER;
 import static com.pocket.rocket.broken.Preference.getScore;
 import static com.pocket.rocket.broken.Preference.getTotalScore;
-import static com.pocket.rocket.broken.screens.MenuScreen.MENU_SWITCH_TIME;
 
-public class Gallery extends Group {
+public class Gallery extends BackScreen {
     private static final int GALLERY_HEIGHT = 490;
     private static final int GALLERY_WIDTH = 575;
     private static final int GALLERY_LAMP_WIDTH = (int) (LAMP_WIDTH * 1);
@@ -52,45 +46,17 @@ public class Gallery extends Group {
     private static final int EMPTY = 100;
 
     private final Map<Integer, Actor> selectedLamp = new HashMap<Integer, Actor>();
-    private final Group menuGroup;
 
     public Gallery(Group menuGroup) {
-        this.menuGroup = menuGroup;
+        super("GALLERY", menuGroup);
+        ScrollPane scroller = new ScrollPane(buildGallery());
+        scroller.setBounds(0, 0, WIDTH, HEIGHT + (GALLERY_HEIGHT / 2));
+        scroller.layout();
+        scroller.setScrollY((getPrefix() - 1) * GALLERY_HEIGHT);
+        scroller.updateVisualScroll();
 
-        addActor(buildGallery());
-        Group header = buildHeader("GALLERY");
-        header.setX(WIDTH);
-        addActor(header);
-    }
-
-    private Group buildHeader(String name) {
-        Group group = new Group();
-        group.addActor(new ImageActor(0, HEIGHT - 160, WIDTH, 160, AssetLoader.getHeader()));
-        ImageActor back = new ImageActor(50, HEIGHT - 150 / 2 - 17, 34, 34, AssetLoader.getBack());
-        back.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                back();
-            }
-        });
-        group.addActor(back);
-
-        Label settings = new Label(name, new Label.LabelStyle(getFont(WHITE)));
-        settings.setBounds(X_CENTER - 150, HEIGHT - 125, 300, 100);
-        settings.setAlignment(Align.center);
-        group.addActor(settings);
-
-        return group;
-    }
-
-    private void back() {
-        menuGroup.addAction(Actions.moveTo(0, 0, MENU_SWITCH_TIME));
-        schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                remove();
-            }
-        }, MENU_SWITCH_TIME);
+        addActor(scroller);
+        scroller.toBack();
     }
 
     private Group buildGallery() {
@@ -115,14 +81,7 @@ public class Gallery extends Group {
         scrollTable.add(buildGalleryElement(LAMPS_PREFIX_0, "coming soon", false));
         scrollTable.row();
 
-        final ScrollPane scroller = new ScrollPane(scrollTable);
-
-        scroller.setBounds(WIDTH, 0, WIDTH, HEIGHT + (GALLERY_HEIGHT / 2));
-        scroller.layout();
-        scroller.setScrollY((getPrefix() - 1) * GALLERY_HEIGHT);
-        scroller.updateVisualScroll();
-
-        return scroller;
+        return scrollTable;
     }
 
     private Group buildGalleryElement(final int index, String displayValue, boolean visibility) {

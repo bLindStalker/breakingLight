@@ -13,7 +13,6 @@ import com.pocket.rocket.broken.actors.ImageActor;
 import com.pocket.rocket.broken.screens.GameScreen;
 import com.pocket.rocket.broken.screens.tutorial.TutorialScreen;
 
-import static com.badlogic.gdx.graphics.Color.WHITE;
 import static com.badlogic.gdx.utils.Timer.Task;
 import static com.badlogic.gdx.utils.Timer.schedule;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
@@ -31,14 +30,21 @@ public class MainMenuButtons extends Group {
     private final Main main;
     private final Group menuGroup;
     private final Group gallery;
+    private final Group settings;
 
     public MainMenuButtons(final Main main, final Group menuGroup) {
         addActor(new ImageActor((WIDTH - LOGO_WIDTH) / 2, HEIGHT - LOGO_WIDTH - 100, LOGO_WIDTH, LOGO_WIDTH, AssetLoader.getLogoLabel()));
         this.main = main;
         this.menuGroup = menuGroup;
+
         this.gallery = new Gallery(menuGroup);
+        gallery.setVisible(false);
 
+        this.settings = new Settings(menuGroup, main);
+        settings.setVisible(false);
 
+        addActor(gallery);
+        addActor(settings);
         addActor(buildButtons());
     }
 
@@ -65,23 +71,29 @@ public class MainMenuButtons extends Group {
         });
         menuButtonsGroup.addActor(startButton);
 
-        Label galleryLabel = new Label("GALLERY", new Label.LabelStyle(getFont(WHITE)));
+        Label galleryLabel = new Label("GALLERY", new Label.LabelStyle(getFont()));
         galleryLabel.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - 75, MENU_BUTTON_WIDTH, 75);
         galleryLabel.setAlignment(Align.center);
         galleryLabel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gallery gallery = new Gallery(menuGroup);
-                addActor(gallery);
+                gallery.setVisible(true);
                 menuGroup.addAction(Actions.moveTo(-WIDTH, 0, MENU_SWITCH_TIME));
             }
         });
         menuButtonsGroup.addActor(galleryLabel);
 
-        Label settings = new Label("SETTINGS", new Label.LabelStyle(getFont(WHITE)));
-        settings.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - 190, MENU_BUTTON_WIDTH, 100);
-        settings.setAlignment(Align.center);
-        menuButtonsGroup.addActor(settings);
+        final Label settingsLabel = new Label("SETTINGS", new Label.LabelStyle(getFont()));
+        settingsLabel.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - 190, MENU_BUTTON_WIDTH, 100);
+        settingsLabel.setAlignment(Align.center);
+        settingsLabel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                settings.setVisible(true);
+                menuGroup.addAction(Actions.moveTo(-WIDTH, 0, MENU_SWITCH_TIME));
+            }
+        });
+        menuButtonsGroup.addActor(settingsLabel);
         return menuButtonsGroup;
     }
 }
