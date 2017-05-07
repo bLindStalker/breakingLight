@@ -23,8 +23,8 @@ import static com.pocket.rocket.broken.Constants.Y_LAMP_POSITION;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.CENTER;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.LEFT;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.RIGHT;
-import static com.pocket.rocket.broken.enums.LightBulbStatus.TURN_OFF;
-import static com.pocket.rocket.broken.enums.LightBulbStatus.TURN_ON;
+import static com.pocket.rocket.broken.enums.LightBulbStatus.ANGRY;
+import static com.pocket.rocket.broken.enums.LightBulbStatus.NEUTRAL;
 import static java.lang.Integer.MAX_VALUE;
 
 public class TutorialScreen extends BaseScreen {
@@ -65,13 +65,13 @@ public class TutorialScreen extends BaseScreen {
     private Group createLamps() {
         Group lightBulbs = new Group();
 
-        lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + 300, TURN_OFF));
-        lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION + 300, TURN_ON));
-        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + 300, TURN_OFF));
+        lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + 300, NEUTRAL));
+        lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION + 300, ANGRY));
+        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + 300, NEUTRAL));
 
-        lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + LAMP_HEIGHT + 270, TURN_ON));
-        lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION + LAMP_HEIGHT + 270, TURN_OFF));
-        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + LAMP_HEIGHT + 270, TURN_ON));
+        lightBulbs.addActor(initializeLight(LEFT, Y_LAMP_POSITION + LAMP_HEIGHT + 270, ANGRY));
+        lightBulbs.addActor(initializeLight(CENTER, Y_LAMP_POSITION + LAMP_HEIGHT + 270, NEUTRAL));
+        lightBulbs.addActor(initializeLight(RIGHT, Y_LAMP_POSITION + LAMP_HEIGHT + 270, ANGRY));
 
         return lightBulbs;
     }

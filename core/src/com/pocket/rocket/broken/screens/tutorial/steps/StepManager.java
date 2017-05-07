@@ -38,7 +38,7 @@ public class StepManager {
 
     private void activateLamp() {
         for (TutorialLamp lamp : lamps) {
-            if (lamp.getCurrentStatus() == LightBulbStatus.TURN_ON) {
+            if (lamp.getCurrentStatus() == LightBulbStatus.ANGRY) {
                 return;
             }
         }
@@ -48,7 +48,7 @@ public class StepManager {
 
     private void manageLamps() {
         for (final TutorialLamp lamp : lamps) {
-            if (lamp.getCurrentStatus() == LightBulbStatus.NEUTRAL) {
+            if (lamp.getCurrentStatus() == LightBulbStatus.ACTIVE) {
                 Timer.schedule(new Timer.Task() {
                                    @Override
                                    public void run() {

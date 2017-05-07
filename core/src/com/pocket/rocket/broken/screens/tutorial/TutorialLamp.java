@@ -5,8 +5,8 @@ import com.pocket.rocket.broken.enums.LampLogic;
 import com.pocket.rocket.broken.enums.LightBulbPosition;
 import com.pocket.rocket.broken.enums.LightBulbStatus;
 
-import static com.pocket.rocket.broken.enums.LightBulbStatus.NEUTRAL;
-import static com.pocket.rocket.broken.enums.LightBulbStatus.TURN_ON;
+import static com.pocket.rocket.broken.enums.LightBulbStatus.ACTIVE;
+import static com.pocket.rocket.broken.enums.LightBulbStatus.ANGRY;
 
 public class TutorialLamp extends LightBulb {
     private LightBulbStatus currentStatus;
@@ -22,10 +22,10 @@ public class TutorialLamp extends LightBulb {
         setImage(com.pocket.rocket.broken.AssetLoader.getLampImage(status));
         currentStatus = status;
 
-        if (currentStatus == LightBulbStatus.TURN_ON || currentStatus == LightBulbStatus.NEUTRAL) {
-            previousStatus = LightBulbStatus.TURN_OFF;
+        if (currentStatus == LightBulbStatus.ANGRY || currentStatus == LightBulbStatus.ACTIVE) {
+            previousStatus = LightBulbStatus.NEUTRAL;
         } else {
-            previousStatus = LightBulbStatus.TURN_ON;
+            previousStatus = LightBulbStatus.ANGRY;
         }
     }
 
@@ -43,8 +43,8 @@ public class TutorialLamp extends LightBulb {
 
     @Override
     public boolean justClicked(LampLogic time) {
-        if (currentStatus == TURN_ON) {
-            setStatus(NEUTRAL);
+        if (currentStatus == ANGRY) {
+            setStatus(ACTIVE);
             if (clickAction != null) {
                 clickAction.run();
             }

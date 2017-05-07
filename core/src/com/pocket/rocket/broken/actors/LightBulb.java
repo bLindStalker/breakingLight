@@ -8,12 +8,12 @@ import static com.badlogic.gdx.math.MathUtils.random;
 import static com.pocket.rocket.broken.AssetLoader.getLampImage;
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_WIDTH;
+import static com.pocket.rocket.broken.enums.LightBulbStatus.ACTIVE;
+import static com.pocket.rocket.broken.enums.LightBulbStatus.ANGRY;
 import static com.pocket.rocket.broken.enums.LightBulbStatus.NEUTRAL;
-import static com.pocket.rocket.broken.enums.LightBulbStatus.TURN_OFF;
-import static com.pocket.rocket.broken.enums.LightBulbStatus.TURN_ON;
 
 public class LightBulb extends ImageActor {
-    private static final LightBulbStatus DEFAULT_STATUS = TURN_OFF;
+    private static final LightBulbStatus DEFAULT_STATUS = NEUTRAL;
 
     private LightBulbStatus status = DEFAULT_STATUS;
     private float activationTime = 0;
@@ -25,8 +25,8 @@ public class LightBulb extends ImageActor {
     }
 
     public boolean justClicked(LampLogic time) {
-        if (status == TURN_ON) {
-            setStatus(NEUTRAL);
+        if (status == ANGRY) {
+            setStatus(ACTIVE);
             activationTime = random(time.maxNeutralTime, time.minNeutralTime);
             turnOffTime = getTurnOffTime(time);
 
@@ -38,10 +38,10 @@ public class LightBulb extends ImageActor {
 
     @Override
     public void act(float delta) {
-        if (activationTime > 0 && (status == TURN_ON || status == NEUTRAL)) {
+        if (activationTime > 0 && (status == ANGRY || status == ACTIVE)) {
 
             if (activationTime <= second) {
-                setStatus(TURN_OFF);
+                setStatus(NEUTRAL);
                 second = 0;
                 activationTime = 0;
             } else {
@@ -51,7 +51,7 @@ public class LightBulb extends ImageActor {
             activationTime = 0;
         }
 
-        if (turnOffTime > 0 && status == TURN_OFF) {
+        if (turnOffTime > 0 && status == NEUTRAL) {
             turnOffTime -= delta;
         }
 
@@ -64,11 +64,11 @@ public class LightBulb extends ImageActor {
     }
 
     public boolean canBeActive() {
-        return status == TURN_OFF && turnOffTime <= 0;
+        return status == NEUTRAL && turnOffTime <= 0;
     }
 
     public void activate(LampLogic time) {
-        setStatus(TURN_ON);
+        setStatus(ANGRY);
         activationTime = random(time.minActiveTime, time.maxActiveTime);
         turnOffTime = getTurnOffTime(time);
     }

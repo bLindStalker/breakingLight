@@ -28,9 +28,9 @@ public class AssetLoader implements Disposable {
     public static final int LAMPS_PREFIX_2 = 2;
     public static final int LAMPS_PREFIX_3 = 3;
 
-    private static final String TURN_ON = "lamps/%s/turn_on.png";
-    private static final String TURN_OFF = "lamps/%s/turn_off.png";
+    private static final String ANGRY = "lamps/%s/angry.png";
     private static final String NEUTRAL = "lamps/%s/neutral.png";
+    private static final String ACTIVE = "lamps/%s/active.png";
 
     private static final String FONT = "font.fnt";
     private static final String BUTTON_UP = "button_up.png";
@@ -81,7 +81,7 @@ public class AssetLoader implements Disposable {
         background = backgrounds.get(MathUtils.random(0, backgrounds.size() - 1));
         assetManager.load(background, Texture.class);
 
-        assetManager.load(getLampPath(LAMPS_PREFIX_0, TURN_ON), Texture.class);
+        assetManager.load(getLampPath(LAMPS_PREFIX_0, ACTIVE), Texture.class);
         loadLamps(LAMPS_PREFIX_1);
         loadLamps(LAMPS_PREFIX_2);
         loadLamps(LAMPS_PREFIX_3);
@@ -134,9 +134,9 @@ public class AssetLoader implements Disposable {
     }
 
     private static void loadLamps(int prefix) {
-        assetManager.load(getLampPath(prefix, TURN_ON), Texture.class);
-        assetManager.load(getLampPath(prefix, TURN_OFF), Texture.class);
+        assetManager.load(getLampPath(prefix, ANGRY), Texture.class);
         assetManager.load(getLampPath(prefix, NEUTRAL), Texture.class);
+        assetManager.load(getLampPath(prefix, ACTIVE), Texture.class);
     }
 
     private static String getLampPath(int prefix, String fileName) {
@@ -188,19 +188,19 @@ public class AssetLoader implements Disposable {
     }
 
     public static Texture getLampImage(int prefix) {
-        return assetManager.get(getLampPath(prefix, TURN_ON));
+        return assetManager.get(getLampPath(prefix, ANGRY));
     }
 
     public static Texture getLampImage(LightBulbStatus status) {
         switch (status) {
-            case TURN_ON:
-                return turnOn();
-            case TURN_OFF:
-                return turnOff();
+            case ANGRY:
+                return angry();
             case NEUTRAL:
                 return neutral();
+            case ACTIVE:
+                return active();
             default:
-                return turnOff();
+                return neutral();
         }
     }
 
@@ -212,16 +212,16 @@ public class AssetLoader implements Disposable {
         defaultPrefix = prefix == LAMPS_PREFIX_0 ? LAMPS_PREFIX_1 : prefix;
     }
 
-    private static Texture turnOn() {
-        return assetManager.get(getLampPath(defaultPrefix, TURN_ON));
-    }
-
-    private static Texture turnOff() {
-        return assetManager.get(getLampPath(defaultPrefix, TURN_OFF));
+    private static Texture angry() {
+        return assetManager.get(getLampPath(defaultPrefix, ANGRY));
     }
 
     private static Texture neutral() {
         return assetManager.get(getLampPath(defaultPrefix, NEUTRAL));
+    }
+
+    private static Texture active() {
+        return assetManager.get(getLampPath(defaultPrefix, ACTIVE));
     }
 
     public static Texture getLogoLabel() {
