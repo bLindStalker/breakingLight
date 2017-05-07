@@ -23,7 +23,6 @@ import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_3;
 import static com.pocket.rocket.broken.AssetLoader.getChecked;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.AssetLoader.getGallery;
-import static com.pocket.rocket.broken.AssetLoader.getLampImage;
 import static com.pocket.rocket.broken.AssetLoader.getPrefix;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
@@ -133,6 +132,6 @@ public class Gallery extends BackScreen {
         return new ImageActor(GALLERY_WIDTH / 2 - GALLERY_LAMP_WIDTH / 2,
                 GALLERY_HEIGHT / 2 - GALLERY_LAMP_HEIGHT / 2 + 20,
                 GALLERY_LAMP_WIDTH, GALLERY_LAMP_HEIGHT,
-                getLampImage(showLamp ? index : LAMPS_PREFIX_0));
+                AssetLoader.getGalleryLampImage(showLamp ? index : LAMPS_PREFIX_0));
     }
 }

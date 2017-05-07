@@ -12,7 +12,7 @@ public class BonusBuilder {
     private final Stage stage;
     private int clickToCreate = random(MIN_CLICK_FOR_bonus, MAX_CLICK_FOR_bonus);
     private int clickCount = 0;
-    private float bonusVelocity = random(2.7f, 4.7f);
+    private float bonusVelocity = random(3f, 5.3f);
 
     public BonusBuilder(Stage stage) {
         this.stage = stage;

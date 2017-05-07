@@ -187,8 +187,8 @@ public class AssetLoader implements Disposable {
         return font;
     }
 
-    public static Texture getLampImage(int prefix) {
-        return assetManager.get(getLampPath(prefix, ANGRY));
+    public static Texture getGalleryLampImage(int prefix) {
+        return assetManager.get(getLampPath(prefix, ACTIVE));
     }
 
     public static Texture getLampImage(LightBulbStatus status) {
