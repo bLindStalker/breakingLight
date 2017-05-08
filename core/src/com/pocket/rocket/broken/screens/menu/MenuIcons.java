@@ -22,11 +22,8 @@ public class MenuIcons extends Group {
     private static final int ICON_SIZE = 100;
     private static final int ICON_GROUP_WIDTH = WIDTH + ICON_SIZE / 2;
     private final PlayServices playServices;
-    private Main main;
-    private ImageActor serviceIcon;
 
     public MenuIcons(final Main main) {
-        this.main = main;
         playServices = main.getPlayServices();
         setBounds(-ICON_SIZE / 4, 90, ICON_GROUP_WIDTH, ICON_SIZE);
 

@@ -31,7 +31,7 @@ import static com.pocket.rocket.broken.enums.LightBulbPosition.LEFT;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.RIGHT;
 import static java.util.Collections.shuffle;
 
-public class GameScreen extends BaseScreen {
+public class MainGameScreen extends BaseScreen {
     private final Group gameActors;
     private final ScoreActor scoreActor;
     private final BonusBuilder bonusBuilder;
@@ -45,7 +45,7 @@ public class GameScreen extends BaseScreen {
     private int previousScore;
     private int previousTime = 5;
 
-    public GameScreen(Main main) {
+    public MainGameScreen(Main main) {
         super(main);
         bonusBuilder = new BonusBuilder(this);
         gameActors = new Group();
@@ -101,7 +101,7 @@ public class GameScreen extends BaseScreen {
 
     private void showResult() {
         gameActors.addAction(Actions.alpha(0, 0.25f));
-        main.setScreen(new ResultScreen(main, scoreActor.getScore(), scoreActor.getbonusCollected(), timer.getTime() < 0 ? 0 : timer.getTime()));
+        main.setScreen(new GameOverScreen(main, scoreActor.getScore(), scoreActor.getbonusCollected(), timer.getTime() < 0 ? 0 : timer.getTime()));
     }
 
     private void activateLamp() {

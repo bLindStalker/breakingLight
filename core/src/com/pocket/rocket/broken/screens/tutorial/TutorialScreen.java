@@ -12,7 +12,7 @@ import com.pocket.rocket.broken.enums.LampLogic;
 import com.pocket.rocket.broken.enums.LightBulbPosition;
 import com.pocket.rocket.broken.enums.LightBulbStatus;
 import com.pocket.rocket.broken.screens.BaseScreen;
-import com.pocket.rocket.broken.screens.ResultScreen;
+import com.pocket.rocket.broken.screens.GameOverScreen;
 import com.pocket.rocket.broken.screens.tutorial.steps.StepManager;
 
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class TutorialScreen extends BaseScreen {
 
     private void showResult() {
         gameActors.addAction(Actions.alpha(0, 0.25f));
-        main.setScreen(new ResultScreen(main, 0, scoreActor.getbonusCollected(), 0));
+        main.setScreen(new GameOverScreen(main, 0, scoreActor.getbonusCollected(), 0));
     }
 
     private Group createLamps() {

@@ -9,8 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.Main;
-import com.pocket.rocket.broken.actors.ImageActor;
-import com.pocket.rocket.broken.screens.GameScreen;
+import com.pocket.rocket.broken.screens.MainGameScreen;
 import com.pocket.rocket.broken.screens.tutorial.TutorialScreen;
 
 import static com.badlogic.gdx.utils.Timer.Task;
@@ -19,7 +18,6 @@ import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.Preference.getTotalScore;
-import static com.pocket.rocket.broken.screens.MenuScreen.LOGO_WIDTH;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_HEIGHT;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_WIDTH;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_SWITCH_TIME;
@@ -33,7 +31,6 @@ public class MainMenuButtons extends Group {
     private final Group settings;
 
     public MainMenuButtons(final Main main, final Group menuGroup) {
-        addActor(new ImageActor((WIDTH - LOGO_WIDTH) / 2, HEIGHT - LOGO_WIDTH - 100, LOGO_WIDTH, LOGO_WIDTH, AssetLoader.getLogoLabel()));
         this.main = main;
         this.menuGroup = menuGroup;
 
@@ -61,7 +58,7 @@ public class MainMenuButtons extends Group {
                     @Override
                     public void run() {
                         if (getTotalScore() > 1) {
-                            main.setScreen(new GameScreen(main));
+                            main.setScreen(new MainGameScreen(main));
                         } else {
                             main.setScreen(new TutorialScreen(main));
                         }

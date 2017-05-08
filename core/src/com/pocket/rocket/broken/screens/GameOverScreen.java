@@ -16,21 +16,21 @@ import com.pocket.rocket.broken.actors.ImageActor;
 import static com.pocket.rocket.broken.AssetLoader.getBonus;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.AssetLoader.getGameOverLabel;
+import static com.pocket.rocket.broken.AssetLoader.getGameOverText;
 import static com.pocket.rocket.broken.Constants.BASIC_bonus_SCORE;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
-import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.Constants.X_CENTER;
-import static com.pocket.rocket.broken.screens.MenuScreen.LOGO_WIDTH;
+import static com.pocket.rocket.broken.Utils.buildLogo;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_HEIGHT;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_WIDTH;
 import static com.pocket.rocket.broken.screens.MenuScreen.X_MENU_BUTTON_POSITION;
 import static java.lang.String.valueOf;
 
-public class ResultScreen extends BaseScreen {
+public class GameOverScreen extends BaseScreen {
 
     private boolean canBeClose = false;
 
-    public ResultScreen(final Main main, int score, int bonusCollected, int time) {
+    public GameOverScreen(final Main main, int score, int bonusCollected, int time) {
         super(main);
         score += time * 3;
         score += bonusCollected * BASIC_bonus_SCORE;
@@ -49,7 +49,7 @@ public class ResultScreen extends BaseScreen {
     private Group buildResult(int score, int bonusCollected, int time) {
         final Group resultGroup = new Group();
 
-        resultGroup.addActor(new ImageActor((WIDTH - LOGO_WIDTH) / 2, HEIGHT - LOGO_WIDTH - 100, LOGO_WIDTH, LOGO_WIDTH, getGameOverLabel()));
+        resultGroup.addActor(buildLogo(getGameOverText(), getGameOverLabel()));
         resultGroup.addActor(bestResultLabel());
 
         buildResultData(resultGroup, X_CENTER - 250, "Time", valueOf(time));
@@ -91,7 +91,7 @@ public class ResultScreen extends BaseScreen {
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
-                            main.setScreen(new GameScreen(main));
+                            main.setScreen(new MainGameScreen(main));
                         }
                     }, 0.25f);
                 }

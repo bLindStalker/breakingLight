@@ -39,7 +39,9 @@ public class AssetLoader implements Disposable {
     private static final String HEADER = "header.png";
 
     private static final String LOGO_LABEL = "labels/logo.png";
+    private static final String LOGO_TEXT = "labels/logo2.png";
     private static final String GAME_OVER_LABEL = "labels/game_over.png";
+    private static final String GAME_OVER_LABEL_TEXT = "labels/game_over2.png";
 
     private static final String ADS = "elements/icons/ads.png";
     private static final String NO_ADS = "elements/icons/no_ads.png";
@@ -122,7 +124,9 @@ public class AssetLoader implements Disposable {
 
     private static void loadLabels() {
         assetManager.load(LOGO_LABEL, Texture.class);
+        assetManager.load(LOGO_TEXT, Texture.class);
         assetManager.load(GAME_OVER_LABEL, Texture.class);
+        assetManager.load(GAME_OVER_LABEL_TEXT, Texture.class);
     }
 
     private static void loadIcons() {
@@ -228,6 +232,10 @@ public class AssetLoader implements Disposable {
         return assetManager.get(LOGO_LABEL);
     }
 
+    public static Texture getLogoText() {
+        return assetManager.get(LOGO_TEXT);
+    }
+
     public static Texture getGameOverLabel() {
         return assetManager.get(GAME_OVER_LABEL);
     }
@@ -307,6 +315,10 @@ public class AssetLoader implements Disposable {
 
     public static Texture getActiveLanguage() {
         return assetManager.get(ACTIVE_LANGUAGE);
+    }
+
+    public static Texture getGameOverText() {
+        return assetManager.get(GAME_OVER_LABEL_TEXT);
     }
 
     @Override
