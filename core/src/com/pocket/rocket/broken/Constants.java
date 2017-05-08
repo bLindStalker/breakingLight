@@ -11,8 +11,8 @@ public final class Constants {
     public static final int Y_LAMP_POSITION = 150;
     public static final int LAMP_GROUP_WIDTH = WIDTH - 60;
 
-    public static final float X_BONUS_SIZE = 42f;
-    public static final float Y_BONUS_SIZE = 111f;
+    public static final float X_BONUS_SIZE = 42f * 1.3f;
+    public static final float Y_BONUS_SIZE = 111f * 1.3f;
 
     // game logic constants
     public static final int BASIC_SCORE = 10;
@@ -34,10 +34,10 @@ public final class Constants {
 
     public static final int HARD_CORE_TIME = 30;
 
-    public static final int MIN_CLICK_FOR_bonus = 3;
-    public static final int MAX_CLICK_FOR_bonus = 9;
+    public static final int MIN_CLICK_FOR_BONUS = 4;
+    public static final int MAX_CLICK_FOR_BONUS = 9;
 
     // gallery
-    public static int LAMP_OPEN_MAX = 100; // 1000
-    public static int LAMP_OPEN_TOTAL = 100; // 10000
+    public static int LAMP_OPEN_MAX = 500; // 1000
+    public static int LAMP_OPEN_TOTAL = 1000; // 10000
 }

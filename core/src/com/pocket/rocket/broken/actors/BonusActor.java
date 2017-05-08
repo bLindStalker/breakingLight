@@ -13,7 +13,6 @@ import com.pocket.rocket.broken.actors.userData.ScoreActor;
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.pocket.rocket.broken.AssetLoader.getBonus;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
-import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_WIDTH;
 import static com.pocket.rocket.broken.Constants.X_BONUS_SIZE;
 import static com.pocket.rocket.broken.Constants.Y_BONUS_SIZE;
@@ -27,11 +26,11 @@ public class BonusActor extends Actor {
     public BonusActor(int xPosition, int yPosition, final ScoreActor scoreActor, float velocity) {
         float xBonusSize = X_BONUS_SIZE + X_BONUS_ACTOR_SCALE;
         float yBonusSize = Y_BONUS_SIZE + Y_BONUS_ACTOR_SCALE;
-        setBounds(xPosition + (LAMP_WIDTH / 2) - xBonusSize / 2, yPosition + (LAMP_HEIGHT / 2) - yBonusSize / 2, xBonusSize, yBonusSize);
+        setBounds(xPosition + 30 + LAMP_WIDTH / 2 - xBonusSize / 2, yPosition + 100, xBonusSize, yBonusSize);
 
         setOrigin(Align.center);
         addAction(Actions.moveBy(random(-250, 250), HEIGHT, velocity, Interpolation.sine));
-        // addAction(Actions.rotateBy(360 * velocity, velocity));
+        //addAction(Actions.rotateBy(360 * velocity, velocity));
         addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

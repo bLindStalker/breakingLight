@@ -59,12 +59,12 @@ public class BonusStep implements TutorialStep {
         }
 
         if (scoreActor.getbonusCollected() == 0 && scoreActor.getbonusCollected() < 2) {
-            bonusBuilder.setbonusVelocity(5f);
+            bonusBuilder.setBonusVelocity(5f);
             bonusBuilder.setClickToCreate(0, 0);
         }
 
         if (scoreActor.getbonusCollected() == 2) {
-            bonusBuilder.setbonusVelocity(4f);
+            bonusBuilder.setBonusVelocity(4f);
             bonusBuilder.setClickToCreate(1, 2);
         }
 

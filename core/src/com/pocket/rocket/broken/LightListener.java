@@ -26,7 +26,7 @@ public class LightListener extends ClickListener {
     @Override
     public void clicked(InputEvent event, float x, float y) {
         if (doAction()) {
-            bonusBuilder.buildbonus((int) event.getListenerActor().getX(), (int) event.getListenerActor().getY(), scoreActor);
+            bonusBuilder.buildBonus((int) event.getListenerActor().getX(), (int) event.getListenerActor().getY(), scoreActor);
             scoreActor.increaseScore();
         } else {
             heartOperation();
