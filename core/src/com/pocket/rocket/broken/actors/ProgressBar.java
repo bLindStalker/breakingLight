@@ -9,18 +9,18 @@ import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.Constants;
 
 public class ProgressBar extends Group {
+    public static final int BAR_WIDTH = 600;
+    private static final int BAR_HEIGHT = 55;
     private Queue<Actor> progress = new Queue<Actor>();
 
     public ProgressBar(int y, int steps) {
-        int xPosition = Constants.WIDTH / 2 - 300;
-        setPosition(xPosition, y);
-        setHeight(100);
-        setWidth(600);
-        addActor(new ImageActor(0, 0, 600, 100, AssetLoader.getBar()));
+        int xPosition = Constants.WIDTH / 2 - BAR_WIDTH / 2;
+        setBounds(xPosition, y, BAR_WIDTH, BAR_HEIGHT);
+        addActor(new ImageActor(0, 0, BAR_WIDTH, BAR_HEIGHT, AssetLoader.getBar()));
 
         for (int i = 0; i < steps; i++) {
-            int progressWidth = (600 - 60) / steps;
-            ImageActor actor = new ImageActor(30 + (i * progressWidth), 20, progressWidth, 60, AssetLoader.getProgress());
+            int progressWidth = BAR_WIDTH / steps;
+            ImageActor actor = new ImageActor(i * progressWidth, 0, progressWidth, BAR_HEIGHT, AssetLoader.getProgress());
             actor.setVisible(false);
             actor.addAction(Actions.alpha(0f, 0f));
             progress.addLast(actor);

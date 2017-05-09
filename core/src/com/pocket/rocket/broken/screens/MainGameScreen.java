@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.Timer.Task;
+import com.pocket.rocket.broken.GameLogicProcessor;
 import com.pocket.rocket.broken.LightListener;
 import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.actors.BonusBuilder;
@@ -19,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import static com.badlogic.gdx.math.MathUtils.random;
 import static com.badlogic.gdx.utils.Timer.schedule;
 import static com.pocket.rocket.broken.AssetLoader.getHeart;
 import static com.pocket.rocket.broken.Constants.HARD_CORE_TIME;
@@ -29,7 +29,6 @@ import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.CENTER;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.LEFT;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.RIGHT;
-import static java.util.Collections.shuffle;
 
 public class MainGameScreen extends BaseScreen {
     private final Group gameActors;
@@ -39,7 +38,7 @@ public class MainGameScreen extends BaseScreen {
 
     private final Queue<HeartActor> heartActors = new Queue<HeartActor>();
     private final List<LightBulb> allLamps = new ArrayList<LightBulb>();
-    private final List<LightBulb> activeLamps = new ArrayList<LightBulb>();
+    private final GameLogicProcessor gameLogicProcessor;
     private boolean resultIsShow = true;
 
     private int previousScore;
@@ -63,6 +62,7 @@ public class MainGameScreen extends BaseScreen {
         gameActors.addActor(createLamps());
 
         addActor(gameActors);
+        gameLogicProcessor = new GameLogicProcessor(allLamps, timer.lampLogicData);
 
         gameActors.addAction(Actions.alpha(0, 0f));
         gameActors.addAction(Actions.alpha(1, 0.5f));
@@ -81,7 +81,7 @@ public class MainGameScreen extends BaseScreen {
             resultIsShow = false;
         }
 
-        activateLamp();
+        gameLogicProcessor.activateLamp();
         checkHearts();
     }
 
@@ -102,33 +102,6 @@ public class MainGameScreen extends BaseScreen {
     private void showResult() {
         gameActors.addAction(Actions.alpha(0, 0.25f));
         main.setScreen(new GameOverScreen(main, scoreActor.getScore(), scoreActor.getbonusCollected(), timer.getTime() < 0 ? 0 : timer.getTime()));
-    }
-
-    private void activateLamp() {
-
-        List<LightBulb> canBeActiveLamps = getCanBeActiveLamps();
-        activeLamps.removeAll(canBeActiveLamps);
-        if (activeLamps.size() < timer.lampData.activeLamps) {
-            if (!canBeActiveLamps.isEmpty()) {
-                shuffle(canBeActiveLamps);
-                LightBulb lamp = canBeActiveLamps.get(random(0, canBeActiveLamps.size() - 1));
-                activeLamps.add(lamp);
-
-                lamp.activate(timer.lampData);
-            }
-        }
-    }
-
-    private List<LightBulb> getCanBeActiveLamps() {
-        List<LightBulb> canBeActive = new ArrayList<LightBulb>();
-
-        for (LightBulb lamp : allLamps) {
-            if (lamp.canBeActive()) {
-                canBeActive.add(lamp);
-            }
-        }
-
-        return canBeActive;
     }
 
     private Group buildHeartGroup() {
@@ -181,7 +154,7 @@ public class MainGameScreen extends BaseScreen {
         actor.addListener(new LightListener(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return actor.justClicked(timer.lampData);
+                return actor.justClicked(timer.lampLogicData);
             }
         }, heartActors, scoreActor, bonusBuilder));
 

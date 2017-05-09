@@ -11,6 +11,7 @@ import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.actors.ImageActor;
 import com.pocket.rocket.broken.api.PlayServices;
+import com.pocket.rocket.broken.screens.MenuScreen;
 import com.pocket.rocket.broken.screens.tutorial.TutorialScreen;
 
 import static com.pocket.rocket.broken.AssetLoader.getActiveLanguage;
@@ -24,15 +25,14 @@ import static com.pocket.rocket.broken.Preference.soundStatus;
 
 public class Settings extends BackScreen {
     public static final int X_LANGUAGE_POSITION = 90;
-
-    private static final int SETTING_ELEMENT_HEIGHT = 130;
     public static final int EN_INDEX = 2;
     public static final int UA_INDEX = 1;
     public static final int RU_INDEX = 0;
+    private static final int SETTING_ELEMENT_HEIGHT = 130;
     private final Main main;
-    private ImageActor selectedLanguage;
     private final PlayServices playServices;
     private final Group googleCheckBox;
+    private ImageActor selectedLanguage;
 
     public Settings(Group parent, Main main) {
         super("SETTINGS", parent);
@@ -48,6 +48,7 @@ public class Settings extends BackScreen {
 
         setting.addActor(buildSettingElement(3, "Language", getLanguage()));
         setting.addActor(buildSettingElement(4, "Tutorial", getTutorial()));
+        setting.addActor(buildSettingElement(5, "Clear score", getClearScore()));
 
         addActor(setting);
         setting.toBack();
@@ -87,6 +88,25 @@ public class Settings extends BackScreen {
                     @Override
                     public void run() {
                         main.setScreen(new TutorialScreen(main));
+                    }
+                }, 0.25f);
+            }
+        });
+        return group;
+    }
+
+    private Group getClearScore() {
+        Group group = new Group();
+        group.setBounds(0, 0, WIDTH, SETTING_ELEMENT_HEIGHT);
+        group.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Preference.reset();
+                addAction(Actions.alpha(0, .2f));
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        main.setScreen(new MenuScreen(main, false));
                     }
                 }, 0.25f);
             }

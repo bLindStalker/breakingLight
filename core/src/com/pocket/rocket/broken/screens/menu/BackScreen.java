@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.actors.ImageActor;
 
-import static com.badlogic.gdx.graphics.Color.WHITE;
 import static com.badlogic.gdx.utils.Timer.schedule;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.Constants.HEIGHT;

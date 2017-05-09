@@ -16,21 +16,21 @@ public final class Constants {
 
     // game logic constants
     public static final int BASIC_SCORE = 10;
-    public static final int BASIC_bonus_SCORE = 20;
+    public static final int BASIC_BONUS_SCORE = 20;
 
     public static final int MAX_ACTIVE_LAMPS = 9;
 
-    public static final float MIN_ACTIVE_LAMP_TIME = 0.95f;
-    public static final float MAX_ACTIVE_LAMP_TIME = 1.2f;
-    public static final float ACTIVE_LAMP_INTERVAL = 1.8f;
+    public static final float MIN_ANGRY_TIME = 0.95f;
+    public static final float MAX_ANGRY_TIME = 1.2f;
+    public static final float ANGRY_INTERVAL = 1.8f;
 
-    public static final float MIN_NEUTRAL_TIME = 0.8f;
-    public static final float MAX_NEUTRAL_TIME = 1.2f;
-    public static final float neutral_TIME_INTERVAL = 1.8f;
+    public static final float MIN_ACTIVE_TIME = 0.8f;
+    public static final float MAX_ACTIVE_TIME = 1.2f;
+    public static final float ACTIVE_INTERVAL = 1.8f;
 
-    public static final float MIN_TURN_OFF_TIME = 0.6f;
-    public static final float MAX_TURN_OFF_TIME = 0.8f;
-    public static final float TURN_OFF_TIME_INTERVAL = 1.2f;
+    public static final float MIN_NEUTRAL_TIME = 0.6f;
+    public static final float MAX_NEUTRAL_TIME = 0.8f;
+    public static final float NEUTRAL_INTERVAL = 1.2f;
 
     public static final int HARD_CORE_TIME = 30;
 

@@ -151,7 +151,7 @@ public class BaseGameUtils {
                 }
         }
 
-        errorDialog = makeSimpleDialog(activity, "Error present", error);
+        errorDialog = makeSimpleDialog(activity, "Error", error);
         errorDialog.show();
     }
 

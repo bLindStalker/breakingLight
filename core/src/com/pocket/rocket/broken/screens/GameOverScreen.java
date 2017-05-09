@@ -17,7 +17,7 @@ import static com.pocket.rocket.broken.AssetLoader.getBonus;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.AssetLoader.getGameOverLabel;
 import static com.pocket.rocket.broken.AssetLoader.getGameOverText;
-import static com.pocket.rocket.broken.Constants.BASIC_bonus_SCORE;
+import static com.pocket.rocket.broken.Constants.BASIC_BONUS_SCORE;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.X_CENTER;
 import static com.pocket.rocket.broken.Utils.buildLogo;
@@ -33,7 +33,7 @@ public class GameOverScreen extends BaseScreen {
     public GameOverScreen(final Main main, int score, int bonusCollected, int time) {
         super(main);
         score += time * 3;
-        score += bonusCollected * BASIC_bonus_SCORE;
+        score += bonusCollected * BASIC_BONUS_SCORE;
         Preference.saveScore(score);
         main.getPlayServices().submitScore(score);
         addActor(buildResult(score, bonusCollected, time));

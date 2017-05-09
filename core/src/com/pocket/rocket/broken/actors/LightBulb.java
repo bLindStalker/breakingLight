@@ -19,15 +19,21 @@ public class LightBulb extends ImageActor {
     private float activationTime = 0;
     private float second = 0;
     private float turnOffTime = 0;
+    private Runnable clickAction;
 
     public LightBulb(LightBulbPosition position, int yPosition) {
         super(position.getPosition(), yPosition, LAMP_WIDTH, LAMP_HEIGHT, getLampImage(DEFAULT_STATUS));
     }
 
     public boolean justClicked(LampLogic time) {
+
+        if (clickAction != null) {
+            clickAction.run();
+        }
+
         if (status == ANGRY) {
             setStatus(ACTIVE);
-            activationTime = random(time.maxNeutralTime, time.minNeutralTime);
+            activationTime = random(time.maxActiveTime, time.minActiveTime);
             turnOffTime = getTurnOffTime(time);
 
             return true;
@@ -69,11 +75,15 @@ public class LightBulb extends ImageActor {
 
     public void activate(LampLogic time) {
         setStatus(ANGRY);
-        activationTime = random(time.minActiveTime, time.maxActiveTime);
+        activationTime = random(time.minAngryTime, time.maxAngryTime);
         turnOffTime = getTurnOffTime(time);
     }
 
     private float getTurnOffTime(LampLogic time) {
-        return random(time.minTurnOffTime, time.maxTurnOffTime);
+        return random(time.minNeutralTime, time.maxNeutralTime);
+    }
+
+    public void addClickAction(Runnable clickAction) {
+        this.clickAction = clickAction;
     }
 }

@@ -3,35 +3,41 @@ package com.pocket.rocket.broken.screens.tutorial.steps;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.broken.Constants;
 import com.pocket.rocket.broken.actors.BonusBuilder;
+import com.pocket.rocket.broken.actors.DialogBuilder;
+import com.pocket.rocket.broken.actors.ProgressBar;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
+
+import static com.pocket.rocket.broken.screens.tutorial.steps.StepManager.DIALOG_SHOW_TIME;
 
 public class BonusStep implements TutorialStep {
     private static final int NEED_TO_COLLECT = 8;
     private final Stage stage;
-    private final com.pocket.rocket.broken.actors.DialogBuilder info;
+    private final DialogBuilder info;
     private final ScoreActor scoreActor;
     private final BonusBuilder bonusBuilder;
     private final Group lampGroup;
-    private final com.pocket.rocket.broken.actors.ProgressBar progressBar;
+    private final ProgressBar progressBar;
+    private final Label tutorialLabel;
     private boolean firstRun = true;
     private int bonusCollected = 0;
 
-    public BonusStep(Stage stage, ScoreActor scoreActor, Group lampGroup, BonusBuilder bonusBuilder) {
+    public BonusStep(Stage stage, ScoreActor scoreActor, Group lampGroup, BonusBuilder bonusBuilder, Label tutorialLabel) {
         this.stage = stage;
         this.bonusBuilder = bonusBuilder;
         this.scoreActor = scoreActor;
         this.lampGroup = lampGroup;
+        this.tutorialLabel = tutorialLabel;
 
-        info = new com.pocket.rocket.broken.actors.DialogBuilder(50, Constants.HEIGHT / 2, 630, 150, "TRY TO CATCH bonus!").build();
+        info = new DialogBuilder(50, Constants.HEIGHT / 2, 630, 150, "Try to catch bonus!").build();
         info.addAction(Actions.alpha(0f, 0f));
 
-        progressBar = new com.pocket.rocket.broken.actors.ProgressBar(200, NEED_TO_COLLECT);
-        progressBar.setVisible(false);
-        progressBar.addAction(Actions.alpha(0f, 0f));
+        progressBar = new ProgressBar(290, NEED_TO_COLLECT);
         stage.addActor(progressBar);
+        progressBar.addAction(Actions.alpha(0.2f, 0f));
 
     }
 
@@ -39,6 +45,7 @@ public class BonusStep implements TutorialStep {
     public boolean run() {
         if (progressBar.complete()) {
             progressBar.removeBar();
+            tutorialLabel.remove();
             return true;
         }
 
@@ -81,16 +88,15 @@ public class BonusStep implements TutorialStep {
         lampGroup.addAction(Actions.alpha(0.3f, 0f));
         stage.addActor(info);
         info.addAction(Actions.alpha(1f, 1f));
-
+        tutorialLabel.setText("Try to catch bonus!");
         Timer.schedule(new Timer.Task() {
                            @Override
                            public void run() {
                                lampGroup.addAction(Actions.alpha(1f, 1f));
-                               progressBar.setVisible(true);
                                progressBar.addAction(Actions.alpha(1f, 1f));
                                info.removeDialog();
                            }
-                       }, 2f
+                       }, DIALOG_SHOW_TIME
         );
     }
 }
