@@ -2,7 +2,6 @@ package com.pocket.rocket.broken.screens.tutorial.steps;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -26,7 +25,7 @@ import static com.pocket.rocket.broken.enums.LightBulbStatus.ANGRY;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_WIDTH;
 
 public class FinalStep implements TutorialStep {
-    private final Stage stage;
+    private final Group stage;
     private final Group infoGroup;
     private final Group lampGroup;
     private final Label completeButton;
@@ -34,7 +33,7 @@ public class FinalStep implements TutorialStep {
     private boolean showInfoDialog = true;
     private boolean complete = false;
 
-    public FinalStep(Stage stage, Group lampGroup) {
+    public FinalStep(Group stage, Group lampGroup) {
         this.stage = stage;
         this.lampGroup = lampGroup;
         infoGroup = new Group();

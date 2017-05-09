@@ -178,7 +178,7 @@ public class Settings extends BackScreen {
         checkBox.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (click){
+                if (click) {
                     if ("on".equals(round.getName())) {
                         round.setImage(getTogleRoundOff());
                         round.setName("off");

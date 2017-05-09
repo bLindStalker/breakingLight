@@ -1,7 +1,6 @@
 package com.pocket.rocket.broken.screens.tutorial.steps;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.pocket.rocket.broken.AssetLoader;
@@ -17,7 +16,7 @@ public class StepManager {
     public static final float DIALOG_SHOW_TIME = 2.5f;
     private LinkedList<TutorialStep> steps = new LinkedList<TutorialStep>();
 
-    public StepManager(Stage stage, ArrayList<LightBulb> lamps,
+    public StepManager(Group stage, ArrayList<LightBulb> lamps,
                        ScoreActor scoreActor, BonusBuilder bonusBuilder, Group lampGroup) {
 
         Label tutorialLabel = new Label("", new Label.LabelStyle(AssetLoader.getFont()));

@@ -41,9 +41,9 @@ public class SplashScreen extends ScreenAdapter {
         batch.end();
 
         if (end.isFinished()) {
-            if (Preference.getLanguage() == -1){
+            if (Preference.getLanguage() == -1) {
                 main.setScreen(new LanguageScreen(main));
-            }else {
+            } else {
                 main.setScreen(new MenuScreen(main, true));
             }
         }

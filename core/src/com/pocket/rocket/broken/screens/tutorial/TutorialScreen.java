@@ -21,7 +21,7 @@ import com.pocket.rocket.broken.actors.userData.ScoreActor;
 import com.pocket.rocket.broken.enums.LampLogic;
 import com.pocket.rocket.broken.enums.LightBulbPosition;
 import com.pocket.rocket.broken.screens.BaseScreen;
-import com.pocket.rocket.broken.screens.GameOverScreen;
+import com.pocket.rocket.broken.screens.MainGameScreen;
 import com.pocket.rocket.broken.screens.MenuScreen;
 import com.pocket.rocket.broken.screens.tutorial.steps.StepManager;
 
@@ -71,10 +71,10 @@ public class TutorialScreen extends BaseScreen {
 
         logicProcessor = new GameLogicProcessor(allLamps, tutorialLampLogic);
 
-        stepManager = new StepManager(this, allLamps, scoreActor, bonusBuilder, lamps);
+        stepManager = new StepManager(tutorialGroup, allLamps, scoreActor, bonusBuilder, lamps);
         addActor(tutorialGroup);
         tutorialGroup.addAction(Actions.alpha(0, 0f));
-        tutorialGroup.addAction(Actions.alpha(1, 1.5f));
+        tutorialGroup.addAction(Actions.alpha(1, 1f));
 
         Timer.schedule(new Timer.Task() {
             @Override
@@ -123,7 +123,7 @@ public class TutorialScreen extends BaseScreen {
 
     private void showResult() {
         addAction(Actions.alpha(0, 0.25f));
-        main.setScreen(new GameOverScreen(main, 0, scoreActor.getbonusCollected(), 0));
+        main.setScreen(new MainGameScreen(main));
     }
 
     private Group createLamps() {

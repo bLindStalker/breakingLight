@@ -1,7 +1,6 @@
 package com.pocket.rocket.broken.screens.tutorial.steps;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
@@ -18,16 +17,16 @@ public class BreakLampsStep implements TutorialStep {
     private static final int NEED_TO_COLLECT = 10;
 
     private final DialogBuilder info;
-    private final Stage stage;
+    private final Group stage;
     private final Group lampGroup;
     private final ProgressBar progressBar;
     private boolean showInfoDialog = true;
 
-    public BreakLampsStep(Stage stage, Group lampGroup, ArrayList<LightBulb> lamps, Label tutorialLabel) {
+    public BreakLampsStep(Group stage, Group lampGroup, ArrayList<LightBulb> lamps, Label tutorialLabel) {
         this.stage = stage;
         this.lampGroup = lampGroup;
-        tutorialLabel.setText("Tap on angry lamps!");
-        info = new DialogBuilder(50, HEIGHT / 2, 630, 150, "TAP ON ANGRY LAMPS!").build();
+        tutorialLabel.setText("Tap on angry!");
+        info = new DialogBuilder(50, HEIGHT / 2, 630, 150, "TAP ON ANGRY!").build();
 
         progressBar = new ProgressBar(290, NEED_TO_COLLECT);
         progressBar.addAction(Actions.alpha(0.2f, 0f));

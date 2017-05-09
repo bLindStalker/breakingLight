@@ -13,12 +13,12 @@ import com.pocket.rocket.broken.actors.ImageActor;
 import static com.pocket.rocket.broken.screens.menu.Settings.EN_INDEX;
 import static com.pocket.rocket.broken.screens.menu.Settings.RU_INDEX;
 import static com.pocket.rocket.broken.screens.menu.Settings.UA_INDEX;
-import static com.pocket.rocket.broken.screens.menu.Settings.X_LANGUAGE_POSITION;
 
 
 class LanguageScreen extends BaseScreen {
 
     private final Main main;
+
     public LanguageScreen(Main main) {
         super(main);
         this.main = main;

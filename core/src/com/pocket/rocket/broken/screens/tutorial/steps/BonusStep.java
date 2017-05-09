@@ -1,7 +1,6 @@
 package com.pocket.rocket.broken.screens.tutorial.steps;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
@@ -14,8 +13,8 @@ import com.pocket.rocket.broken.actors.userData.ScoreActor;
 import static com.pocket.rocket.broken.screens.tutorial.steps.StepManager.DIALOG_SHOW_TIME;
 
 public class BonusStep implements TutorialStep {
-    private static final int NEED_TO_COLLECT = 8;
-    private final Stage stage;
+    private static final int NEED_TO_COLLECT = 6;
+    private final Group stage;
     private final DialogBuilder info;
     private final ScoreActor scoreActor;
     private final BonusBuilder bonusBuilder;
@@ -25,7 +24,7 @@ public class BonusStep implements TutorialStep {
     private boolean firstRun = true;
     private int bonusCollected = 0;
 
-    public BonusStep(Stage stage, ScoreActor scoreActor, Group lampGroup, BonusBuilder bonusBuilder, Label tutorialLabel) {
+    public BonusStep(Group stage, ScoreActor scoreActor, Group lampGroup, BonusBuilder bonusBuilder, Label tutorialLabel) {
         this.stage = stage;
         this.bonusBuilder = bonusBuilder;
         this.scoreActor = scoreActor;
