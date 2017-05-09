@@ -32,7 +32,7 @@ public class BonusStep implements TutorialStep {
         this.lampGroup = lampGroup;
         this.tutorialLabel = tutorialLabel;
 
-        info = new DialogBuilder(50, Constants.HEIGHT / 2, 630, 150, "Try to catch bonus!").build();
+        info = new DialogBuilder(50, Constants.HEIGHT / 2, 630, 150, "TRY TO CATCH BONUS!").build();
         info.addAction(Actions.alpha(0f, 0f));
 
         progressBar = new ProgressBar(290, NEED_TO_COLLECT);
@@ -66,16 +66,17 @@ public class BonusStep implements TutorialStep {
         }
 
         if (scoreActor.getbonusCollected() == 0 && scoreActor.getbonusCollected() < 2) {
-            bonusBuilder.setBonusVelocity(5f);
+            bonusBuilder.setBonusVelocity(5.5f);
             bonusBuilder.setClickToCreate(0, 0);
         }
 
         if (scoreActor.getbonusCollected() == 2) {
-            bonusBuilder.setBonusVelocity(4f);
+            bonusBuilder.setBonusVelocity(4.5f);
             bonusBuilder.setClickToCreate(1, 2);
         }
 
         if (scoreActor.getbonusCollected() > 3) {
+            bonusBuilder.setBonusVelocity(4f);
             bonusBuilder.setClickToCreate(1, 4);
         }
 

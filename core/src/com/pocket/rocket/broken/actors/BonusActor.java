@@ -19,8 +19,8 @@ import static com.pocket.rocket.broken.Constants.Y_BONUS_SIZE;
 
 
 public class BonusActor extends Actor {
-    private static final float X_BONUS_ACTOR_SCALE = X_BONUS_SIZE / 2f;
-    private static final float Y_BONUS_ACTOR_SCALE = Y_BONUS_SIZE / 1.7f;
+    private static final float X_BONUS_ACTOR_SCALE = X_BONUS_SIZE / 2.2f;
+    private static final float Y_BONUS_ACTOR_SCALE = Y_BONUS_SIZE / 1.9f;
     private final TextureRegion texture = new TextureRegion(getBonus());
 
     public BonusActor(int xPosition, int yPosition, final ScoreActor scoreActor, float velocity) {

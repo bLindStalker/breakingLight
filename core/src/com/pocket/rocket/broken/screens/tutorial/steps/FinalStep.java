@@ -51,7 +51,7 @@ public class FinalStep implements TutorialStep {
         bonus.setPosition(475, 190);
         infoGroup.addActor(bonus);
 
-        completeButton = new Label("COMPLETE", new Label.LabelStyle(getFont()));
+        completeButton = new Label("PLAY REAL GAME", new Label.LabelStyle(getFont()));
         completeButton.setBounds(630 / 2 - MENU_BUTTON_WIDTH / 2, 20, MENU_BUTTON_WIDTH, 100);
         completeButton.setAlignment(Align.center);
         completeButton.addListener(new ClickListener() {
