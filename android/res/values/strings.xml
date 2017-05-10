@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Broken Light</string>
+    <string name="app_name">BROKEN LIGHT</string>
     <string name="app_id">311481215294</string>
 
     <string name="connect_error">Connection failed in Google Play Services</string>

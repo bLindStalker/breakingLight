@@ -8,7 +8,6 @@ public final class Constants {
 
     public static final int LAMP_WIDTH = 212;
     public static final int LAMP_HEIGHT = 241;
-    public static final int Y_LAMP_POSITION = 150;
     public static final int LAMP_GROUP_WIDTH = WIDTH - 60;
 
     public static final float X_BONUS_SIZE = 42f * 1.3f;
@@ -16,7 +15,7 @@ public final class Constants {
 
     // game logic constants
     public static final int BASIC_SCORE = 10;
-    public static final int BASIC_BONUS_SCORE = 20;
+    public static final int BASIC_BONUS_SCORE = 25;
 
     public static final int MAX_ACTIVE_LAMPS = 9;
 

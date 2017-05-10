@@ -116,7 +116,7 @@ public class Settings extends BackScreen {
 
     private Group getLanguage() {
         Group group = new Group();
-        group.setBounds(X_CENTER + 30, SETTING_ELEMENT_HEIGHT / 2 - 80 / 2, 260, 80);
+        group.setBounds(X_CENTER + 50, SETTING_ELEMENT_HEIGHT / 2 - 80 / 2, 260, 80);
 
         group.addActor(getLanguage(RU_INDEX));
         group.addActor(getLanguage(UA_INDEX));
@@ -163,7 +163,7 @@ public class Settings extends BackScreen {
 
     private Group getCheckBox(boolean on, final Runnable action, final boolean click) {
         Group checkBox = new Group();
-        checkBox.setBounds(WIDTH - 180, SETTING_ELEMENT_HEIGHT / 2 - 60 / 2, 86, 60);
+        checkBox.setBounds(WIDTH - 140, SETTING_ELEMENT_HEIGHT / 2 - 60 / 2, 86, 60);
         checkBox.addActor(new ImageActor(0, 13, 86, 36, AssetLoader.getTogle()));
         final ImageActor round = new ImageActor(on ? 30 : -5, 0, 60, 60, on ? getTogleRoundOn() : getTogleRoundOff());
 
