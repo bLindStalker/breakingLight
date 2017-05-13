@@ -37,7 +37,9 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
             "CgkIvtLorYgJEAIQBA",
             "CgkIvtLorYgJEAIQBQ",
     };
-    private final String LEADERBOARD_ID = "CgkIvtLorYgJEAIQBg";
+    private final String LEADERBOARD_SCORE_ID = "CgkIvtLorYgJEAIQBg";
+    private final String LEADERBOARD_TOTAL_ID = "CgkIvtLorYgJEAIQBw";
+
     private GoogleApiClient client;
     private AndroidLauncher context;
     private boolean userScoreReady = true;
@@ -147,7 +149,16 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
             return;
         }
 
-        Games.Leaderboards.submitScore(client, LEADERBOARD_ID, score);
+        Games.Leaderboards.submitScore(client, LEADERBOARD_SCORE_ID, score);
+    }
+
+    @Override
+    public void submitTotalScore(long score) {
+        if (!isConnected()) {
+            return;
+        }
+
+        Games.Leaderboards.submitScore(client, LEADERBOARD_TOTAL_ID, score);
     }
 
     @Override
@@ -156,7 +167,7 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
             return userScoreData;
         }
 
-        Games.Leaderboards.loadPlayerCenteredScores(client, LEADERBOARD_ID, LeaderboardVariant.TIME_SPAN_ALL_TIME,
+        Games.Leaderboards.loadPlayerCenteredScores(client, LEADERBOARD_SCORE_ID, LeaderboardVariant.TIME_SPAN_ALL_TIME,
                 LeaderboardVariant.COLLECTION_PUBLIC, 5)
                 .setResultCallback(new ResultCallback<Leaderboards.LoadScoresResult>() {
 
@@ -188,7 +199,7 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
             return;
         }
 
-        Intent intent = Games.Leaderboards.getLeaderboardIntent(client, LEADERBOARD_ID);
+        Intent intent = Games.Leaderboards.getLeaderboardIntent(client, LEADERBOARD_SCORE_ID);
         context.startActivityForResult(intent, REQUEST_LEADERBOARD);
     }
 

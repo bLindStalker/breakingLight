@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.pocket.rocket.broken.enums.LightBulbStatus;
 
@@ -51,6 +50,8 @@ public class AssetLoader implements Disposable {
 
     private static final String BACK = "elements/back.png";
     private static final String BONUS = "elements/bonus.png";
+    private static final String BONUS_HAERT = "elements/bonus_heart.png";
+    private static final String DOUBLE_BONUS = "elements/double_bonus.png";
     private static final String CHECKED = "elements/checked.png";
     private static final String BAR = "elements/bar.png";
     private static final String PROGRESS = "elements/progress.png";
@@ -104,6 +105,8 @@ public class AssetLoader implements Disposable {
         assetManager.load(PROGRESS, Texture.class);
         assetManager.load(CHECKED, Texture.class);
         assetManager.load(BONUS, Texture.class);
+        assetManager.load(DOUBLE_BONUS, Texture.class);
+        assetManager.load(BONUS_HAERT, Texture.class);
         assetManager.load(LINE, Texture.class);
         assetManager.load(UA, Texture.class);
         assetManager.load(RU, Texture.class);
@@ -151,8 +154,12 @@ public class AssetLoader implements Disposable {
         return assetManager.get(background);
     }
 
-    public static Texture getBonus() {
-        return assetManager.get(BONUS);
+    public static Texture getBonus(boolean doubleBonus) {
+        return assetManager.get(doubleBonus ? DOUBLE_BONUS : BONUS);
+    }
+
+    public static Texture getBonusHeart() {
+        return assetManager.get(BONUS_HAERT);
     }
 
     public static Texture getGallery() {
@@ -264,8 +271,12 @@ public class AssetLoader implements Disposable {
         return assetManager.get(RATE_US);
     }
 
-    public static Array<TextureAtlas.AtlasRegion> getHeart() {
+ /*   public static Array<TextureAtlas.AtlasRegion> getHeart() {
         return ((TextureAtlas) assetManager.get(HEART_ATLAS)).findRegions("heart");
+    }*/
+
+    public static Texture getHeart() {
+        return assetManager.get(HEART);
     }
 
     public static Texture getAchievements() {

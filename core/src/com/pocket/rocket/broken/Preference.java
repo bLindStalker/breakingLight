@@ -56,4 +56,40 @@ public class Preference {
         prefs.putInteger("language", index);
         prefs.flush();
     }
+
+    public static void setDoubleBonus() {
+        prefs.putBoolean("doubleBonus", true);
+        prefs.flush();
+    }
+
+    public static void setHeartBonus() {
+        prefs.putBoolean("bonusHeart", true);
+        prefs.flush();
+    }
+
+    public static boolean lamp2Open() {
+        return prefs.getBoolean("lamp2", false);
+    }
+
+    public static boolean lamp3Open() {
+        return prefs.getBoolean("lamp3", false);
+    }
+
+    public static void setLamp2Open() {
+        prefs.putBoolean("lamp2", true);
+        prefs.flush();
+    }
+
+    public static void setLamp3Open() {
+        prefs.putBoolean("lamp3", true);
+        prefs.flush();
+    }
+
+    public static boolean doubleBonus() {
+        return prefs.getBoolean("doubleBonus", false);
+    }
+
+    public static boolean bonusHeart() {
+        return prefs.getBoolean("bonusHeart", false);
+    }
 }

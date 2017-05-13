@@ -45,7 +45,7 @@ public class FinalStep implements TutorialStep {
         score.setPosition(150, 190);
         infoGroup.addActor(score);
 
-        infoGroup.addActor(new ImageActor(425, 170, (int) (X_BONUS_SIZE / 1.5f), (int) (Y_BONUS_SIZE / 1.5f), getBonus()));
+        infoGroup.addActor(new ImageActor(425, 170, (int) (X_BONUS_SIZE / 1.5f), (int) (Y_BONUS_SIZE / 1.5f), getBonus(false)));
         Label bonus = new Label("= " + BASIC_BONUS_SCORE, new Label.LabelStyle(getFont()));
         bonus.setPosition(475, 190);
         infoGroup.addActor(bonus);

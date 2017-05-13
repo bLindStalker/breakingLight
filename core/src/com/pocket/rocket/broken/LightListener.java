@@ -37,7 +37,7 @@ public class LightListener extends ClickListener {
     private void heartOperation() {
         if (heartActors.size != 0) {
             final HeartActor heart = heartActors.first();
-            heart.animate();
+            heart.remove();
             heartActors.removeValue(heart, false);
         }
     }

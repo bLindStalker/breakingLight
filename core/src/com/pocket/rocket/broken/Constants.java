@@ -37,6 +37,8 @@ public final class Constants {
     public static final int MAX_CLICK_FOR_BONUS = 9;
 
     // gallery
-    public static int LAMP_OPEN_MAX = 500; // 1000
-    public static int LAMP_OPEN_TOTAL = 1000; // 10000
+    public static int DOUBLE_BONUS_MAX = 200; // 800
+    public static int LAMP_OPEN_MAX = 300; // 1200
+    public static int HEART_BONUS_TOTAL = 400; // 7000
+    public static int LAMP_OPEN_TOTAL = 500; // 15000
 }

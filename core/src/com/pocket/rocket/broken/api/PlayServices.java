@@ -21,6 +21,8 @@ public interface PlayServices {
 
     void submitScore(long score);
 
+    void submitTotalScore(long score);
+
     List<ScoreData> getLeaderboardPlayers();
 
     void showLeaderboard();

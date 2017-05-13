@@ -6,6 +6,7 @@ import static com.pocket.rocket.broken.Constants.WIDTH;
 public class ScoreActor extends LabelData {
     private int score = 0;
     private int bonusCollected = 0;
+    private int bonus2Collected = 0;
 
     public ScoreActor() {
         super("Score", WIDTH - 280);
@@ -15,8 +16,12 @@ public class ScoreActor extends LabelData {
         score += BASIC_SCORE;
     }
 
-    public void increasebonusScore() {
-        bonusCollected++;
+    public void increasebonusScore(boolean isDoubleBonus) {
+        if (isDoubleBonus) {
+            bonus2Collected++;
+        } else {
+            bonusCollected++;
+        }
     }
 
     public int getScore() {
@@ -25,6 +30,10 @@ public class ScoreActor extends LabelData {
 
     public int getbonusCollected() {
         return bonusCollected;
+    }
+
+    public int getbonus2Collected() {
+        return bonus2Collected;
     }
 
     @Override

@@ -111,6 +111,11 @@ public class GPGSImpl implements PlayServices {
     }
 
     @Override
+    public void submitTotalScore(long score) {
+        Gdx.app.debug(className, "submit " + score + " total scores");
+    }
+
+    @Override
     public List<ScoreData> getLeaderboardPlayers() {
         return new ArrayList<ScoreData>();
     }
