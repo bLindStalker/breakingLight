@@ -3,9 +3,9 @@ package com.pocket.rocket.broken.screens;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.pocket.rocket.broken.BonusBuilder;
+import com.pocket.rocket.broken.GameLampListener;
 import com.pocket.rocket.broken.GameLogicProcessor;
 import com.pocket.rocket.broken.HeartBonusBuilder;
-import com.pocket.rocket.broken.LightListener;
 import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.actors.LightBulb;
 import com.pocket.rocket.broken.actors.userData.HeartData;
@@ -118,7 +118,7 @@ public class MainGameScreen extends BaseScreen {
     private LightBulb initializeLight(LightBulbPosition position, int yPosition) {
         final LightBulb actor = new LightBulb(position, yPosition);
 
-        actor.addListener(new LightListener(new Callable<Boolean>() {
+        actor.addListener(new GameLampListener(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
                 return actor.justClicked(timer.lampLogicData);

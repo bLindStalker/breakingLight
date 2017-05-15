@@ -37,4 +37,8 @@ public class BonusBuilder {
     public void setBonusVelocity(float bonusVelocity) {
         this.bonusVelocity = bonusVelocity;
     }
+
+    public Stage getStage() {
+        return stage;
+    }
 }

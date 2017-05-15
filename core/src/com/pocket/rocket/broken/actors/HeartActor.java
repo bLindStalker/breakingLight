@@ -20,10 +20,10 @@ public class HeartActor extends Image {
         Gdx.input.vibrate(100);
         addAction(Actions.fadeOut(0.7f, Interpolation.bounceOut));
         schedule(new Timer.Task() {
-                     @Override
-                     public void run() {
-                         setVisible(false);
-                     }
-        }, 1f);
+            @Override
+            public void run() {
+                setVisible(false);
+            }
+        }, 0.7f);
     }
 }

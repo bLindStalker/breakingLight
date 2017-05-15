@@ -7,6 +7,7 @@ public class ScoreActor extends LabelData {
     private int score = 0;
     private int bonusCollected = 0;
     private int bonus2Collected = 0;
+    private int collectedLamps = 0;
 
     public ScoreActor() {
         super("Score", WIDTH - 280);
@@ -15,6 +16,15 @@ public class ScoreActor extends LabelData {
     public void increaseScore() {
         score += BASIC_SCORE;
     }
+
+    public void increaseLamps() {
+        collectedLamps++;
+    }
+
+    public void resetLamps() {
+        collectedLamps = 0;
+    }
+
 
     public void increasebonusScore(boolean isDoubleBonus) {
         if (isDoubleBonus) {
@@ -40,5 +50,9 @@ public class ScoreActor extends LabelData {
     public void act(float delta) {
         super.act(delta);
         data.setText(String.valueOf(score));
+    }
+
+    public int collectedLamps() {
+        return collectedLamps;
     }
 }

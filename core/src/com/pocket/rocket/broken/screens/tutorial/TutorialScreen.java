@@ -9,8 +9,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.BonusBuilder;
+import com.pocket.rocket.broken.GameLampListener;
 import com.pocket.rocket.broken.GameLogicProcessor;
-import com.pocket.rocket.broken.LightListener;
 import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.actors.ImageActor;
@@ -143,7 +143,7 @@ public class TutorialScreen extends BaseScreen {
     private LightBulb initializeLight(LightBulbPosition position, int yPosition) {
         final LightBulb lamp = new LightBulb(position, yPosition);
 
-        lamp.addListener(new LightListener(new Callable<Boolean>() {
+        lamp.addListener(new GameLampListener(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
                 return lamp.justClicked(tutorialLampLogic);
