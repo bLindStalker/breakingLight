@@ -11,8 +11,8 @@ import com.pocket.rocket.broken.actors.userData.ScoreActor;
 
 import java.util.concurrent.Callable;
 
-import static com.pocket.rocket.broken.Constants.MISSING_WORLDS;
-import static com.pocket.rocket.broken.Constants.WORLDS;
+import static com.pocket.rocket.broken.Constants.MISSING_WORDS;
+import static com.pocket.rocket.broken.Constants.WORDS;
 
 public class GameLampListener extends ClickListener {
 
@@ -36,11 +36,11 @@ public class GameLampListener extends ClickListener {
             scoreActor.increaseLamps();
             if (scoreActor.collectedLamps() == 10) {
                 scoreActor.resetLamps();
-                showWorld(getWord(WORLDS), (int) event.getListenerActor().getX(), (int) event.getListenerActor().getY());
+                showWord(getWord(WORDS), (int) event.getListenerActor().getX(), (int) event.getListenerActor().getY());
             }
         } else {
             heartOperation();
-            showWorld(getWord(MISSING_WORLDS), (int) event.getListenerActor().getX(), (int) event.getListenerActor().getY());
+            showWord(getWord(MISSING_WORDS), (int) event.getListenerActor().getX(), (int) event.getListenerActor().getY());
         }
         super.clicked(event, x, y);
     }
@@ -49,7 +49,7 @@ public class GameLampListener extends ClickListener {
         return worlds[MathUtils.random(0, worlds.length - 1)];
     }
 
-    private void showWorld(String text, float x, float y) {
+    private void showWord(String text, float x, float y) {
         final Label label = new Label(text, new Label.LabelStyle(AssetLoader.getFont()));
         label.setPosition(x + Constants.LAMP_WIDTH / 2 - 70, y + Constants.LAMP_HEIGHT + 50);
         label.addAction(Actions.alpha(0));
