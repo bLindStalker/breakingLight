@@ -1,17 +1,14 @@
 package com.pocket.rocket.broken.screens;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.Queue;
-import com.badlogic.gdx.utils.Timer.Task;
-import com.pocket.rocket.broken.AssetLoader;
+import com.pocket.rocket.broken.BonusBuilder;
 import com.pocket.rocket.broken.GameLogicProcessor;
+import com.pocket.rocket.broken.HeartBonusBuilder;
 import com.pocket.rocket.broken.LightListener;
 import com.pocket.rocket.broken.Main;
-import com.pocket.rocket.broken.actors.BonusBuilder;
-import com.pocket.rocket.broken.actors.HeartActor;
 import com.pocket.rocket.broken.actors.LightBulb;
+import com.pocket.rocket.broken.actors.userData.HeartData;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 import com.pocket.rocket.broken.actors.userData.TimerActor;
 import com.pocket.rocket.broken.enums.LightBulbPosition;
@@ -20,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import static com.badlogic.gdx.utils.Timer.schedule;
 import static com.pocket.rocket.broken.Constants.HARD_CORE_TIME;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
@@ -33,9 +29,10 @@ public class MainGameScreen extends BaseScreen {
     private final Group gameActors;
     private final ScoreActor scoreActor;
     private final BonusBuilder bonusBuilder;
+    private final HeartBonusBuilder heartBonusBuilder;
     private final TimerActor timer;
 
-    private final Queue<HeartActor> heartActors = new Queue<HeartActor>();
+    private final HeartData heartData;
     private final List<LightBulb> allLamps = new ArrayList<LightBulb>();
     private final GameLogicProcessor gameLogicProcessor;
     private boolean resultIsShow = true;
@@ -46,16 +43,18 @@ public class MainGameScreen extends BaseScreen {
     public MainGameScreen(Main main) {
         super(main);
         bonusBuilder = new BonusBuilder(this);
+        heartBonusBuilder = new HeartBonusBuilder(this);
         gameActors = new Group();
 
         timer = new TimerActor();
         scoreActor = new ScoreActor();
+        heartData = new HeartData();
 
         Group gameObject = new Group();
         gameObject.setBounds(90, HEIGHT - 52 - 100, WIDTH - 180, 100);
         gameObject.addActor(timer);
         gameObject.addActor(scoreActor);
-        gameObject.addActor(buildHeartGroup());
+        gameObject.addActor(heartData);
         addActor(gameObject);
 
         gameActors.addActor(createLamps());
@@ -70,27 +69,21 @@ public class MainGameScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-        if ((heartActors.size == 0 || timer.getTime() <= -1) && resultIsShow) {
-            schedule(new Task() {
-                @Override
-                public void run() {
-                    showResult();
-                }
-            }, 0.8f);
+        if ((heartData.getActiveHearts() == 0 || timer.getTime() <= -1) && resultIsShow) {
+            showResult();
             resultIsShow = false;
         }
 
         gameLogicProcessor.activateLamp();
         checkHearts();
+        heartBonusBuilder.buildBonus(timer.getTime(), heartData);
     }
 
     private void checkHearts() {
-        if (heartActors.size != 0 && previousTime < timer.getTime()) {
+        if (heartData.getActiveHearts() != 0 && previousTime < timer.getTime()) {
 
             if (previousScore == scoreActor.getScore()) {
-                final HeartActor heart = heartActors.first();
-                heart.remove();
-                heartActors.removeValue(heart, false);
+                heartData.removeHeart();
             }
             previousScore = scoreActor.getScore();
         }
@@ -101,36 +94,6 @@ public class MainGameScreen extends BaseScreen {
     private void showResult() {
         gameActors.addAction(Actions.alpha(0, 0.25f));
         main.setScreen(new GameOverScreen(main, scoreActor, timer.getTime() < 0 ? 0 : timer.getTime()));
-    }
-
-    private Group buildHeartGroup() {
-        Group lifeGroup = new Group();
-
-      /*  Animation<TextureRegion> heartAnimation = new Animation<TextureRegion>(1f / 12f, getHeart(), Animation.PlayMode.NORMAL);
-        int width = heartAnimation.getKeyFrame(0).getRegionWidth();
-        int height = heartAnimation.getKeyFrame(0).getRegionHeight();
-*/
-
-        Texture heard = AssetLoader.getHeart();
-
-        int width = heard.getWidth();
-        int height = heard.getHeight();
-        int groupWidth = width * 3 + 80;
-        lifeGroup.setBounds((WIDTH - 180) / 2 - groupWidth / 2, 0, groupWidth, height);
-
-        HeartActor heart1 = new HeartActor(0, 0, width, height, heard);
-        heartActors.addLast(heart1);
-        lifeGroup.addActor(heart1);
-
-        HeartActor heart2 = new HeartActor(groupWidth / 2 - width / 2, 0, width, height, heard);
-        heartActors.addLast(heart2);
-        lifeGroup.addActor(heart2);
-
-        HeartActor heart3 = new HeartActor(groupWidth - width, 0, width, height, heard);
-        heartActors.addLast(heart3);
-        lifeGroup.addActor(heart3);
-
-        return lifeGroup;
     }
 
     private Group createLamps() {
@@ -160,7 +123,7 @@ public class MainGameScreen extends BaseScreen {
             public Boolean call() throws Exception {
                 return actor.justClicked(timer.lampLogicData);
             }
-        }, heartActors, scoreActor, bonusBuilder));
+        }, heartData, scoreActor, bonusBuilder));
 
         allLamps.add(actor);
 

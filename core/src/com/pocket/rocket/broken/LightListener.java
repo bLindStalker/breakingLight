@@ -2,9 +2,7 @@ package com.pocket.rocket.broken;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Queue;
-import com.pocket.rocket.broken.actors.BonusBuilder;
-import com.pocket.rocket.broken.actors.HeartActor;
+import com.pocket.rocket.broken.actors.userData.HeartData;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 
 import java.util.concurrent.Callable;
@@ -12,13 +10,13 @@ import java.util.concurrent.Callable;
 public class LightListener extends ClickListener {
 
     private Callable<Boolean> action;
-    private Queue<HeartActor> heartActors;
+    private HeartData heartData;
     private ScoreActor scoreActor;
     private BonusBuilder bonusBuilder;
 
-    public LightListener(Callable<Boolean> action, Queue<HeartActor> heartActors, ScoreActor scoreActor, BonusBuilder bonusBuilder) {
+    public LightListener(Callable<Boolean> action, HeartData heartData, ScoreActor scoreActor, BonusBuilder bonusBuilder) {
         this.action = action;
-        this.heartActors = heartActors;
+        this.heartData = heartData;
         this.scoreActor = scoreActor;
         this.bonusBuilder = bonusBuilder;
     }
@@ -35,10 +33,9 @@ public class LightListener extends ClickListener {
     }
 
     private void heartOperation() {
-        if (heartActors.size != 0) {
-            final HeartActor heart = heartActors.first();
-            heart.remove();
-            heartActors.removeValue(heart, false);
+        if (heartData.getActiveHearts() != 0) {
+            heartData.removeHeart();
+            // heartActors.removeValue(heart, false);
         }
     }
 

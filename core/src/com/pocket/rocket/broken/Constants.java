@@ -36,9 +36,14 @@ public final class Constants {
     public static final int MIN_CLICK_FOR_BONUS = 4;
     public static final int MAX_CLICK_FOR_BONUS = 9;
 
+    public static final int MIN_TIME_FOR_HEART_BONUS = 20;
+    public static final int MIN_HEART_BONUS_CHANCE = 30;
+    public static final int MAX_HEART_BONUS_CHANCE = 70;
+    public static final int CREATED_BONUS_INTERVAL = 7;
+
     // gallery
-    public static int DOUBLE_BONUS_MAX = 200; // 800
-    public static int LAMP_OPEN_MAX = 300; // 1200
-    public static int HEART_BONUS_TOTAL = 400; // 7000
-    public static int LAMP_OPEN_TOTAL = 500; // 15000
+    public static int DOUBLE_BONUS_MAX = 100;//800;
+    public static int LAMP_OPEN_MAX = 100;//1200;
+    public static int HEART_BONUS_TOTAL = 100;//10000;
+    public static int LAMP_OPEN_TOTAL = 100;//15000;
 }

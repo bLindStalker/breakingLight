@@ -16,17 +16,14 @@ public class HeartActor extends Image {
         setBounds(xPosition, yPosition, width, height);
     }
 
-    @Override
-    public boolean remove() {
+    public void removeHeart() {
         Gdx.input.vibrate(100);
         addAction(Actions.fadeOut(0.7f, Interpolation.bounceOut));
         schedule(new Timer.Task() {
                      @Override
                      public void run() {
-                         remove();
+                         setVisible(false);
                      }
-                 }, 1f
-        );
-        return true;
+        }, 1f);
     }
 }

@@ -6,17 +6,16 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.broken.AssetLoader;
+import com.pocket.rocket.broken.BonusBuilder;
 import com.pocket.rocket.broken.GameLogicProcessor;
 import com.pocket.rocket.broken.LightListener;
 import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.Preference;
-import com.pocket.rocket.broken.actors.BonusBuilder;
-import com.pocket.rocket.broken.actors.HeartActor;
 import com.pocket.rocket.broken.actors.ImageActor;
 import com.pocket.rocket.broken.actors.LightBulb;
+import com.pocket.rocket.broken.actors.userData.HeartData;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 import com.pocket.rocket.broken.enums.LampLogic;
 import com.pocket.rocket.broken.enums.LightBulbPosition;
@@ -149,7 +148,7 @@ public class TutorialScreen extends BaseScreen {
             public Boolean call() throws Exception {
                 return lamp.justClicked(tutorialLampLogic);
             }
-        }, new Queue<HeartActor>(), scoreActor, bonusBuilder));
+        }, new HeartData(), scoreActor, bonusBuilder));
 
         allLamps.add(lamp);
 

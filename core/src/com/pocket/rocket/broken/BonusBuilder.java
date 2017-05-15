@@ -1,6 +1,7 @@
-package com.pocket.rocket.broken.actors;
+package com.pocket.rocket.broken;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.pocket.rocket.broken.actors.BonusActor;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 
 import static com.badlogic.gdx.math.MathUtils.random;

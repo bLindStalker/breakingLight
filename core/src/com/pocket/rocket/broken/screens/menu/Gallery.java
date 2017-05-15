@@ -1,6 +1,5 @@
 package com.pocket.rocket.broken.screens.menu;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -136,12 +135,7 @@ public class Gallery extends BackScreen {
             item.addAction(alpha(0));
             item.setVisible(false);
 
-            final Label display = new Label(canBeOpen ? "Tap to open" : description, getFont(Color.BLACK));
-            display.setAlignment(Align.center);
-            display.setHeight(35);
-            display.setWidth(GALLERY_WIDTH);
-            display.setPosition(0, 60);
-            display.setFontScale(0.7f, 0.7f);
+            final Label display = buildDisplayLabel(canBeOpen ? "Tap to open" : description);
             elementGroup.addActor(display);
 
             final Group disabledItem = buildGalleryItem(AssetLoader.getGalleryLampImage(LAMPS_PREFIX_0));
@@ -166,6 +160,16 @@ public class Gallery extends BackScreen {
             }
         }
         return elementGroup;
+    }
+
+    private Label buildDisplayLabel(String description) {
+        final Label display = new Label(description, getFont());
+        display.setAlignment(Align.center);
+        display.setHeight(35);
+        display.setWidth(GALLERY_WIDTH);
+        display.setPosition(0, 60);
+        display.setFontScale(0.7f, 0.7f);
+        return display;
     }
 
     private Group buildGalleryLampItem(final int index) {
@@ -203,14 +207,16 @@ public class Gallery extends BackScreen {
     private Group buildGalleryBonusItem() {
         Group group = buildGalleryItem(AssetLoader.getBonus(true));
         final ImageActor okActor = new ImageActor(X_ROUND_POSITION, Y_ROUND_POSITION, 45, 45, getChecked());
-        okActor.setVisible(false);
+        okActor.setVisible(Preference.bonusHeart());
         group.addActor(okActor);
-
+        final Label display = buildDisplayLabel(Preference.bonusHeart() ? "2X bonus activated" : "Tap to activate 2X bonus");
+        group.addActor(display);
         group.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Preference.setDoubleBonus();
                 okActor.setVisible(true);
+                display.setText("2X bonus activated");
             }
         });
 
@@ -220,14 +226,17 @@ public class Gallery extends BackScreen {
     private Group buildGalleryHeartItem() {
         Group group = buildGalleryItem(AssetLoader.getBonusHeart());
         final ImageActor okActor = new ImageActor(X_ROUND_POSITION, Y_ROUND_POSITION, 45, 45, getChecked());
-        okActor.setVisible(false);
+        okActor.setVisible(bonusHeart());
         group.addActor(okActor);
+        final Label display = buildDisplayLabel(bonusHeart() ? "Heart bonus activated" : "Tap to activate heart bonus");
+        group.addActor(display);
 
         group.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Preference.setHeartBonus();
                 okActor.setVisible(true);
+                display.setText("Heart bonus activated");
             }
         });
 

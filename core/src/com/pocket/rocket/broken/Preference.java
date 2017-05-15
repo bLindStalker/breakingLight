@@ -62,17 +62,21 @@ public class Preference {
         prefs.flush();
     }
 
+    public static boolean doubleBonus() {
+        return prefs.getBoolean("doubleBonus", false);
+    }
+
     public static void setHeartBonus() {
         prefs.putBoolean("bonusHeart", true);
         prefs.flush();
     }
 
-    public static boolean lamp2Open() {
-        return prefs.getBoolean("lamp2", false);
+    public static boolean bonusHeart() {
+        return prefs.getBoolean("bonusHeart", false);
     }
 
-    public static boolean lamp3Open() {
-        return prefs.getBoolean("lamp3", false);
+    public static boolean lamp2Open() {
+        return prefs.getBoolean("lamp2", false);
     }
 
     public static void setLamp2Open() {
@@ -80,16 +84,12 @@ public class Preference {
         prefs.flush();
     }
 
+    public static boolean lamp3Open() {
+        return prefs.getBoolean("lamp3", false);
+    }
+
     public static void setLamp3Open() {
         prefs.putBoolean("lamp3", true);
         prefs.flush();
-    }
-
-    public static boolean doubleBonus() {
-        return prefs.getBoolean("doubleBonus", false);
-    }
-
-    public static boolean bonusHeart() {
-        return prefs.getBoolean("bonusHeart", false);
     }
 }

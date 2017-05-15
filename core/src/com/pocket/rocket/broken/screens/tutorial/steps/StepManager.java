@@ -4,8 +4,8 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.pocket.rocket.broken.AssetLoader;
+import com.pocket.rocket.broken.BonusBuilder;
 import com.pocket.rocket.broken.Constants;
-import com.pocket.rocket.broken.actors.BonusBuilder;
 import com.pocket.rocket.broken.actors.LightBulb;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 
