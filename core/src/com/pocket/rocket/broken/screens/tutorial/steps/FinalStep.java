@@ -22,6 +22,8 @@ import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.Constants.X_BONUS_SIZE;
 import static com.pocket.rocket.broken.Constants.Y_BONUS_SIZE;
 import static com.pocket.rocket.broken.enums.LightBulbStatus.ANGRY;
+import static com.pocket.rocket.broken.enums.Text.GOOD_JOB;
+import static com.pocket.rocket.broken.enums.Text.PLAY_REAL_GAME;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_WIDTH;
 
 public class FinalStep implements TutorialStep {
@@ -38,7 +40,7 @@ public class FinalStep implements TutorialStep {
         this.lampGroup = lampGroup;
         infoGroup = new Group();
         infoGroup.setBounds((WIDTH - 630) / 2, (Constants.HEIGHT / 2) - 100, 630, 400);
-        infoGroup.addActor(new DialogBuilder(0, 0, 630, 400, "GOOD JOB!").textPosition(350).build());
+        infoGroup.addActor(new DialogBuilder(0, 0, 630, 400, GOOD_JOB.get()).textPosition(350).build());
 
         infoGroup.addActor(new ImageActor(50, 170, LAMP_WIDTH / 2, LAMP_HEIGHT / 2, getLampImage(ANGRY)));
         Label score = new Label("= " + BASIC_SCORE, new Label.LabelStyle(getFont()));
@@ -50,7 +52,7 @@ public class FinalStep implements TutorialStep {
         bonus.setPosition(475, 190);
         infoGroup.addActor(bonus);
 
-        completeButton = new Label("PLAY REAL GAME", new Label.LabelStyle(getFont()));
+        completeButton = new Label(PLAY_REAL_GAME.get(), new Label.LabelStyle(getFont()));
         completeButton.setBounds(630 / 2 - MENU_BUTTON_WIDTH / 2, 20, MENU_BUTTON_WIDTH, 100);
         completeButton.setAlignment(Align.center);
         completeButton.addListener(new ClickListener() {

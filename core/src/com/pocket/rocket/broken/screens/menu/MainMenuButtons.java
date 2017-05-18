@@ -18,6 +18,9 @@ import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.Preference.getTotalScore;
+import static com.pocket.rocket.broken.enums.Text.GALLERY;
+import static com.pocket.rocket.broken.enums.Text.SETTINGS;
+import static com.pocket.rocket.broken.enums.Text.START;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_HEIGHT;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_WIDTH;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_SWITCH_TIME;
@@ -48,7 +51,7 @@ public class MainMenuButtons extends Group {
     private Group buildButtons() {
         final Group menuButtonsGroup = new Group();
 
-        TextButton startButton = new TextButton("START", AssetLoader.getButtonStyle());
+        TextButton startButton = new TextButton(START.get(), AssetLoader.getButtonStyle());
         startButton.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
         startButton.addListener(new ClickListener() {
             @Override
@@ -68,7 +71,7 @@ public class MainMenuButtons extends Group {
         });
         menuButtonsGroup.addActor(startButton);
 
-        Label galleryLabel = new Label("GALLERY", new Label.LabelStyle(getFont()));
+        Label galleryLabel = new Label(GALLERY.get(), new Label.LabelStyle(getFont()));
         galleryLabel.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - 75, MENU_BUTTON_WIDTH, 75);
         galleryLabel.setAlignment(Align.center);
         galleryLabel.addListener(new ClickListener() {
@@ -80,7 +83,7 @@ public class MainMenuButtons extends Group {
         });
         menuButtonsGroup.addActor(galleryLabel);
 
-        final Label settingsLabel = new Label("SETTINGS", new Label.LabelStyle(getFont()));
+        final Label settingsLabel = new Label(SETTINGS.get(), new Label.LabelStyle(getFont()));
         settingsLabel.setBounds(X_MENU_BUTTON_POSITION, Y_MENU_BUTTON - 190, MENU_BUTTON_WIDTH, 100);
         settingsLabel.setAlignment(Align.center);
         settingsLabel.addListener(new ClickListener() {

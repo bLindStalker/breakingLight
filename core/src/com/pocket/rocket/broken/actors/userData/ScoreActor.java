@@ -2,6 +2,7 @@ package com.pocket.rocket.broken.actors.userData;
 
 import static com.pocket.rocket.broken.Constants.BASIC_SCORE;
 import static com.pocket.rocket.broken.Constants.WIDTH;
+import static com.pocket.rocket.broken.enums.Text.SCORE;
 
 public class ScoreActor extends LabelData {
     private int score = 0;
@@ -10,7 +11,7 @@ public class ScoreActor extends LabelData {
     private int collectedLamps = 0;
 
     public ScoreActor() {
-        super("Score", WIDTH - 280);
+        super(SCORE.get(), WIDTH - 280);
     }
 
     public void increaseScore() {

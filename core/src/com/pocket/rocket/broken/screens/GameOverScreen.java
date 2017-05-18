@@ -24,6 +24,11 @@ import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.X_CENTER;
 import static com.pocket.rocket.broken.Utils.buildLogo;
 import static com.pocket.rocket.broken.actions.ScoreAction.scoreAction;
+import static com.pocket.rocket.broken.enums.Text.BEST_SCORE;
+import static com.pocket.rocket.broken.enums.Text.MENU;
+import static com.pocket.rocket.broken.enums.Text.RETRY;
+import static com.pocket.rocket.broken.enums.Text.SCORE;
+import static com.pocket.rocket.broken.enums.Text.TIME;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_HEIGHT;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_WIDTH;
 import static com.pocket.rocket.broken.screens.MenuScreen.X_MENU_BUTTON_POSITION;
@@ -61,8 +66,8 @@ public class GameOverScreen extends BaseScreen {
         resultGroup.addActor(buildLogo(getGameOverText(), getGameOverLabel()));
         resultGroup.addActor(bestResultLabel());
 
-        buildResultData(resultGroup, X_CENTER - 250, "Time", time);
-        buildResultData(resultGroup, X_CENTER + 150, "Score", score);
+        buildResultData(resultGroup, X_CENTER - 250, TIME.get(), time);
+        buildResultData(resultGroup, X_CENTER + 150, SCORE.get(), score);
 
         Group bonus = buildBonuses(bonusCollected, false);
         if (Preference.doubleBonus()) {
@@ -74,7 +79,7 @@ public class GameOverScreen extends BaseScreen {
 
         resultGroup.addActor(bonus);
 
-        Label menuButton = new Label("MENU", new Label.LabelStyle(getFont()));
+        Label menuButton = new Label(MENU.get(), new Label.LabelStyle(getFont()));
         menuButton.setBounds(X_MENU_BUTTON_POSITION, 150, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
         menuButton.setAlignment(Align.center);
         menuButton.addListener(new ClickListener() {
@@ -93,7 +98,7 @@ public class GameOverScreen extends BaseScreen {
         });
         resultGroup.addActor(menuButton);
 
-        TextButton retryButton = new TextButton("RETRY", AssetLoader.getButtonStyle());
+        TextButton retryButton = new TextButton(RETRY.get(), AssetLoader.getButtonStyle());
         retryButton.setBounds(X_MENU_BUTTON_POSITION, 300, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
         retryButton.addListener(new ClickListener() {
             @Override
@@ -133,7 +138,7 @@ public class GameOverScreen extends BaseScreen {
     }
 
     private Label bestResultLabel() {
-        Label label = new Label("BEST SCORE: " + Preference.getScore(), getFont());
+        Label label = new Label(BEST_SCORE.get() + Preference.getScore(), getFont());
         label.setAlignment(Align.center);
         label.setBounds(X_CENTER - 200, 680, 400, 50);
         label.setFontScale(1.1f);

@@ -35,6 +35,7 @@ import static com.pocket.rocket.broken.Constants.X_CENTER;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.CENTER;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.LEFT;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.RIGHT;
+import static com.pocket.rocket.broken.enums.Text.TUTORIAL;
 import static com.pocket.rocket.broken.screens.menu.BackScreen.HEADER_HEIGHT;
 import static java.lang.Integer.MAX_VALUE;
 
@@ -101,7 +102,7 @@ public class TutorialScreen extends BaseScreen {
         });
         headerGroup.addActor(back);
 
-        Label headerLabel = new Label("TUTORIAL", new Label.LabelStyle(getFont()));
+        Label headerLabel = new Label(TUTORIAL.get(), new Label.LabelStyle(getFont()));
         headerLabel.setBounds(X_CENTER - 150, HEIGHT - 125, 300, 100);
         headerLabel.setAlignment(Align.center);
         headerGroup.addActor(headerLabel);

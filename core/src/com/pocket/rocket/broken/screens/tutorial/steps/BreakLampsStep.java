@@ -11,6 +11,7 @@ import com.pocket.rocket.broken.actors.ProgressBar;
 import java.util.ArrayList;
 
 import static com.pocket.rocket.broken.Constants.HEIGHT;
+import static com.pocket.rocket.broken.enums.Text.TAP_ON_ANGRY;
 import static com.pocket.rocket.broken.screens.tutorial.steps.StepManager.DIALOG_SHOW_TIME;
 
 public class BreakLampsStep implements TutorialStep {
@@ -25,8 +26,8 @@ public class BreakLampsStep implements TutorialStep {
     public BreakLampsStep(Group stage, Group lampGroup, ArrayList<LightBulb> lamps, Label tutorialLabel) {
         this.stage = stage;
         this.lampGroup = lampGroup;
-        tutorialLabel.setText("Tap on angry!");
-        info = new DialogBuilder(50, HEIGHT / 2, 630, 150, "TAP ON ANGRY!").build();
+        tutorialLabel.setText(TAP_ON_ANGRY.get().toLowerCase());
+        info = new DialogBuilder(50, HEIGHT / 2, 630, 150, TAP_ON_ANGRY.get()).build();
 
         progressBar = new ProgressBar(290, NEED_TO_COLLECT);
         progressBar.addAction(Actions.alpha(0.2f, 0f));

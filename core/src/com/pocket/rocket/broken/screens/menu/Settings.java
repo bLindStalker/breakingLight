@@ -22,6 +22,11 @@ import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.Constants.X_CENTER;
 import static com.pocket.rocket.broken.Preference.soundStatus;
+import static com.pocket.rocket.broken.enums.Text.GOOGLE_PLAY;
+import static com.pocket.rocket.broken.enums.Text.LANGUAGE;
+import static com.pocket.rocket.broken.enums.Text.MUSIC;
+import static com.pocket.rocket.broken.enums.Text.SETTINGS;
+import static com.pocket.rocket.broken.enums.Text.TUTORIAL;
 
 public class Settings extends BackScreen {
     public static final int X_LANGUAGE_POSITION = 90;
@@ -35,19 +40,19 @@ public class Settings extends BackScreen {
     private ImageActor selectedLanguage;
 
     public Settings(Group parent, Main main) {
-        super("SETTINGS", parent);
+        super(SETTINGS.get(), parent);
         this.main = main;
         this.playServices = main.getPlayServices();
 
         Group setting = new Group();
 
-        setting.addActor(buildSettingElement(1, "Music", getCheckBox(soundStatus(), musicAction(), true)));
+        setting.addActor(buildSettingElement(1, MUSIC.get(), getCheckBox(soundStatus(), musicAction(), true)));
 
         googleCheckBox = getCheckBox(playServices.isConnected(), gpgsAction(), false);
-        setting.addActor(buildSettingElement(2, "Google Play", googleCheckBox));
+        setting.addActor(buildSettingElement(2, GOOGLE_PLAY.get(), googleCheckBox));
 
-        setting.addActor(buildSettingElement(3, "Language", getLanguage()));
-        setting.addActor(buildSettingElement(4, "Tutorial", getTutorial()));
+        setting.addActor(buildSettingElement(3, LANGUAGE.get(), getLanguage()));
+        setting.addActor(buildSettingElement(4, TUTORIAL.get(), getTutorial()));
         setting.addActor(buildSettingElement(5, "Clear score", getClearScore()));
 
         addActor(setting);
@@ -140,6 +145,12 @@ public class Settings extends BackScreen {
             public void clicked(InputEvent event, float x, float y) {
                 Preference.saveLanguage(index);
                 selectedLanguage.setX(index * X_LANGUAGE_POSITION);
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        main.setScreen(new MenuScreen(main, true));
+                    }
+                }, 0.3f);
             }
         };
     }

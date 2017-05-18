@@ -10,6 +10,7 @@ import com.pocket.rocket.broken.actors.DialogBuilder;
 import com.pocket.rocket.broken.actors.ProgressBar;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 
+import static com.pocket.rocket.broken.enums.Text.TRY_TO_CATCH_BONUS;
 import static com.pocket.rocket.broken.screens.tutorial.steps.StepManager.DIALOG_SHOW_TIME;
 
 public class BonusStep implements TutorialStep {
@@ -31,7 +32,7 @@ public class BonusStep implements TutorialStep {
         this.lampGroup = lampGroup;
         this.tutorialLabel = tutorialLabel;
 
-        info = new DialogBuilder(50, Constants.HEIGHT / 2, 630, 150, "TRY TO CATCH BONUS!").build();
+        info = new DialogBuilder(50, Constants.HEIGHT / 2, 630, 150, TRY_TO_CATCH_BONUS.get()).build();
         info.addAction(Actions.alpha(0f, 0f));
 
         progressBar = new ProgressBar(290, NEED_TO_COLLECT);
@@ -88,7 +89,7 @@ public class BonusStep implements TutorialStep {
         lampGroup.addAction(Actions.alpha(0.3f, 0f));
         stage.addActor(info);
         info.addAction(Actions.alpha(1f, 1f));
-        tutorialLabel.setText("Try to catch bonus!");
+        tutorialLabel.setText(TRY_TO_CATCH_BONUS.get().toLowerCase());
         Timer.schedule(new Timer.Task() {
                            @Override
                            public void run() {

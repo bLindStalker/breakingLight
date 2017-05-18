@@ -16,6 +16,8 @@ import static com.pocket.rocket.broken.Constants.X_CENTER;
 import static com.pocket.rocket.broken.Preference.getScore;
 import static com.pocket.rocket.broken.Preference.getTotalScore;
 import static com.pocket.rocket.broken.Utils.buildLogo;
+import static com.pocket.rocket.broken.enums.Text.MAX;
+import static com.pocket.rocket.broken.enums.Text.TOTAL;
 import static java.lang.String.valueOf;
 
 public class MenuScreen extends BaseScreen {
@@ -55,11 +57,11 @@ public class MenuScreen extends BaseScreen {
         Group labelGroup = new Group();
 
         int score = getScore();
-        labelGroup.addActor(buildScoreLabel(getFont(), "max: ", X_CENTER - 300, 690));
+        labelGroup.addActor(buildScoreLabel(getFont(), MAX.get(), X_CENTER - 300, 690));
         labelGroup.addActor(buildScoreLabel(getFont(), valueOf(score), X_CENTER - 210, 690));
 
         int totalScore = getTotalScore();
-        labelGroup.addActor(buildScoreLabel(getFont(), "total: ", X_CENTER + 135, 690));
+        labelGroup.addActor(buildScoreLabel(getFont(), TOTAL.get(), X_CENTER + 110, 690));
         labelGroup.addActor(buildScoreLabel(getFont(), valueOf(totalScore), X_CENTER + 135 + 90, 690));
 
         labelGroup.setVisible(score > 0 && totalScore > 0);

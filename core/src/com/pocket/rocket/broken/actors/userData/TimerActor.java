@@ -9,6 +9,7 @@ import static com.pocket.rocket.broken.Constants.ANGRY_INTERVAL;
 import static com.pocket.rocket.broken.Constants.HARD_CORE_TIME;
 import static com.pocket.rocket.broken.Constants.MAX_ACTIVE_LAMPS;
 import static com.pocket.rocket.broken.Constants.NEUTRAL_INTERVAL;
+import static com.pocket.rocket.broken.enums.Text.TIME;
 
 
 public class TimerActor extends LabelData {
@@ -17,7 +18,7 @@ public class TimerActor extends LabelData {
     private int currentTime = 1;
 
     public TimerActor() {
-        super("Time", 0);
+        super(TIME.get(), 0);
 
         startTimer();
     }

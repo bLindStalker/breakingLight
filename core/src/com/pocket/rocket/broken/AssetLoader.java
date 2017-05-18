@@ -31,7 +31,7 @@ public class AssetLoader implements Disposable {
     private static final String NEUTRAL = "lamps/%s/neutral.png";
     private static final String ACTIVE = "lamps/%s/active.png";
 
-    private static final String FONT = "font.fnt";
+    private static final String FONT = "font_multi.fnt";
     private static final String BUTTON_UP = "button_up.png";
     private static final String BUTTON_DOWN = "button_down.png";
     private static final String DIALOG = "dialog.png";

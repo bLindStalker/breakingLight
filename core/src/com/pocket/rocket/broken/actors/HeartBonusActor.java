@@ -23,7 +23,7 @@ public class HeartBonusActor extends Actor {
     private static final int MAX_Y_POSITION = 800;
     private static final int MIN_Y_POSITION = 150;
     private final TextureRegion texture;
-    private float VELOCITY = 0.7f;
+    private float VELOCITY = 0.6f;
 
     public HeartBonusActor(final HeartData heartData) {
         float heightSize = HEART_HEIGHT + HEIGHT_SCALE;
@@ -57,7 +57,7 @@ public class HeartBonusActor extends Actor {
     }
 
     private int generateVector() {
-        int vector = random(-375, 375);
+        int vector = random(-300, 300);
         return MIN_Y_POSITION + vector < MAX_Y_POSITION || MAX_Y_POSITION + vector > MAX_Y_POSITION
                 ? -vector
                 : vector;

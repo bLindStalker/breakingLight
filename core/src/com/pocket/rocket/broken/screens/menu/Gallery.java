@@ -32,10 +32,8 @@ import static com.pocket.rocket.broken.AssetLoader.getPrefix;
 import static com.pocket.rocket.broken.Constants.DOUBLE_BONUS_MAX;
 import static com.pocket.rocket.broken.Constants.HEART_BONUS_TOTAL;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
-import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_MAX;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_TOTAL;
-import static com.pocket.rocket.broken.Constants.LAMP_WIDTH;
 import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.Preference.bonusHeart;
 import static com.pocket.rocket.broken.Preference.doubleBonus;
@@ -43,12 +41,16 @@ import static com.pocket.rocket.broken.Preference.getScore;
 import static com.pocket.rocket.broken.Preference.getTotalScore;
 import static com.pocket.rocket.broken.Preference.lamp2Open;
 import static com.pocket.rocket.broken.Preference.lamp3Open;
+import static com.pocket.rocket.broken.enums.Text.BONUS_ACTIVATED;
+import static com.pocket.rocket.broken.enums.Text.COMING_SOON;
+import static com.pocket.rocket.broken.enums.Text.GALLERY;
+import static com.pocket.rocket.broken.enums.Text.GALLERY_MAX_SCORE;
+import static com.pocket.rocket.broken.enums.Text.GALLERY_MAX_TOTAL;
+import static com.pocket.rocket.broken.enums.Text.TAP_TO_ACTIVATE;
 
 public class Gallery extends BackScreen {
     private static final int GALLERY_HEIGHT = 490;
     private static final int GALLERY_WIDTH = 575;
-    private static final int GALLERY_LAMP_WIDTH = (int) (LAMP_WIDTH * 1);
-    private static final int GALLERY_LAMP_HEIGHT = (int) (LAMP_HEIGHT * 1);
 
     private static final int X_ROUND_POSITION = 130;
     private static final int Y_ROUND_POSITION = 380;
@@ -56,7 +58,7 @@ public class Gallery extends BackScreen {
     private final Map<Integer, Actor> selectedLamp = new HashMap<Integer, Actor>();
 
     public Gallery(Group menuGroup) {
-        super("GALLERY", menuGroup);
+        super(GALLERY.get(), menuGroup);
         ScrollPane scroller = new ScrollPane(buildGallery());
         scroller.setBounds(0, 0, WIDTH, HEIGHT + (GALLERY_HEIGHT / 2));
         scroller.layout();
@@ -77,35 +79,35 @@ public class Gallery extends BackScreen {
         scrollTable.row();
 
         scrollTable.add(buildGalleryElement(buildGalleryBonusItem(),
-                "max score = " + DOUBLE_BONUS_MAX,
+                GALLERY_MAX_SCORE.get() + DOUBLE_BONUS_MAX,
                 getScore() >= DOUBLE_BONUS_MAX, doubleBonus()));
         scrollTable.row();
 
         scrollTable.add(buildGalleryElement(buildGalleryLampItem(LAMPS_PREFIX_2),
-                "max score = " + LAMP_OPEN_MAX,
+                GALLERY_MAX_SCORE.get() + LAMP_OPEN_MAX,
                 getTotalScore() >= LAMP_OPEN_MAX, lamp2Open()));
         scrollTable.row();
 
         scrollTable.add(buildGalleryElement(buildGalleryHeartItem(),
-                "max total = " + HEART_BONUS_TOTAL,
+                GALLERY_MAX_TOTAL.get() + HEART_BONUS_TOTAL,
                 getTotalScore() >= HEART_BONUS_TOTAL, bonusHeart()));
         scrollTable.row();
 
         scrollTable.add(buildGalleryElement(buildGalleryLampItem(LAMPS_PREFIX_3),
-                "total score = " + LAMP_OPEN_TOTAL,
+                GALLERY_MAX_TOTAL.get() + LAMP_OPEN_TOTAL,
                 getTotalScore() >= LAMP_OPEN_TOTAL, lamp3Open()));
         scrollTable.row();
 
         scrollTable.add(buildGalleryElement(buildGalleryItem(getGalleryLampImage(LAMPS_PREFIX_0)),
-                "coming soon", false, false));
+                COMING_SOON.get(), false, false));
         scrollTable.row();
 
         scrollTable.add(buildGalleryElement(buildGalleryItem(getGalleryLampImage(LAMPS_PREFIX_0)),
-                "coming soon", false, false));
+                COMING_SOON.get(), false, false));
         scrollTable.row();
 
         scrollTable.add(buildGalleryElement(buildGalleryItem(getGalleryLampImage(LAMPS_PREFIX_0)),
-                "coming soon", false, false));
+                COMING_SOON.get(), false, false));
         scrollTable.row();
 
         return scrollTable;
@@ -135,7 +137,7 @@ public class Gallery extends BackScreen {
             item.addAction(alpha(0));
             item.setVisible(false);
 
-            final Label display = buildDisplayLabel(canBeOpen ? "Tap to open" : description);
+            final Label display = buildDisplayLabel(canBeOpen ? TAP_TO_ACTIVATE.get() : description);
             elementGroup.addActor(display);
 
             final Group disabledItem = buildGalleryItem(AssetLoader.getGalleryLampImage(LAMPS_PREFIX_0));
@@ -209,14 +211,14 @@ public class Gallery extends BackScreen {
         final ImageActor okActor = new ImageActor(X_ROUND_POSITION, Y_ROUND_POSITION, 45, 45, getChecked());
         okActor.setVisible(Preference.bonusHeart());
         group.addActor(okActor);
-        final Label display = buildDisplayLabel(Preference.bonusHeart() ? "2X bonus activated" : "Tap to activate 2X bonus");
+        final Label display = buildDisplayLabel(Preference.bonusHeart() ? BONUS_ACTIVATED.get() : TAP_TO_ACTIVATE.get());
         group.addActor(display);
         group.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Preference.setDoubleBonus();
                 okActor.setVisible(true);
-                display.setText("2X bonus activated");
+                display.setText(BONUS_ACTIVATED.get());
             }
         });
 
@@ -228,7 +230,7 @@ public class Gallery extends BackScreen {
         final ImageActor okActor = new ImageActor(X_ROUND_POSITION, Y_ROUND_POSITION, 45, 45, getChecked());
         okActor.setVisible(bonusHeart());
         group.addActor(okActor);
-        final Label display = buildDisplayLabel(bonusHeart() ? "Heart bonus activated" : "Tap to activate heart bonus");
+        final Label display = buildDisplayLabel(bonusHeart() ? BONUS_ACTIVATED.get() : TAP_TO_ACTIVATE.get());
         group.addActor(display);
 
         group.addListener(new ClickListener() {
@@ -236,7 +238,7 @@ public class Gallery extends BackScreen {
             public void clicked(InputEvent event, float x, float y) {
                 Preference.setHeartBonus();
                 okActor.setVisible(true);
-                display.setText("Heart bonus activated");
+                display.setText(BONUS_ACTIVATED.get());
             }
         });
 
