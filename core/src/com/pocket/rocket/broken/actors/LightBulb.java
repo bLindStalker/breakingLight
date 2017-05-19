@@ -64,11 +64,6 @@ public class LightBulb extends ImageActor {
         super.act(delta);
     }
 
-    private void setStatus(LightBulbStatus status) {
-        this.status = status;
-        setImage(getLampImage(status));
-    }
-
     public boolean canBeActive() {
         return status == NEUTRAL && turnOffTime <= 0;
     }
@@ -85,5 +80,14 @@ public class LightBulb extends ImageActor {
 
     public void addClickAction(Runnable clickAction) {
         this.clickAction = clickAction;
+    }
+
+    public LightBulbStatus getStatus() {
+        return status;
+    }
+
+    private void setStatus(LightBulbStatus status) {
+        this.status = status;
+        setImage(getLampImage(status));
     }
 }

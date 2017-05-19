@@ -30,15 +30,18 @@ public enum Text {
     SCORE("Score", "Рахунок", "Счёт"),
 
     // game over
-    BEST_SCORE("BEST SCORE: ", "НАЙКРАЩИЙ: ", "НАИЛУЧШИЙ: "),
+    BEST_SCORE("BEST SCORE: ", "РАXУНОК: ", "СЧЁТ: "),
     MENU("MENU", "МЕНЮ", "МЕНЮ"),
     RETRY("RETRY", "ЩЕ РАЗ", "ПОВТОРИТЬ"),
 
     // tutorial
     GOOD_JOB("GOOD JOB!", "Гарна робота", "Отлично!"),
-    TRY_TO_CATCH_BONUS("TRY TO CATCH BONUS!", "Спробуй зловити бонус", "Попробуй поймать бонус!"),
-    TAP_ON_ANGRY("TAP ON ANGRY!", "НАТИСКАЙТЕ НА ЗЛИХ", "НАЖИМАЙТЕ НА ЗЛЫХ"),
-    PLAY_REAL_GAME("PLAY REAL GAME", "ПОЧАТИ ГРУ", "НАЧАТЬ ИГРУ");
+    TRY_TO_CATCH_BONUS("TRY TO CATCH BONUS!", "СПIЙМАЙ БОНУС!", "ПОЙМАЙ БОНУС!"),
+    TAP_ON_ANGRY("TAP ON ANGRY!", "НАТИСКАЙ НА ЗЛИX!", "НАЖИМАЙ НА ЗЛЫX!"),
+    PLAY_REAL_GAME("PLAY REAL GAME", "ПОЧАТИ ГРУ", "НАЧАТЬ ИГРУ"),
+
+    WORDS("WOW!, Supper!, Amazing!, Well done!, Very well!", "WOW!, Суппер, Круто, Так тримати", "WOW!, Суппер, Круто, Так держать"),
+    MISSING_WORDS("Miss, Bad, Shit, Blunder, Boner, Mistake", "Промах, Погано, Дуже погано, Помилка", "Промах, Плохо, Очень плохо, Ошибака");
 
     private String en;
     private String ua;

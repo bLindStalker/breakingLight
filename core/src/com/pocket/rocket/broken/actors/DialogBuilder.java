@@ -27,7 +27,7 @@ public class DialogBuilder extends Group {
 
     private Label buildLabel(String text) {
         Label label = new Label(text, getFont());
-        label.setBounds(getX() / 2, yText - labelHeight / 2, getWidth(), labelHeight);
+        label.setBounds(0, yText - labelHeight / 2, getWidth(), labelHeight);
         label.setAlignment(center);
         label.setFontScale(fontScale);
         this.label = label;

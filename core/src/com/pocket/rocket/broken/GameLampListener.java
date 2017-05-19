@@ -11,8 +11,8 @@ import com.pocket.rocket.broken.actors.userData.ScoreActor;
 
 import java.util.concurrent.Callable;
 
-import static com.pocket.rocket.broken.Constants.MISSING_WORDS;
-import static com.pocket.rocket.broken.Constants.WORDS;
+import static com.pocket.rocket.broken.enums.Text.MISSING_WORDS;
+import static com.pocket.rocket.broken.enums.Text.WORDS;
 
 public class GameLampListener extends ClickListener {
 
@@ -36,17 +36,18 @@ public class GameLampListener extends ClickListener {
             scoreActor.increaseLamps();
             if (scoreActor.collectedLamps() == 10) {
                 scoreActor.resetLamps();
-                showWord(getWord(WORDS), (int) event.getListenerActor().getX(), (int) event.getListenerActor().getY());
+                showWord(getWord(WORDS.get()), (int) event.getListenerActor().getX(), (int) event.getListenerActor().getY());
             }
         } else {
             heartOperation();
-            showWord(getWord(MISSING_WORDS), (int) event.getListenerActor().getX(), (int) event.getListenerActor().getY());
+            showWord(getWord(MISSING_WORDS.get()), (int) event.getListenerActor().getX(), (int) event.getListenerActor().getY());
         }
         super.clicked(event, x, y);
     }
 
-    private String getWord(String[] worlds) {
-        return worlds[MathUtils.random(0, worlds.length - 1)];
+    private String getWord(String worlds) {
+        String[] split = worlds.split(", ");
+        return split[MathUtils.random(0, split.length - 1)];
     }
 
     private void showWord(String text, float x, float y) {

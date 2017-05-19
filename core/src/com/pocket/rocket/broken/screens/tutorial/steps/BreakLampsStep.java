@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.broken.actors.DialogBuilder;
 import com.pocket.rocket.broken.actors.LightBulb;
 import com.pocket.rocket.broken.actors.ProgressBar;
+import com.pocket.rocket.broken.enums.LightBulbStatus;
 
 import java.util.ArrayList;
 
@@ -33,11 +34,13 @@ public class BreakLampsStep implements TutorialStep {
         progressBar.addAction(Actions.alpha(0.2f, 0f));
         lampGroup.addAction(Actions.alpha(0.2f, 0f));
 
-        for (LightBulb lamp : lamps) {
+        for (final LightBulb lamp : lamps) {
             lamp.addClickAction(new Runnable() {
                 @Override
                 public void run() {
-                    progressBar.step();
+                    if (lamp.getStatus() == LightBulbStatus.ANGRY) {
+                        progressBar.step();
+                    }
                 }
             });
         }
