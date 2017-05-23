@@ -9,7 +9,7 @@ public enum Text {
     //menu
     MAX("max: ", "очки: ", "очки: "),
     TOTAL("total: ", "сума: ", "сумма: "),
-    START("START", "ПОЧТАТИ", "НАЧАТЬ"),
+    START("START", "ПОЧАТИ", "НАЧАТЬ"),
 
     // gallery
     GALLERY("GALLERY", "ГАЛЕРЕЯ", "ГАЛЕРЕЯ"),
@@ -20,10 +20,9 @@ public enum Text {
     UNLOCKED("UNLOCKED!", "ВIДКРИТО!", "ОТКРЫТО!"),
     LAMP("Incandescent lamp", "Лампа розжарювання", "Лампа накаливания"),
     MEGA_LAMP("MEGA lamp", "Мега лампа", "Мега лампа"),
-    ANGRY_LAMP("Angry lamp", "Зла лампа", "Злая лампа"),
+    ANGRY_LAMP("Cool lamp", "Крута лампа", "Крута лампа"),
     SUPER_BONUS("Super BONUS", "Супер БОНУС", "Супер БОНУС"),
     HEART_BONUS("Heart BONUS", "Бонус життя", "Бонус жизни"),
-
 
     // setting
     SETTINGS("SETTINGS", "НАЛАШТУНКИ", "НАСТРОЙКИ"),
@@ -36,7 +35,7 @@ public enum Text {
     SCORE("Score", "Рахунок", "Счёт"),
 
     // game over
-    BEST_SCORE("BEST SCORE", "РАXУНОК", "СЧЁТ"),
+    BEST_SCORE("BEST SCORE", "КРАЩИЙ РАXУНОК", "ЛУЧШИЙ СЧЁТ"),
     MENU("MENU", "МЕНЮ", "МЕНЮ"),
     RETRY("RETRY", "ЩЕ РАЗ", "ПОВТОРИТЬ"),
 

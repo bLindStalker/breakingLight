@@ -28,6 +28,7 @@ public class MenuScreen extends BaseScreen {
     public static final int Y_MENU_BUTTON = 445;
     public static final int X_MENU_BUTTON_POSITION = X_CENTER - MENU_BUTTON_WIDTH / 2;
     public static final int LOGO_SIZE = 400;
+    public final MainMenuButtons menuButtons;
 
     public MenuScreen(final Main main, boolean fade) {
         super(main);
@@ -40,7 +41,8 @@ public class MenuScreen extends BaseScreen {
 
         menu.addActor(buildLogo(getLogoText(), getLogoLabel()));
         menu.addActor(buildScoreLabel());
-        menu.addActor(new MainMenuButtons(main, menu));
+        menuButtons = new MainMenuButtons(main, menu);
+        menu.addActor(menuButtons);
 
         addActor(menu);
 

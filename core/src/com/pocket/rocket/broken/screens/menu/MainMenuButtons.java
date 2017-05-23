@@ -28,9 +28,9 @@ import static com.pocket.rocket.broken.screens.MenuScreen.X_MENU_BUTTON_POSITION
 import static com.pocket.rocket.broken.screens.MenuScreen.Y_MENU_BUTTON;
 
 public class MainMenuButtons extends Group {
+    public final Group menuGroup;
+    public final Group gallery;
     private final Main main;
-    private final Group menuGroup;
-    private final Group gallery;
     private final Group settings;
 
     public MainMenuButtons(final Main main, final Group menuGroup) {

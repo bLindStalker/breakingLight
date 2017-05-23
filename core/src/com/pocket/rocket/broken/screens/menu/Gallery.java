@@ -26,6 +26,7 @@ import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_3;
 import static com.pocket.rocket.broken.AssetLoader.getPrefix;
 import static com.pocket.rocket.broken.Constants.HEART_BONUS_TOTAL;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
+import static com.pocket.rocket.broken.Constants.LAMP_OPEN_MAX;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_TOTAL;
 import static com.pocket.rocket.broken.Constants.SUPPER_BONUS_MAX;
 import static com.pocket.rocket.broken.Constants.WIDTH;
@@ -101,8 +102,8 @@ public class Gallery extends BackScreen {
                     }
                 }));
 
-        GalleryElement lamp3 = buildGalleryElement(ANGRY_LAMP.get(), GALLERY_TOTAL.get() + LAMP_OPEN_TOTAL, AssetLoader.getGalleryLampImage(LAMPS_PREFIX_3),
-                getTotalScore() >= LAMP_OPEN_TOTAL, lamp3Open(), lampClickListener(LAMPS_PREFIX_3));
+        GalleryElement lamp3 = buildGalleryElement(ANGRY_LAMP.get(), GALLERY_MAX_SCORE.get() + LAMP_OPEN_MAX, AssetLoader.getGalleryLampImage(LAMPS_PREFIX_3),
+                getScore() >= LAMP_OPEN_MAX, lamp3Open(), lampClickListener(LAMPS_PREFIX_3));
         selectedLamp.put(LAMPS_PREFIX_3, lamp3.getSelect());
         galleryItems.add(lamp3);
 
