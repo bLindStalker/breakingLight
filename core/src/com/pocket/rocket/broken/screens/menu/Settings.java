@@ -11,6 +11,7 @@ import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.actors.ImageActor;
 import com.pocket.rocket.broken.api.PlayServices;
+import com.pocket.rocket.broken.screens.LanguageScreen;
 import com.pocket.rocket.broken.screens.MenuScreen;
 import com.pocket.rocket.broken.screens.tutorial.TutorialScreen;
 
@@ -111,7 +112,7 @@ public class Settings extends BackScreen {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        main.setScreen(new MenuScreen(main, false));
+                        main.setScreen(new LanguageScreen(main));
                     }
                 }, 0.25f);
             }

@@ -15,7 +15,7 @@ import static com.pocket.rocket.broken.screens.menu.Settings.RU_INDEX;
 import static com.pocket.rocket.broken.screens.menu.Settings.UA_INDEX;
 
 
-class LanguageScreen extends BaseScreen {
+public class LanguageScreen extends BaseScreen {
 
     private final Main main;
 

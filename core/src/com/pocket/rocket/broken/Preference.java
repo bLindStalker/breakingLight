@@ -32,6 +32,7 @@ public class Preference {
         prefs.putBoolean("bonusActivatedHeart", false);
         prefs.putBoolean("lamp2", false);
         prefs.putBoolean("lamp3", false);
+        prefs.putInteger("language", -1);
         prefs.flush();
     }
 

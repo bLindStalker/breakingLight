@@ -89,7 +89,7 @@ public class BonusStep implements TutorialStep {
         lampGroup.addAction(Actions.alpha(0.3f, 0f));
         stage.addActor(info);
         info.addAction(Actions.alpha(1f, 1f));
-        tutorialLabel.setText(TRY_TO_CATCH_BONUS.get().toLowerCase());
+        tutorialLabel.setText(TRY_TO_CATCH_BONUS.get().toUpperCase());
         Timer.schedule(new Timer.Task() {
                            @Override
                            public void run() {

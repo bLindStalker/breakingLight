@@ -12,10 +12,8 @@ import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.actions.ScoreAction;
-import com.pocket.rocket.broken.actors.ImageActor;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 
-import static com.pocket.rocket.broken.AssetLoader.getBonus;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.AssetLoader.getGameOverLabel;
 import static com.pocket.rocket.broken.AssetLoader.getGameOverText;
@@ -50,7 +48,7 @@ public class GameOverScreen extends BaseScreen {
         Preference.saveScore(score);
         main.getPlayServices().submitScore(score);
         main.getPlayServices().submitTotalScore(Preference.getTotalScore());
-        addActor(buildResult(score, bonusCollected, bonus2Collected, time));
+        addActor(buildResult(score, time));
 
         Timer.schedule(new Timer.Task() {
             @Override
@@ -60,27 +58,17 @@ public class GameOverScreen extends BaseScreen {
         }, 0.5f);
     }
 
-    private Group buildResult(int score, int bonusCollected, int bonus2Collected, int time) {
+    private Group buildResult(int score, int time) {
         final Group resultGroup = new Group();
 
         resultGroup.addActor(buildLogo(getGameOverText(), getGameOverLabel()));
+
+        buildResultData(resultGroup, TIME.get(), time, 700);
+        buildResultData(resultGroup, SCORE.get(), score, 580);
         resultGroup.addActor(bestResultLabel());
 
-        buildResultData(resultGroup, X_CENTER - 250, TIME.get(), time);
-        buildResultData(resultGroup, X_CENTER + 150, SCORE.get(), score);
-
-        Group bonus = buildBonuses(bonusCollected, false);
-        if (Preference.doubleBonusActivated()) {
-            bonus.setPosition(bonus.getX() - 40, bonus.getY());
-            Group doubleBonus = buildBonuses(bonus2Collected, true);
-            doubleBonus.setPosition(doubleBonus.getX() + 40, doubleBonus.getY());
-            resultGroup.addActor(doubleBonus);
-        }
-
-        resultGroup.addActor(bonus);
-
         Label menuButton = new Label(MENU.get(), new Label.LabelStyle(getFont()));
-        menuButton.setBounds(X_MENU_BUTTON_POSITION, 150, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+        menuButton.setBounds(X_MENU_BUTTON_POSITION, 40, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
         menuButton.setAlignment(Align.center);
         menuButton.addListener(new ClickListener() {
             @Override
@@ -99,7 +87,7 @@ public class GameOverScreen extends BaseScreen {
         resultGroup.addActor(menuButton);
 
         TextButton retryButton = new TextButton(RETRY.get(), AssetLoader.getButtonStyle());
-        retryButton.setBounds(X_MENU_BUTTON_POSITION, 300, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+        retryButton.setBounds(X_MENU_BUTTON_POSITION, 170, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
         retryButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -122,40 +110,24 @@ public class GameOverScreen extends BaseScreen {
         return resultGroup;
     }
 
-    private Group buildBonuses(int bonusCollected, boolean doubleBonus) {
-        Group bonusGroup = new Group();
-        bonusGroup.setBounds(X_CENTER - 30, 525, 60, 110);
-        bonusGroup.addActor(new ImageActor(15, 50, 30, 60, getBonus(doubleBonus)));
-
-        final Label bonusLabel = new Label("", getFont());
-        bonusLabel.setAlignment(Align.center);
-        bonusLabel.setBounds(0, 0, 60, 50);
-        bonusLabel.setFontScale(1.1f);
-        bonusLabel.addAction(scoreAction(bonusCollected, bonusLabel));
-        bonusGroup.addActor(bonusLabel);
-
-        return bonusGroup;
-    }
-
     private Label bestResultLabel() {
-        Label label = new Label(BEST_SCORE.get() + Preference.getScore(), getFont());
+        Label label = new Label(BEST_SCORE.get() + "\n" + Preference.getScore(), getFont());
         label.setAlignment(Align.center);
-        label.setBounds(X_CENTER - 200, 680, 400, 50);
-        label.setFontScale(1.1f);
+        label.setPosition(X_CENTER - label.getWidth() / 2, 420);
         return label;
     }
 
-    private void buildResultData(Group result, int xPosition, String header, int data) {
+    private void buildResultData(Group result, String header, int data, int y) {
         Label headerLabel = new Label(header, getFont());
         headerLabel.setAlignment(Align.center);
-        headerLabel.setBounds(xPosition, 575, 100, 50);
+        headerLabel.setPosition(X_CENTER - headerLabel.getWidth() / 2, y);
         headerLabel.setFontScale(0.8f);
         result.addActor(headerLabel);
 
-        Label dataLabel = new Label("", getFont());
+        Label dataLabel = new Label(String.valueOf(data), getFont());
         dataLabel.setAlignment(Align.center);
-        dataLabel.setBounds(xPosition, 575 - 50, 100, 50);
-        dataLabel.setFontScale(1.1f);
+        dataLabel.setPosition(X_CENTER - dataLabel.getWidth() / 2, y - 40);
+        dataLabel.setFontScale(1.3f);
         dataLabel.addAction(Actions.action(ScoreAction.class));
         dataLabel.addAction(scoreAction(data, dataLabel));
         result.addActor(dataLabel);

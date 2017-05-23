@@ -1,5 +1,6 @@
 package com.pocket.rocket.broken.screens.tutorial.steps;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
@@ -19,7 +20,7 @@ public class StepManager {
     public StepManager(Group stage, ArrayList<LightBulb> lamps,
                        ScoreActor scoreActor, BonusBuilder bonusBuilder, Group lampGroup) {
 
-        Label tutorialLabel = new Label("", new Label.LabelStyle(AssetLoader.getFont()));
+        Label tutorialLabel = new Label("", new Label.LabelStyle(AssetLoader.getFont(Color.GOLD)));
         tutorialLabel.setBounds(0, Constants.HEIGHT - 275, Constants.WIDTH, 100);
         tutorialLabel.setAlignment(Align.center);
         stage.addActor(tutorialLabel);

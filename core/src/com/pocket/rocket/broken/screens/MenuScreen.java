@@ -57,23 +57,21 @@ public class MenuScreen extends BaseScreen {
         Group labelGroup = new Group();
 
         int score = getScore();
-        labelGroup.addActor(buildScoreLabel(getFont(), MAX.get(), X_CENTER - 300, 690));
-        labelGroup.addActor(buildScoreLabel(getFont(), valueOf(score), X_CENTER - 210, 690));
-
         int totalScore = getTotalScore();
-        labelGroup.addActor(buildScoreLabel(getFont(), TOTAL.get(), X_CENTER + 110, 690));
-        labelGroup.addActor(buildScoreLabel(getFont(), valueOf(totalScore), X_CENTER + 135 + 90, 690));
+
+        labelGroup.addActor(buildScoreLabel(getFont(), MAX.get() + valueOf(score), 700));
+        labelGroup.addActor(buildScoreLabel(getFont(), TOTAL.get() + valueOf(totalScore), 660));
 
         labelGroup.setVisible(score > 0 && totalScore > 0);
         return labelGroup;
     }
 
-    private Label buildScoreLabel(Label.LabelStyle font, String text, int x, int y) {
+    private Label buildScoreLabel(Label.LabelStyle font, String text, int y) {
         Label label = new Label(text, font);
 
         label.setAlignment(Align.left);
-        label.setBounds(x, y, 100, 50);
-        label.setFontScale(0.9f, 0.9f);
+        label.setPosition(X_CENTER - label.getWidth() / 2, y);
+        label.setFontScale(0.8f, 0.8f);
 
         return label;
     }

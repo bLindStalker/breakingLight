@@ -27,7 +27,7 @@ public class BreakLampsStep implements TutorialStep {
     public BreakLampsStep(Group stage, Group lampGroup, ArrayList<LightBulb> lamps, Label tutorialLabel) {
         this.stage = stage;
         this.lampGroup = lampGroup;
-        tutorialLabel.setText(TAP_ON_ANGRY.get().toLowerCase());
+        tutorialLabel.setText(TAP_ON_ANGRY.get().toUpperCase());
         info = new DialogBuilder(50, HEIGHT / 2, 630, 150, TAP_ON_ANGRY.get()).build();
 
         progressBar = new ProgressBar(290, NEED_TO_COLLECT);

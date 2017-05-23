@@ -7,8 +7,8 @@ import static com.pocket.rocket.broken.screens.menu.Settings.UA_INDEX;
 
 public enum Text {
     //menu
-    MAX("max: ", "очки:", "очки:"),
-    TOTAL("  total:  ", "  сума: ", "сумма: "),
+    MAX("max: ", "очки: ", "очки: "),
+    TOTAL("total: ", "сума: ", "сумма: "),
     START("START", "ПОЧТАТИ", "НАЧАТЬ"),
 
     // gallery
@@ -36,12 +36,12 @@ public enum Text {
     SCORE("Score", "Рахунок", "Счёт"),
 
     // game over
-    BEST_SCORE("BEST SCORE: ", "РАXУНОК: ", "СЧЁТ: "),
+    BEST_SCORE("BEST SCORE", "РАXУНОК", "СЧЁТ"),
     MENU("MENU", "МЕНЮ", "МЕНЮ"),
     RETRY("RETRY", "ЩЕ РАЗ", "ПОВТОРИТЬ"),
 
     // tutorial
-    GOOD_JOB("GOOD JOB!", "Гарна робота", "Отлично!"),
+    GOOD_JOB("GOOD JOB!", "Гарна робота!", "Отлично!"),
     TRY_TO_CATCH_BONUS("TRY TO CATCH BONUS!", "СПIЙМАЙ БОНУС!", "ПОЙМАЙ БОНУС!"),
     TAP_ON_ANGRY("TAP ON ANGRY!", "НАТИСКАЙ НА ЗЛИX!", "НАЖИМАЙ НА ЗЛЫX!"),
     PLAY_REAL_GAME("PLAY REAL GAME", "ПОЧАТИ ГРУ", "НАЧАТЬ ИГРУ"),
