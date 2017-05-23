@@ -11,19 +11,21 @@ import static com.pocket.rocket.broken.Constants.MIN_CLICK_FOR_BONUS;
 public class BonusBuilder {
 
     private final Stage stage;
+    private final Main main;
     private int clickToCreate = random(MIN_CLICK_FOR_BONUS, MAX_CLICK_FOR_BONUS);
     private int clickCount = 0;
     private float bonusVelocity = random(2.8f, 5f);
 
-    public BonusBuilder(Stage stage) {
+    public BonusBuilder(final Main main, Stage stage) {
         this.stage = stage;
+        this.main = main;
     }
 
     public void buildBonus(int xPosition, int yPosition, final ScoreActor scoreActor) {
         if (clickCount >= clickToCreate) {
             clickCount = 0;
             clickToCreate = random(MIN_CLICK_FOR_BONUS, MAX_CLICK_FOR_BONUS);
-            BonusActor actor = new BonusActor(xPosition, yPosition, scoreActor, bonusVelocity);
+            BonusActor actor = new BonusActor(main, xPosition, yPosition, scoreActor, bonusVelocity);
             stage.addActor(actor);
         } else {
             clickCount++;

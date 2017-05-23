@@ -70,7 +70,7 @@ public class GameOverScreen extends BaseScreen {
         buildResultData(resultGroup, X_CENTER + 150, SCORE.get(), score);
 
         Group bonus = buildBonuses(bonusCollected, false);
-        if (Preference.doubleBonus()) {
+        if (Preference.doubleBonusActivated()) {
             bonus.setPosition(bonus.getX() - 40, bonus.getY());
             Group doubleBonus = buildBonuses(bonus2Collected, true);
             doubleBonus.setPosition(doubleBonus.getX() + 40, doubleBonus.getY());

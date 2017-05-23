@@ -13,11 +13,17 @@ public enum Text {
 
     // gallery
     GALLERY("GALLERY", "ГАЛЕРЕЯ", "ГАЛЕРЕЯ"),
-    COMING_SOON("coming soon", "скоро", "скоро"),
-    GALLERY_MAX_SCORE("max score: ", "найкращий рахунок: ", "наилучший счёт: "),
-    GALLERY_MAX_TOTAL("max total: ", "суммарный рахунок: ", "сумарный счёт: "),
-    BONUS_ACTIVATED("Bonus activated", "Бонус активований ", "Бонус активирован"),
-    TAP_TO_ACTIVATE("Tap for activate", "Натисніть щоб активувати", "Нажмите для активации"),
+    COMING_SOON("wait for update", "чекати обнови", "ждать обновления"),
+    GALLERY_MAX_SCORE("max score = ", "найкращий рахунок = ", "наилучший счёт = "),
+    GALLERY_TOTAL("total score = ", "суммарный рахунок = ", "сумарный счёт = "),
+    TAP_TO_OPEN("TAP TO OPEN!", "НАТИСНIТЬ ЩОБ ВIДКРИТИ!", "НАЖМИТЕ ЧТО БЫ ОТКРЫТЬ!"),
+    UNLOCKED("UNLOCKED!", "ВIДКРИТО!", "ОТКРЫТО!"),
+    LAMP("Incandescent lamp", "Лампа розжарювання", "Лампа накаливания"),
+    MEGA_LAMP("MEGA lamp", "Мега лампа", "Мега лампа"),
+    ANGRY_LAMP("Angry lamp", "Зла лампа", "Злая лампа"),
+    SUPER_BONUS("Super BONUS", "Супер БОНУС", "Супер БОНУС"),
+    HEART_BONUS("Heart BONUS", "Бонус життя", "Бонус жизни"),
+
 
     // setting
     SETTINGS("SETTINGS", "НАЛАШТУНКИ", "НАСТРОЙКИ"),

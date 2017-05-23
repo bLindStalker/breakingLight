@@ -3,6 +3,7 @@ package com.pocket.rocket.broken.desktop;
 import com.badlogic.gdx.Gdx;
 import com.pocket.rocket.broken.actors.userData.ScoreData;
 import com.pocket.rocket.broken.api.PlayServices;
+import com.pocket.rocket.broken.enums.Achievement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,30 +75,13 @@ public class GPGSImpl implements PlayServices {
     }
 
     @Override
-    public void unlockAchievement(int n) {
-        String about = "";
-        if (n >= ACHEIVEMENT.length) {
-            about = "Error in acheivement!!! <<<";
-        } else {
-            about = ACHEIVEMENT[n];
-        }
+    public void unlockAchievement(Achievement achievement) {
 
-        Gdx.app.debug(className, "unlock " + n + " achievement");
-        Gdx.app.debug(className, about);
     }
 
     @Override
-    public void unlockIncrementAchievement(int n, int count) {
-        String about;
-        if (n >= ACHEIVEMENT.length) {
-            about = "Error in achievement!!! <<<<<";
-        } else {
-            about = ACHEIVEMENT[n];
-        }
+    public void unlockIncrementAchievement(Achievement achievement, int count) {
 
-        String s = "try to unlock increment achievement (" + n + ") by " + count + " value";
-        Gdx.app.debug(className, s);
-        Gdx.app.debug(className, about);
     }
 
     @Override

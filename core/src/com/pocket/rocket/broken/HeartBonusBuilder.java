@@ -8,7 +8,7 @@ import com.pocket.rocket.broken.actors.userData.HeartData;
 import static com.pocket.rocket.broken.Constants.CREATED_BONUS_INTERVAL;
 import static com.pocket.rocket.broken.Constants.MAX_HEART_BONUS_CHANCE;
 import static com.pocket.rocket.broken.Constants.MIN_HEART_BONUS_CHANCE;
-import static com.pocket.rocket.broken.Preference.bonusHeart;
+import static com.pocket.rocket.broken.Preference.bonusActivatedHeart;
 
 public class HeartBonusBuilder {
 
@@ -22,7 +22,7 @@ public class HeartBonusBuilder {
     }
 
     public void buildBonus(int time, final HeartData heartdata) {
-        if (!bonusHeart()) {
+        if (!bonusActivatedHeart()) {
             return;
         }
 

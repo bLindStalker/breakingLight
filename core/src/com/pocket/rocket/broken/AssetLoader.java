@@ -22,7 +22,6 @@ import static com.pocket.rocket.broken.screens.menu.Settings.UA_INDEX;
 import static java.lang.String.format;
 
 public class AssetLoader implements Disposable {
-    public static final int LAMPS_PREFIX_0 = 0;
     public static final int LAMPS_PREFIX_1 = 1;
     public static final int LAMPS_PREFIX_2 = 2;
     public static final int LAMPS_PREFIX_3 = 3;
@@ -65,7 +64,12 @@ public class AssetLoader implements Disposable {
     private static final String TOGLE3 = "elements/togle3.png";
     private static final String ACTIVE_LANGUAGE = "elements/active_language.png";
 
-    private static final String GALLERY = "gallery.png";
+    private static final String GALLERY = "gallery/gallery.png";
+    private static final String GALLERY_BONUS = "gallery/gallery_bonus.png";
+    private static final String GALLERY_HEART = "gallery/gallery_heart.png";
+    private static final String LIGHT_UNLOCK = "gallery/light_unlock.png";
+    private static final String LOCKED_GALLERY_ITEM = "gallery/locked.png";
+
     private static final String HEART_ATLAS = "elements/heart_animation/heart_atlas.atlas";
 
     private static AssetManager assetManager;
@@ -84,7 +88,6 @@ public class AssetLoader implements Disposable {
         background = backgrounds.get(MathUtils.random(0, backgrounds.size() - 1));
         assetManager.load(background, Texture.class);
 
-        assetManager.load(getLampPath(LAMPS_PREFIX_0, ACTIVE), Texture.class);
         loadLamps(LAMPS_PREFIX_1);
         loadLamps(LAMPS_PREFIX_2);
         loadLamps(LAMPS_PREFIX_3);
@@ -99,7 +102,13 @@ public class AssetLoader implements Disposable {
 
         assetManager.load(HEADER, Texture.class);
         assetManager.load(BACK, Texture.class);
+
         assetManager.load(GALLERY, Texture.class);
+        assetManager.load(LOCKED_GALLERY_ITEM, Texture.class);
+        assetManager.load(GALLERY_BONUS, Texture.class);
+        assetManager.load(GALLERY_HEART, Texture.class);
+        assetManager.load(LIGHT_UNLOCK, Texture.class);
+
         assetManager.load(DIALOG, Texture.class);
         assetManager.load(BAR, Texture.class);
         assetManager.load(PROGRESS, Texture.class);
@@ -220,7 +229,7 @@ public class AssetLoader implements Disposable {
     }
 
     public static void setPrefix(int prefix) {
-        defaultPrefix = prefix == LAMPS_PREFIX_0 ? LAMPS_PREFIX_1 : prefix;
+        defaultPrefix = prefix;
     }
 
     private static Texture angry() {
@@ -330,6 +339,22 @@ public class AssetLoader implements Disposable {
 
     public static Texture getGameOverText() {
         return assetManager.get(GAME_OVER_LABEL_TEXT);
+    }
+
+    public static Texture getLockedGalleryElement() {
+        return assetManager.get(LOCKED_GALLERY_ITEM);
+    }
+
+    public static Texture getGalleryBonus() {
+        return assetManager.get(GALLERY_BONUS);
+    }
+
+    public static Texture getGalleryHeart() {
+        return assetManager.get(GALLERY_HEART);
+    }
+
+    public static Texture getLightUnlock() {
+        return assetManager.get(LIGHT_UNLOCK);
     }
 
     @Override

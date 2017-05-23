@@ -1,6 +1,7 @@
 package com.pocket.rocket.broken.api;
 
 import com.pocket.rocket.broken.actors.userData.ScoreData;
+import com.pocket.rocket.broken.enums.Achievement;
 
 import java.util.List;
 
@@ -13,9 +14,9 @@ public interface PlayServices {
 
     void signOut();
 
-    void unlockAchievement(int n);
+    void unlockAchievement(Achievement achievement);
 
-    void unlockIncrementAchievement(int n, int count);
+    void unlockIncrementAchievement(Achievement achievement, int count);
 
     void showAchievements();
 

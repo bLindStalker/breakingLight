@@ -27,6 +27,11 @@ public class Preference {
         prefs.putInteger("score", 0);
         prefs.putInteger("totalScore", 0);
         prefs.putInteger("lampPrefix", AssetLoader.LAMPS_PREFIX_1);
+
+        prefs.putBoolean("doubleBonusActivated", false);
+        prefs.putBoolean("bonusActivatedHeart", false);
+        prefs.putBoolean("lamp2", false);
+        prefs.putBoolean("lamp3", false);
         prefs.flush();
     }
 
@@ -35,7 +40,7 @@ public class Preference {
     }
 
     public static void saveLampPrefix(int prefix) {
-        prefs.putInteger("lampPrefix", prefix == AssetLoader.LAMPS_PREFIX_0 ? AssetLoader.LAMPS_PREFIX_1 : prefix);
+        prefs.putInteger("lampPrefix", prefix);
         prefs.flush();
     }
 
@@ -57,22 +62,22 @@ public class Preference {
         prefs.flush();
     }
 
-    public static void setDoubleBonus() {
-        prefs.putBoolean("doubleBonus", true);
+    public static void activateDoubleBonus() {
+        prefs.putBoolean("doubleBonusActivated", true);
         prefs.flush();
     }
 
-    public static boolean doubleBonus() {
-        return prefs.getBoolean("doubleBonus", false);
+    public static boolean doubleBonusActivated() {
+        return prefs.getBoolean("doubleBonusActivated", false);
     }
 
     public static void setHeartBonus() {
-        prefs.putBoolean("bonusHeart", true);
+        prefs.putBoolean("bonusActivatedHeart", true);
         prefs.flush();
     }
 
-    public static boolean bonusHeart() {
-        return prefs.getBoolean("bonusHeart", false);
+    public static boolean bonusActivatedHeart() {
+        return prefs.getBoolean("bonusActivatedHeart", false);
     }
 
     public static boolean lamp2Open() {

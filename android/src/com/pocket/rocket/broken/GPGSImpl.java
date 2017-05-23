@@ -15,6 +15,7 @@ import com.google.android.gms.games.leaderboard.LeaderboardVariant;
 import com.google.android.gms.games.leaderboard.Leaderboards;
 import com.pocket.rocket.broken.actors.userData.ScoreData;
 import com.pocket.rocket.broken.api.PlayServices;
+import com.pocket.rocket.broken.enums.Achievement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,35 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
             "CgkIvtLorYgJEAIQAw",
             "CgkIvtLorYgJEAIQBA",
             "CgkIvtLorYgJEAIQBQ",
+            "CgkIvtLorYgJEAIQCA",
+            "CgkIvtLorYgJEAIQCQ",
+            "CgkIvtLorYgJEAIQCg",
+            "CgkIvtLorYgJEAIQCw",
+            "CgkIvtLorYgJEAIQDA",
+            "CgkIvtLorYgJEAIQDQ",
+            "CgkIvtLorYgJEAIQDg",
+            "CgkIvtLorYgJEAIQDw",
+            "CgkIvtLorYgJEAIQEA",
+            "CgkIvtLorYgJEAIQEQ"
     };
+    /*achievementGet500OrMoreAtOnce,"CgkIvtLorYgJEAIQAQ"
+      achievementGet1000OrMoreAtOnce,"CgkIvtLorYgJEAIQAg"
+      achievementGet3000OrMoreAtOnce,"CgkIvtLorYgJEAIQAw"
+      achievementTotalCount5000,"CgkIvtLorYgJEAIQBA"
+      achievementTotalCount10000,"CgkIvtLorYgJEAIQBQ"
+      achievementTotalCount20000,"CgkIvtLorYgJEAIQCA"
+      achievementSurvive30Seconds,"CgkIvtLorYgJEAIQCQ"
+      achievementSurvive45Seconds,"CgkIvtLorYgJEAIQCg"
+      achievementLose100Lives,"CgkIvtLorYgJEAIQCw"
+      achievementLose500Lives,"CgkIvtLorYgJEAIQDA"
+      achievementLose2000Lives,"CgkIvtLorYgJEAIQDQ"
+      achievementCatch50Bonuses,"CgkIvtLorYgJEAIQDg"
+      achievementCatch100Bonuses,"CgkIvtLorYgJEAIQDw"
+      achievementCatch500Bonuses,"CgkIvtLorYgJEAIQEA"
+      achievementOpenAllAvailableElementsAtGallery,"CgkIvtLorYgJEAIQEQ"
+    leaderboard,"CgkIvtLorYgJEAIQBg"
+    leaderboardTotalscore,"CgkIvtLorYgJEAIQBw"*/
+
     private final String LEADERBOARD_SCORE_ID = "CgkIvtLorYgJEAIQBg";
     private final String LEADERBOARD_TOTAL_ID = "CgkIvtLorYgJEAIQBw";
 
@@ -111,25 +140,21 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
     }
 
     @Override
-    public void unlockAchievement(int n) {
+    public void unlockAchievement(Achievement achievement) {
         if (!isConnected()) {
             return;
         }
 
-        if (n <= ACHEIVEMENT.length) {
-            Games.Achievements.unlock(client, ACHEIVEMENT[n]);
-        }
+        Games.Achievements.unlock(client, achievement.getHash());
     }
 
     @Override
-    public void unlockIncrementAchievement(int n, int count) {
+    public void unlockIncrementAchievement(Achievement achievement, int count) {
         if (!isConnected()) {
             return;
         }
 
-        if (n <= ACHEIVEMENT.length) {
-            Games.Achievements.increment(client, ACHEIVEMENT[n], count);
-        }
+        Games.Achievements.increment(client, achievement.getHash(), count);
     }
 
     @Override

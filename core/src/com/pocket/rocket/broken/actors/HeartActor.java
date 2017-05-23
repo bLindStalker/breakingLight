@@ -6,13 +6,18 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Timer;
+import com.pocket.rocket.broken.Main;
+import com.pocket.rocket.broken.enums.Achievement;
 
 import static com.badlogic.gdx.utils.Timer.schedule;
 
 public class HeartActor extends Image {
 
-    public HeartActor(int xPosition, int yPosition, int width, int height, Texture texture) {
+    private final Main main;
+
+    public HeartActor(final Main main, int xPosition, int yPosition, int width, int height, Texture texture) {
         super(texture);
+        this.main = main;
         setBounds(xPosition, yPosition, width, height);
     }
 
@@ -22,6 +27,9 @@ public class HeartActor extends Image {
         schedule(new Timer.Task() {
             @Override
             public void run() {
+                main.getPlayServices().unlockIncrementAchievement(Achievement.Lose100Lives, 1);
+                main.getPlayServices().unlockIncrementAchievement(Achievement.Lose500Lives, 1);
+                main.getPlayServices().unlockIncrementAchievement(Achievement.Lose2000Lives, 1);
                 setVisible(false);
             }
         }, 0.7f);

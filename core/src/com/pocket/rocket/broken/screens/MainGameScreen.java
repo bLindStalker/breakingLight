@@ -42,13 +42,13 @@ public class MainGameScreen extends BaseScreen {
 
     public MainGameScreen(Main main) {
         super(main);
-        bonusBuilder = new BonusBuilder(this);
+        bonusBuilder = new BonusBuilder(main, this);
         heartBonusBuilder = new HeartBonusBuilder(this);
         gameActors = new Group();
 
         timer = new TimerActor();
         scoreActor = new ScoreActor();
-        heartData = new HeartData();
+        heartData = new HeartData(main);
 
         Group gameObject = new Group();
         gameObject.setBounds(90, HEIGHT - 52 - 100, WIDTH - 180, 100);

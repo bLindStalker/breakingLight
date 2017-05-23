@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Queue;
 import com.pocket.rocket.broken.AssetLoader;
+import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.actors.HeartActor;
 
 import static com.pocket.rocket.broken.Constants.WIDTH;
@@ -13,7 +14,7 @@ public class HeartData extends Group {
 
     private Queue<HeartActor> hearts = new Queue<HeartActor>();
 
-    public HeartData() {
+    public HeartData(final Main main) {
         Texture heard = AssetLoader.getHeart();
 
         int width = heard.getWidth();
@@ -21,15 +22,15 @@ public class HeartData extends Group {
         int groupWidth = width * 3 + 80;
         setBounds((WIDTH - 180) / 2 - groupWidth / 2, 0, groupWidth, height);
 
-        HeartActor heart1 = new HeartActor(0, 0, width, height, heard);
+        HeartActor heart1 = new HeartActor(main, 0, 0, width, height, heard);
         hearts.addLast(heart1);
         addActor(heart1);
 
-        HeartActor heart2 = new HeartActor(groupWidth / 2 - width / 2, 0, width, height, heard);
+        HeartActor heart2 = new HeartActor(main, groupWidth / 2 - width / 2, 0, width, height, heard);
         hearts.addLast(heart2);
         addActor(heart2);
 
-        HeartActor heart3 = new HeartActor(groupWidth - width, 0, width, height, heard);
+        HeartActor heart3 = new HeartActor(main, groupWidth - width, 0, width, height, heard);
         hearts.addLast(heart3);
         addActor(heart3);
     }

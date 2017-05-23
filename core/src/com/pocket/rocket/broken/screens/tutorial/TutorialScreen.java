@@ -50,7 +50,7 @@ public class TutorialScreen extends BaseScreen {
 
     public TutorialScreen(final Main main) {
         super(main);
-        bonusBuilder = new BonusBuilder(this);
+        bonusBuilder = new BonusBuilder(main, this);
         bonusBuilder.setClickToCreate(MAX_VALUE, MAX_VALUE);
         tutorialLampLogic = new LampLogic();
         tutorialLampLogic.maxAngryLamps = 3;
@@ -149,7 +149,7 @@ public class TutorialScreen extends BaseScreen {
             public Boolean call() throws Exception {
                 return lamp.justClicked(tutorialLampLogic);
             }
-        }, new HeartData(), scoreActor, bonusBuilder));
+        }, new HeartData(main), scoreActor, bonusBuilder));
 
         allLamps.add(lamp);
 

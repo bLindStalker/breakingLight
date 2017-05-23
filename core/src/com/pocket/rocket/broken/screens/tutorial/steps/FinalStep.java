@@ -69,6 +69,7 @@ public class FinalStep implements TutorialStep {
         });
         infoGroup.addActor(completeButton);
         completeButton.addAction(Actions.alpha(0, 0));
+        // completeButton.addAction(pulseAnimation(completeButton.getWidth(), completeButton.getHeight(), 1.15f, 0.7f));
     }
 
     @Override
@@ -78,6 +79,13 @@ public class FinalStep implements TutorialStep {
             stage.addActor(infoGroup);
             infoGroup.addAction(Actions.alpha(0f, 0f));
             infoGroup.addAction(Actions.alpha(1f, 1f));
+
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    lampGroup.remove();
+                }
+            }, 0.4f);
 
             Timer.schedule(new Timer.Task() {
                 @Override
