@@ -7,22 +7,23 @@ import static com.pocket.rocket.broken.screens.menu.Settings.UA_INDEX;
 
 public enum Text {
     //menu
-    MAX("max: ", "очки: ", "очки: "),
+    MAX("max: ", "бали: ", "балы: "),
     TOTAL("total: ", "сума: ", "сумма: "),
     START("START", "ПОЧАТИ", "НАЧАТЬ"),
 
     // gallery
     GALLERY("GALLERY", "ГАЛЕРЕЯ", "ГАЛЕРЕЯ"),
-    COMING_SOON("wait for update", "чекати обнови", "ждать обновления"),
+    COMING_SOON("wait for update", "чекати оновлення", "ждать обновления"),
     GALLERY_MAX_SCORE("max score = ", "найкращий рахунок = ", "наилучший счёт = "),
-    GALLERY_TOTAL("total score = ", "суммарный рахунок = ", "сумарный счёт = "),
-    TAP_TO_OPEN("TAP TO OPEN!", "НАТИСНIТЬ ЩОБ ВIДКРИТИ!", "НАЖМИТЕ ЧТО БЫ ОТКРЫТЬ!"),
+    GALLERY_TOTAL("total score = ", "сумарний рахунок = ", "сумарный счёт = "),
+    TAP_TO_OPEN("TAP TO OPEN!", "НАТИСНIТЬ ЩОБ ВIДКРИТИ!", "НАЖМИТЕ ЧТОБЫ ОТКРЫТЬ!"),
     UNLOCKED("UNLOCKED!", "ВIДКРИТО!", "ОТКРЫТО!"),
     LAMP("Incandescent lamp", "Лампа розжарювання", "Лампа накаливания"),
     MEGA_LAMP("MEGA lamp", "Мега лампа", "Мега лампа"),
     ANGRY_LAMP("Cool lamp", "Крута лампа", "Крута лампа"),
     SUPER_BONUS("Super BONUS", "Супер БОНУС", "Супер БОНУС"),
-    HEART_BONUS("Heart BONUS", "Бонус життя", "Бонус жизни"),
+    HEART_BONUS("Heart BONUS", "+ ЖИТТЯ", "+ ЖИЗНЬ"),
+    TEXT_TO_UNLOCK("to unlock you need", "щоб вiдкрити треба", "чтобы открыть нужно"),
 
     // setting
     SETTINGS("SETTINGS", "НАЛАШТУНКИ", "НАСТРОЙКИ"),
@@ -35,9 +36,10 @@ public enum Text {
     SCORE("Score", "Рахунок", "Счёт"),
 
     // game over
-    BEST_SCORE("BEST SCORE", "КРАЩИЙ РАXУНОК", "ЛУЧШИЙ СЧЁТ"),
+    BEST_SCORE("BEST SCORE", "НАЙКРАЩИЙ РАXУНОК", "ЛУЧШИЙ СЧЁТ"),
     MENU("MENU", "МЕНЮ", "МЕНЮ"),
     RETRY("RETRY", "ЩЕ РАЗ", "ПОВТОРИТЬ"),
+    NEW_ITEM_IN_GALLERY("NEW ITEM IN GALLERY", "НОВИЙ БОНУС В ГАЛЕРЕЇ", "НОВЫЙ БОНУС В ГАЛЕРЕЕ"),
 
     // tutorial
     GOOD_JOB("GOOD JOB!", "Гарна робота!", "Отлично!"),
@@ -45,8 +47,8 @@ public enum Text {
     TAP_ON_ANGRY("TAP ON ANGRY!", "НАТИСКАЙ НА ЗЛИX!", "НАЖИМАЙ НА ЗЛЫX!"),
     PLAY_REAL_GAME("PLAY REAL GAME", "ПОЧАТИ ГРУ", "НАЧАТЬ ИГРУ"),
 
-    WORDS("WOW!, Supper!, Amazing!, Well done!, Very well!", "WOW!, Суппер, Круто, Так тримати", "WOW!, Суппер, Круто, Так держать"),
-    MISSING_WORDS("Miss, Bad, Shit, Blunder, Boner, Mistake", "Промах, Погано, Дуже погано, Помилка", "Промах, Плохо, Очень плохо, Ошибака");
+    WORDS("WOW!, Super!, Amazing!, Well done!, Very well!", "WOW!, Супер, Круто, Так тримати", "WOW!, Супер, Круто, Так держать"),
+    MISSING_WORDS("Miss, Bad, Shit, Blunder, Boner, Mistake", "Промах, Погано, Дуже погано, Помилка", "Промах, Плохо, Очень плохо, Ошибка");
 
     private String en;
     private String ua;

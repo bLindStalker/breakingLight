@@ -38,9 +38,11 @@ import static com.pocket.rocket.broken.actions.ScoreAction.scoreAction;
 import static com.pocket.rocket.broken.enums.Text.BEST_SCORE;
 import static com.pocket.rocket.broken.enums.Text.GALLERY;
 import static com.pocket.rocket.broken.enums.Text.MENU;
+import static com.pocket.rocket.broken.enums.Text.NEW_ITEM_IN_GALLERY;
 import static com.pocket.rocket.broken.enums.Text.RETRY;
 import static com.pocket.rocket.broken.enums.Text.SCORE;
 import static com.pocket.rocket.broken.enums.Text.TIME;
+import static com.pocket.rocket.broken.enums.Text.UNLOCKED;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_HEIGHT;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_WIDTH;
 import static com.pocket.rocket.broken.screens.MenuScreen.X_MENU_BUTTON_POSITION;
@@ -186,13 +188,13 @@ public class GameOverScreen extends BaseScreen {
         Group group = new Group();
         group.setBounds(X_CENTER - WIDTH / 2, 410, WIDTH, 100);
 
-        Label label = new Label("NEW ITEM IN GALLERY", getFont(Color.GOLD));
+        Label label = new Label(NEW_ITEM_IN_GALLERY.get(), getFont(Color.GOLD));
         label.setAlignment(Align.center);
         label.setPosition(group.getWidth() / 2 - label.getWidth() / 2, 50);
         label.setFontScale(0.7f);
         group.addActor(label);
 
-        Label unlock = new Label("UNLOCKED!", getFont(Color.GOLD));
+        Label unlock = new Label(UNLOCKED.get(), getFont(Color.GOLD));
         unlock.setAlignment(Align.center);
         unlock.setPosition(group.getWidth() / 2 - unlock.getWidth() / 2, 0);
         unlock.setFontScale(1.3f);
