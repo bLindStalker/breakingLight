@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pocket.rocket.broken.AssetLoader;
+import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.actors.userData.gallery.CanBeOpenGalleryElement;
 import com.pocket.rocket.broken.actors.userData.gallery.GalleryElement;
@@ -24,26 +25,32 @@ import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_1;
 import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_2;
 import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_3;
 import static com.pocket.rocket.broken.AssetLoader.getPrefix;
-import static com.pocket.rocket.broken.Constants.HEART_BONUS_TOTAL;
+import static com.pocket.rocket.broken.Constants.COLLECT_BONUSES;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_MAX;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_TOTAL;
-import static com.pocket.rocket.broken.Constants.SUPPER_BONUS_MAX;
+import static com.pocket.rocket.broken.Constants.PLAY_TIMES;
 import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.Preference.bonusActivatedHeart;
 import static com.pocket.rocket.broken.Preference.doubleBonusActivated;
+import static com.pocket.rocket.broken.Preference.getBonusCount;
+import static com.pocket.rocket.broken.Preference.getPlayTimes;
 import static com.pocket.rocket.broken.Preference.getScore;
 import static com.pocket.rocket.broken.Preference.getTotalScore;
 import static com.pocket.rocket.broken.Preference.lamp2Open;
 import static com.pocket.rocket.broken.Preference.lamp3Open;
+import static com.pocket.rocket.broken.enums.Achievement.OpenAllAvailableElementsAtGallery;
 import static com.pocket.rocket.broken.enums.Text.ANGRY_LAMP;
 import static com.pocket.rocket.broken.enums.Text.GALLERY;
 import static com.pocket.rocket.broken.enums.Text.GALLERY_MAX_SCORE;
 import static com.pocket.rocket.broken.enums.Text.GALLERY_TOTAL;
 import static com.pocket.rocket.broken.enums.Text.HEART_BONUS;
+import static com.pocket.rocket.broken.enums.Text.HEART_BONUS_DESC;
 import static com.pocket.rocket.broken.enums.Text.LAMP;
 import static com.pocket.rocket.broken.enums.Text.MEGA_LAMP;
 import static com.pocket.rocket.broken.enums.Text.SUPER_BONUS;
+import static com.pocket.rocket.broken.enums.Text.SUPER_BONUS_DESC;
+import static java.lang.String.format;
 
 public class Gallery extends BackScreen {
     public static final int GALLERY_HEIGHT = 490;
@@ -53,9 +60,12 @@ public class Gallery extends BackScreen {
     public static final int Y_ROUND_POSITION = 380;
 
     private final Map<Integer, Actor> selectedLamp = new HashMap<Integer, Actor>();
+    private final Main main;
 
-    public Gallery(Group menuGroup) {
+    public Gallery(Main main, Group menuGroup) {
         super(GALLERY.get(), menuGroup);
+        this.main = main;
+
         ScrollPane scroller = new ScrollPane(buildGallery());
         scroller.setBounds(0, 0, WIDTH, HEIGHT + (GALLERY_HEIGHT / 2));
         scroller.layout();
@@ -81,8 +91,8 @@ public class Gallery extends BackScreen {
         selectedLamp.put(LAMPS_PREFIX_1, lamp1.getSelect());
         galleryItems.add(lamp1);
 
-        galleryItems.add(buildGalleryElement(SUPER_BONUS.get(), GALLERY_MAX_SCORE.get() + SUPPER_BONUS_MAX, AssetLoader.getGalleryBonus(),
-                getScore() >= SUPPER_BONUS_MAX, doubleBonusActivated(), new ClickListener() {
+        galleryItems.add(buildGalleryElement(SUPER_BONUS.get(), format(SUPER_BONUS_DESC.get(), COLLECT_BONUSES), AssetLoader.getGalleryBonus(),
+                getBonusCount() >= COLLECT_BONUSES, doubleBonusActivated(), new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         Preference.activateDoubleBonus();
@@ -94,8 +104,8 @@ public class Gallery extends BackScreen {
         selectedLamp.put(LAMPS_PREFIX_2, lamp2.getSelect());
         galleryItems.add(lamp2);
 
-        galleryItems.add(buildGalleryElement(HEART_BONUS.get(), GALLERY_TOTAL.get() + HEART_BONUS_TOTAL, AssetLoader.getGalleryHeart(),
-                getTotalScore() >= HEART_BONUS_TOTAL, bonusActivatedHeart(), new ClickListener() {
+        galleryItems.add(buildGalleryElement(HEART_BONUS.get(), HEART_BONUS_DESC.get(), AssetLoader.getGalleryHeart(),
+                getPlayTimes() >= PLAY_TIMES, bonusActivatedHeart(), new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         Preference.setHeartBonus();
@@ -157,5 +167,16 @@ public class Gallery extends BackScreen {
         }
 
         return new LockedGalleryElement(desctToOpen);
+    }
+
+    @Override
+    protected void back() {
+        if (doubleBonusActivated()
+                && lamp2Open()
+                && bonusActivatedHeart()
+                && lamp3Open()) {
+            main.getPlayServices().unlockAchievement(OpenAllAvailableElementsAtGallery);
+        }
+        super.back();
     }
 }

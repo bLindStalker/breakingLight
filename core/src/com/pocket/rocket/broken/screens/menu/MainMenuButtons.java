@@ -37,7 +37,7 @@ public class MainMenuButtons extends Group {
         this.main = main;
         this.menuGroup = menuGroup;
 
-        this.gallery = new Gallery(menuGroup);
+        this.gallery = new Gallery(main, menuGroup);
         gallery.setVisible(false);
 
         this.settings = new Settings(menuGroup, main);

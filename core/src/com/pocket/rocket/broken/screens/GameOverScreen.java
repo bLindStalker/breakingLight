@@ -14,27 +14,41 @@ import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.actions.ScoreAction;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
+import com.pocket.rocket.broken.api.PlayServices;
 
 import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.AssetLoader.getGameOverLabel;
 import static com.pocket.rocket.broken.AssetLoader.getGameOverText;
 import static com.pocket.rocket.broken.Constants.BASIC_BONUS_SCORE;
-import static com.pocket.rocket.broken.Constants.HEART_BONUS_TOTAL;
+import static com.pocket.rocket.broken.Constants.COLLECT_BONUSES;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_MAX;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_TOTAL;
-import static com.pocket.rocket.broken.Constants.SUPPER_BONUS_MAX;
+import static com.pocket.rocket.broken.Constants.PLAY_TIMES;
 import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.Constants.X_CENTER;
 import static com.pocket.rocket.broken.Preference.bonusActivatedHeart;
 import static com.pocket.rocket.broken.Preference.doubleBonusActivated;
+import static com.pocket.rocket.broken.Preference.getBonusCount;
+import static com.pocket.rocket.broken.Preference.getPlayTimes;
 import static com.pocket.rocket.broken.Preference.getScore;
 import static com.pocket.rocket.broken.Preference.getTotalScore;
 import static com.pocket.rocket.broken.Preference.lamp2Open;
 import static com.pocket.rocket.broken.Preference.lamp3Open;
+import static com.pocket.rocket.broken.Preference.saveBonusCount;
+import static com.pocket.rocket.broken.Preference.saveScore;
+import static com.pocket.rocket.broken.Preference.updatePlayTimes;
 import static com.pocket.rocket.broken.Utils.buildLogo;
 import static com.pocket.rocket.broken.Utils.pulseAnimation;
 import static com.pocket.rocket.broken.actions.ScoreAction.scoreAction;
+import static com.pocket.rocket.broken.enums.Achievement.Get1000OrMoreAtOnce;
+import static com.pocket.rocket.broken.enums.Achievement.Get3000OrMoreAtOnce;
+import static com.pocket.rocket.broken.enums.Achievement.Get500OrMoreAtOnce;
+import static com.pocket.rocket.broken.enums.Achievement.Survive30Seconds;
+import static com.pocket.rocket.broken.enums.Achievement.Survive45Seconds;
+import static com.pocket.rocket.broken.enums.Achievement.TotalCount10000;
+import static com.pocket.rocket.broken.enums.Achievement.TotalCount20000;
+import static com.pocket.rocket.broken.enums.Achievement.TotalCount5000;
 import static com.pocket.rocket.broken.enums.Text.BEST_SCORE;
 import static com.pocket.rocket.broken.enums.Text.GALLERY;
 import static com.pocket.rocket.broken.enums.Text.MENU;
@@ -61,9 +75,11 @@ public class GameOverScreen extends BaseScreen {
         score += bonusCollected * BASIC_BONUS_SCORE;
         score += bonus2Collected * BASIC_BONUS_SCORE * 2;
 
-        Preference.saveScore(score);
-        main.getPlayServices().submitScore(score);
-        main.getPlayServices().submitTotalScore(Preference.getTotalScore());
+        saveBonusCount(bonusCollected + bonus2Collected);
+        saveScore(score);
+        updatePlayTimes();
+
+        playServiceOperation(main, score, time);
         addActor(buildResult(score, time));
 
         Timer.schedule(new Timer.Task() {
@@ -72,6 +88,45 @@ public class GameOverScreen extends BaseScreen {
                 canBeClose = true;
             }
         }, 0.5f);
+    }
+
+    private void playServiceOperation(Main main, int score, int time) {
+        PlayServices playServices = main.getPlayServices();
+        playServices.submitScore(score);
+        int totalScore = Preference.getTotalScore();
+        playServices.submitTotalScore(totalScore);
+
+        if (score < Get500OrMoreAtOnce.getData()) {
+            playServices.unlockAchievement(Get500OrMoreAtOnce);
+        }
+
+        if (score < Get1000OrMoreAtOnce.getData()) {
+            playServices.unlockAchievement(Get1000OrMoreAtOnce);
+        }
+
+        if (score < Get3000OrMoreAtOnce.getData()) {
+            playServices.unlockAchievement(Get3000OrMoreAtOnce);
+        }
+
+        if (totalScore < TotalCount5000.getData()) {
+            playServices.unlockAchievement(TotalCount5000);
+        }
+
+        if (totalScore < TotalCount10000.getData()) {
+            playServices.unlockAchievement(TotalCount10000);
+        }
+
+        if (totalScore < TotalCount20000.getData()) {
+            playServices.unlockAchievement(TotalCount20000);
+        }
+
+        if (time < Survive30Seconds.getData()) {
+            playServices.unlockAchievement(Survive30Seconds);
+        }
+
+        if (time < Survive45Seconds.getData()) {
+            playServices.unlockAchievement(Survive45Seconds);
+        }
     }
 
     private Group buildResult(int score, int time) {
@@ -171,9 +226,9 @@ public class GameOverScreen extends BaseScreen {
     }
 
     private boolean anyGalleryItemOpen() {
-        return (getScore() >= SUPPER_BONUS_MAX && !doubleBonusActivated())
+        return (getBonusCount() >= COLLECT_BONUSES && !doubleBonusActivated())
                 || (getTotalScore() >= LAMP_OPEN_TOTAL && !lamp2Open())
-                || (getTotalScore() >= HEART_BONUS_TOTAL && !bonusActivatedHeart())
+                || (getPlayTimes() >= PLAY_TIMES && !bonusActivatedHeart())
                 || (getScore() >= LAMP_OPEN_MAX && !lamp3Open());
     }
 

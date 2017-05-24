@@ -4,6 +4,9 @@ package com.pocket.rocket.broken;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
+import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_1;
+import static com.pocket.rocket.broken.AssetLoader.setPrefix;
+
 public class Preference {
     private static Preferences prefs = Gdx.app.getPreferences("user_preference");
 
@@ -26,18 +29,22 @@ public class Preference {
     public static void reset() {
         prefs.putInteger("score", 0);
         prefs.putInteger("totalScore", 0);
-        prefs.putInteger("lampPrefix", AssetLoader.LAMPS_PREFIX_1);
+        prefs.putInteger("lampPrefix", LAMPS_PREFIX_1);
+        setPrefix(LAMPS_PREFIX_1);
 
         prefs.putBoolean("doubleBonusActivated", false);
         prefs.putBoolean("bonusActivatedHeart", false);
         prefs.putBoolean("lamp2", false);
         prefs.putBoolean("lamp3", false);
         prefs.putInteger("language", -1);
+        prefs.putInteger("playTimes", 0);
+        prefs.putLong("bonusCount", 0);
+
         prefs.flush();
     }
 
     public static int getLampPrefix() {
-        return prefs.getInteger("lampPrefix", AssetLoader.LAMPS_PREFIX_1);
+        return prefs.getInteger("lampPrefix", LAMPS_PREFIX_1);
     }
 
     public static void saveLampPrefix(int prefix) {
@@ -97,5 +104,23 @@ public class Preference {
     public static void setLamp3Open() {
         prefs.putBoolean("lamp3", true);
         prefs.flush();
+    }
+
+    public static void saveBonusCount(int bonusCount) {
+        prefs.putLong("bonusCount", getBonusCount() + bonusCount);
+        prefs.flush();
+    }
+
+    public static Long getBonusCount() {
+        return prefs.getLong("bonusCount", 0);
+    }
+
+    public static void updatePlayTimes() {
+        prefs.putLong("playTimes", getPlayTimes() + 1);
+        prefs.flush();
+    }
+
+    public static Long getPlayTimes() {
+        return prefs.getLong("playTimes", 0);
     }
 }
