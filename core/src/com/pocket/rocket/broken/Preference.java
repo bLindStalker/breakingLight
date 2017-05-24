@@ -37,7 +37,7 @@ public class Preference {
         prefs.putBoolean("lamp2", false);
         prefs.putBoolean("lamp3", false);
         prefs.putInteger("language", -1);
-        prefs.putInteger("playTimes", 0);
+        prefs.putLong("playTimes", 0L);
         prefs.putLong("bonusCount", 0);
 
         prefs.flush();
@@ -116,7 +116,7 @@ public class Preference {
     }
 
     public static void updatePlayTimes() {
-        prefs.putLong("playTimes", getPlayTimes() + 1);
+        prefs.putLong("playTimes", getPlayTimes() + 1L);
         prefs.flush();
     }
 
