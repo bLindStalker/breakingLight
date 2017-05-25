@@ -40,7 +40,7 @@ public class BonusActor extends Actor {
         addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                scoreActor.increasebonusScore(isDoubleBonus);
+                scoreActor.increaseBonusScore(isDoubleBonus);
                 main.getPlayServices().unlockIncrementAchievement(Achievement.Catch100Bonuses, 1);
                 main.getPlayServices().unlockIncrementAchievement(Achievement.Catch500Bonuses, 1);
                 main.getPlayServices().unlockIncrementAchievement(Achievement.Catch1000Bonuses, 1);

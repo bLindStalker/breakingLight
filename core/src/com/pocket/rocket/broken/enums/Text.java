@@ -22,7 +22,7 @@ public enum Text {
     MEGA_LAMP("MEGA lamp", "Мега лампа", "Мега лампа"),
     ANGRY_LAMP("Cool lamp", "Крута лампа", "Крута лампа"),
     SUPER_BONUS("Super BONUS", "Супер БОНУС", "Супер БОНУС"),
-    SUPER_BONUS_DESC("collect %s bonuses", "спiймати %s бонусiв", "поймайть %s бонусов"),
+    SUPER_BONUS_DESC("collect %s bonuses", "спiймати бонусiв: ", "поймайть бонусов: "),
     HEART_BONUS("Heart BONUS", "+ ЖИТТЯ", "+ ЖИЗНЬ"),
     HEART_BONUS_DESC("play game and have fun", "грати в гру та насолоджуватись", "играть в игру и наслаждаться"),
     TEXT_TO_UNLOCK("to unlock you need", "щоб вiдкрити треба", "чтобы открыть нужно"),

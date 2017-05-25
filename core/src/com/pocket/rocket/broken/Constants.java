@@ -43,7 +43,7 @@ public final class Constants {
 
     // gallery
     public static final int COLLECT_BONUSES = 300;
-    public static final int PLAY_TIMES = 300;
+    public static final int PLAY_TIMES = 200;
     public static final int LAMP_OPEN_MAX = 2500;
     public static final int LAMP_OPEN_TOTAL = 25000;
 }

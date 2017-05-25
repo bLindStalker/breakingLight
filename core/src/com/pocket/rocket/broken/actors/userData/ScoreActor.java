@@ -1,5 +1,6 @@
 package com.pocket.rocket.broken.actors.userData;
 
+import static com.pocket.rocket.broken.Constants.BASIC_BONUS_SCORE;
 import static com.pocket.rocket.broken.Constants.BASIC_SCORE;
 import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.enums.Text.SCORE;
@@ -26,12 +27,13 @@ public class ScoreActor extends LabelData {
         collectedLamps = 0;
     }
 
-
-    public void increasebonusScore(boolean isDoubleBonus) {
+    public void increaseBonusScore(boolean isDoubleBonus) {
         if (isDoubleBonus) {
             bonus2Collected++;
+            score += BASIC_BONUS_SCORE * 2;
         } else {
             bonusCollected++;
+            score += BASIC_BONUS_SCORE;
         }
     }
 
@@ -39,11 +41,11 @@ public class ScoreActor extends LabelData {
         return score;
     }
 
-    public int getbonusCollected() {
+    public int getBonusCollected() {
         return bonusCollected;
     }
 
-    public int getbonus2Collected() {
+    public int getBonus2Collected() {
         return bonus2Collected;
     }
 

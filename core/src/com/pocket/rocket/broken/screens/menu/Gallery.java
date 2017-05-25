@@ -50,7 +50,6 @@ import static com.pocket.rocket.broken.enums.Text.LAMP;
 import static com.pocket.rocket.broken.enums.Text.MEGA_LAMP;
 import static com.pocket.rocket.broken.enums.Text.SUPER_BONUS;
 import static com.pocket.rocket.broken.enums.Text.SUPER_BONUS_DESC;
-import static java.lang.String.format;
 
 public class Gallery extends BackScreen {
     public static final int GALLERY_HEIGHT = 490;
@@ -91,7 +90,7 @@ public class Gallery extends BackScreen {
         selectedLamp.put(LAMPS_PREFIX_1, lamp1.getSelect());
         galleryItems.add(lamp1);
 
-        galleryItems.add(buildGalleryElement(SUPER_BONUS.get(), format(SUPER_BONUS_DESC.get(), COLLECT_BONUSES), AssetLoader.getGalleryBonus(),
+        galleryItems.add(buildGalleryElement(SUPER_BONUS.get(), SUPER_BONUS_DESC.get() + (COLLECT_BONUSES - getBonusCount()), AssetLoader.getGalleryBonus(),
                 getBonusCount() >= COLLECT_BONUSES, doubleBonusActivated(), new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -155,18 +154,18 @@ public class Gallery extends BackScreen {
         };
     }
 
-    private GalleryElement buildGalleryElement(String desc, String desctToOpen,
+    private GalleryElement buildGalleryElement(String descElement, String descToOpen,
                                                Texture texture, boolean canBeOpen, boolean isOpen,
                                                ClickListener clickListener) {
         if (canBeOpen && isOpen) {
-            return new OpenGalleryElement(desc, texture, clickListener);
+            return new OpenGalleryElement(descElement, texture, clickListener);
         }
 
         if (canBeOpen) {
-            return new CanBeOpenGalleryElement(desc, texture, clickListener);
+            return new CanBeOpenGalleryElement(descElement, texture, clickListener);
         }
 
-        return new LockedGalleryElement(desctToOpen);
+        return new LockedGalleryElement(descToOpen);
     }
 
     @Override

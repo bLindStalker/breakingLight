@@ -60,27 +60,27 @@ public class BonusStep implements TutorialStep {
     }
 
     private void manageDifficulty() {
-        if (scoreActor.getbonusCollected() != bonusCollected) {
-            bonusCollected = scoreActor.getbonusCollected();
+        if (scoreActor.getBonusCollected() != bonusCollected) {
+            bonusCollected = scoreActor.getBonusCollected();
             progressBar.step();
         }
 
-        if (scoreActor.getbonusCollected() == 0 && scoreActor.getbonusCollected() < 2) {
+        if (scoreActor.getBonusCollected() == 0 && scoreActor.getBonusCollected() < 2) {
             bonusBuilder.setBonusVelocity(5.5f);
             bonusBuilder.setClickToCreate(0, 0);
         }
 
-        if (scoreActor.getbonusCollected() == 2) {
+        if (scoreActor.getBonusCollected() == 2) {
             bonusBuilder.setBonusVelocity(4.5f);
             bonusBuilder.setClickToCreate(1, 2);
         }
 
-        if (scoreActor.getbonusCollected() > 3) {
+        if (scoreActor.getBonusCollected() > 3) {
             bonusBuilder.setBonusVelocity(4f);
             bonusBuilder.setClickToCreate(1, 4);
         }
 
-        if (scoreActor.getbonusCollected() > 5) {
+        if (scoreActor.getBonusCollected() > 5) {
             bonusBuilder.setClickToCreate(2, 5);
         }
     }
