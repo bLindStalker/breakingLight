@@ -42,13 +42,13 @@ import static com.pocket.rocket.broken.Utils.buildLogo;
 import static com.pocket.rocket.broken.Utils.pulseAnimation;
 import static com.pocket.rocket.broken.actions.ScoreAction.scoreAction;
 import static com.pocket.rocket.broken.enums.Achievement.Get1000OrMoreAtOnce;
+import static com.pocket.rocket.broken.enums.Achievement.Get2000OrMoreAtOnce;
 import static com.pocket.rocket.broken.enums.Achievement.Get3000OrMoreAtOnce;
-import static com.pocket.rocket.broken.enums.Achievement.Get500OrMoreAtOnce;
 import static com.pocket.rocket.broken.enums.Achievement.Survive30Seconds;
-import static com.pocket.rocket.broken.enums.Achievement.Survive45Seconds;
+import static com.pocket.rocket.broken.enums.Achievement.Survive60Seconds;
 import static com.pocket.rocket.broken.enums.Achievement.TotalCount10000;
 import static com.pocket.rocket.broken.enums.Achievement.TotalCount20000;
-import static com.pocket.rocket.broken.enums.Achievement.TotalCount5000;
+import static com.pocket.rocket.broken.enums.Achievement.TotalCount40000;
 import static com.pocket.rocket.broken.enums.Text.BEST_SCORE;
 import static com.pocket.rocket.broken.enums.Text.GALLERY;
 import static com.pocket.rocket.broken.enums.Text.MENU;
@@ -79,7 +79,7 @@ public class GameOverScreen extends BaseScreen {
         saveScore(score);
         updatePlayTimes();
 
-        playServiceOperation(main, score, time);
+        playServiceOperation(main, time);
         addActor(buildResult(score, time));
 
         Timer.schedule(new Timer.Task() {
@@ -90,42 +90,44 @@ public class GameOverScreen extends BaseScreen {
         }, 0.5f);
     }
 
-    private void playServiceOperation(Main main, int score, int time) {
+    private void playServiceOperation(Main main, int time) {
+        int totalScore = Preference.getTotalScore();
+        int score = Preference.getScore();
+
         PlayServices playServices = main.getPlayServices();
         playServices.submitScore(score);
-        int totalScore = Preference.getTotalScore();
         playServices.submitTotalScore(totalScore);
 
-        if (score < Get500OrMoreAtOnce.getData()) {
-            playServices.unlockAchievement(Get500OrMoreAtOnce);
-        }
-
-        if (score < Get1000OrMoreAtOnce.getData()) {
+        if (score > Get1000OrMoreAtOnce.getData()) {
             playServices.unlockAchievement(Get1000OrMoreAtOnce);
         }
 
-        if (score < Get3000OrMoreAtOnce.getData()) {
+        if (score > Get2000OrMoreAtOnce.getData()) {
+            playServices.unlockAchievement(Get2000OrMoreAtOnce);
+        }
+
+        if (score > Get3000OrMoreAtOnce.getData()) {
             playServices.unlockAchievement(Get3000OrMoreAtOnce);
         }
 
-        if (totalScore < TotalCount5000.getData()) {
-            playServices.unlockAchievement(TotalCount5000);
-        }
-
-        if (totalScore < TotalCount10000.getData()) {
+        if (totalScore > TotalCount10000.getData()) {
             playServices.unlockAchievement(TotalCount10000);
         }
 
-        if (totalScore < TotalCount20000.getData()) {
+        if (totalScore > TotalCount20000.getData()) {
             playServices.unlockAchievement(TotalCount20000);
         }
 
-        if (time < Survive30Seconds.getData()) {
+        if (totalScore > TotalCount40000.getData()) {
+            playServices.unlockAchievement(TotalCount40000);
+        }
+
+        if (time > Survive30Seconds.getData()) {
             playServices.unlockAchievement(Survive30Seconds);
         }
 
-        if (time < Survive45Seconds.getData()) {
-            playServices.unlockAchievement(Survive45Seconds);
+        if (time > Survive60Seconds.getData()) {
+            playServices.unlockAchievement(Survive60Seconds);
         }
     }
 

@@ -7,8 +7,8 @@ import static com.pocket.rocket.broken.screens.menu.Settings.UA_INDEX;
 
 public enum Text {
     //menu
-    MAX("max: ", "бали: ", "балы: "),
-    TOTAL("total: ", "сума: ", "сумма: "),
+    MAX("       max: ", "       бали: ", "       балы: "),
+    TOTAL("       total: ", "       сума: ", "       сумма: "),
     START("START", "ПОЧАТИ", "НАЧАТЬ"),
 
     // gallery

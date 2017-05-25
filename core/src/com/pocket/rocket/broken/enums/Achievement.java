@@ -2,21 +2,21 @@ package com.pocket.rocket.broken.enums;
 
 public enum Achievement {
 
-    Get500OrMoreAtOnce("CgkIvtLorYgJEAIQAQ", 500),
-    Get1000OrMoreAtOnce("CgkIvtLorYgJEAIQAg", 1000),
-    Get3000OrMoreAtOnce("CgkIvtLorYgJEAIQAw", 3000),
-    TotalCount5000("CgkIvtLorYgJEAIQBA", 5000),
-    TotalCount10000("CgkIvtLorYgJEAIQBQ", 10000),
-    TotalCount20000("CgkIvtLorYgJEAIQCA", 20000),
-    Survive30Seconds("CgkIvtLorYgJEAIQCQ", 30),
-    Survive45Seconds("CgkIvtLorYgJEAIQCg", 45),
-    Lose100Lives("CgkIvtLorYgJEAIQCw", 100),
-    Lose500Lives("CgkIvtLorYgJEAIQDA", 500),
-    Lose2000Lives("CgkIvtLorYgJEAIQDQ", 2000),
-    Catch50Bonuses("CgkIvtLorYgJEAIQDg", 50),
-    Catch100Bonuses("CgkIvtLorYgJEAIQDw", 100),
-    Catch500Bonuses("CgkIvtLorYgJEAIQEA", 500),
-    OpenAllAvailableElementsAtGallery("CgkIvtLorYgJEAIQEQ", 0);
+    Get1000OrMoreAtOnce("CgkI-L-JwqYVEAIQAw", 1000),
+    Get2000OrMoreAtOnce("CgkI-L-JwqYVEAIQBA", 2000),
+    Get3000OrMoreAtOnce("CgkI-L-JwqYVEAIQBQ", 3000),
+    TotalCount10000("CgkI-L-JwqYVEAIQBg", 10000),
+    TotalCount20000("CgkI-L-JwqYVEAIQBw", 20000),
+    TotalCount40000("CgkI-L-JwqYVEAIQCA", 40000),
+    Survive30Seconds("CgkI-L-JwqYVEAIQCQ", 30),
+    Survive60Seconds("CgkI-L-JwqYVEAIQCg", 60),
+    Lose250Lives("CgkI-L-JwqYVEAIQCw", 250),
+    Lose500Lives("CgkI-L-JwqYVEAIQDA", 500),
+    Lose1000Lives("CgkI-L-JwqYVEAIQDQ", 1000),
+    Catch100Bonuses("CgkI-L-JwqYVEAIQDg", 100),
+    Catch500Bonuses("CgkI-L-JwqYVEAIQDw", 500),
+    Catch1000Bonuses("CgkI-L-JwqYVEAIQEA", 1000),
+    OpenAllAvailableElementsAtGallery("CgkI-L-JwqYVEAIQEQ", 0);
 
     private String hash;
     private int data;

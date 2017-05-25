@@ -31,43 +31,8 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
     private static final int REQUEST_LEADERBOARD = 9003;
     private final ArrayList<ScoreData> userScoreData = new ArrayList<>();
 
-    private final String[] ACHEIVEMENT = {
-            "CgkIvtLorYgJEAIQAQ",
-            "CgkIvtLorYgJEAIQAg",
-            "CgkIvtLorYgJEAIQAw",
-            "CgkIvtLorYgJEAIQBA",
-            "CgkIvtLorYgJEAIQBQ",
-            "CgkIvtLorYgJEAIQCA",
-            "CgkIvtLorYgJEAIQCQ",
-            "CgkIvtLorYgJEAIQCg",
-            "CgkIvtLorYgJEAIQCw",
-            "CgkIvtLorYgJEAIQDA",
-            "CgkIvtLorYgJEAIQDQ",
-            "CgkIvtLorYgJEAIQDg",
-            "CgkIvtLorYgJEAIQDw",
-            "CgkIvtLorYgJEAIQEA",
-            "CgkIvtLorYgJEAIQEQ"
-    };
-    /*achievementGet500OrMoreAtOnce,"CgkIvtLorYgJEAIQAQ"
-      achievementGet1000OrMoreAtOnce,"CgkIvtLorYgJEAIQAg"
-      achievementGet3000OrMoreAtOnce,"CgkIvtLorYgJEAIQAw"
-      achievementTotalCount5000,"CgkIvtLorYgJEAIQBA"
-      achievementTotalCount10000,"CgkIvtLorYgJEAIQBQ"
-      achievementTotalCount20000,"CgkIvtLorYgJEAIQCA"
-      achievementSurvive30Seconds,"CgkIvtLorYgJEAIQCQ"
-      achievementSurvive45Seconds,"CgkIvtLorYgJEAIQCg"
-      achievementLose100Lives,"CgkIvtLorYgJEAIQCw"
-      achievementLose500Lives,"CgkIvtLorYgJEAIQDA"
-      achievementLose2000Lives,"CgkIvtLorYgJEAIQDQ"
-      achievementCatch50Bonuses,"CgkIvtLorYgJEAIQDg"
-      achievementCatch100Bonuses,"CgkIvtLorYgJEAIQDw"
-      achievementCatch500Bonuses,"CgkIvtLorYgJEAIQEA"
-      achievementOpenAllAvailableElementsAtGallery,"CgkIvtLorYgJEAIQEQ"
-    leaderboard,"CgkIvtLorYgJEAIQBg"
-    leaderboardTotalscore,"CgkIvtLorYgJEAIQBw"*/
-
-    private final String LEADERBOARD_SCORE_ID = "CgkIvtLorYgJEAIQBg";
-    private final String LEADERBOARD_TOTAL_ID = "CgkIvtLorYgJEAIQBw";
+    private final String LEADERBOARD_SCORE_ID = "CgkI-L-JwqYVEAIQAQ";
+    private final String LEADERBOARD_TOTAL_ID = "CgkI-L-JwqYVEAIQAg";
 
     private GoogleApiClient client;
     private AndroidLauncher context;
@@ -224,6 +189,7 @@ public class GPGSImpl implements PlayServices, GoogleApiClient.ConnectionCallbac
             return;
         }
 
+        // Intent intent = Games.Leaderboards.getAllLeaderboardsIntent(client/*, LEADERBOARD_SCORE_ID*/);
         Intent intent = Games.Leaderboards.getLeaderboardIntent(client, LEADERBOARD_SCORE_ID);
         context.startActivityForResult(intent, REQUEST_LEADERBOARD);
     }

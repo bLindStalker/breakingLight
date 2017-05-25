@@ -27,9 +27,9 @@ public class HeartActor extends Image {
         schedule(new Timer.Task() {
             @Override
             public void run() {
-                main.getPlayServices().unlockIncrementAchievement(Achievement.Lose100Lives, 1);
+                main.getPlayServices().unlockIncrementAchievement(Achievement.Lose250Lives, 1);
                 main.getPlayServices().unlockIncrementAchievement(Achievement.Lose500Lives, 1);
-                main.getPlayServices().unlockIncrementAchievement(Achievement.Lose2000Lives, 1);
+                main.getPlayServices().unlockIncrementAchievement(Achievement.Lose1000Lives, 1);
                 setVisible(false);
             }
         }, 0.7f);

@@ -17,17 +17,17 @@ public final class Constants {
     public static final int BASIC_SCORE = 10;
     public static final int BASIC_BONUS_SCORE = 25;
 
-    public static final int MAX_ACTIVE_LAMPS = 9;
+    public static final int MAX_ACTIVE_LAMPS = 7;
 
-    public static final float MIN_ANGRY_TIME = 0.95f;
-    public static final float MAX_ANGRY_TIME = 1.2f;
+    public static final float MIN_ANGRY_TIME = 0.90f;
+    public static final float MAX_ANGRY_TIME = 1.25f;
     public static final float ANGRY_INTERVAL = 1.8f;
 
     public static final float MIN_ACTIVE_TIME = 0.8f;
     public static final float MAX_ACTIVE_TIME = 1.2f;
     public static final float ACTIVE_INTERVAL = 1.8f;
 
-    public static final float MIN_NEUTRAL_TIME = 0.6f;
+    public static final float MIN_NEUTRAL_TIME = 0.5f;
     public static final float MAX_NEUTRAL_TIME = 0.8f;
     public static final float NEUTRAL_INTERVAL = 1.2f;
 
@@ -37,13 +37,13 @@ public final class Constants {
     public static final int MAX_CLICK_FOR_BONUS = 9;
 
     public static final int MIN_TIME_FOR_HEART_BONUS = 20;
-    public static final int MIN_HEART_BONUS_CHANCE = 30;
-    public static final int MAX_HEART_BONUS_CHANCE = 70;
+    public static final int MIN_HEART_BONUS_CHANCE = 45;
+    public static final int MAX_HEART_BONUS_CHANCE = 80;
     public static final int CREATED_BONUS_INTERVAL = 7;
 
     // gallery
-    public static final int COLLECT_BONUSES = 100;
+    public static final int COLLECT_BONUSES = 300;
     public static final int PLAY_TIMES = 300;
-    public static final int LAMP_OPEN_MAX = 1200;
-    public static final int LAMP_OPEN_TOTAL = 15000;
+    public static final int LAMP_OPEN_MAX = 2500;
+    public static final int LAMP_OPEN_TOTAL = 25000;
 }
