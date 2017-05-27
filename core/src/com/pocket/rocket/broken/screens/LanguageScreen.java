@@ -5,11 +5,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pocket.rocket.broken.AssetLoader;
-import com.pocket.rocket.broken.Constants;
 import com.pocket.rocket.broken.Main;
 import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.actors.ImageActor;
 
+import static com.pocket.rocket.broken.Constants.X_CENTER;
+import static com.pocket.rocket.broken.Constants.Y_CENTER;
 import static com.pocket.rocket.broken.screens.menu.Settings.EN_INDEX;
 import static com.pocket.rocket.broken.screens.menu.Settings.RU_INDEX;
 import static com.pocket.rocket.broken.screens.menu.Settings.UA_INDEX;
@@ -24,7 +25,7 @@ public class LanguageScreen extends BaseScreen {
         this.main = main;
 
         Group group = new Group();
-        group.setBounds(Constants.X_CENTER - 190, Constants.HEIGHT / 2, 380, 100);
+        group.setBounds(X_CENTER - 190, Y_CENTER, 380, 100);
 
         group.addActor(getLanguage(RU_INDEX));
         group.addActor(getLanguage(UA_INDEX));

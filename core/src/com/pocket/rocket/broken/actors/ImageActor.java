@@ -17,6 +17,11 @@ public class ImageActor extends Image {
         setBounds(xPosition, yPosition, width, height);
     }
 
+    public ImageActor(float xPosition, float yPosition, float width, float height, Texture texture) {
+        super(texture);
+        setBounds(xPosition, yPosition, width, height);
+    }
+
     public void setImage(Texture texture) {
         setDrawable(new TextureRegionDrawable(new TextureRegion(texture)));
     }

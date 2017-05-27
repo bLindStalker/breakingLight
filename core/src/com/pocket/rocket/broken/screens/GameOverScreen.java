@@ -16,6 +16,8 @@ import com.pocket.rocket.broken.actions.ScoreAction;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 import com.pocket.rocket.broken.api.PlayServices;
 
+import static com.pocket.rocket.broken.AssetLoader.getCoolLabel;
+import static com.pocket.rocket.broken.AssetLoader.getCoolText;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.AssetLoader.getGameOverLabel;
 import static com.pocket.rocket.broken.AssetLoader.getGameOverText;
@@ -52,6 +54,7 @@ import static com.pocket.rocket.broken.enums.Text.BEST_SCORE;
 import static com.pocket.rocket.broken.enums.Text.GALLERY;
 import static com.pocket.rocket.broken.enums.Text.MENU;
 import static com.pocket.rocket.broken.enums.Text.NEW_ITEM_IN_GALLERY;
+import static com.pocket.rocket.broken.enums.Text.NEW_RECORD;
 import static com.pocket.rocket.broken.enums.Text.RETRY;
 import static com.pocket.rocket.broken.enums.Text.SCORE;
 import static com.pocket.rocket.broken.enums.Text.TIME;
@@ -73,11 +76,12 @@ public class GameOverScreen extends BaseScreen {
         score += time * 3;
 
         saveBonusCount(bonusCollected + bonus2Collected);
+        boolean newResult = score > getScore();
         saveScore(score);
         updatePlayTimes();
 
         playServiceOperation(main, time);
-        addActor(buildResult(score, time));
+        addActor(buildResult(newResult, score, time));
 
         Timer.schedule(new Timer.Task() {
             @Override
@@ -128,10 +132,13 @@ public class GameOverScreen extends BaseScreen {
         }
     }
 
-    private Group buildResult(int score, int time) {
+    private Group buildResult(boolean newRecord, int score, int time) {
         final Group resultGroup = new Group();
 
-        resultGroup.addActor(buildLogo(getGameOverText(), getGameOverLabel()));
+        resultGroup.addActor(newRecord
+                ? buildLogo(getCoolText(), getCoolLabel())
+                : buildLogo(getGameOverText(), getGameOverLabel())
+        );
 
         buildResultData(resultGroup, TIME.get(), time, 700);
         buildResultData(resultGroup, SCORE.get(), score, 580);
@@ -178,7 +185,7 @@ public class GameOverScreen extends BaseScreen {
             });
             resultGroup.addActor(retryButton);
         } else {
-            resultGroup.addActor(bestResultLabel());
+            resultGroup.addActor(newRecord ? newRecordLabel() : bestResultLabel());
 
             Label menuButton = new Label(MENU.get(), new Label.LabelStyle(getFont()));
             menuButton.setBounds(X_MENU_BUTTON_POSITION, 40, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
@@ -236,6 +243,19 @@ public class GameOverScreen extends BaseScreen {
         label.setAlignment(Align.center);
         label.setPosition(X_CENTER - label.getWidth() / 2, 400);
         return label;
+    }
+
+    private Group newRecordLabel() {
+        Label label = new Label(NEW_RECORD.get(), getFont(Color.GOLD));
+        label.setAlignment(Align.center);
+        label.setFontScale(1.3f);
+
+        Group group = new Group();
+        group.setBounds(X_CENTER - label.getWidth() / 2, 425, label.getWidth(), label.getHeight());
+        group.addActor(label);
+        group.addAction(pulseAnimation(group.getWidth(), group.getHeight(), 1.10f, 0.7f));
+
+        return group;
     }
 
     private Group newGalleryItemLabel() {

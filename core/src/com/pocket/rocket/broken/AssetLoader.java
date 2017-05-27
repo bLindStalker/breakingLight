@@ -38,6 +38,8 @@ public class AssetLoader implements Disposable {
 
     private static final String LOGO_LABEL = "labels/logo.png";
     private static final String LOGO_TEXT = "labels/logo2.png";
+    private static final String COOL_LABEL = "labels/cool.png";
+    private static final String COOL_TEXT = "labels/cool2.png";
     private static final String GAME_OVER_LABEL = "labels/game_over.png";
     private static final String GAME_OVER_LABEL_TEXT = "labels/game_over2.png";
 
@@ -137,6 +139,8 @@ public class AssetLoader implements Disposable {
     private static void loadLabels() {
         assetManager.load(LOGO_LABEL, Texture.class);
         assetManager.load(LOGO_TEXT, Texture.class);
+        assetManager.load(COOL_LABEL, Texture.class);
+        assetManager.load(COOL_TEXT, Texture.class);
         assetManager.load(GAME_OVER_LABEL, Texture.class);
         assetManager.load(GAME_OVER_LABEL_TEXT, Texture.class);
     }
@@ -248,8 +252,16 @@ public class AssetLoader implements Disposable {
         return assetManager.get(LOGO_LABEL);
     }
 
+    public static Texture getCoolLabel() {
+        return assetManager.get(COOL_LABEL);
+    }
+
     public static Texture getLogoText() {
         return assetManager.get(LOGO_TEXT);
+    }
+
+    public static Texture getCoolText() {
+        return assetManager.get(COOL_TEXT);
     }
 
     public static Texture getGameOverLabel() {

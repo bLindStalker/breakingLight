@@ -1,62 +1,77 @@
 package com.pocket.rocket.broken.screens.tutorial.steps;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
+import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.BonusBuilder;
 import com.pocket.rocket.broken.Constants;
-import com.pocket.rocket.broken.actors.DialogBuilder;
 import com.pocket.rocket.broken.actors.ProgressBar;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 
-import static com.pocket.rocket.broken.enums.Text.TRY_TO_CATCH_BONUS;
-import static com.pocket.rocket.broken.screens.tutorial.steps.StepManager.DIALOG_SHOW_TIME;
+import static com.pocket.rocket.broken.enums.Text.CATCH_BONUS;
 
-public class BonusStep implements TutorialStep {
+public class BonusStep extends Group implements TutorialStep {
     private static final int NEED_TO_COLLECT = 6;
     private final Group stage;
-    private final DialogBuilder info;
     private final ScoreActor scoreActor;
     private final BonusBuilder bonusBuilder;
     private final Group lampGroup;
     private final ProgressBar progressBar;
-    private final Label tutorialLabel;
-    private boolean firstRun = true;
+    private boolean showUI = true;
     private int bonusCollected = 0;
+    private boolean complete = false;
 
-    public BonusStep(Group stage, ScoreActor scoreActor, Group lampGroup, BonusBuilder bonusBuilder, Label tutorialLabel) {
+    public BonusStep(Group stage, ScoreActor scoreActor, Group lampGroup, BonusBuilder bonusBuilder) {
         this.stage = stage;
         this.bonusBuilder = bonusBuilder;
         this.scoreActor = scoreActor;
         this.lampGroup = lampGroup;
-        this.tutorialLabel = tutorialLabel;
 
-        info = new DialogBuilder(50, Constants.HEIGHT / 2, 630, 150, TRY_TO_CATCH_BONUS.get()).build();
-        info.addAction(Actions.alpha(0f, 0f));
+        Label tutorialLabel = new Label(CATCH_BONUS.get(), new Label.LabelStyle(AssetLoader.getFont(Color.GOLD)));
+        tutorialLabel.setBounds(0, Constants.HEIGHT - 275, Constants.WIDTH, 100);
+        tutorialLabel.setAlignment(Align.center);
+        addActor(tutorialLabel);
 
         progressBar = new ProgressBar(290, NEED_TO_COLLECT);
-        stage.addActor(progressBar);
-        progressBar.addAction(Actions.alpha(0.2f, 0f));
+        addActor(progressBar);
 
+        addAction(Actions.alpha(0));
     }
 
     @Override
     public boolean run() {
         if (progressBar.complete()) {
-            progressBar.removeBar();
-            tutorialLabel.remove();
-            return true;
+            this.addAction(Actions.fadeOut(.5f));
+            lampGroup.addAction(Actions.fadeOut(.5f));
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    lampGroup.setVisible(false);
+                    complete = true;
+                }
+            }, .5f);
         }
 
-        if (firstRun) {
-            prepareUi();
-            firstRun = false;
+        if (showUI) {
+            stage.addActor(this);
+            this.addAction(Actions.alpha(1f, 0.7f));
+            lampGroup.setVisible(true);
+            lampGroup.addAction(Actions.alpha(1f, 0.7f));
+            showUI = false;
         }
 
         manageDifficulty();
 
-        return false;
+        return complete;
+    }
+
+    @Override
+    public void disappear() {
+        remove();
     }
 
     private void manageDifficulty() {
@@ -83,21 +98,5 @@ public class BonusStep implements TutorialStep {
         if (scoreActor.getBonusCollected() > 5) {
             bonusBuilder.setClickToCreate(2, 5);
         }
-    }
-
-    private void prepareUi() {
-        lampGroup.addAction(Actions.alpha(0.3f, 0f));
-        stage.addActor(info);
-        info.addAction(Actions.alpha(1f, 1f));
-        tutorialLabel.setText(TRY_TO_CATCH_BONUS.get().toUpperCase());
-        Timer.schedule(new Timer.Task() {
-                           @Override
-                           public void run() {
-                               lampGroup.addAction(Actions.alpha(1f, 1f));
-                               progressBar.addAction(Actions.alpha(1f, 1f));
-                               info.removeDialog();
-                           }
-                       }, DIALOG_SHOW_TIME
-        );
     }
 }

@@ -1,106 +1,90 @@
 package com.pocket.rocket.broken.screens.tutorial.steps;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
+import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.Constants;
-import com.pocket.rocket.broken.actors.DialogBuilder;
-import com.pocket.rocket.broken.actors.ImageActor;
+import com.pocket.rocket.broken.enums.Text;
 
-import static com.pocket.rocket.broken.AssetLoader.getBonus;
-import static com.pocket.rocket.broken.AssetLoader.getFont;
-import static com.pocket.rocket.broken.AssetLoader.getLampImage;
-import static com.pocket.rocket.broken.Constants.BASIC_BONUS_SCORE;
-import static com.pocket.rocket.broken.Constants.BASIC_SCORE;
-import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
-import static com.pocket.rocket.broken.Constants.LAMP_WIDTH;
-import static com.pocket.rocket.broken.Constants.WIDTH;
-import static com.pocket.rocket.broken.Constants.X_BONUS_SIZE;
-import static com.pocket.rocket.broken.Constants.Y_BONUS_SIZE;
-import static com.pocket.rocket.broken.enums.LightBulbStatus.ANGRY;
-import static com.pocket.rocket.broken.enums.Text.GOOD_JOB;
-import static com.pocket.rocket.broken.enums.Text.PLAY_REAL_GAME;
+import static com.pocket.rocket.broken.AssetLoader.getCoolLabel;
+import static com.pocket.rocket.broken.AssetLoader.getCoolText;
+import static com.pocket.rocket.broken.Utils.buildLogo;
+import static com.pocket.rocket.broken.Utils.pulseAnimation;
+import static com.pocket.rocket.broken.enums.Text.ADVENTURE;
+import static com.pocket.rocket.broken.enums.Text.LETS_START;
+import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_HEIGHT;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_WIDTH;
+import static com.pocket.rocket.broken.screens.MenuScreen.X_MENU_BUTTON_POSITION;
 
-public class FinalStep implements TutorialStep {
+public class FinalStep extends Group implements TutorialStep {
     private final Group stage;
-    private final Group infoGroup;
-    private final Group lampGroup;
-    private final Label completeButton;
 
-    private boolean showInfoDialog = true;
+    private boolean showUI = true;
     private boolean complete = false;
 
-    public FinalStep(Group stage, Group lampGroup) {
+    public FinalStep(Group stage) {
         this.stage = stage;
-        this.lampGroup = lampGroup;
-        infoGroup = new Group();
-        infoGroup.setBounds((WIDTH - 630) / 2, (Constants.HEIGHT / 2) - 100, 630, 400);
-        infoGroup.addActor(new DialogBuilder(0, 0, 630, 400, GOOD_JOB.get()).textPosition(350).build());
 
-        infoGroup.addActor(new ImageActor(50, 170, LAMP_WIDTH / 2, LAMP_HEIGHT / 2, getLampImage(ANGRY)));
-        Label score = new Label("= " + BASIC_SCORE, new Label.LabelStyle(getFont()));
-        score.setPosition(150, 190);
-        infoGroup.addActor(score);
+        final Group group = new Group();
+        Group logo = buildLogo(getCoolText(), getCoolLabel());
+        logo.setPosition(logo.getX(), logo.getY() - 100);
+        group.addActor(logo);
 
-        infoGroup.addActor(new ImageActor(425, 170, (int) (X_BONUS_SIZE / 1.5f), (int) (Y_BONUS_SIZE / 1.5f), getBonus(false)));
-        Label bonus = new Label("= " + BASIC_BONUS_SCORE, new Label.LabelStyle(getFont()));
-        bonus.setPosition(475, 190);
-        infoGroup.addActor(bonus);
+        Label label1 = new Label(LETS_START.get(), AssetLoader.getFont(Color.GOLD));
+        label1.setAlignment(Align.center);
+        label1.setFontScale(.7f);
+        label1.setPosition(Constants.X_CENTER - label1.getWidth() / 2, 525);
+        group.addActor(label1);
 
-        completeButton = new Label(PLAY_REAL_GAME.get(), new Label.LabelStyle(getFont()));
-        completeButton.setBounds(630 / 2 - MENU_BUTTON_WIDTH / 2, 20, MENU_BUTTON_WIDTH, 100);
-        completeButton.setAlignment(Align.center);
-        completeButton.addListener(new ClickListener() {
+        Label label2 = new Label(ADVENTURE.get(), AssetLoader.getFont(Color.GOLD));
+        label2.setAlignment(Align.center);
+        label2.setFontScale(1.3f);
+
+        Group adventure = new Group();
+        adventure.setBounds(Constants.X_CENTER - label2.getWidth() / 2, 475, label2.getWidth(), label2.getHeight());
+        adventure.addActor(label2);
+        adventure.addAction(pulseAnimation(adventure.getWidth(), adventure.getHeight(), 1.1f, 0.7f));
+        group.addActor(adventure);
+
+        TextButton startButton = new TextButton(Text.START.get(), AssetLoader.getButtonStyle());
+        startButton.setBounds(X_MENU_BUTTON_POSITION, 170, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+        startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                infoGroup.addAction(Actions.alpha(0, 0.3f));
+                addAction(Actions.fadeOut(.3f));
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
                         complete = true;
                     }
-                }, 0.35f);
+                }, 0.3f);
             }
         });
-        infoGroup.addActor(completeButton);
-        completeButton.addAction(Actions.alpha(0, 0));
-        // completeButton.addAction(pulseAnimation(completeButton.getWidth(), completeButton.getHeight(), 1.15f, 0.7f));
+        group.addActor(startButton);
+        addActor(group);
+        addAction(Actions.alpha(0));
     }
 
     @Override
     public boolean run() {
-        if (showInfoDialog) {
-            lampGroup.addAction(Actions.alpha(0f, 0.35f));
-            stage.addActor(infoGroup);
-            infoGroup.addAction(Actions.alpha(0f, 0f));
-            infoGroup.addAction(Actions.alpha(1f, 1f));
-
-            Timer.schedule(new Timer.Task() {
-                @Override
-                public void run() {
-                    lampGroup.remove();
-                }
-            }, 0.4f);
-
-            Timer.schedule(new Timer.Task() {
-                @Override
-                public void run() {
-                    completeButton.addAction(Actions.alpha(1, 0.5f));
-                }
-            }, 2f);
-            showInfoDialog = false;
-
-        } else {
-            if (complete) {
-                return true;
-            }
+        if (showUI) {
+            stage.addActor(this);
+            addAction(Actions.alpha(1f, 1f));
+            showUI = false;
         }
 
-        return false;
+        return complete;
+    }
+
+    @Override
+    public void disappear() {
+        remove();
     }
 }

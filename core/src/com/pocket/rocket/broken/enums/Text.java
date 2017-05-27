@@ -22,7 +22,7 @@ public enum Text {
     MEGA_LAMP("MEGA lamp", "Мега лампа", "Мега лампа"),
     ANGRY_LAMP("Cool lamp", "Крута лампа", "Крута лампа"),
     SUPER_BONUS("Super BONUS", "Супер БОНУС", "Супер БОНУС"),
-    SUPER_BONUS_DESC("collect %s bonuses", "спiймати бонусiв: ", "поймайть бонусов: "),
+    SUPER_BONUS_DESC("collect %s bonuses", "спiймати бонусiв: %s", "поймайть бонусов: %s"),
     HEART_BONUS("Heart BONUS", "+ ЖИТТЯ", "+ ЖИЗНЬ"),
     HEART_BONUS_DESC("play game and have fun", "грати в гру та насолоджуватись", "играть в игру и наслаждаться"),
     TEXT_TO_UNLOCK("to unlock you need", "щоб вiдкрити треба", "чтобы открыть нужно"),
@@ -42,15 +42,24 @@ public enum Text {
     MENU("MENU", "МЕНЮ", "МЕНЮ"),
     RETRY("RETRY", "ЩЕ РАЗ", "ПОВТОРИТЬ"),
     NEW_ITEM_IN_GALLERY("NEW ITEM IN GALLERY", "НОВИЙ БОНУС В ГАЛЕРЕЇ", "НОВЫЙ БОНУС В ГАЛЕРЕЕ"),
+    NEW_RECORD("NEW RECORD!", "НОВИЙ РЕКОРД", "НОВЫЙ РЕКОРД"),
 
     // tutorial
-    GOOD_JOB("GOOD JOB!", "Гарна робота!", "Отлично!"),
-    TRY_TO_CATCH_BONUS("TRY TO CATCH BONUS!", "СПIЙМАЙ БОНУС!", "ПОЙМАЙ БОНУС!"),
-    TAP_ON_ANGRY("TAP ON ANGRY!", "НАТИСКАЙ НА ЗЛИX!", "НАЖИМАЙ НА ЗЛЫX!"),
-    PLAY_REAL_GAME("PLAY REAL GAME", "ПОЧАТИ ГРУ", "НАЧАТЬ ИГРУ"),
+    ADVENTURE("ADVENTURE!", "ПРИГОДА", "ПРИКЛЮЧЕНИЕ"),
+    LETS_START("LETS START THE", "НЕХАЙ ПОЧНЕТЬСЯ", "ДАВАЙ НАЧНЁМ"),
+    CATCH_BONUS("CATCH THE LIGHTNING!", "СПIЙМАЙ БЛИСКАВКУ!", "ПОЙМАЙ МОЛНИЮ!"),
+    TAP_RED("TAP THE RED BULBS!", "НАТИСКАЙ НА \nЧЕРВОНI ЛАМПИ!", "НАЖИМАЙ НА \nКРАСНЫЕ ЛАМПЫ!"),
+    DONT_LET("DON'T LET", "НЕ ДАЙ", "НЕ ДАЙ"),
+    ANGER_BREAK_IN("the  anger  break  in", "прорватись гнiву", "прорваться злости"),
+    CATCH_THE_LIGHTNING("CATCH THE LIGHTNING", "СПIЙМАЙ БЛИСКАВКУ", "ПОЙМАЙ МОЛНИЮ"),
+    EARN_POINTS("earn %s bonus points", "збiльши свiй рахунок на %s", "увеличь свой счёт на %s"),
+    GAIN("GAIN", "ПРИМНОЖ", "УМНОЖ"),
+    YOUR_POWER("your power", "свою силу", "свою силу"),
+    YOUR_PROGRESS("YOUR PROGRESS", "ПРОГРЕС", "ПРОГРЕСС"),
 
     WORDS("WOW!, Super!, Amazing!, Well done!, Very well!", "WOW!, Супер, Круто, Так тримати", "WOW!, Супер, Круто, Так держать"),
     MISSING_WORDS("Miss, Bad, Shit, Blunder, Boner, Mistake", "Промах, Погано, Дуже погано, Помилка", "Промах, Плохо, Очень плохо, Ошибка");
+
 
     private String en;
     private String ua;

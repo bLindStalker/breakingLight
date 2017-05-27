@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Timer;
 import static com.badlogic.gdx.utils.Align.center;
 import static com.pocket.rocket.broken.AssetLoader.getDialog;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
+import static com.pocket.rocket.broken.Constants.Y_CENTER;
 
 public class DialogBuilder extends Group {
     private final int width, height;
@@ -22,7 +23,7 @@ public class DialogBuilder extends Group {
         this.width = width;
         this.height = height;
         this.text = text;
-        this.yText = height / 2;
+        this.yText = Y_CENTER;
     }
 
     private Label buildLabel(String text) {

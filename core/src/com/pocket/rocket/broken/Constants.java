@@ -5,13 +5,14 @@ public final class Constants {
     public static final int HEIGHT = 1280;
     public static final int WIDTH = 720;
     public static final int X_CENTER = WIDTH / 2;
+    public static final int Y_CENTER = HEIGHT / 2;
 
     public static final int LAMP_WIDTH = 212;
     public static final int LAMP_HEIGHT = 241;
     public static final int LAMP_GROUP_WIDTH = WIDTH - 60;
 
-    public static final float X_BONUS_SIZE = 42f * 1.3f;
-    public static final float Y_BONUS_SIZE = 111f * 1.3f;
+    public static final float BONUS_WIDTH = 42f * 1.3f;
+    public static final float BONUS_HEIGHT = 111f * 1.3f;
 
     // game logic constants
     public static final int BASIC_SCORE = 10;

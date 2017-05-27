@@ -3,13 +3,17 @@ package com.pocket.rocket.broken.actors;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.Constants;
 
+import static com.badlogic.gdx.graphics.Color.BLACK;
+import static com.pocket.rocket.broken.enums.Text.YOUR_PROGRESS;
+
 public class ProgressBar extends Group {
-    public static final int BAR_WIDTH = 600;
+    private static final int BAR_WIDTH = 600;
     private static final int BAR_HEIGHT = 55;
     private Queue<Actor> progress = new Queue<Actor>();
 
@@ -23,9 +27,14 @@ public class ProgressBar extends Group {
             ImageActor actor = new ImageActor(i * progressWidth, 0, progressWidth, BAR_HEIGHT, AssetLoader.getProgress());
             actor.setVisible(false);
             actor.addAction(Actions.alpha(0f, 0f));
-            progress.addLast(actor);
+            this.progress.addLast(actor);
             addActor(actor);
         }
+
+        Label progress = new Label(YOUR_PROGRESS.get(), new Label.LabelStyle(AssetLoader.getFont(BLACK)));
+        progress.setFontScale(0.9f);
+        progress.setPosition(getWidth() / 2 - progress.getWidth() / 2, getHeight() / 2 - progress.getHeight() / 2);
+        addActor(progress);
     }
 
     public void step() {
