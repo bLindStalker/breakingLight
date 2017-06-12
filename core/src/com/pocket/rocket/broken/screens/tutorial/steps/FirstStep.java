@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
-import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.actors.ImageActor;
 
 import static com.pocket.rocket.broken.AssetLoader.getFont;
@@ -58,13 +57,13 @@ public class FirstStep extends Group implements TutorialStep {
 
         addActor(infoGroup);
         final ImageActor lamp = new ImageActor(X_CENTER - LAMP_WIDTH / 2, Y_CENTER - LAMP_HEIGHT / 2 - 80, LAMP_WIDTH, LAMP_HEIGHT, getLampImage(ANGRY));
-        final RepeatAction animation = pulseAnimation(lamp.getWidth(), lamp.getHeight(), 1.10f, 0.7f);
+        final RepeatAction animation = pulseAnimation(lamp.getWidth(), lamp.getHeight(), 1.15f, 0.7f);
         lamp.addAction(animation);
         lamp.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 lamp.removeAction(animation);
-                lamp.setImage(AssetLoader.getLampImage(ACTIVE));
+                lamp.setImage(getLampImage(ACTIVE));
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {

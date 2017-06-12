@@ -66,7 +66,7 @@ public class SecondStep extends Group implements TutorialStep {
         addActor(infoGroup);
         final Group _this = this;
         final ImageActor lamp = new ImageActor(X_CENTER - BONUS_WIDTH / 2, Y_CENTER - BONUS_HEIGHT / 2 - 50, BONUS_WIDTH, BONUS_HEIGHT, getBonus(false));
-        final RepeatAction animation = pulseAnimation(lamp.getWidth(), lamp.getHeight(), 1.10f, 0.7f);
+        final RepeatAction animation = pulseAnimation(lamp.getWidth(), lamp.getHeight(), 1.2f, 0.7f);
         lamp.addAction(animation);
         lamp.addListener(new ClickListener() {
             @Override

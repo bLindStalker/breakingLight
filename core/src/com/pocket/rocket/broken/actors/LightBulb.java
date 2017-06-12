@@ -1,5 +1,6 @@
 package com.pocket.rocket.broken.actors;
 
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.pocket.rocket.broken.enums.LampLogic;
 import com.pocket.rocket.broken.enums.LightBulbPosition;
 import com.pocket.rocket.broken.enums.LightBulbStatus;
@@ -8,6 +9,7 @@ import static com.badlogic.gdx.math.MathUtils.random;
 import static com.pocket.rocket.broken.AssetLoader.getLampImage;
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_WIDTH;
+import static com.pocket.rocket.broken.Utils.pulseAnimation;
 import static com.pocket.rocket.broken.enums.LightBulbStatus.ACTIVE;
 import static com.pocket.rocket.broken.enums.LightBulbStatus.ANGRY;
 import static com.pocket.rocket.broken.enums.LightBulbStatus.NEUTRAL;
@@ -20,6 +22,7 @@ public class LightBulb extends ImageActor {
     private float second = 0;
     private float turnOffTime = 0;
     private Runnable clickAction;
+    private RepeatAction action;
 
     public LightBulb(LightBulbPosition position, int yPosition) {
         super(position.getPosition(), yPosition, LAMP_WIDTH, LAMP_HEIGHT, getLampImage(DEFAULT_STATUS));
@@ -33,6 +36,9 @@ public class LightBulb extends ImageActor {
 
         if (status == ANGRY) {
             setStatus(ACTIVE);
+            action = pulseAnimation(getWidth(), getHeight(), 1.025f, 0.3f);
+            action.setCount(1);
+            addAction(action);
             activationTime = random(time.maxActiveTime, time.minActiveTime);
             turnOffTime = getTurnOffTime(time);
 
@@ -88,6 +94,10 @@ public class LightBulb extends ImageActor {
 
     private void setStatus(LightBulbStatus status) {
         this.status = status;
+        if (action != null) {
+            removeAction(action);
+            action = null;
+        }
         setImage(getLampImage(status));
     }
 }

@@ -43,8 +43,8 @@ public final class Constants {
     public static final int CREATED_BONUS_INTERVAL = 7;
 
     // gallery
-    public static final int COLLECT_BONUSES = 300;
-    public static final int PLAY_TIMES = 200;
-    public static final int LAMP_OPEN_MAX = 2500;
-    public static final int LAMP_OPEN_TOTAL = 25000;
+    public static final int COLLECT_BONUSES = 50;
+    public static final int PLAY_TIMES_HEART = 5;
+    public static final int LAMP_OPEN_MAX = 2000;
+    public static final int LAMP_OPEN_TOTAL = 20000;
 }

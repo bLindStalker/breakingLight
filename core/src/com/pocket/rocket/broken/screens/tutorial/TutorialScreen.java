@@ -52,6 +52,7 @@ public class TutorialScreen extends BaseScreen {
         super(main);
         bonusBuilder = new BonusBuilder(main, this);
         bonusBuilder.setClickToCreate(MAX_VALUE, MAX_VALUE);
+
         tutorialLampLogic = new LampLogic();
         tutorialLampLogic.maxAngryLamps = 3;
         tutorialLampLogic.maxAngryTime = 6f;
@@ -60,7 +61,6 @@ public class TutorialScreen extends BaseScreen {
         tutorialLampLogic.minActiveTime = 5;
         tutorialLampLogic.maxNeutralTime = 1;
         tutorialLampLogic.minNeutralTime = 1;
-
 
         tutorialGroup = new Group();
         Group lamps = createLamps();
@@ -102,7 +102,7 @@ public class TutorialScreen extends BaseScreen {
         });
         headerGroup.addActor(back);
 
-        Label headerLabel = new Label(TUTORIAL.get(), new Label.LabelStyle(getFont()));
+        Label headerLabel = new Label(TUTORIAL.get().toUpperCase(), new Label.LabelStyle(getFont()));
         headerLabel.setBounds(X_CENTER - 150, HEIGHT - 125, 300, 100);
         headerLabel.setAlignment(Align.center);
         headerGroup.addActor(headerLabel);

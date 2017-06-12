@@ -16,6 +16,10 @@ import static com.pocket.rocket.broken.enums.Text.WORDS;
 
 public class GameLampListener extends ClickListener {
 
+    private static final int MIN_WORD_COUNT = 3;
+    private static final int MAX_WORD_COUNT = 5;
+    private int worldCount = MathUtils.random(MIN_WORD_COUNT, MAX_WORD_COUNT);
+
     private Callable<Boolean> action;
     private HeartData heartData;
     private ScoreActor scoreActor;
@@ -34,7 +38,8 @@ public class GameLampListener extends ClickListener {
             bonusBuilder.buildBonus((int) event.getListenerActor().getX(), (int) event.getListenerActor().getY(), scoreActor);
             scoreActor.increaseScore();
             scoreActor.increaseLamps();
-            if (scoreActor.collectedLamps() == 10) {
+            if (scoreActor.collectedLamps() == worldCount) {
+                worldCount = MathUtils.random(MIN_WORD_COUNT, MAX_WORD_COUNT);
                 scoreActor.resetLamps();
                 showWord(getWord(WORDS.get()), (int) event.getListenerActor().getX(), (int) event.getListenerActor().getY());
             }

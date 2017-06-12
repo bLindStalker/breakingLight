@@ -27,7 +27,7 @@ public class BackScreen extends Group {
         setPosition(WIDTH, 0);
         Group headerGroup = new Group();
         headerGroup.addActor(new ImageActor(0, HEIGHT - HEADER_HEIGHT, WIDTH, HEADER_HEIGHT, AssetLoader.getHeader()));
-        ImageActor back = new ImageActor(25, HEIGHT - 150 / 2 - 50, 100, 100, AssetLoader.getBack());
+        ImageActor back = new ImageActor(0, HEIGHT - 200 / 2 - 50, 150, 150, AssetLoader.getBack());
         back.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

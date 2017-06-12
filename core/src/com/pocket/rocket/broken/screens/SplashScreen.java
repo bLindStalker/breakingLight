@@ -56,6 +56,7 @@ public class SplashScreen extends ScreenAdapter {
 
         int width = Gdx.graphics.getWidth();
         int height = Gdx.graphics.getHeight();
+
         logo = new Sprite(new Texture("studio_logo.png"));
         logo.setScale((float) width / Constants.WIDTH);
         logo.setPosition(width / 2 - logo.getWidth() / 2, height / 2 - logo.getHeight() / 2);

@@ -18,12 +18,12 @@ import static com.pocket.rocket.broken.Constants.WIDTH;
 public class HeartBonusActor extends Actor {
     private static final int HEART_HEIGHT = 70;
     private static final int HEART_WIDTH = 90;
-    private static final float HEIGHT_SCALE = HEART_HEIGHT / 1.8f;
-    private static final float WIDTH_SCALE = HEART_WIDTH / 1.8f;
+    private static final float HEIGHT_SCALE = HEART_HEIGHT / 1.9f;
+    private static final float WIDTH_SCALE = HEART_WIDTH / 1.9f;
     private static final int MAX_Y_POSITION = 800;
     private static final int MIN_Y_POSITION = 150;
     private final TextureRegion texture;
-    private float VELOCITY = 0.6f;
+    private float VELOCITY = 0.78f;
 
     public HeartBonusActor(final HeartData heartData) {
         float heightSize = HEART_HEIGHT + HEIGHT_SCALE;

@@ -29,7 +29,7 @@ import static com.pocket.rocket.broken.Constants.COLLECT_BONUSES;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_MAX;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_TOTAL;
-import static com.pocket.rocket.broken.Constants.PLAY_TIMES;
+import static com.pocket.rocket.broken.Constants.PLAY_TIMES_HEART;
 import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.Preference.bonusActivatedHeart;
 import static com.pocket.rocket.broken.Preference.doubleBonusActivated;
@@ -105,7 +105,7 @@ public class Gallery extends BackScreen {
         galleryItems.add(lamp2);
 
         galleryItems.add(buildGalleryElement(HEART_BONUS.get(), HEART_BONUS_DESC.get(), AssetLoader.getGalleryHeart(),
-                getPlayTimes() >= PLAY_TIMES, bonusActivatedHeart(), new ClickListener() {
+                getPlayTimes() >= PLAY_TIMES_HEART, bonusActivatedHeart(), new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         Preference.setHeartBonus();

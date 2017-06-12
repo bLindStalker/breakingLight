@@ -46,7 +46,7 @@ public enum Text {
 
     // tutorial
     ADVENTURE("ADVENTURE!", "ПРИГОДА", "ПРИКЛЮЧЕНИЕ"),
-    LETS_START("LETS START THE", "НЕХАЙ ПОЧНЕТЬСЯ", "ДАВАЙ НАЧНЁМ"),
+    LETS_START("LETS START THE", "НЕXАЙ ПОЧНЕТЬСЯ", "ДАВАЙ НАЧНЁМ"),
     CATCH_BONUS("CATCH THE LIGHTNING!", "СПIЙМАЙ БЛИСКАВКУ!", "ПОЙМАЙ МОЛНИЮ!"),
     TAP_RED("TAP THE RED BULBS!", "НАТИСКАЙ НА \nЧЕРВОНI ЛАМПИ!", "НАЖИМАЙ НА \nКРАСНЫЕ ЛАМПЫ!"),
     DONT_LET("DON'T LET", "НЕ ДАЙ", "НЕ ДАЙ"),
@@ -59,7 +59,6 @@ public enum Text {
 
     WORDS("WOW!, Super!, Amazing!, Well done!, Very well!", "WOW!, Супер, Круто, Так тримати", "WOW!, Супер, Круто, Так держать"),
     MISSING_WORDS("Miss, Bad, Shit, Blunder, Boner, Mistake", "Промах, Погано, Дуже погано, Помилка", "Промах, Плохо, Очень плохо, Ошибка");
-
 
     private String en;
     private String ua;
