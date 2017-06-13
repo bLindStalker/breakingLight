@@ -23,8 +23,7 @@ public class Utils {
         Group logoGroup = new Group();
         logoGroup.setBounds((WIDTH - LOGO_SIZE) / 2, HEIGHT - LOGO_SIZE - 100, LOGO_SIZE, LOGO_SIZE);
         logoGroup.addActor(new ImageActor(0, 0, LOGO_SIZE, LOGO_SIZE, logo));
-        LabelActor actor = new LabelActor(0, 0, LOGO_SIZE, LOGO_SIZE, text);
-        logoGroup.addActor(actor);
+        logoGroup.addActor(new LabelActor(0, 0, LOGO_SIZE, LOGO_SIZE, text));
         return logoGroup;
     }
 

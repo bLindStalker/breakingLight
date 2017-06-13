@@ -29,7 +29,7 @@ import static com.pocket.rocket.broken.screens.MenuScreen.Y_MENU_BUTTON;
 
 public class MainMenuButtons extends Group {
     public final Group menuGroup;
-    public final Group gallery;
+    public final Gallery gallery;
     private final Main main;
     private final Group settings;
 

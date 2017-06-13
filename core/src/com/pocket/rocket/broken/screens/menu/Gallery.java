@@ -24,6 +24,8 @@ import java.util.Map;
 import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_1;
 import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_2;
 import static com.pocket.rocket.broken.AssetLoader.LAMPS_PREFIX_3;
+import static com.pocket.rocket.broken.AssetLoader.getGalleryBonus;
+import static com.pocket.rocket.broken.AssetLoader.getGalleryLampImage;
 import static com.pocket.rocket.broken.AssetLoader.getPrefix;
 import static com.pocket.rocket.broken.Constants.COLLECT_BONUSES;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
@@ -58,7 +60,7 @@ public class Gallery extends BackScreen {
 
     public static final int X_ROUND_POSITION = 130;
     public static final int Y_ROUND_POSITION = 380;
-
+    public final ScrollPane scroller;
     private final Map<Integer, Actor> selectedLamp = new HashMap<Integer, Actor>();
     private final Main main;
 
@@ -66,7 +68,7 @@ public class Gallery extends BackScreen {
         super(GALLERY.get(), menuGroup);
         this.main = main;
 
-        ScrollPane scroller = new ScrollPane(buildGallery());
+        scroller = new ScrollPane(buildGallery());
         scroller.setBounds(0, 0, WIDTH, HEIGHT + (GALLERY_HEIGHT / 2));
         scroller.layout();
         scroller.setScrollY(((getPrefix() - 1) * GALLERY_HEIGHT) * 2);
@@ -87,11 +89,11 @@ public class Gallery extends BackScreen {
         List<GalleryElement> galleryItems = new ArrayList<GalleryElement>();
         galleryItems.add(new GalleryElement());
 
-        OpenGalleryElement lamp1 = new OpenGalleryElement(LAMP.get(), AssetLoader.getGalleryLampImage(LAMPS_PREFIX_1), lampClickListener(LAMPS_PREFIX_1));
+        OpenGalleryElement lamp1 = new OpenGalleryElement(LAMP.get(), getGalleryLampImage(LAMPS_PREFIX_1), lampClickListener(LAMPS_PREFIX_1));
         selectedLamp.put(LAMPS_PREFIX_1, lamp1.getSelect());
         galleryItems.add(lamp1);
 
-        galleryItems.add(buildGalleryElement(SUPER_BONUS.get(), format(SUPER_BONUS_DESC.get(), COLLECT_BONUSES - getBonusCount()), AssetLoader.getGalleryBonus(),
+        galleryItems.add(buildGalleryElement(SUPER_BONUS.get(), format(SUPER_BONUS_DESC.get(), COLLECT_BONUSES - getBonusCount()), getGalleryBonus(),
                 getBonusCount() >= COLLECT_BONUSES, doubleBonusActivated(), new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -99,7 +101,7 @@ public class Gallery extends BackScreen {
                     }
                 }));
 
-        GalleryElement lamp2 = buildGalleryElement(MEGA_LAMP.get(), GALLERY_TOTAL.get() + LAMP_OPEN_TOTAL, AssetLoader.getGalleryLampImage(LAMPS_PREFIX_2),
+        GalleryElement lamp2 = buildGalleryElement(MEGA_LAMP.get(), GALLERY_TOTAL.get() + LAMP_OPEN_TOTAL, getGalleryLampImage(LAMPS_PREFIX_2),
                 getTotalScore() >= LAMP_OPEN_TOTAL, lamp2Open(), lampClickListener(LAMPS_PREFIX_2));
         selectedLamp.put(LAMPS_PREFIX_2, lamp2.getSelect());
         galleryItems.add(lamp2);
@@ -112,7 +114,9 @@ public class Gallery extends BackScreen {
                     }
                 }));
 
-        GalleryElement lamp3 = buildGalleryElement(ANGRY_LAMP.get(), GALLERY_MAX_SCORE.get() + LAMP_OPEN_MAX, AssetLoader.getGalleryLampImage(LAMPS_PREFIX_3),
+        galleryItems.add(new LockedGalleryElement(Text.COMING_SOON.get()));
+
+        GalleryElement lamp3 = buildGalleryElement(ANGRY_LAMP.get(), GALLERY_MAX_SCORE.get() + LAMP_OPEN_MAX, getGalleryLampImage(LAMPS_PREFIX_3),
                 getScore() >= LAMP_OPEN_MAX, lamp3Open(), lampClickListener(LAMPS_PREFIX_3));
         selectedLamp.put(LAMPS_PREFIX_3, lamp3.getSelect());
         galleryItems.add(lamp3);

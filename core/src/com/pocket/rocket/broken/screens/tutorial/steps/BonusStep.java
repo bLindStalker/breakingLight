@@ -90,12 +90,16 @@ public class BonusStep extends Group implements TutorialStep {
             bonusBuilder.setClickToCreate(0, 2);
         }
 
-        if (scoreActor.getBonusCollected() > 3) {
-            bonusBuilder.setBonusVelocity(4f);
+        if (scoreActor.getBonusCollected() == 3) {
+            bonusBuilder.setClickToCreate(0, 3);
+        }
+
+        if (scoreActor.getBonusCollected() == 4) {
+            bonusBuilder.setClickToCreate(0, 3);
         }
 
         if (scoreActor.getBonusCollected() > 5) {
-            //bonusBuilder.setClickToCreate(0, 2);
+            bonusBuilder.setClickToCreate(1, 2);
         }
     }
 }

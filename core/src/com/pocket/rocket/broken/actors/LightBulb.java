@@ -36,7 +36,7 @@ public class LightBulb extends ImageActor {
 
         if (status == ANGRY) {
             setStatus(ACTIVE);
-            action = pulseAnimation(getWidth(), getHeight(), 1.025f, 0.3f);
+            action = pulseAnimation(getWidth(), getHeight(), 1.035f, 0.3f);
             action.setCount(1);
             addAction(action);
             activationTime = random(time.maxActiveTime, time.minActiveTime);

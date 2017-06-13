@@ -15,6 +15,8 @@ import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.actions.ScoreAction;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 import com.pocket.rocket.broken.api.PlayServices;
+import com.pocket.rocket.broken.enums.GalleryElementsPosition;
+import com.pocket.rocket.broken.screens.menu.Gallery;
 
 import static com.pocket.rocket.broken.AssetLoader.getCoolLabel;
 import static com.pocket.rocket.broken.AssetLoader.getCoolText;
@@ -50,6 +52,11 @@ import static com.pocket.rocket.broken.enums.Achievement.Survive60Seconds;
 import static com.pocket.rocket.broken.enums.Achievement.TotalCount10000;
 import static com.pocket.rocket.broken.enums.Achievement.TotalCount20000;
 import static com.pocket.rocket.broken.enums.Achievement.TotalCount40000;
+import static com.pocket.rocket.broken.enums.GalleryElementsPosition.ANGRY_LAMP;
+import static com.pocket.rocket.broken.enums.GalleryElementsPosition.HEARD;
+import static com.pocket.rocket.broken.enums.GalleryElementsPosition.MEGA_LAMP;
+import static com.pocket.rocket.broken.enums.GalleryElementsPosition.SUPPER_BONUS;
+import static com.pocket.rocket.broken.enums.GalleryElementsPosition.UNDEFINED;
 import static com.pocket.rocket.broken.enums.Text.BEST_SCORE;
 import static com.pocket.rocket.broken.enums.Text.GALLERY;
 import static com.pocket.rocket.broken.enums.Text.MENU;
@@ -62,6 +69,7 @@ import static com.pocket.rocket.broken.enums.Text.UNLOCKED;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_HEIGHT;
 import static com.pocket.rocket.broken.screens.MenuScreen.MENU_BUTTON_WIDTH;
 import static com.pocket.rocket.broken.screens.MenuScreen.X_MENU_BUTTON_POSITION;
+import static com.pocket.rocket.broken.screens.menu.Gallery.GALLERY_HEIGHT;
 
 public class GameOverScreen extends BaseScreen {
 
@@ -143,7 +151,8 @@ public class GameOverScreen extends BaseScreen {
         buildResultData(resultGroup, TIME.get(), time, 700);
         buildResultData(resultGroup, SCORE.get(), score, 580);
 
-        if (anyGalleryItemOpen()) {
+        final GalleryElementsPosition galleryElementsPosition = anyGalleryItemOpen();
+        if (galleryElementsPosition != UNDEFINED) {
             resultGroup.addActor(newGalleryItemLabel());
             Label menuButton = new Label(RETRY.get(), new Label.LabelStyle(getFont()));
             menuButton.setBounds(X_MENU_BUTTON_POSITION, 40, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
@@ -175,9 +184,18 @@ public class GameOverScreen extends BaseScreen {
                             @Override
                             public void run() {
                                 MenuScreen screen = new MenuScreen(main, false);
-                                screen.menuButtons.gallery.setVisible(true);
+                                final Gallery gallery = screen.menuButtons.gallery;
+                                gallery.setVisible(true);
                                 screen.menuButtons.menuGroup.addAction(Actions.moveTo(-WIDTH, 0));
                                 main.setScreen(screen);
+
+                                Timer.schedule(new Timer.Task() {
+                                    @Override
+                                    public void run() {
+                                        gallery.scroller.layout();
+                                        gallery.scroller.setScrollY(galleryElementsPosition.getPosition() * GALLERY_HEIGHT);
+                                    }
+                                }, 0.4f);
                             }
                         }, 0.25f);
                     }
@@ -231,11 +249,24 @@ public class GameOverScreen extends BaseScreen {
         return resultGroup;
     }
 
-    private boolean anyGalleryItemOpen() {
-        return (getBonusCount() >= COLLECT_BONUSES && !doubleBonusActivated())
-                || (getTotalScore() >= LAMP_OPEN_TOTAL && !lamp2Open())
-                || (getPlayTimes() >= PLAY_TIMES_HEART && !bonusActivatedHeart())
-                || (getScore() >= LAMP_OPEN_MAX && !lamp3Open());
+    private GalleryElementsPosition anyGalleryItemOpen() {
+        if (getBonusCount() >= COLLECT_BONUSES && !doubleBonusActivated()) {
+            return SUPPER_BONUS;
+        }
+
+        if (getTotalScore() >= LAMP_OPEN_TOTAL && !lamp2Open()) {
+            return MEGA_LAMP;
+        }
+
+        if ((getPlayTimes() >= PLAY_TIMES_HEART && !bonusActivatedHeart())) {
+            return HEARD;
+        }
+
+        if (getScore() >= LAMP_OPEN_MAX && !lamp3Open()) {
+            return ANGRY_LAMP;
+        }
+
+        return UNDEFINED;
     }
 
     private Label bestResultLabel() {
