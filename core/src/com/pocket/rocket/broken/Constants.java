@@ -20,17 +20,17 @@ public final class Constants {
 
     public static final int MAX_ACTIVE_LAMPS = 7;
 
-    public static final float MIN_ANGRY_TIME = 0.90f;
+    public static final float MIN_ANGRY_TIME = 0.8f;
     public static final float MAX_ANGRY_TIME = 1.25f;
     public static final float ANGRY_INTERVAL = 1.8f;
 
-    public static final float MIN_ACTIVE_TIME = 0.8f;
-    public static final float MAX_ACTIVE_TIME = 1.2f;
+    public static final float MIN_ACTIVE_TIME = 0.55f;
+    public static final float MAX_ACTIVE_TIME = 1.1f;
     public static final float ACTIVE_INTERVAL = 1.8f;
 
-    public static final float MIN_NEUTRAL_TIME = 0.5f;
+    public static final float MIN_NEUTRAL_TIME = 0.3f;
     public static final float MAX_NEUTRAL_TIME = 0.8f;
-    public static final float NEUTRAL_INTERVAL = 1.2f;
+    public static final float NEUTRAL_INTERVAL = 1.25f;
 
     public static final int HARD_CORE_TIME = 30;
 
@@ -41,6 +41,8 @@ public final class Constants {
     public static final int MIN_HEART_BONUS_CHANCE = 45;
     public static final int MAX_HEART_BONUS_CHANCE = 80;
     public static final int CREATED_BONUS_INTERVAL = 7;
+
+    public static final int RATE_US_SHOW_TIMES = 20;
 
     // gallery
     public static final int COLLECT_BONUSES = 50;

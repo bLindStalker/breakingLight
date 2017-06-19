@@ -1,7 +1,7 @@
 package com.pocket.rocket.broken.actors;
 
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
-import com.pocket.rocket.broken.enums.LampLogic;
+import com.pocket.rocket.broken.LampLogic;
 import com.pocket.rocket.broken.enums.LightBulbPosition;
 import com.pocket.rocket.broken.enums.LightBulbStatus;
 
@@ -41,10 +41,10 @@ public class LightBulb extends ImageActor {
             addAction(action);
             activationTime = random(time.maxActiveTime, time.minActiveTime);
             turnOffTime = getTurnOffTime(time);
+            second = 0;
 
             return true;
         }
-
         return false;
     }
 
@@ -95,7 +95,7 @@ public class LightBulb extends ImageActor {
     private void setStatus(LightBulbStatus status) {
         this.status = status;
         if (action != null) {
-            removeAction(action);
+            action.finish();
             action = null;
         }
         setImage(getLampImage(status));

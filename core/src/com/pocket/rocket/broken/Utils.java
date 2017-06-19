@@ -10,6 +10,8 @@ import com.pocket.rocket.broken.actors.ImageActor;
 import com.pocket.rocket.broken.actors.LabelActor;
 import com.pocket.rocket.broken.screens.menu.Gallery;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.WIDTH;
@@ -37,13 +39,26 @@ public class Utils {
         return display;
     }
 
+    @Deprecated
     public static RepeatAction pulseAnimation(float width, float height, float scale, float time) {
         float delta = (scale - 1) * 100;
         return Actions.repeat(
                 RepeatAction.FOREVER,
-                Actions.sequence(
-                        Actions.parallel(Actions.scaleTo(scale, scale, time), Actions.moveBy(-(width / 100 * delta / 2), -(height / 100 * delta / 2), time)),
-                        Actions.parallel(Actions.scaleTo(1f, 1f, time), Actions.moveBy(width / 100 * delta / 2, height / 100 * delta / 2, time))
+                sequence(
+                        Actions.parallel(scaleTo(scale, scale, time), Actions.moveBy(-(width / 100 * delta / 2), -(height / 100 * delta / 2), time)),
+                        Actions.parallel(scaleTo(1f, 1f, time), Actions.moveBy(width / 100 * delta / 2, height / 100 * delta / 2, time))
                 ));
+    }
+
+    public static RepeatAction pulseAnimation(float delta, float time) {
+        return pulseAnimation(delta, time, RepeatAction.FOREVER);
+    }
+
+    public static RepeatAction pulseAnimation(float delta, float time, int count) {
+        float scale = 1 + delta;
+        return Actions.repeat(
+                count,
+                sequence(scaleTo(scale, scale, time), scaleTo(1f, 1f, time))
+        );
     }
 }

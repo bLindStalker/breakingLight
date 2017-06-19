@@ -39,6 +39,7 @@ public class Preference {
         prefs.putInteger("language", -1);
         prefs.putLong("playTimes", 0L);
         prefs.putLong("bonusCount", 0);
+        prefs.putBoolean("rate", false);
 
         prefs.flush();
     }
@@ -122,5 +123,28 @@ public class Preference {
 
     public static Long getPlayTimes() {
         return prefs.getLong("playTimes", 0);
+    }
+
+    public static void setRated() {
+        prefs.putBoolean("rate", true);
+        prefs.flush();
+    }
+
+    public static boolean isRated() {
+        return prefs.getBoolean("rate", false);
+    }
+
+    public static void updateRateCount() {
+        prefs.putInteger("rateCount", getRateCount() + 1);
+        prefs.flush();
+    }
+
+    public static int getRateCount() {
+        return prefs.getInteger("rateCount", 0);
+    }
+
+    public static void resetRateCount() {
+        prefs.putInteger("rateCount", 0);
+        prefs.flush();
     }
 }

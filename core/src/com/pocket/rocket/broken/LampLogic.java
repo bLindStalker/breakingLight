@@ -1,4 +1,4 @@
-package com.pocket.rocket.broken.enums;
+package com.pocket.rocket.broken;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.pocket.rocket.broken.Constants.ACTIVE_INTERVAL;
@@ -14,26 +14,40 @@ import static com.pocket.rocket.broken.Constants.NEUTRAL_INTERVAL;
 public class LampLogic {
     public float maxAngryTime = MAX_ANGRY_TIME + ANGRY_INTERVAL + 0.7f;
     public float minAngryTime = MIN_ANGRY_TIME + ANGRY_INTERVAL;
-
     public float maxActiveTime = MAX_ACTIVE_TIME + ACTIVE_INTERVAL;
     public float minActiveTime = MIN_ACTIVE_TIME + ACTIVE_INTERVAL;
-
-    public float maxNeutralTime = MAX_NEUTRAL_TIME + NEUTRAL_INTERVAL;
+    public float maxNeutralTime = MAX_NEUTRAL_TIME + NEUTRAL_INTERVAL + 0.5f;
     public float minNeutralTime = MIN_NEUTRAL_TIME + NEUTRAL_INTERVAL;
-
     public int maxAngryLamps;
+    private float maxDifficult = MAX_ANGRY_TIME;
+    private float minDifficult = MIN_ANGRY_TIME;
+    private int time = 60;
+    private boolean difficultUpdate = false;
 
     public LampLogic() {
         maxAngryLamps = random(2, 4);
     }
 
+    public void difficultUpdate(int currentTime) {
+        if (time < currentTime) {
+            difficultUpdate = true;
+            time += 3;
+        }
+    }
+
     public void setActiveLampInterval(float delta) {
         if (delta > 0) {
-            maxAngryTime = maxAngryTime - delta > MAX_ANGRY_TIME ? maxAngryTime - delta : MAX_ANGRY_TIME;
-            minAngryTime = minAngryTime - delta > MIN_ANGRY_TIME ? minAngryTime - delta : MIN_ANGRY_TIME;
+            maxAngryTime = maxAngryTime - delta > maxDifficult ? maxAngryTime - delta : maxDifficult;
+            minAngryTime = minAngryTime - delta > minDifficult ? minAngryTime - delta : minDifficult;
         } else {
-            this.minAngryTime = MIN_ANGRY_TIME;
-            this.maxAngryTime = MAX_ANGRY_TIME;
+            minAngryTime = minDifficult;
+            maxAngryTime = maxDifficult;
+        }
+
+        if (difficultUpdate) {
+            maxDifficult -= 0.1f;
+            minDifficult -= 0.1f;
+            difficultUpdate = false;
         }
     }
 

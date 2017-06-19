@@ -33,7 +33,6 @@ public class AssetLoader implements Disposable {
     private static final String FONT = "font_multi.fnt";
     private static final String BUTTON_UP = "button_up.png";
     private static final String BUTTON_DOWN = "button_down.png";
-    private static final String DIALOG = "dialog.png";
     private static final String HEADER = "header.png";
 
     private static final String LOGO_LABEL = "labels/logo.png";
@@ -71,6 +70,11 @@ public class AssetLoader implements Disposable {
     private static final String GALLERY_HEART = "gallery/gallery_heart.png";
     private static final String LIGHT_UNLOCK = "gallery/light_unlock.png";
     private static final String LOCKED_GALLERY_ITEM = "gallery/locked.png";
+
+    private static final String RATE_US_BLOCK = "block.png";
+    private static final String STAR_FULL = "star_full.png";
+    private static final String STAR_HOLLOW = "star_hollow.png";
+    private static final String LIGHT = "light.png";
 
     private static final String HEART_ATLAS = "elements/heart_animation/heart_atlas.atlas";
 
@@ -111,7 +115,6 @@ public class AssetLoader implements Disposable {
         assetManager.load(GALLERY_HEART, Texture.class);
         assetManager.load(LIGHT_UNLOCK, Texture.class);
 
-        assetManager.load(DIALOG, Texture.class);
         assetManager.load(BAR, Texture.class);
         assetManager.load(PROGRESS, Texture.class);
         assetManager.load(CHECKED, Texture.class);
@@ -128,6 +131,11 @@ public class AssetLoader implements Disposable {
         assetManager.load(TOGLE3, Texture.class);
 
         assetManager.load(HEART, Texture.class);
+
+        assetManager.load(RATE_US_BLOCK, Texture.class);
+        assetManager.load(STAR_FULL, Texture.class);
+        assetManager.load(STAR_HOLLOW, Texture.class);
+        assetManager.load(LIGHT, Texture.class);
 
         assetManager.load(HEART_ATLAS, TextureAtlas.class);
 
@@ -268,10 +276,6 @@ public class AssetLoader implements Disposable {
         return assetManager.get(GAME_OVER_LABEL);
     }
 
-    public static Texture getDialog() {
-        return assetManager.get(DIALOG);
-    }
-
     public static Texture getBar() {
         return assetManager.get(BAR);
     }
@@ -365,8 +369,25 @@ public class AssetLoader implements Disposable {
         return assetManager.get(GALLERY_HEART);
     }
 
-    public static Texture getLightUnlock() {
+    public static Texture getGalleryLight() {
         return assetManager.get(LIGHT_UNLOCK);
+    }
+
+    public static Texture getLight() {
+        return assetManager.get(LIGHT);
+    }
+
+
+    public static Texture getBlock() {
+        return assetManager.get(RATE_US_BLOCK);
+    }
+
+    public static Texture getFullStar() {
+        return assetManager.get(STAR_FULL);
+    }
+
+    public static Texture getHollowStar() {
+        return assetManager.get(STAR_HOLLOW);
     }
 
     @Override

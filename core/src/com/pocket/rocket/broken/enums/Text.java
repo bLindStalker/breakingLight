@@ -11,6 +11,11 @@ public enum Text {
     TOTAL("       total: ", "       сума: ", "       сумма: "),
     START("START", "ПОЧАТИ", "НАЧАТЬ"),
 
+    //rate us
+    RATRE("RATE", "ОЦIНИТИ", "ОЦЕНИТЬ"),
+    LATER("LATER", "ПIЗНIШЕ", "ПОЗЖЕ"),
+    GIVE_THANKS("GIVE THANKS", "ПОДЯКУВАТИ", "ОТБЛАГОДАРИТЬ"),
+
     // gallery
     GALLERY("GALLERY", "ГАЛЕРЕЯ", "ГАЛЕРЕЯ"),
     COMING_SOON("wait for update", "чекати оновлення", "ждать обновления"),
@@ -57,8 +62,8 @@ public enum Text {
     YOUR_POWER("your power", "свою силу", "свою силу"),
     YOUR_PROGRESS("YOUR PROGRESS", "ПРОГРЕС", "ПРОГРЕСС"),
 
-    WORDS("WOW!, Super!, Amazing!, Well done!, Very well!", "WOW!, Супер, Круто, Так тримати", "WOW!, Супер, Круто, Так держать"),
-    MISSING_WORDS("Miss, Bad, Shit, Blunder, Boner, Mistake", "Промах, Погано, Дуже погано, Помилка", "Промах, Плохо, Очень плохо, Ошибка");
+    WORDS("WOW!, Super!, Amazing!, Well done!, Very well!", "WOW!, Супер, Круто, Молодець, Так тримати", "WOW!, Супер, Молодец, Круто, Так держать"),
+    MISSING_WORDS("Miss, Bad, Blunder, Mistake", "Промах, Треба краще, Помилка, Обережнiше", "Промах, Старайся, Ошибка, Осторожней");
 
     private String en;
     private String ua;

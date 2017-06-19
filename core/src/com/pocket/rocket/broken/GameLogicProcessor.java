@@ -1,7 +1,6 @@
 package com.pocket.rocket.broken;
 
 import com.pocket.rocket.broken.actors.LightBulb;
-import com.pocket.rocket.broken.enums.LampLogic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,6 @@ public class GameLogicProcessor {
     private final List<LightBulb> activeLamps = new ArrayList<LightBulb>();
     private final List<LightBulb> allLamps;
     private final LampLogic lampLogic;
-    private final List<LightBulb> lockedLamps = new ArrayList<LightBulb>();
 
     public GameLogicProcessor(List<LightBulb> allLamps, LampLogic lampLogic) {
         this.allLamps = allLamps;

@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.Main;
-import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.actions.ScoreAction;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
 import com.pocket.rocket.broken.api.PlayServices;
@@ -77,6 +76,7 @@ public class GameOverScreen extends BaseScreen {
 
     public GameOverScreen(Main main, ScoreActor scoreActor, int time) {
         super(main);
+
         int score = scoreActor.getScore();
         int bonusCollected = scoreActor.getBonusCollected();
         int bonus2Collected = scoreActor.getBonus2Collected();
@@ -100,8 +100,8 @@ public class GameOverScreen extends BaseScreen {
     }
 
     private void playServiceOperation(Main main, int time) {
-        int totalScore = Preference.getTotalScore();
-        int score = Preference.getScore();
+        int totalScore = getTotalScore();
+        int score = getScore();
 
         PlayServices playServices = main.getPlayServices();
         playServices.submitScore(score);
@@ -270,7 +270,7 @@ public class GameOverScreen extends BaseScreen {
     }
 
     private Label bestResultLabel() {
-        Label label = new Label(BEST_SCORE.get() + "\n" + Preference.getScore(), getFont());
+        Label label = new Label(BEST_SCORE.get() + "\n" + getScore(), getFont());
         label.setAlignment(Align.center);
         label.setPosition(X_CENTER - label.getWidth() / 2, 400);
         return label;

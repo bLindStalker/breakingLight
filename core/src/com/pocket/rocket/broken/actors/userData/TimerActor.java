@@ -1,7 +1,7 @@
 package com.pocket.rocket.broken.actors.userData;
 
 import com.badlogic.gdx.utils.Timer;
-import com.pocket.rocket.broken.enums.LampLogic;
+import com.pocket.rocket.broken.LampLogic;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.pocket.rocket.broken.Constants.ACTIVE_INTERVAL;
@@ -28,7 +28,7 @@ public class TimerActor extends LabelData {
                            @Override
                            public void run() {
                                data.setText(String.valueOf(currentTime));
-                               updateDifficulty();
+                               updateDifficulty(currentTime);
                                currentTime++;
                                startTimer();
                            }
@@ -36,7 +36,7 @@ public class TimerActor extends LabelData {
         );
     }
 
-    private void updateDifficulty() {
+    private void updateDifficulty(int currentTime) {
         if (lampLogicData.maxAngryLamps < MAX_ACTIVE_LAMPS) {
             lampLogicData.maxAngryLamps += random(1, 2);
         }
@@ -44,6 +44,8 @@ public class TimerActor extends LabelData {
         lampLogicData.setActiveLampInterval(ANGRY_INTERVAL / HARD_CORE_TIME);
         lampLogicData.setNeutralTimeInterval(ACTIVE_INTERVAL / HARD_CORE_TIME);
         lampLogicData.setTurnOffTimeInterval(NEUTRAL_INTERVAL / HARD_CORE_TIME);
+
+        lampLogicData.difficultUpdate(currentTime);
     }
 
     public int getTime() {

@@ -15,8 +15,8 @@ public class Main extends Game {
     @Override
     public void create() {
         setScreen(new SplashScreen(this));
-        /*AssetLoader.initialize();
-        setScreen(new TutorialScreen(this));*/
+        AssetLoader.initialize();
+        //setScreen(new RateUsScreen(this));
     }
 
     @Override

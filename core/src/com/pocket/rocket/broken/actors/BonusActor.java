@@ -10,19 +10,21 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
-import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.Main;
-import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
-import com.pocket.rocket.broken.enums.Achievement;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.badlogic.gdx.math.MathUtils.randomBoolean;
 import static com.pocket.rocket.broken.AssetLoader.getBonus;
+import static com.pocket.rocket.broken.AssetLoader.getGalleryLight;
 import static com.pocket.rocket.broken.Constants.BONUS_HEIGHT;
 import static com.pocket.rocket.broken.Constants.BONUS_WIDTH;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_WIDTH;
+import static com.pocket.rocket.broken.Preference.doubleBonusActivated;
+import static com.pocket.rocket.broken.enums.Achievement.Catch1000Bonuses;
+import static com.pocket.rocket.broken.enums.Achievement.Catch100Bonuses;
+import static com.pocket.rocket.broken.enums.Achievement.Catch500Bonuses;
 
 
 public class BonusActor extends Group {
@@ -35,11 +37,11 @@ public class BonusActor extends Group {
 
         final float xBonusSize = BONUS_WIDTH + X_BONUS_ACTOR_SCALE;
         final float yBonusSize = BONUS_HEIGHT + Y_BONUS_ACTOR_SCALE;
-        final boolean isDoubleBonus = Preference.doubleBonusActivated() && randomBoolean();
+        final boolean isDoubleBonus = doubleBonusActivated() && randomBoolean();
 
         setBounds(xPosition + 30 + LAMP_WIDTH / 2 - xBonusSize / 2, yPosition + 100, xBonusSize, yBonusSize);
 
-        final ImageActor shine = new ImageActor(getWidth() / 2 - 100, getHeight() / 2 - 100, 200, 200, AssetLoader.getLightUnlock());
+        final ImageActor shine = new ImageActor(getWidth() / 2 - 100, getHeight() / 2 - 100, 200, 200, getGalleryLight());
         shine.setOrigin(Align.center);
         shine.addAction(Actions.rotateBy(360 * velocity / 2, velocity));
         addActor(shine);
@@ -50,9 +52,9 @@ public class BonusActor extends Group {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 scoreActor.increaseBonusScore(isDoubleBonus);
-                main.getPlayServices().unlockIncrementAchievement(Achievement.Catch100Bonuses, 1);
-                main.getPlayServices().unlockIncrementAchievement(Achievement.Catch500Bonuses, 1);
-                main.getPlayServices().unlockIncrementAchievement(Achievement.Catch1000Bonuses, 1);
+                main.getPlayServices().unlockIncrementAchievement(Catch100Bonuses, 1);
+                main.getPlayServices().unlockIncrementAchievement(Catch500Bonuses, 1);
+                main.getPlayServices().unlockIncrementAchievement(Catch1000Bonuses, 1);
 
                 remove = true;
                 shine.addAction(Actions.fadeOut(0.5f));

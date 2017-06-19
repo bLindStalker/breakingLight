@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.pocket.rocket.broken.Main;
-import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.screens.menu.MainMenuButtons;
 import com.pocket.rocket.broken.screens.menu.MenuIcons;
 
@@ -35,7 +34,7 @@ public class MenuScreen extends BaseScreen {
 
         Group menu = new Group();
 
-        if (Preference.getScore() > 0) {
+        if (getScore() > 0) {
             menu.addActor(new MenuIcons(main));
         }
 

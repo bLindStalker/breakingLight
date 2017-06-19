@@ -15,6 +15,8 @@ import com.pocket.rocket.broken.actors.userData.gallery.GalleryElement;
 import com.pocket.rocket.broken.actors.userData.gallery.LockedGalleryElement;
 import com.pocket.rocket.broken.actors.userData.gallery.OpenGalleryElement;
 import com.pocket.rocket.broken.enums.Text;
+import com.pocket.rocket.broken.screens.MenuScreen;
+import com.pocket.rocket.broken.screens.RateUsScreen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +65,7 @@ public class Gallery extends BackScreen {
     public final ScrollPane scroller;
     private final Map<Integer, Actor> selectedLamp = new HashMap<Integer, Actor>();
     private final Main main;
+    public boolean showRate = false;
 
     public Gallery(Main main, Group menuGroup) {
         super(GALLERY.get(), menuGroup);
@@ -181,6 +184,12 @@ public class Gallery extends BackScreen {
                 && lamp3Open()) {
             main.getPlayServices().unlockAchievement(OpenAllAvailableElementsAtGallery);
         }
-        super.back();
+
+        if (showRate) {
+            main.setScreen(new RateUsScreen(main, new MenuScreen(main, false)));
+            showRate = false;
+        } else {
+            super.back();
+        }
     }
 }

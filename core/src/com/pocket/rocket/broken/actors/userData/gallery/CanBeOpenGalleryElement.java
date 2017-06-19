@@ -6,12 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Timer;
-import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.actors.ImageActor;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
+import static com.pocket.rocket.broken.AssetLoader.getGalleryLight;
 import static com.pocket.rocket.broken.Utils.buildDisplayLabel;
 import static com.pocket.rocket.broken.Utils.pulseAnimation;
 import static com.pocket.rocket.broken.enums.Text.TAP_TO_OPEN;
@@ -27,7 +27,7 @@ public class CanBeOpenGalleryElement extends GalleryElement {
         final Group group = new Group();
         group.setBounds(getX(), getY(), getWidth(), getHeight());
 
-        group.addActor(buildElement(AssetLoader.getLightUnlock()));
+        group.addActor(buildElement(getGalleryLight()));
         ImageActor lockedItem = buildElement(texture);
         lockedItem.setColor(new Color(102 / 255f, 21 / 255f, 193 / 255f, 1));
         lockedItem.addAction(pulseAnimation(texture.getWidth(), texture.getHeight(), 1.15f, 0.7f));
