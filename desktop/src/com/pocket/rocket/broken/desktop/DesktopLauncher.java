@@ -12,14 +12,14 @@ public class DesktopLauncher {
 
     private static final String appName = DesktopLauncher.class.getPackage().getName();
     // change this
-    private static SCREEN_CFG screenConfig = SCREEN_CFG.TEST;
+    private static SCREEN_CFG screenConfig = SCREEN_CFG.FULL_HD;
 
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
         config.width = screenConfig.getWidth() / 2;
         config.height = screenConfig.getHeight() / 2;
-        config.title = "" + appName + " [ " + config.width + " x " + config.height + " ]";
+        config.title = " [ " + config.width + " x " + config.height + " ]";
 
         new LwjglApplication(new Main( /*new AdMobImpl()*/ new GPGSImpl()), config);
     }
