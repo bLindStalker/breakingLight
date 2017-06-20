@@ -1,24 +1,23 @@
 package com.pocket.rocket.broken.screens;
 
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.pocket.rocket.broken.Main;
-import com.pocket.rocket.broken.Preference;
 import com.pocket.rocket.broken.actors.ImageActor;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.forever;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateBy;
 import static com.badlogic.gdx.utils.Align.center;
 import static com.badlogic.gdx.utils.Timer.schedule;
 import static com.pocket.rocket.broken.AssetLoader.getBlock;
@@ -34,6 +33,7 @@ import static com.pocket.rocket.broken.Constants.LAMP_WIDTH;
 import static com.pocket.rocket.broken.Constants.X_CENTER;
 import static com.pocket.rocket.broken.Constants.Y_CENTER;
 import static com.pocket.rocket.broken.Preference.resetRateCount;
+import static com.pocket.rocket.broken.Preference.setRated;
 import static com.pocket.rocket.broken.Utils.pulseAnimation;
 import static com.pocket.rocket.broken.enums.LightBulbStatus.ACTIVE;
 import static com.pocket.rocket.broken.enums.Text.GIVE_THANKS;
@@ -49,19 +49,31 @@ public class RateUsScreen extends BaseScreen {
     private static final int GROUP_HEIGHT = 660;
     private static final int SIZE = 60;
     private static final int DISTANCE = 20;
+    private final Runnable nextScreen;
+    private final Group group;
 
-    public RateUsScreen(final Main main, final Screen nextScreen) {
+    public RateUsScreen(final Main main, final Runnable nextScreen) {
         super(main);
+        this.nextScreen = nextScreen;
+
+        group = buildRateUsElements(main);
+        addActor(group);
+    }
+
+    private Group buildRateUsElements(final Main main) {
         resetRateCount();
-        final Group group = new Group();
+        Group group = new Group();
         group.setBounds(X_CENTER - GROUP_WIDTH / 2, Y_CENTER - GROUP_HEIGHT / 2 - 60, GROUP_WIDTH, GROUP_HEIGHT);
 
         Image light = new Image(getLight());
+        light.setOrigin(center);
         light.setPosition(GROUP_WIDTH / 2 - light.getWidth() / 2, GROUP_HEIGHT / 2 - light.getHeight() / 2);
+        light.addAction(forever(rotateBy(360, 25f)));
         group.addActor(light);
 
         ImageActor lamp = new ImageActor(GROUP_WIDTH / 2 - LAMP_WIDTH / 2, GROUP_HEIGHT - 340, LAMP_WIDTH, LAMP_HEIGHT, getLampImage(ACTIVE));
-        lamp.addAction(moveBy(0, 230, 1.7f, Interpolation.exp5In));
+        lamp.addAction(alpha(0));
+        lamp.addAction(parallel(alpha(1, 1f), moveBy(0, 230, 1.7f, Interpolation.exp5In)));
         group.addActor(lamp);
 
         group.addActor(new ImageActor(0, 0, GROUP_WIDTH, GROUP_HEIGHT, getBlock()));
@@ -72,8 +84,8 @@ public class RateUsScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 main.getPlayServices().rateGame();
-                Preference.setRated();
-                nextScreen(group, main, nextScreen);
+                setRated();
+                nextScreen();
             }
         });
         group.addActor(rateButton);
@@ -85,7 +97,7 @@ public class RateUsScreen extends BaseScreen {
         laterButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                nextScreen(group, main, nextScreen);
+                nextScreen();
             }
         });
         group.addActor(laterButton);
@@ -98,18 +110,18 @@ public class RateUsScreen extends BaseScreen {
         text.setAlignment(center);
         group.addActor(text);
 
-        group.addAction(Actions.alpha(0, 0));
-        group.addAction(Actions.alpha(1, 0.5f));
+        group.addAction(alpha(0, 0));
+        group.addAction(alpha(1, 0.5f));
 
-        addActor(group);
+        return group;
     }
 
-    private void nextScreen(Group group, final Main main, final Screen nextScreen) {
-        group.addAction(Actions.moveBy(0, -HEIGHT, MENU_SWITCH_TIME));
+    private void nextScreen() {
+        group.addAction(moveBy(0, -HEIGHT, MENU_SWITCH_TIME));
         schedule(new Task() {
             @Override
             public void run() {
-                main.setScreen(nextScreen);
+                nextScreen.run();
             }
         }, MENU_SWITCH_TIME);
     }

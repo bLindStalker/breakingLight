@@ -40,6 +40,7 @@ public class Preference {
         prefs.putLong("playTimes", 0L);
         prefs.putLong("bonusCount", 0);
         prefs.putBoolean("rate", false);
+        prefs.putInteger("rateCount", 0);
 
         prefs.flush();
     }

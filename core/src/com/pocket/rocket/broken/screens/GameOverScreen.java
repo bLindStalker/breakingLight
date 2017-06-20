@@ -35,6 +35,7 @@ import static com.pocket.rocket.broken.Preference.getBonusCount;
 import static com.pocket.rocket.broken.Preference.getPlayTimes;
 import static com.pocket.rocket.broken.Preference.getScore;
 import static com.pocket.rocket.broken.Preference.getTotalScore;
+import static com.pocket.rocket.broken.Preference.isRated;
 import static com.pocket.rocket.broken.Preference.lamp2Open;
 import static com.pocket.rocket.broken.Preference.lamp3Open;
 import static com.pocket.rocket.broken.Preference.saveBonusCount;
@@ -89,6 +90,7 @@ public class GameOverScreen extends BaseScreen {
         updatePlayTimes();
 
         playServiceOperation(main, time);
+
         addActor(buildResult(newResult, score, time));
 
         Timer.schedule(new Timer.Task() {
@@ -153,100 +155,113 @@ public class GameOverScreen extends BaseScreen {
 
         final GalleryElementsPosition galleryElementsPosition = anyGalleryItemOpen();
         if (galleryElementsPosition != UNDEFINED) {
-            resultGroup.addActor(newGalleryItemLabel());
-            Label menuButton = new Label(RETRY.get(), new Label.LabelStyle(getFont()));
-            menuButton.setBounds(X_MENU_BUTTON_POSITION, 40, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-            menuButton.setAlignment(Align.center);
-            menuButton.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    if (canBeClose) {
-                        resultGroup.addAction(Actions.alpha(0, 0.25f));
-                        Timer.schedule(new Timer.Task() {
-                            @Override
-                            public void run() {
-                                main.setScreen(new MainGameScreen(main));
-                            }
-                        }, 0.25f);
-                    }
-                }
-            });
-            resultGroup.addActor(menuButton);
-
-            TextButton retryButton = new TextButton(GALLERY.get(), AssetLoader.getButtonStyle());
-            retryButton.setBounds(X_MENU_BUTTON_POSITION, 170, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-            retryButton.addListener(new ClickListener() {
-                @Override
-                public void clicked(final InputEvent event, final float x, final float y) {
-                    if (canBeClose) {
-                        resultGroup.addAction(Actions.moveTo(0, -HEIGHT, 0.25f));
-                        Timer.schedule(new Timer.Task() {
-                            @Override
-                            public void run() {
-                                MenuScreen screen = new MenuScreen(main, false);
-                                final Gallery gallery = screen.menuButtons.gallery;
-                                gallery.setVisible(true);
-                                screen.menuButtons.menuGroup.addAction(Actions.moveTo(-WIDTH, 0));
-                                main.setScreen(screen);
-
-                                Timer.schedule(new Timer.Task() {
-                                    @Override
-                                    public void run() {
-                                        gallery.scroller.layout();
-                                        gallery.scroller.setScrollY(galleryElementsPosition.getPosition() * GALLERY_HEIGHT);
-                                    }
-                                }, 0.4f);
-                            }
-                        }, 0.25f);
-                    }
-                }
-            });
-            resultGroup.addActor(retryButton);
+            buildGalleryOpenResult(resultGroup, galleryElementsPosition);
         } else {
-            resultGroup.addActor(newRecord ? newRecordLabel() : bestResultLabel());
-
-            Label menuButton = new Label(MENU.get(), new Label.LabelStyle(getFont()));
-            menuButton.setBounds(X_MENU_BUTTON_POSITION, 40, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-            menuButton.setAlignment(Align.center);
-            menuButton.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    if (canBeClose) {
-                        resultGroup.addAction(Actions.moveTo(0, -HEIGHT, 0.25f));
-                        Timer.schedule(new Timer.Task() {
-                            @Override
-                            public void run() {
-                                main.setScreen(new MenuScreen(main, false));
-                            }
-                        }, 0.25f);
-                    }
-                }
-            });
-            resultGroup.addActor(menuButton);
-
-            TextButton retryButton = new TextButton(RETRY.get(), AssetLoader.getButtonStyle());
-            retryButton.setBounds(X_MENU_BUTTON_POSITION, 170, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-            retryButton.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    if (canBeClose) {
-                        resultGroup.addAction(Actions.alpha(0, 0.25f));
-                        Timer.schedule(new Timer.Task() {
-                            @Override
-                            public void run() {
-                                main.setScreen(new MainGameScreen(main));
-                            }
-                        }, 0.25f);
-                    }
-                }
-            });
-            resultGroup.addActor(retryButton);
+            buildResult(newRecord, resultGroup);
         }
 
         resultGroup.addAction(Actions.alpha(0, 0));
         resultGroup.addAction(Actions.alpha(1, 0.25f));
 
         return resultGroup;
+    }
+
+    private void buildResult(boolean newRecord, final Group resultGroup) {
+        resultGroup.addActor(newRecord ? newRecordLabel() : bestResultLabel());
+
+        Label menuButton = new Label(MENU.get(), new Label.LabelStyle(getFont()));
+        menuButton.setBounds(X_MENU_BUTTON_POSITION, 40, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+        menuButton.setAlignment(Align.center);
+        menuButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (canBeClose) {
+                    resultGroup.addAction(Actions.moveTo(0, -HEIGHT, 0.25f));
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            main.setScreen(new MenuScreen(main, false));
+                        }
+                    }, 0.25f);
+                }
+            }
+        });
+        resultGroup.addActor(menuButton);
+
+        TextButton retryButton = new TextButton(RETRY.get(), AssetLoader.getButtonStyle());
+        retryButton.setBounds(X_MENU_BUTTON_POSITION, 170, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+        retryButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (canBeClose) {
+                    resultGroup.addAction(Actions.alpha(0, 0.25f));
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            main.setScreen(new MainGameScreen(main));
+                        }
+                    }, 0.25f);
+                }
+            }
+        });
+        resultGroup.addActor(retryButton);
+    }
+
+    private void buildGalleryOpenResult(final Group resultGroup, final GalleryElementsPosition galleryElementsPosition) {
+        resultGroup.addActor(newGalleryItemLabel());
+        Label menuButton = new Label(RETRY.get(), new Label.LabelStyle(getFont()));
+        menuButton.setBounds(X_MENU_BUTTON_POSITION, 40, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+        menuButton.setAlignment(Align.center);
+        menuButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (canBeClose) {
+                    resultGroup.addAction(Actions.alpha(0, 0.25f));
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            main.setScreen(new MainGameScreen(main));
+                        }
+                    }, 0.25f);
+                }
+            }
+        });
+        resultGroup.addActor(menuButton);
+
+        TextButton retryButton = new TextButton(GALLERY.get(), AssetLoader.getButtonStyle());
+        retryButton.setBounds(X_MENU_BUTTON_POSITION, 170, MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+        retryButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(final InputEvent event, final float x, final float y) {
+                if (canBeClose) {
+                    resultGroup.addAction(Actions.moveTo(0, -HEIGHT, 0.25f));
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            MenuScreen screen = new MenuScreen(main, false);
+                            final Gallery gallery = screen.menuButtons.gallery;
+
+                            if (galleryElementsPosition == HEARD && !isRated()) {
+                                gallery.showRate();
+                            }
+
+                            gallery.setVisible(true);
+                            screen.menuButtons.menuGroup.addAction(Actions.moveTo(-WIDTH, 0));
+                            main.setScreen(screen);
+
+                            Timer.schedule(new Timer.Task() {
+                                @Override
+                                public void run() {
+                                    gallery.scroller.layout();
+                                    gallery.scroller.setScrollY(galleryElementsPosition.getPosition() * GALLERY_HEIGHT);
+                                }
+                            }, 0.4f);
+                        }
+                    }, 0.25f);
+                }
+            }
+        });
+        resultGroup.addActor(retryButton);
     }
 
     private GalleryElementsPosition anyGalleryItemOpen() {

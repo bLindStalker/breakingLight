@@ -32,11 +32,11 @@ import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
 import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.Constants.X_CENTER;
+import static com.pocket.rocket.broken.actors.BackScreen.HEADER_HEIGHT;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.CENTER;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.LEFT;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.RIGHT;
 import static com.pocket.rocket.broken.enums.Text.TUTORIAL;
-import static com.pocket.rocket.broken.screens.menu.BackScreen.HEADER_HEIGHT;
 import static java.lang.Integer.MAX_VALUE;
 
 public class TutorialScreen extends BaseScreen {
@@ -87,11 +87,11 @@ public class TutorialScreen extends BaseScreen {
     private Group buildHeader(final Main main) {
         Group headerGroup = new Group();
         headerGroup.addActor(new ImageActor(0, HEIGHT - HEADER_HEIGHT, WIDTH, HEADER_HEIGHT, AssetLoader.getHeader()));
-        ImageActor back = new ImageActor(25, HEIGHT - 150 / 2 - 50, 100, 100, AssetLoader.getBack());
+        ImageActor back = new ImageActor(0, HEIGHT - 200 / 2 - 50, 150, 150, AssetLoader.getBack());
         back.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                tutorialGroup.addAction(Actions.moveTo(0, -HEIGHT, 0.25f));
+                tutorialGroup.addAction(Actions.moveTo(WIDTH, 0, 0.25f));
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {

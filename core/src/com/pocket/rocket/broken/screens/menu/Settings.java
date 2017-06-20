@@ -29,7 +29,7 @@ import static com.pocket.rocket.broken.enums.Text.MUSIC;
 import static com.pocket.rocket.broken.enums.Text.SETTINGS;
 import static com.pocket.rocket.broken.enums.Text.TUTORIAL;
 
-public class Settings extends BackScreen {
+public class Settings extends com.pocket.rocket.broken.actors.BackScreen {
     public static final int X_LANGUAGE_POSITION = 90;
     public static final int EN_INDEX = 2;
     public static final int UA_INDEX = 1;

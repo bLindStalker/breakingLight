@@ -56,7 +56,7 @@ import static com.pocket.rocket.broken.enums.Text.SUPER_BONUS;
 import static com.pocket.rocket.broken.enums.Text.SUPER_BONUS_DESC;
 import static java.lang.String.format;
 
-public class Gallery extends BackScreen {
+public class Gallery extends com.pocket.rocket.broken.actors.BackScreen {
     public static final int GALLERY_HEIGHT = 490;
     public static final int GALLERY_WIDTH = 575;
 
@@ -65,7 +65,7 @@ public class Gallery extends BackScreen {
     public final ScrollPane scroller;
     private final Map<Integer, Actor> selectedLamp = new HashMap<Integer, Actor>();
     private final Main main;
-    public boolean showRate = false;
+    private boolean showRate = false;
 
     public Gallery(Main main, Group menuGroup) {
         super(GALLERY.get(), menuGroup);
@@ -186,10 +186,20 @@ public class Gallery extends BackScreen {
         }
 
         if (showRate) {
-            main.setScreen(new RateUsScreen(main, new MenuScreen(main, false)));
+            Runnable nextScreen = new Runnable() {
+                @Override
+                public void run() {
+                    main.setScreen(new MenuScreen(main, false));
+                }
+            };
+            main.setScreen(new RateUsScreen(main, nextScreen));
             showRate = false;
         } else {
             super.back();
         }
+    }
+
+    public void showRate() {
+        showRate = true;
     }
 }

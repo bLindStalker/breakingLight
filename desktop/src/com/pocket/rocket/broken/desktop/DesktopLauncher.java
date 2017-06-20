@@ -12,7 +12,7 @@ public class DesktopLauncher {
 
     private static final String appName = DesktopLauncher.class.getPackage().getName();
     // change this
-    private static SCREEN_CFG screenConfig = SCREEN_CFG.FULL_HD;
+    private static SCREEN_CFG screenConfig = SCREEN_CFG.TEST;
 
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();

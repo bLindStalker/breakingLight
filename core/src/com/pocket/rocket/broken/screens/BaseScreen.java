@@ -6,17 +6,20 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.pocket.rocket.broken.Main;
+import com.pocket.rocket.broken.actors.ImageActor;
 
+import static com.pocket.rocket.broken.AssetLoader.getBackGround;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.WIDTH;
 
 public class BaseScreen extends Stage implements Screen {
     public final Main main;
-    private final BackGroundStage backGround = new BackGroundStage();
+    //private final BackGroundStage backGround = new BackGroundStage();
 
     public BaseScreen(Main main) {
         super(new FitViewport(WIDTH, HEIGHT));
         this.main = main;
+        addActor(new ImageActor(0, 0, WIDTH, HEIGHT, getBackGround()));
         //setDebugAll(true);
         Gdx.input.setInputProcessor(this);
     }
@@ -29,11 +32,11 @@ public class BaseScreen extends Stage implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        backGround.getViewport().apply();
+     /*   backGround.getViewport().apply();
         backGround.act(delta);
-        backGround.draw();
+        backGround.draw();*/
 
-        getViewport().apply();
+        // getViewport().apply();
         act(delta);
         draw();
     }
@@ -41,7 +44,7 @@ public class BaseScreen extends Stage implements Screen {
     @Override
     public void resize(int width, int height) {
         getViewport().update(width, height);
-        backGround.getViewport().update(width, height);
+        //backGround.getViewport().update(width, height);
     }
 
     @Override

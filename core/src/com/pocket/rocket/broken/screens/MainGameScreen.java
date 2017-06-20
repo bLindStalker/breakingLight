@@ -20,7 +20,11 @@ import java.util.concurrent.Callable;
 import static com.pocket.rocket.broken.Constants.HARD_CORE_TIME;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
+import static com.pocket.rocket.broken.Constants.RATE_US_SHOW_TIMES;
 import static com.pocket.rocket.broken.Constants.WIDTH;
+import static com.pocket.rocket.broken.Preference.getRateCount;
+import static com.pocket.rocket.broken.Preference.isRated;
+import static com.pocket.rocket.broken.Preference.updateRateCount;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.CENTER;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.LEFT;
 import static com.pocket.rocket.broken.enums.LightBulbPosition.RIGHT;
@@ -93,7 +97,19 @@ public class MainGameScreen extends BaseScreen {
 
     private void showResult() {
         gameActors.addAction(Actions.alpha(0, 0.25f));
-        main.setScreen(new GameOverScreen(main, scoreActor, timer.getTime() < 0 ? 0 : timer.getTime()));
+        Runnable nextScreen = new Runnable() {
+            @Override
+            public void run() {
+                main.setScreen(new GameOverScreen(main, scoreActor, timer.getTime() < 0 ? 0 : timer.getTime()));
+            }
+        };
+
+        if (!isRated() && getRateCount() == RATE_US_SHOW_TIMES) {
+            main.setScreen(new RateUsScreen(main, nextScreen));
+        } else {
+            updateRateCount();
+            nextScreen.run();
+        }
     }
 
     private Group createLamps() {
