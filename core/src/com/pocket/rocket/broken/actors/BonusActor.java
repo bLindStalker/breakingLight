@@ -69,15 +69,13 @@ public class BonusActor extends Group {
         });
 
         texture = new TextureRegion(getBonus(isDoubleBonus));
-
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         if (!remove) {
-            batch.draw(texture, getX() + X_BONUS_ACTOR_SCALE / 2, getY() + Y_BONUS_ACTOR_SCALE / 2, BONUS_WIDTH / 2, BONUS_HEIGHT / 2, BONUS_WIDTH,
-                    BONUS_HEIGHT, 1, 1, getRotation());
+            batch.draw(texture, getX() + X_BONUS_ACTOR_SCALE / 2, getY() + Y_BONUS_ACTOR_SCALE / 2, BONUS_WIDTH / 2, BONUS_HEIGHT / 2, BONUS_WIDTH, BONUS_HEIGHT, 1, 1, getRotation());
         }
     }
 }

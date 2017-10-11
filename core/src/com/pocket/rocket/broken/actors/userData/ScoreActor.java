@@ -1,8 +1,16 @@
 package com.pocket.rocket.broken.actors.userData;
 
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
+import com.badlogic.gdx.utils.Align;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.addAction;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
+import static com.badlogic.gdx.utils.Align.center;
 import static com.pocket.rocket.broken.Constants.BASIC_BONUS_SCORE;
 import static com.pocket.rocket.broken.Constants.BASIC_SCORE;
 import static com.pocket.rocket.broken.Constants.WIDTH;
+import static com.pocket.rocket.broken.Utils.pulseAnimation;
 import static com.pocket.rocket.broken.enums.Text.SCORE;
 
 public class ScoreActor extends LabelData {
@@ -10,6 +18,7 @@ public class ScoreActor extends LabelData {
     private int bonusCollected = 0;
     private int bonus2Collected = 0;
     private int collectedLamps = 0;
+    private boolean animate;
 
     public ScoreActor() {
         super(SCORE.get(), WIDTH - 280);
@@ -35,6 +44,7 @@ public class ScoreActor extends LabelData {
             bonusCollected++;
             score += BASIC_BONUS_SCORE;
         }
+        animate = true;
     }
 
     public int getScore() {
@@ -52,6 +62,10 @@ public class ScoreActor extends LabelData {
     @Override
     public void act(float delta) {
         super.act(delta);
+        if (animate) {
+            animate = false;
+            addAction(pulseAnimation(.2f, 0.4f, 1));
+        }
         data.setText(String.valueOf(score));
     }
 
