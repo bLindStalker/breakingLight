@@ -2,10 +2,12 @@ package com.pocket.rocket.broken;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.broken.actors.ImageActor;
 import com.pocket.rocket.broken.actors.LabelActor;
 import com.pocket.rocket.broken.screens.menu.Gallery;
@@ -60,5 +62,26 @@ public class Utils {
                 count,
                 sequence(scaleTo(scale, scale, time), scaleTo(1f, 1f, time))
         );
+    }
+
+    public static void showWord(float x, float y, Stage stage, String text) {
+        final Label label = new Label(text, new Label.LabelStyle(AssetLoader.getFont()));
+        label.setPosition(x, y);
+        label.addAction(Actions.alpha(0));
+        label.addAction(Actions.alpha(0.7f, 0.4f));
+        label.addAction(Actions.moveBy(0, 170, 1.7f));
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                label.addAction(Actions.fadeOut(0.4f));
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        label.remove();
+                    }
+                }, 0.5f);
+            }
+        }, 1.2f);
+        stage.addActor(label);
     }
 }

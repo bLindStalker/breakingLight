@@ -40,7 +40,14 @@ public final class Constants {
     public static final int MIN_TIME_FOR_HEART_BONUS = 20;
     public static final int MIN_HEART_BONUS_CHANCE = 45;
     public static final int MAX_HEART_BONUS_CHANCE = 80;
+
+    public static final int MIN_TIME_FOR_FREEZE_BONUS = 15;
+    public static final int MIN_FREEZE_BONUS_CHANCE = 40;
+    public static final int MAX_FREEZE_BONUS_CHANCE = 80;
     public static final int CREATED_BONUS_INTERVAL = 7;
+
+    public static final float FREEZE_TIME = 8;
+    public static final double FREEZE_POWER = 2.5;
 
     public static final int RATE_US_SHOW_TIMES = 20;
 
@@ -49,4 +56,5 @@ public final class Constants {
     public static final int PLAY_TIMES_HEART = 5;
     public static final int LAMP_OPEN_MAX = 2000;
     public static final int LAMP_OPEN_TOTAL = 20000;
+    public static final int MAX_TIME_FOR_FREEZE_BONUS = 20;
 }

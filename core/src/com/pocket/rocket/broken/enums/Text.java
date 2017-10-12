@@ -26,10 +26,12 @@ public enum Text {
     LAMP("Incandescent lamp", "Лампа розжарювання", "Лампа накаливания"),
     MEGA_LAMP("MEGA lamp", "Мега лампа", "Мега лампа"),
     ANGRY_LAMP("Cool lamp", "Крута лампа", "Крута лампа"),
-    SUPER_BONUS("Super SUPPER_BONUS", "Супер БОНУС", "Супер БОНУС"),
+    SUPER_BONUS("Super BONUS", "Супер БОНУС", "Супер БОНУС"),
     SUPER_BONUS_DESC("collect %s bonuses", "спiймати бонусiв: %s", "поймайть бонусов: %s"),
-    HEART_BONUS("Heart SUPPER_BONUS", "+ ЖИТТЯ", "+ ЖИЗНЬ"),
+    HEART_BONUS("Heart BONUS", "+ ЖИТТЯ", "+ ЖИЗНЬ"),
     HEART_BONUS_DESC("play game and have fun", "грати в гру та насолоджуватись", "играть в игру и наслаждаться"),
+    FREEZE_BONUS("FREEZE BONUS!", "Замороження", "Заморозка"),
+    FREEZE_BONUS_DESC("hold out a minute", "протриматися хвилину", "продержатся минуту"),
     TEXT_TO_UNLOCK("to unlock you need", "щоб вiдкрити треба", "чтобы открыть нужно"),
 
     // setting
@@ -63,7 +65,8 @@ public enum Text {
     YOUR_PROGRESS("YOUR PROGRESS", "ПРОГРЕС", "ПРОГРЕСС"),
 
     WORDS("WOW!, Super!, Amazing!, Well done!, Very well!", "WOW!, Супер, Круто, Молодець, Так тримати", "WOW!, Супер, Молодец, Круто, Так держать"),
-    MISSING_WORDS("Miss, Bad, Blunder, Mistake", "Промах, Треба краще, Помилка, Обережнiше", "Промах, Старайся, Ошибка, Осторожней");
+    MISSING_WORDS("Miss, Bad, Blunder, Mistake", "Промах, Треба краще, Помилка, Обережнiше", "Промах, Старайся, Ошибка, Осторожней"),
+    FREEZE("Freeze!", "Заморожування!", "Замораживание!");
 
     private String en;
     private String ua;

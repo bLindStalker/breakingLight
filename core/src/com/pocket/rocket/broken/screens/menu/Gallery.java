@@ -33,11 +33,14 @@ import static com.pocket.rocket.broken.Constants.COLLECT_BONUSES;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_MAX;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_TOTAL;
+import static com.pocket.rocket.broken.Constants.MAX_TIME_FOR_FREEZE_BONUS;
 import static com.pocket.rocket.broken.Constants.PLAY_TIMES_HEART;
 import static com.pocket.rocket.broken.Constants.WIDTH;
+import static com.pocket.rocket.broken.Preference.bonusActivatedFreeze;
 import static com.pocket.rocket.broken.Preference.bonusActivatedHeart;
 import static com.pocket.rocket.broken.Preference.doubleBonusActivated;
 import static com.pocket.rocket.broken.Preference.getBonusCount;
+import static com.pocket.rocket.broken.Preference.getMaxHoldOn;
 import static com.pocket.rocket.broken.Preference.getPlayTimes;
 import static com.pocket.rocket.broken.Preference.getScore;
 import static com.pocket.rocket.broken.Preference.getTotalScore;
@@ -45,6 +48,8 @@ import static com.pocket.rocket.broken.Preference.lamp2Open;
 import static com.pocket.rocket.broken.Preference.lamp3Open;
 import static com.pocket.rocket.broken.enums.Achievement.OpenAllAvailableElementsAtGallery;
 import static com.pocket.rocket.broken.enums.Text.ANGRY_LAMP;
+import static com.pocket.rocket.broken.enums.Text.FREEZE_BONUS;
+import static com.pocket.rocket.broken.enums.Text.FREEZE_BONUS_DESC;
 import static com.pocket.rocket.broken.enums.Text.GALLERY;
 import static com.pocket.rocket.broken.enums.Text.GALLERY_MAX_SCORE;
 import static com.pocket.rocket.broken.enums.Text.GALLERY_TOTAL;
@@ -117,7 +122,13 @@ public class Gallery extends com.pocket.rocket.broken.actors.BackScreen {
                     }
                 }));
 
-        galleryItems.add(new LockedGalleryElement(Text.COMING_SOON.get()));
+        galleryItems.add(buildGalleryElement(FREEZE_BONUS.get(), FREEZE_BONUS_DESC.get(), AssetLoader.getGalleryFreeze(),
+                getMaxHoldOn() >= MAX_TIME_FOR_FREEZE_BONUS, bonusActivatedFreeze(), new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        Preference.setFreezeBonus();
+                    }
+                }));
 
         GalleryElement lamp3 = buildGalleryElement(ANGRY_LAMP.get(), GALLERY_MAX_SCORE.get() + LAMP_OPEN_MAX, getGalleryLampImage(LAMPS_PREFIX_3),
                 getScore() >= LAMP_OPEN_MAX, lamp3Open(), lampClickListener(LAMPS_PREFIX_3));

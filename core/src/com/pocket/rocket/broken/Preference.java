@@ -34,6 +34,7 @@ public class Preference {
 
         prefs.putBoolean("doubleBonusActivated", false);
         prefs.putBoolean("bonusActivatedHeart", false);
+        prefs.putBoolean("bonusActivatedFreeze", false);
         prefs.putBoolean("lamp2", false);
         prefs.putBoolean("lamp3", false);
         prefs.putInteger("language", -1);
@@ -41,6 +42,7 @@ public class Preference {
         prefs.putLong("bonusCount", 0);
         prefs.putBoolean("rate", false);
         prefs.putInteger("rateCount", 0);
+        prefs.putInteger("maxTime", 0);
 
         prefs.flush();
     }
@@ -90,6 +92,15 @@ public class Preference {
         return prefs.getBoolean("bonusActivatedHeart", false);
     }
 
+    public static boolean bonusActivatedFreeze() {
+        return prefs.getBoolean("bonusActivatedFreeze", false);
+    }
+
+    public static void setFreezeBonus() {
+        prefs.putBoolean("bonusActivatedFreeze", true);
+        prefs.flush();
+    }
+
     public static boolean lamp2Open() {
         return prefs.getBoolean("lamp2", false);
     }
@@ -129,6 +140,17 @@ public class Preference {
     public static void setRated() {
         prefs.putBoolean("rate", true);
         prefs.flush();
+    }
+
+    public static int getMaxHoldOn() {
+        return prefs.getInteger("maxTime", 0);
+    }
+
+    public static void setMaxHoldOn(int time) {
+        if (time > getMaxHoldOn()) {
+            prefs.putInteger("maxTime", time);
+            prefs.flush();
+        }
     }
 
     public static boolean isRated() {

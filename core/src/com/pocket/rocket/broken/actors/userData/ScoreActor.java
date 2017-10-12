@@ -1,12 +1,5 @@
 package com.pocket.rocket.broken.actors.userData;
 
-import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
-import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
-import com.badlogic.gdx.utils.Align;
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.addAction;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
-import static com.badlogic.gdx.utils.Align.center;
 import static com.pocket.rocket.broken.Constants.BASIC_BONUS_SCORE;
 import static com.pocket.rocket.broken.Constants.BASIC_SCORE;
 import static com.pocket.rocket.broken.Constants.WIDTH;

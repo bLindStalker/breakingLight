@@ -26,12 +26,15 @@ import static com.pocket.rocket.broken.Constants.COLLECT_BONUSES;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_MAX;
 import static com.pocket.rocket.broken.Constants.LAMP_OPEN_TOTAL;
+import static com.pocket.rocket.broken.Constants.MAX_TIME_FOR_FREEZE_BONUS;
 import static com.pocket.rocket.broken.Constants.PLAY_TIMES_HEART;
 import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.Constants.X_CENTER;
+import static com.pocket.rocket.broken.Preference.bonusActivatedFreeze;
 import static com.pocket.rocket.broken.Preference.bonusActivatedHeart;
 import static com.pocket.rocket.broken.Preference.doubleBonusActivated;
 import static com.pocket.rocket.broken.Preference.getBonusCount;
+import static com.pocket.rocket.broken.Preference.getMaxHoldOn;
 import static com.pocket.rocket.broken.Preference.getPlayTimes;
 import static com.pocket.rocket.broken.Preference.getScore;
 import static com.pocket.rocket.broken.Preference.getTotalScore;
@@ -40,6 +43,7 @@ import static com.pocket.rocket.broken.Preference.lamp2Open;
 import static com.pocket.rocket.broken.Preference.lamp3Open;
 import static com.pocket.rocket.broken.Preference.saveBonusCount;
 import static com.pocket.rocket.broken.Preference.saveScore;
+import static com.pocket.rocket.broken.Preference.setMaxHoldOn;
 import static com.pocket.rocket.broken.Preference.updatePlayTimes;
 import static com.pocket.rocket.broken.Utils.buildLogo;
 import static com.pocket.rocket.broken.Utils.pulseAnimation;
@@ -53,6 +57,7 @@ import static com.pocket.rocket.broken.enums.Achievement.TotalCount10000;
 import static com.pocket.rocket.broken.enums.Achievement.TotalCount20000;
 import static com.pocket.rocket.broken.enums.Achievement.TotalCount40000;
 import static com.pocket.rocket.broken.enums.GalleryElementsPosition.ANGRY_LAMP;
+import static com.pocket.rocket.broken.enums.GalleryElementsPosition.FREEZE_BONUS;
 import static com.pocket.rocket.broken.enums.GalleryElementsPosition.HEARD;
 import static com.pocket.rocket.broken.enums.GalleryElementsPosition.MEGA_LAMP;
 import static com.pocket.rocket.broken.enums.GalleryElementsPosition.SUPPER_BONUS;
@@ -85,6 +90,7 @@ public class GameOverScreen extends BaseScreen {
         score += time * 3;
 
         saveBonusCount(bonusCollected + bonus2Collected);
+        setMaxHoldOn(time);
         boolean newResult = score > getScore();
         saveScore(score);
         updatePlayTimes();
@@ -279,6 +285,10 @@ public class GameOverScreen extends BaseScreen {
 
         if (getScore() >= LAMP_OPEN_MAX && !lamp3Open()) {
             return ANGRY_LAMP;
+        }
+
+        if (getMaxHoldOn() >= MAX_TIME_FOR_FREEZE_BONUS && !bonusActivatedFreeze()) {
+            return FREEZE_BONUS;
         }
 
         return UNDEFINED;

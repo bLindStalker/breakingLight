@@ -3,6 +3,7 @@ package com.pocket.rocket.broken;
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.pocket.rocket.broken.Constants.ACTIVE_INTERVAL;
 import static com.pocket.rocket.broken.Constants.ANGRY_INTERVAL;
+import static com.pocket.rocket.broken.Constants.FREEZE_POWER;
 import static com.pocket.rocket.broken.Constants.MAX_ACTIVE_TIME;
 import static com.pocket.rocket.broken.Constants.MAX_ANGRY_TIME;
 import static com.pocket.rocket.broken.Constants.MAX_NEUTRAL_TIME;
@@ -24,6 +25,9 @@ public class LampLogic {
     private int time = 60;
     private boolean difficultUpdate = false;
 
+    private float freezeMinAngryTime;
+    private float freezeMaxActiveTime;
+
     public LampLogic() {
         maxAngryLamps = random(2, 4);
     }
@@ -36,6 +40,12 @@ public class LampLogic {
     }
 
     public void setActiveLampInterval(float delta) {
+
+        if (freezeMinAngryTime != 0 || freezeMaxActiveTime != 0) {
+            minAngryTime = freezeMinAngryTime;
+            maxAngryTime = freezeMaxActiveTime;
+        }
+
         if (delta > 0) {
             maxAngryTime = maxAngryTime - delta > maxDifficult ? maxAngryTime - delta : maxDifficult;
             minAngryTime = minAngryTime - delta > minDifficult ? minAngryTime - delta : minDifficult;
@@ -49,6 +59,9 @@ public class LampLogic {
             minDifficult -= 0.1f;
             difficultUpdate = false;
         }
+
+        freezeMaxActiveTime = 0;
+        freezeMinAngryTime = 0;
     }
 
     public void setNeutralTimeInterval(float delta) {
@@ -69,5 +82,13 @@ public class LampLogic {
             maxNeutralTime = MAX_NEUTRAL_TIME;
             minNeutralTime = MIN_NEUTRAL_TIME;
         }
+    }
+
+    public void setFreeze() {
+        freezeMaxActiveTime = minAngryTime;
+        freezeMinAngryTime = maxAngryTime;
+
+        minAngryTime *= FREEZE_POWER;
+        maxAngryTime *= FREEZE_POWER;
     }
 }

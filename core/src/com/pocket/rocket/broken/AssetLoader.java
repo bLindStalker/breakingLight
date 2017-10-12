@@ -64,10 +64,13 @@ public class AssetLoader implements Disposable {
     private static final String TOGLE2 = "elements/togle2.png";
     private static final String TOGLE3 = "elements/togle3.png";
     private static final String ACTIVE_LANGUAGE = "elements/active_language.png";
+    private static final String FREEZE = "elements/freeze.png";
+    private static final String ICE = "bg/ice.png";
 
     private static final String GALLERY = "gallery/gallery.png";
     private static final String GALLERY_BONUS = "gallery/gallery_bonus.png";
     private static final String GALLERY_HEART = "gallery/gallery_heart.png";
+    private static final String GALLERY_FREEZE = "gallery/gallery_freeze.png";
     private static final String LIGHT_UNLOCK = "gallery/light_unlock.png";
     private static final String LOCKED_GALLERY_ITEM = "gallery/locked.png";
 
@@ -98,6 +101,7 @@ public class AssetLoader implements Disposable {
         loadLamps(LAMPS_PREFIX_2);
         loadLamps(LAMPS_PREFIX_3);
 
+        assetManager.load(ICE, Texture.class);
         assetManager.load(FONT, BitmapFont.class);
 
         assetManager.load(BUTTON_UP, Texture.class);
@@ -113,6 +117,7 @@ public class AssetLoader implements Disposable {
         assetManager.load(LOCKED_GALLERY_ITEM, Texture.class);
         assetManager.load(GALLERY_BONUS, Texture.class);
         assetManager.load(GALLERY_HEART, Texture.class);
+        assetManager.load(GALLERY_FREEZE, Texture.class);
         assetManager.load(LIGHT_UNLOCK, Texture.class);
 
         assetManager.load(BAR, Texture.class);
@@ -121,6 +126,7 @@ public class AssetLoader implements Disposable {
         assetManager.load(BONUS, Texture.class);
         assetManager.load(DOUBLE_BONUS, Texture.class);
         assetManager.load(BONUS_HAERT, Texture.class);
+        assetManager.load(FREEZE, Texture.class);
         assetManager.load(LINE, Texture.class);
         assetManager.load(UA, Texture.class);
         assetManager.load(RU, Texture.class);
@@ -388,6 +394,18 @@ public class AssetLoader implements Disposable {
 
     public static Texture getHollowStar() {
         return assetManager.get(STAR_HOLLOW);
+    }
+
+    public static Texture getFreeze() {
+        return assetManager.get(FREEZE);
+    }
+
+    public static Texture getGalleryFreeze() {
+        return assetManager.get(GALLERY_FREEZE);
+    }
+
+    public static Texture getIce() {
+        return assetManager.get(ICE);
     }
 
     @Override

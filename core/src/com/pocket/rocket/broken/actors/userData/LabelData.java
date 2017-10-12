@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.Align;
 import com.pocket.rocket.broken.AssetLoader;
 
 import static com.badlogic.gdx.utils.Align.center;
-import static com.pocket.rocket.broken.Utils.pulseAnimation;
 
 public class LabelData extends Group {
     protected final Label data;

@@ -19,7 +19,8 @@ public class BaseScreen extends Stage implements Screen {
     public BaseScreen(Main main) {
         super(new FitViewport(WIDTH, HEIGHT));
         this.main = main;
-        addActor(new ImageActor(0, 0, WIDTH, HEIGHT, getBackGround()));
+        ImageActor actor = new ImageActor(0, 0, WIDTH, HEIGHT, getBackGround());
+        addActor(actor);
         //setDebugAll(true);
         Gdx.input.setInputProcessor(this);
     }

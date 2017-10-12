@@ -6,7 +6,7 @@ public enum GalleryElementsPosition {
     SUPPER_BONUS(1),
     MEGA_LAMP(2),
     HEARD(3),
-    NEW_BONUS(4),
+    FREEZE_BONUS(4),
     ANGRY_LAMP(5);
     int position;
 
