@@ -1,8 +1,8 @@
 package com.pocket.rocket.broken.actors;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -12,11 +12,16 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.broken.actors.userData.HeartData;
 
+import static com.badlogic.gdx.graphics.Color.VIOLET;
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.badlogic.gdx.math.MathUtils.randomBoolean;
 import static com.pocket.rocket.broken.AssetLoader.getBonusHeart;
-import static com.pocket.rocket.broken.AssetLoader.getGalleryLight;
+import static com.pocket.rocket.broken.Constants.FREEZE_POWER;
 import static com.pocket.rocket.broken.Constants.WIDTH;
+import static com.pocket.rocket.broken.Utils.MAX_Y_POSITION;
+import static com.pocket.rocket.broken.Utils.MIN_Y_POSITION;
+import static com.pocket.rocket.broken.Utils.buildMoveActions;
+import static com.pocket.rocket.broken.Utils.buildShine;
 
 
 public class HeartBonusActor extends Group {
@@ -24,38 +29,26 @@ public class HeartBonusActor extends Group {
     private static final int HEART_WIDTH = 95;
     private static final float HEIGHT_SCALE = HEART_HEIGHT / 1.95f;
     private static final float WIDTH_SCALE = HEART_WIDTH / 1.95f;
-    private static final int MAX_Y_POSITION = 800;
-    private static final int MIN_Y_POSITION = 150;
-    private static final float VELOCITY = 0.78f;
+    private static final float BASE_VELOCITY = 3.8f;
 
     private final TextureRegion texture;
     private boolean remove = false;
 
-    public HeartBonusActor(final HeartData heartData) {
+    public HeartBonusActor(final HeartData heartData, boolean nowFreeze) {
         float heightSize = HEART_HEIGHT + HEIGHT_SCALE;
         float widthBonusSize = HEART_WIDTH + WIDTH_SCALE;
 
-        int y = random(MIN_Y_POSITION, MAX_Y_POSITION);
-        int x = randomBoolean() ? -50 : WIDTH + 50;
-        setBounds(x, y, widthBonusSize, heightSize);
+        int yPosition = random(MIN_Y_POSITION, MAX_Y_POSITION);
+        int xPosition = randomBoolean() ? -50 : WIDTH + 50;
+
+        setBounds(xPosition, yPosition, widthBonusSize, heightSize);
         setOrigin(Align.center);
 
-        int amountX = (x > 0 ? -WIDTH - 200 : WIDTH + 200) / 5;
-        int amountY = generateVector();
-
-        final ImageActor shine = new ImageActor(getWidth() / 2 - 100, getHeight() / 2 - 100, 200, 200, getGalleryLight());
-        shine.setOrigin(Align.center);
-        shine.addAction(Actions.forever(Actions.rotateBy(360, 2f)));
-        shine.setColor(Color.VIOLET);
+        final Actor shine = buildShine(VIOLET, getWidth(), getHeight());
         addActor(shine);
 
-        final SequenceAction moveAction = Actions.sequence(
-                Actions.moveBy(amountX, amountY, VELOCITY),
-                Actions.moveBy(amountX, -amountY, VELOCITY),
-                Actions.moveBy(amountX, amountY, VELOCITY),
-                Actions.moveBy(amountX, -amountY, VELOCITY),
-                Actions.moveBy(amountX, amountY, VELOCITY)
-        );
+        float velocity = nowFreeze ? BASE_VELOCITY * FREEZE_POWER : BASE_VELOCITY;
+        final SequenceAction moveAction = Actions.sequence(buildMoveActions(xPosition, velocity));
         addAction(moveAction);
 
         addListener(new ClickListener() {
@@ -77,13 +70,6 @@ public class HeartBonusActor extends Group {
         });
 
         texture = new TextureRegion(getBonusHeart());
-    }
-
-    private int generateVector() {
-        int vector = random(-300, 300);
-        return MIN_Y_POSITION + vector < MAX_Y_POSITION || MAX_Y_POSITION + vector > MAX_Y_POSITION
-                ? -vector
-                : vector;
     }
 
     @Override

@@ -1,12 +1,9 @@
 package com.pocket.rocket.broken.actors.userData;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.broken.LampLogic;
 
-import static com.badlogic.gdx.graphics.Color.WHITE;
 import static com.badlogic.gdx.math.MathUtils.random;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
 import static com.pocket.rocket.broken.Constants.ACTIVE_INTERVAL;
 import static com.pocket.rocket.broken.Constants.ANGRY_INTERVAL;
 import static com.pocket.rocket.broken.Constants.FREEZE_POWER;
@@ -22,6 +19,7 @@ public class TimerActor extends LabelData {
     public LampLogic lampLogicData = new LampLogic();
     public boolean freeze = false;
     private int currentTime = 1;
+    private boolean needToFreeze = false;
 
     public TimerActor() {
         super(TIME.get(), 0);
@@ -38,7 +36,7 @@ public class TimerActor extends LabelData {
                                currentTime++;
                                startTimer();
                            }
-                       }, freeze ? (float) (1 * FREEZE_POWER) : 1
+                       }, freeze ? 1 * FREEZE_POWER : 1
         );
     }
 
@@ -47,9 +45,12 @@ public class TimerActor extends LabelData {
             lampLogicData.maxAngryLamps += random(1, 2);
         }
 
-        if (freeze) {
+        if (needToFreeze) {
+            needToFreeze = false;
             lampLogicData.setFreeze();
-        } else {
+        }
+
+        if (!freeze) {
             lampLogicData.setActiveLampInterval(ANGRY_INTERVAL / HARD_CORE_TIME);
         }
 
@@ -64,7 +65,8 @@ public class TimerActor extends LabelData {
     }
 
     public void setFreeze() {
-        this.freeze = true;
+        freeze = true;
+        needToFreeze = true;
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {

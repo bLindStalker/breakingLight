@@ -149,7 +149,7 @@ public class TutorialScreen extends BaseScreen {
             public Boolean call() throws Exception {
                 return lamp.justClicked(tutorialLampLogic);
             }
-        }, new HeartData(main), scoreActor, bonusBuilder));
+        }, new HeartData(main), scoreActor, bonusBuilder, null));
 
         allLamps.add(lamp);
 

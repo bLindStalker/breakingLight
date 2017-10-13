@@ -25,9 +25,9 @@ android {
     }
     signingConfigs {
         config {
-            keyAlias 'broken-light'
+            keyAlias 'brokenLight'
             keyPassword '26the11best92'
-            storeFile file('C:/blindStalker/android/keyStore/broken-light-release-key.keystore')
+            storeFile file('C:/bLindStalker/android/libGdx/breakingLight/kays/brokenLight')
             storePassword '26the11best92'
         }
     }

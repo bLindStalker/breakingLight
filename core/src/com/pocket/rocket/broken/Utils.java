@@ -1,9 +1,12 @@
 package com.pocket.rocket.broken;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
@@ -12,14 +15,19 @@ import com.pocket.rocket.broken.actors.ImageActor;
 import com.pocket.rocket.broken.actors.LabelActor;
 import com.pocket.rocket.broken.screens.menu.Gallery;
 
+import static com.badlogic.gdx.math.MathUtils.random;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 import static com.pocket.rocket.broken.AssetLoader.getFont;
+import static com.pocket.rocket.broken.AssetLoader.getGalleryLight;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.WIDTH;
 import static com.pocket.rocket.broken.screens.MenuScreen.LOGO_SIZE;
 
 public class Utils {
+    public static final int MAX_Y_POSITION = 800;
+    public static final int MIN_Y_POSITION = 150;
+
     private Utils() {
     }
 
@@ -83,5 +91,37 @@ public class Utils {
             }
         }, 1.2f);
         stage.addActor(label);
+    }
+
+    public static Action[] buildMoveActions(int xPosition, float velocity) {
+        int steps = random(2, 6);
+
+        int amountX = (xPosition > 0 ? -WIDTH - 200 : WIDTH + 200) / steps;
+        int amountY = generateVector();
+
+        MoveByAction[] actions = new MoveByAction[steps];
+        int interpolation = 1;
+
+        for (int i = 0; i < steps; i++){
+            actions[i] = Actions.moveBy(amountX, amountY * interpolation, velocity / steps);
+            interpolation *= -1;
+        }
+
+        return actions;
+    }
+
+    public static ImageActor buildShine(Color color, float width, float height) {
+        final ImageActor shine = new ImageActor(width / 2 - 100, height / 2 - 100, 200, 200, getGalleryLight());
+        shine.setOrigin(Align.center);
+        shine.addAction(Actions.forever(Actions.rotateBy(360, 2f)));
+        shine.setColor(color);
+        return shine;
+    }
+
+    private static int generateVector() {
+        int vector = random(-300, 300);
+        return MIN_Y_POSITION + vector < MAX_Y_POSITION || MAX_Y_POSITION + vector > MAX_Y_POSITION
+                ? -vector
+                : vector;
     }
 }

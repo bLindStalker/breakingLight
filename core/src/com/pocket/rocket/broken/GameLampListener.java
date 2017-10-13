@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Timer;
 import com.pocket.rocket.broken.actors.userData.HeartData;
 import com.pocket.rocket.broken.actors.userData.ScoreActor;
+import com.pocket.rocket.broken.actors.userData.TimerActor;
 
 import java.util.concurrent.Callable;
 
@@ -22,18 +23,20 @@ public class GameLampListener extends ClickListener {
     private HeartData heartData;
     private ScoreActor scoreActor;
     private BonusBuilder bonusBuilder;
+    private TimerActor timerActor;
 
-    public GameLampListener(Callable<Boolean> action, HeartData heartData, ScoreActor scoreActor, BonusBuilder bonusBuilder) {
+    public GameLampListener(Callable<Boolean> action, HeartData heartData, ScoreActor scoreActor, BonusBuilder bonusBuilder, TimerActor timerActor) {
         this.action = action;
         this.heartData = heartData;
         this.scoreActor = scoreActor;
         this.bonusBuilder = bonusBuilder;
+        this.timerActor = timerActor;
     }
 
     @Override
     public void clicked(InputEvent event, float x, float y) {
         if (doAction()) {
-            bonusBuilder.buildBonus((int) event.getListenerActor().getX(), (int) event.getListenerActor().getY(), scoreActor);
+            bonusBuilder.buildBonus((int) event.getListenerActor().getX(), (int) event.getListenerActor().getY(), scoreActor, timerActor != null && timerActor.freeze);
             scoreActor.increaseScore();
             scoreActor.increaseLamps();
             if (scoreActor.collectedLamps() == WORD_COUNT) {

@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.pocket.rocket.broken.AssetLoader;
 import com.pocket.rocket.broken.BonusBuilder;
-import com.pocket.rocket.broken.ClockBonusBuilder;
+import com.pocket.rocket.broken.FreezeBonusBuilder;
 import com.pocket.rocket.broken.GameLampListener;
 import com.pocket.rocket.broken.GameLogicProcessor;
 import com.pocket.rocket.broken.HeartBonusBuilder;
@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import static com.pocket.rocket.broken.Constants.FREEZE_TIME;
 import static com.pocket.rocket.broken.Constants.HARD_CORE_TIME;
 import static com.pocket.rocket.broken.Constants.HEIGHT;
 import static com.pocket.rocket.broken.Constants.LAMP_HEIGHT;
@@ -37,7 +38,7 @@ public class MainGameScreen extends BaseScreen {
     private final ScoreActor scoreActor;
     private final BonusBuilder bonusBuilder;
     private final HeartBonusBuilder heartBonusBuilder;
-    private final ClockBonusBuilder clockBonusBuilder;
+    private final FreezeBonusBuilder freezeBonusBuilder;
     private final TimerActor timer;
 
     private final HeartData heartData;
@@ -47,14 +48,13 @@ public class MainGameScreen extends BaseScreen {
     private boolean resultIsShow = true;
     private int previousScore;
     private int previousTime = 5;
-    private Boolean freeze = false;
     private boolean nowFreeze = false;
 
     public MainGameScreen(Main main) {
         super(main);
         bonusBuilder = new BonusBuilder(main, this);
         heartBonusBuilder = new HeartBonusBuilder(this);
-        clockBonusBuilder = new ClockBonusBuilder(this);
+        freezeBonusBuilder = new FreezeBonusBuilder(this);
         gameActors = new Group();
 
         timer = new TimerActor();
@@ -93,21 +93,25 @@ public class MainGameScreen extends BaseScreen {
 
         gameLogicProcessor.activateLamp();
         checkHearts();
-        heartBonusBuilder.buildBonus(timer.getTime(), heartData);
-        clockBonusBuilder.buildBonus(timer.getTime(), new Runnable() {
+        heartBonusBuilder.buildBonus(timer.getTime(), heartData, timer.freeze);
+        freezeBonusBuilder.buildBonus(timer.getTime(), new Runnable() {
             @Override
             public void run() {
                 timer.setFreeze();
             }
         });
 
+        freeze();
+    }
+
+    private void freeze() {
         if (timer.freeze && !nowFreeze) {
             nowFreeze = true;
-            ice.addAction(Actions.alpha(.4f, .3f));
+            ice.addAction(Actions.sequence(Actions.alpha(.4f, .3f), Actions.alpha(0f, FREEZE_TIME)));
         }
 
         if (!timer.freeze && nowFreeze) {
-            ice.addAction(Actions.alpha(0f, .6f));
+            ice.addAction(Actions.alpha(0f, .2f));
             nowFreeze = false;
         }
     }
@@ -168,7 +172,7 @@ public class MainGameScreen extends BaseScreen {
             public Boolean call() throws Exception {
                 return actor.justClicked(timer.lampLogicData);
             }
-        }, heartData, scoreActor, bonusBuilder));
+        }, heartData, scoreActor, bonusBuilder, timer));
 
         allLamps.add(actor);
 
